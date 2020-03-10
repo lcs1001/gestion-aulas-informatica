@@ -15,9 +15,11 @@
 	</prerequisites>
 
 	<properties>
+		<project.http.version>1.18.0-rc</project.http.version>
+		<project.oauth.version>1.18.0-rc</project.oauth.version>
 		<vaadin.version>8.10.2</vaadin.version>
 		<vaadin.plugin.version>8.10.2</vaadin.plugin.version>
-		<jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
+		<jetty.plugin.version>9.4.12.v20180830</jetty.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -173,6 +175,12 @@
 				<version>${jetty.plugin.version}</version>
 				<configuration>
 					<scanIntervalSeconds>2</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/jetty</contextPath>
+					</webApp>
+					<httpConnector>
+						<port>8585</port>
+					</httpConnector>
 				</configuration>
 			</plugin>
 		</plugins>
