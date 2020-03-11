@@ -78,24 +78,18 @@ public class MyUI extends UI {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
-
-    @Override
-    protected void init(VaadinRequest vaadinRequest) {
-    	
-    	// Build a new authorized API client service.
-        NetHttpTransport HTTP_TRANSPORT;
-        Calendar service;
-        // List the next 10 events from the primary calendar.
+    
+    /***
+     * Funcion que obtiene los eventos del Google Calendar
+     * @param service Servicio del calendario
+     */
+    private void getEventos(Calendar service){
+    	// List the next 10 events from the primary calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
         Events events;
         
-		try {
-			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-			        .setApplicationName(APPLICATION_NAME)
-			        .build();
-			
-			events = service.events().list("primary")
+        try {
+        	events = service.events().list("primary")
 			        .setMaxResults(10)
 			        .setTimeMin(now)
 			        .setOrderBy("startTime")
@@ -123,11 +117,30 @@ public class MyUI extends UI {
 	                layout.addComponent(label2);
 	            }
 	            setContent(layout);
-	        }		
+	        }
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+    }
+
+    @Override
+    protected void init(VaadinRequest vaadinRequest) {
+    	
+    	// Build a new authorized API client service.
+        NetHttpTransport HTTP_TRANSPORT;
+        Calendar service;        
+        
+		try {
+			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+			        .setApplicationName(APPLICATION_NAME)
+			        .build();
 			
-		} catch (GeneralSecurityException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			getEventos(service);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
     }
 
