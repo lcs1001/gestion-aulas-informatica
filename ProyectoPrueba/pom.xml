@@ -103,22 +103,6 @@
 			<version>1.34.1</version>
 		</dependency>
 
-		<!-- Guava Google Core Libraries for Java -->
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>28.2-jre</version>
-		</dependency>
-
-		<!-- Google Collections Library -->
-		<!-- https://mvnrepository.com/artifact/com.google.collections/google-collections -->
-		<dependency>
-			<groupId>com.google.collections</groupId>
-			<artifactId>google-collections</artifactId>
-			<version>1.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>

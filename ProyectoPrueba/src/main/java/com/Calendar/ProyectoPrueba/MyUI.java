@@ -30,6 +30,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Label;
@@ -53,7 +54,8 @@ public class MyUI extends UI {
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
-	//Cambio del alcance de CALENDAR_READONLY a CALENDAR para poder insertar eventos
+	// Cambio del alcance de CALENDAR_READONLY a CALENDAR para poder insertar
+	// eventos
 	private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
 	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
@@ -149,16 +151,16 @@ public class MyUI extends UI {
 
 			reminderOverrides = new EventReminder[] { new EventReminder().setMethod("email").setMinutes(24 * 60),
 					new EventReminder().setMethod("popup").setMinutes(10), };
-			
-			com.google.api.services.calendar.model.Event.Reminders reminders = new com.google.api.services.calendar.model.Event.Reminders().setUseDefault(false)
-					.setOverrides(Arrays.asList(reminderOverrides));
+
+			com.google.api.services.calendar.model.Event.Reminders reminders = new com.google.api.services.calendar.model.Event.Reminders()
+					.setUseDefault(false).setOverrides(Arrays.asList(reminderOverrides));
 			event.setReminders(reminders);
 
 			calendarId = "primary";
 			event = service.events().insert(calendarId, event).execute();
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -178,13 +180,12 @@ public class MyUI extends UI {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 					.setApplicationName(APPLICATION_NAME).build();
-
 			// Se incializan los objetos para crear el evento y se inserta
 			tituloEvento = new String("Evento prueba inserción");
 			inicioEvento = new String("2020-03-26T10:00:00.000+01:00");
 			finEvento = new String("2020-03-26T22:00:00.000+01:00");
 
-			setEvento(service, tituloEvento, inicioEvento, finEvento);
+			//setEvento(service, tituloEvento, inicioEvento, finEvento);
 
 			// Se obtienen los eventos para ver que se ha insertado correctamente
 			getEventos(service);
@@ -194,8 +195,8 @@ public class MyUI extends UI {
 		}
 	}
 
-	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-	public static class MyUIServlet extends VaadinServlet {
+	@WebServlet(urlPatterns = "/*", name = "Servlet", asyncSupported = true)
+	@VaadinServletConfiguration(ui = MyUI.class, productionMode = true)
+	public static class Servlet extends VaadinServlet {
 	}
 }
