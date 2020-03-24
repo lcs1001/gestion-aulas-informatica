@@ -4,13 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
+// Google imports 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -22,15 +22,16 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.Calendar.Events.CalendarImport;
+import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.CalendarScopes;
+
+// Vaadin imports
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Label;
@@ -50,7 +51,7 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
-	private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
+	private static final String APPLICATION_NAME = "Proyecto Prueba Google Calendar API";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
@@ -67,33 +68,46 @@ public class MyUI extends UI {
 	 * @throws IOException If the credentials.json file cannot be found.
 	 */
 	private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-		// Load client secrets.
-		InputStream in = CalendarImport.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-		if (in == null) {
-			throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
-		}
-		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+		InputStream in;
+		GoogleClientSecrets clientSecrets;
+		GoogleAuthorizationCodeFlow flow;
+		LocalServerReceiver receiver;
+		Credential credentials = null;
 
-		// Build flow and trigger user authorization request.
-		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-				clientSecrets, SCOPES)
-						.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-						.setAccessType("offline").build();
-		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+		try {
+			// Carga client secrets
+			in = CalendarImport.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+			if (in == null) {
+				throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+			}
+			clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+			// Build flow and trigger user authorization request.
+			flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+					.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+					.setAccessType("offline").build();
+			receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+			credentials = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return credentials;
+
 	}
 
 	/***
 	 * Funcion que muestra los siguientes 10 eventos del Google Calendar primario.
 	 * 
-	 * @param service Servicio del calendario
+	 * @param service Servicio Calendar con las credenciales OAuth válidas
 	 */
-	private void getEventos(Calendar service) {
+	private void getEventos(Calendar service, String idCalendario) {
 		DateTime now = new DateTime(System.currentTimeMillis());
 		Events events;
 
 		try {
-			events = service.events().list("primary").setMaxResults(10).setTimeMin(now).setOrderBy("startTime")
+			events = service.events().list(idCalendario).setMaxResults(10).setTimeMin(now).setOrderBy("startTime")
 					.setSingleEvents(true).execute();
 
 			List<com.google.api.services.calendar.model.Event> items = events.getItems();
@@ -124,18 +138,19 @@ public class MyUI extends UI {
 	}
 
 	/***
-	 * Función que inserta un evento en Google Calendar.
+	 * Función que inserta un evento en un calendario.
 	 * 
-	 * @param titulo Título del evento a insertar
-	 * @param inicio Fecha y hora de inicio del evento
-	 * @param fin    Fecha y hora de fin del evento
+	 * @param service      Servicio Calendar con las credenciales OAuth válidas
+	 * @param Idcalendario Calendario en el que insertar el evento
+	 * @param titulo       Título del evento a insertar
+	 * @param inicioE      Fecha y hora de inicio del evento
+	 * @param finE         Fecha y hora de fin del evento
 	 */
-	private void setEvento(Calendar service, String titulo, String inicioE, String finE) {
+	private void setEvento(Calendar service, String idCalendario, String titulo, String inicioE, String finE) {
 		com.google.api.services.calendar.model.Event event;
 		DateTime inicioEvento;
 		DateTime finEvento;
 		EventDateTime inicio;
-		String calendarId;
 		EventReminder[] reminderOverrides;
 
 		try {
@@ -156,39 +171,74 @@ public class MyUI extends UI {
 					.setUseDefault(false).setOverrides(Arrays.asList(reminderOverrides));
 			event.setReminders(reminders);
 
-			calendarId = "primary";
-			event = service.events().insert(calendarId, event).execute();
+			event = service.events().insert(idCalendario, event).execute();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/***
+	 * Crea e inserta un nuevo calendario.
+	 * 
+	 * @param service Servicio Calendar con las credenciales OAuth válidas
+	 * @param nombre  Nombre del calendario a crear
+	 * @return Calendario creado
+	 */
+	private com.google.api.services.calendar.model.Calendar insertCalendar(Calendar service, String nombre) {
+		com.google.api.services.calendar.model.Calendar calendario;
+		com.google.api.services.calendar.model.Calendar calendarioCreado = null;
+
+		try {
+			// Crea el calendario
+			calendario = new com.google.api.services.calendar.model.Calendar();
+			calendario.setSummary(nombre);
+			calendario.setTimeZone("Europe/Madrid");
+
+			// Inserta el calendario
+			calendarioCreado = service.calendars().insert(calendario).execute();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return calendarioCreado;
+	}
+
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-
-		// Build a new authorized API client service.
+		// Crea un nuevo servicio API client autorizado
 		NetHttpTransport HTTP_TRANSPORT;
 		Calendar service;
 
-		// Objetos para la insercion de un evento
+		// Calendario
+		String nombreCalendario;
+		com.google.api.services.calendar.model.Calendar calendario;
+
+		// Evento
 		String tituloEvento;
 		String inicioEvento;
 		String finEvento;
 
 		try {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+
+			// Inicialización del servicio Calendar con las credenciales OAuth válidas
 			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 					.setApplicationName(APPLICATION_NAME).build();
-			// Se incializan los objetos para crear el evento y se inserta
-			tituloEvento = new String("Evento prueba inserción");
+
+			// Inserción del calendario
+			nombreCalendario = new String("Calendario1");
+			calendario = insertCalendar(service, nombreCalendario);
+
+			// Inserción del evento en un determinado calendario 
+			tituloEvento = new String("Evento prueba inserción en el calendario " + nombreCalendario);
 			inicioEvento = new String("2020-03-26T10:00:00.000+01:00");
 			finEvento = new String("2020-03-26T22:00:00.000+01:00");
 
-			//setEvento(service, tituloEvento, inicioEvento, finEvento);
+			setEvento(service, calendario.getId(), tituloEvento, inicioEvento, finEvento);
 
-			// Se obtienen los eventos para ver que se ha insertado correctamente
-			getEventos(service);
+			// Obtención de los eventos de un determinado calendario
+			getEventos(service, calendario.getId());
 
 		} catch (Exception e) {
 			e.printStackTrace();
