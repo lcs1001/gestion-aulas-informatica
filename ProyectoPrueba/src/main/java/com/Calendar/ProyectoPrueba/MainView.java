@@ -4,13 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
-
-// Google imports 
+// Google API imports
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -23,33 +22,61 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.Calendar.Events.CalendarImport;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.Calendar.Events.CalendarImport;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
+import com.vaadin.flow.component.html.Label;
+//Vaadin imports
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+@Route
+public class MainView extends VerticalLayout {
 
-// Vaadin imports
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+	public MainView() {
+		// Crea un nuevo servicio API client autorizado
+		NetHttpTransport HTTP_TRANSPORT;
+		Calendar service;
 
-/**
- * This UI is the application entry point. A UI may either represent a browser
- * window (or tab) or some part of an HTML page where a Vaadin application is
- * embedded.
- * <p>
- * The UI is initialized using {@link #init(VaadinRequest)}. This method is
- * intended to be overridden to add component to the user interface and
- * initialize non-component functionality.
- */
-@SuppressWarnings("serial")
-@Theme("mytheme")
-public class MyUI extends UI {
+		// URI
+		URI uri;
+
+		// Calendario
+		String nombreCalendario;
+		com.google.api.services.calendar.model.Calendar calendario;
+
+		// Evento
+		String tituloEvento;
+		String inicioEvento;
+		String finEvento;
+
+		try {
+
+			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+
+			// Inicialización del servicio Calendar con las credenciales OAuth válidas
+			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+					.setApplicationName(APPLICATION_NAME).build();
+
+			// Inserción del calendario
+			nombreCalendario = new String("Calendario1");
+			calendario = insertCalendar(service, nombreCalendario);
+
+			// Inserción del evento en un determinado calendario
+			tituloEvento = new String("Evento prueba inserción en el calendario " + nombreCalendario);
+			inicioEvento = new String("2020-03-26T10:00:00.000+01:00");
+			finEvento = new String("2020-03-26T22:00:00.000+01:00");
+
+			insertEvent(service, calendario.getId(), tituloEvento, inicioEvento, finEvento);
+
+			// Obtención de los eventos de un determinado calendario
+			getEvents(service, calendario.getId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String APPLICATION_NAME = "Proyecto Prueba Google Calendar API";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -98,39 +125,41 @@ public class MyUI extends UI {
 	}
 
 	/***
-	 * Funcion que muestra los siguientes 10 eventos del Google Calendar primario.
+	 * Funcion que muestra los siguientes 10 eventos del Google Calendar pasado.
 	 * 
 	 * @param service Servicio Calendar con las credenciales OAuth válidas
 	 */
-	private void getEventos(Calendar service, String idCalendario) {
-		DateTime now = new DateTime(System.currentTimeMillis());
+	private void getEvents(Calendar service, String idCalendario) {
 		Events events;
+		List<com.google.api.services.calendar.model.Event> items;
+		String pageToken = null;
 
 		try {
-			events = service.events().list(idCalendario).setMaxResults(10).setTimeMin(now).setOrderBy("startTime")
-					.setSingleEvents(true).execute();
 
-			List<com.google.api.services.calendar.model.Event> items = events.getItems();
+			// Se itera sobre los eventos del calendario pasado por parámetro
+			do {
+				events = service.events().list(idCalendario).setPageToken(pageToken).execute();
+				items = events.getItems();
 
-			VerticalLayout layout = new VerticalLayout();
+				if (items.isEmpty()) {
+					Label label = new Label("No se han encontrado eventos");
+					add(label);
+				} else {
+					Label label = new Label("Eventos:");
+					add(label);
 
-			if (items.isEmpty()) {
-				Label label = new Label("No se han encontrado eventos");
-				layout.addComponent(label);
-				setContent(layout);
-			} else {
-				Label label1 = new Label("Eventos:");
-				layout.addComponent(label1);
-				for (com.google.api.services.calendar.model.Event event : items) {
-					DateTime start = ((com.google.api.services.calendar.model.Event) event).getStart().getDateTime();
-					if (start == null) {
-						start = event.getStart().getDate();
+					for (com.google.api.services.calendar.model.Event event : items) {
+						DateTime start = ((com.google.api.services.calendar.model.Event) event).getStart()
+								.getDateTime();
+						if (start == null) {
+							start = event.getStart().getDate();
+						}
+						Label label2 = new Label(event.getSummary() + " " + start);
+						add(label2);
 					}
-					Label label2 = new Label(event.getSummary() + " " + start + " ");
-					layout.addComponent(label2);
 				}
-				setContent(layout);
-			}
+				pageToken = events.getNextPageToken();
+			} while (pageToken != null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,7 +175,7 @@ public class MyUI extends UI {
 	 * @param inicioE      Fecha y hora de inicio del evento
 	 * @param finE         Fecha y hora de fin del evento
 	 */
-	private void setEvento(Calendar service, String idCalendario, String titulo, String inicioE, String finE) {
+	private void insertEvent(Calendar service, String idCalendario, String titulo, String inicioE, String finE) {
 		com.google.api.services.calendar.model.Event event;
 		DateTime inicioEvento;
 		DateTime finEvento;
@@ -202,51 +231,5 @@ public class MyUI extends UI {
 			e.printStackTrace();
 		}
 		return calendarioCreado;
-	}
-
-	@Override
-	protected void init(VaadinRequest vaadinRequest) {
-		// Crea un nuevo servicio API client autorizado
-		NetHttpTransport HTTP_TRANSPORT;
-		Calendar service;
-
-		// Calendario
-		String nombreCalendario;
-		com.google.api.services.calendar.model.Calendar calendario;
-
-		// Evento
-		String tituloEvento;
-		String inicioEvento;
-		String finEvento;
-
-		try {
-			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-
-			// Inicialización del servicio Calendar con las credenciales OAuth válidas
-			service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-					.setApplicationName(APPLICATION_NAME).build();
-
-			// Inserción del calendario
-			nombreCalendario = new String("Calendario1");
-			calendario = insertCalendar(service, nombreCalendario);
-
-			// Inserción del evento en un determinado calendario 
-			tituloEvento = new String("Evento prueba inserción en el calendario " + nombreCalendario);
-			inicioEvento = new String("2020-03-26T10:00:00.000+01:00");
-			finEvento = new String("2020-03-26T22:00:00.000+01:00");
-
-			setEvento(service, calendario.getId(), tituloEvento, inicioEvento, finEvento);
-
-			// Obtención de los eventos de un determinado calendario
-			getEventos(service, calendario.getId());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@WebServlet(urlPatterns = "/*", name = "Servlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = true)
-	public static class Servlet extends VaadinServlet {
 	}
 }
