@@ -31,8 +31,10 @@ import com.vaadin.flow.component.html.Label;
 //Vaadin imports
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.InitialPageSettings;
+import com.vaadin.flow.server.PageConfigurator;
 @Route
-public class MainView extends VerticalLayout {
+public class MainView extends VerticalLayout implements PageConfigurator {
 
 	public MainView() {
 		// Crea un nuevo servicio API client autorizado
@@ -77,6 +79,22 @@ public class MainView extends VerticalLayout {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+    public void configurePage(InitialPageSettings settings) {
+		settings.addInlineWithContents(
+                "<meta name=\"google-signin-scope\" content=\"profile email\">",
+                InitialPageSettings.WrapMode.NONE);
+		settings.addInlineWithContents(
+                "<meta name=\"google-signin-client_id\" content=\"871400351809-c2nr0t4drc0conp0mdg4eglgfbto7s3c.apps.googleusercontent.com.apps.googleusercontent.com\">",
+                InitialPageSettings.WrapMode.NONE);
+		settings.addInlineWithContents(
+                "<script src=\"https://apis.google.com/js/platform.js\" async defer></script>",
+                InitialPageSettings.WrapMode.NONE);
+		settings.addInlineWithContents(
+                "<script src=\"https://apis.google.com/js/platform.js\" async defer></script>",
+                InitialPageSettings.WrapMode.NONE);
+    }
 
 	private static final String APPLICATION_NAME = "Proyecto Prueba Google Calendar API";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
