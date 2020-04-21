@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +23,6 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.Calendar.Events.CalendarImport;
 import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 import com.vaadin.flow.component.html.Label;
 //Vaadin imports
@@ -33,16 +30,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
+
 @Route
 public class MainView extends VerticalLayout implements PageConfigurator {
-
 	public MainView() {
 		// Crea un nuevo servicio API client autorizado
 		NetHttpTransport HTTP_TRANSPORT;
 		Calendar service;
-
-		// URI
-		URI uri;
 
 		// Calendario
 		String nombreCalendario;
@@ -62,13 +56,13 @@ public class MainView extends VerticalLayout implements PageConfigurator {
 					.setApplicationName(APPLICATION_NAME).build();
 
 			// Inserción del calendario
-			nombreCalendario = new String("Calendario1");
+			nombreCalendario = new String("Calendario Prueba");
 			calendario = insertCalendar(service, nombreCalendario);
 
 			// Inserción del evento en un determinado calendario
 			tituloEvento = new String("Evento prueba inserción en el calendario " + nombreCalendario);
-			inicioEvento = new String("2020-03-26T10:00:00.000+01:00");
-			finEvento = new String("2020-03-26T22:00:00.000+01:00");
+			inicioEvento = new String("2020-12-26T10:00:00.000+01:00");
+			finEvento = new String("2020-12-26T22:00:00.000+01:00");
 
 			insertEvent(service, calendario.getId(), tituloEvento, inicioEvento, finEvento);
 
@@ -79,14 +73,14 @@ public class MainView extends VerticalLayout implements PageConfigurator {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
     public void configurePage(InitialPageSettings settings) {
 		settings.addInlineWithContents(
                 "<meta name=\"google-signin-scope\" content=\"profile email\">",
                 InitialPageSettings.WrapMode.NONE);
 		settings.addInlineWithContents(
-                "<meta name=\"google-signin-client_id\" content=\"871400351809-c2nr0t4drc0conp0mdg4eglgfbto7s3c.apps.googleusercontent.com.apps.googleusercontent.com\">",
+                "<meta name=\"google-signin-client_id\" content=\"871400351809-l38aa149odc6kj5bhg9oqb1d5g4lh2mm.apps.googleusercontent.com\">",
                 InitialPageSettings.WrapMode.NONE);
 		settings.addInlineWithContents(
                 "<script src=\"https://apis.google.com/js/platform.js\" async defer></script>",
@@ -198,7 +192,6 @@ public class MainView extends VerticalLayout implements PageConfigurator {
 		DateTime inicioEvento;
 		DateTime finEvento;
 		EventDateTime inicio;
-		EventReminder[] reminderOverrides;
 
 		try {
 			event = new com.google.api.services.calendar.model.Event().setSummary(titulo);
@@ -210,13 +203,6 @@ public class MainView extends VerticalLayout implements PageConfigurator {
 			finEvento = new DateTime(finE);
 			EventDateTime end = new EventDateTime().setDateTime(finEvento).setTimeZone("Europe/Madrid");
 			event.setEnd(end);
-
-			reminderOverrides = new EventReminder[] { new EventReminder().setMethod("email").setMinutes(24 * 60),
-					new EventReminder().setMethod("popup").setMinutes(10), };
-
-			com.google.api.services.calendar.model.Event.Reminders reminders = new com.google.api.services.calendar.model.Event.Reminders()
-					.setUseDefault(false).setOverrides(Arrays.asList(reminderOverrides));
-			event.setReminders(reminders);
 
 			event = service.events().insert(idCalendario, event).execute();
 
