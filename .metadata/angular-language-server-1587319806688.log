@@ -1,0 +1,217 @@
+Info 0    [20:10:8.398] Format host information updated
+Info 1    [20:10:8.399] reload projects.
+Info 2    [20:10:8.399] Structure before ensureProjectForOpenFiles:
+Info 3    [20:10:8.399] Structure after ensureProjectForOpenFiles:
+Info 4    [20:10:8.399] Host file extension mappings updated
+Info 5    [20:10:8.430] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 6    [20:10:8.435] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 7    [20:10:8.438] Loading global plugin @angular/language-service
+Info 8    [20:10:8.438] Enabling plugin @angular/language-service from candidate paths: C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../..,C:\Users\Lisa\.p2\pool\plugins\org.eclipse.wildwebdeveloper_0.5.2.201911072316\language-servers\node_modules\@angular\language-service
+Info 9    [20:10:8.441] Loading @angular/language-service from C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../.. (resolved to C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/node_modules)
+Info 10   [20:10:9.191] Plugin validation succeded
+Info 11   [20:10:9.195] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 12   [20:10:10.168] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 1 structureChanged: true Elapsed: 973ms
+Info 13   [20:10:10.168] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 14   [20:10:10.169] 	Files (6)
+
+Info 15   [20:10:10.169] -----------------------------------------------
+Info 16   [20:11:50.905] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 17   [20:11:50.906] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 18   [20:11:50.906] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 19   [20:11:50.939] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 2 structureChanged: false Elapsed: 33ms
+Info 20   [20:11:50.939] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 21   [20:11:50.939] 	Files (6)
+
+Info 22   [20:11:50.939] -----------------------------------------------
+Info 23   [20:11:51.225] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 24   [20:11:51.226] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 25   [20:11:51.275] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 26   [20:11:51.275] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 27   [20:11:51.285] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 28   [20:11:51.286] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 29   [20:11:51.324] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 30   [20:11:51.325] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 31   [20:11:52.967] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 32   [20:11:52.967] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 33   [20:11:52.968] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 34   [20:11:52.990] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 3 structureChanged: false Elapsed: 22ms
+Info 35   [20:11:52.990] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 36   [20:11:52.990] 	Files (6)
+
+Info 37   [20:11:52.990] -----------------------------------------------
+Info 38   [20:11:52.991] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 39   [20:11:52.991] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 40   [20:11:52.991] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 41   [20:11:53.15] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 4 structureChanged: false Elapsed: 24ms
+Info 42   [20:11:53.15] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 43   [20:11:53.15] 	Files (6)
+
+Info 44   [20:11:53.15] -----------------------------------------------
+Info 45   [20:11:53.15] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 46   [20:11:53.15] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 47   [20:11:53.15] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 48   [20:11:53.31] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 5 structureChanged: false Elapsed: 16ms
+Info 49   [20:11:53.31] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 50   [20:11:53.31] 	Files (6)
+
+Info 51   [20:11:53.31] -----------------------------------------------
+Info 52   [20:11:53.31] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 53   [20:11:53.32] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 54   [20:11:53.32] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 55   [20:11:53.42] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 6 structureChanged: false Elapsed: 10ms
+Info 56   [20:11:53.42] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 57   [20:11:53.42] 	Files (6)
+
+Info 58   [20:11:53.42] -----------------------------------------------
+Info 59   [20:12:4.400] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 60   [20:12:4.401] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 61   [20:12:4.401] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 62   [20:12:4.431] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 7 structureChanged: false Elapsed: 30ms
+Info 63   [20:12:4.431] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 64   [20:12:4.431] 	Files (6)
+
+Info 65   [20:12:4.431] -----------------------------------------------
+Info 66   [20:12:5.647] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 67   [20:12:5.647] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 68   [20:12:5.654] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 69   [20:12:5.654] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 70   [20:12:27.105] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 71   [20:12:27.106] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 72   [20:12:27.106] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 73   [20:12:27.132] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 8 structureChanged: false Elapsed: 25ms
+Info 74   [20:12:27.132] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 75   [20:12:27.132] 	Files (6)
+
+Info 76   [20:12:27.132] -----------------------------------------------
+Info 77   [20:19:2.602] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 78   [20:19:2.603] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 79   [20:19:2.603] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 80   [20:19:2.628] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 9 structureChanged: false Elapsed: 25ms
+Info 81   [20:19:2.628] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 82   [20:19:2.628] 	Files (6)
+
+Info 83   [20:19:2.628] -----------------------------------------------
+Info 84   [20:26:10.864] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 85   [20:26:10.865] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 86   [20:26:10.865] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 87   [20:26:10.879] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 10 structureChanged: false Elapsed: 14ms
+Info 88   [20:26:10.879] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 89   [20:26:10.879] 	Files (6)
+
+Info 90   [20:26:10.879] -----------------------------------------------
+Info 91   [20:26:25.775] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 92   [20:26:25.776] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 93   [20:26:38.853] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 94   [20:26:38.854] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 95   [20:26:38.860] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 96   [20:26:38.860] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 97   [20:26:39.20] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 98   [20:26:39.21] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 99   [20:26:39.40] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 100  [20:26:39.41] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 101  [20:26:39.61] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 102  [20:26:39.62] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 103  [20:26:39.73] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 104  [20:26:39.74] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 105  [20:26:39.109] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 106  [20:26:39.109] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 107  [20:27:2.641] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 108  [20:27:2.642] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 109  [20:27:2.704] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 110  [20:27:2.705] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 111  [20:27:2.712] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 112  [20:27:2.712] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 113  [20:27:2.721] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 114  [20:27:2.722] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 115  [20:27:2.728] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 116  [20:27:2.730] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 117  [20:27:2.735] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 118  [20:27:2.735] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 119  [20:27:2.742] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 120  [20:27:2.742] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 121  [20:27:2.750] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 122  [20:27:2.751] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 123  [20:27:2.756] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 124  [20:27:2.757] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 125  [20:27:2.782] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 126  [20:27:2.782] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 127  [20:27:3.267] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 128  [20:27:3.268] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 129  [20:27:3.303] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 130  [20:27:3.303] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 131  [20:27:3.308] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 132  [20:27:3.308] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 133  [20:27:17.882] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 134  [20:27:17.883] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 135  [20:27:17.900] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 136  [20:27:17.901] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 137  [20:27:17.918] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 138  [20:27:17.919] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 139  [20:27:17.926] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 140  [20:27:17.926] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 141  [20:27:17.933] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 142  [20:27:17.934] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 143  [20:27:17.942] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 144  [20:27:17.942] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 145  [20:27:17.949] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 146  [20:27:17.950] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 147  [20:27:17.954] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 148  [20:27:17.955] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 149  [20:27:17.962] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 150  [20:27:17.962] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 151  [20:27:17.967] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 152  [20:27:17.967] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 153  [20:27:18.209] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 154  [20:27:18.210] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 155  [20:27:18.236] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 156  [20:27:18.236] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 157  [20:27:40.164] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 158  [20:27:40.164] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 159  [20:27:40.214] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 160  [20:27:40.214] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 161  [20:27:40.220] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 162  [20:27:40.220] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 163  [20:27:40.231] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 164  [20:27:40.231] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 165  [20:27:40.237] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 166  [20:27:40.237] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 167  [20:27:40.243] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 168  [20:27:40.243] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 169  [20:27:40.250] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 170  [20:27:40.250] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 171  [20:27:40.256] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 172  [20:27:40.256] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 173  [20:28:4.194] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 174  [20:28:4.194] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 175  [20:28:4.199] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 176  [20:28:4.200] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 177  [20:28:4.204] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 178  [20:28:4.204] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 179  [20:28:4.209] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 180  [20:28:4.209] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 181  [20:28:4.215] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 182  [20:28:4.215] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 183  [20:28:4.222] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 184  [20:28:4.222] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 185  [20:28:4.228] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 186  [20:28:4.228] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 187  [20:28:4.234] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 188  [20:28:4.234] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 189  [20:28:4.240] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 190  [20:28:4.240] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 191  [20:28:4.245] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 192  [20:28:4.245] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 193  [20:28:4.250] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 194  [20:28:4.250] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 195  [20:28:4.257] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 196  [20:28:4.257] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 197  [20:28:4.263] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 198  [20:28:4.264] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 199  [20:28:4.297] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 200  [20:28:4.298] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 201  [20:28:4.336] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 202  [20:28:4.336] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 203  [20:28:4.346] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 204  [20:28:4.346] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.
+Info 205  [20:28:4.393] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 206  [20:28:4.393] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in-content.html :: No config files found.

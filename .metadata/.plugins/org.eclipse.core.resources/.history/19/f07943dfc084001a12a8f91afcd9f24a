@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<base href=".">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+}
+
+.v-reconnect-dialog {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	border: 1px solid black;
+	padding: 1em;
+	z-index: 10000;
+}
+
+.v-system-error {
+	color: red;
+	background: white;
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	border: 1px solid black;
+	padding: 1em;
+	z-index: 10000;
+	pointer-events: auto;
+}
+</style>
+<script type="text/javascript"
+	src="./frontend/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+<script type="text/javascript" defer
+	src="./VAADIN/static/client/client-BF4676DDAFDA5E40AE93EFEB692AAAD5.cache.js"></script>
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/element-mixin.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/resolve-url.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/mixin.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/import-href.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/property-effects.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/html-tag.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/settings.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/properties-changed.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/boot.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/async.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/path.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/properties-mixin.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/polymer-element.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/elements/dom-module.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-ordered-layout/theme/lumo/vaadin-vertical-layout.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/property-accessors.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-element-mixin/vaadin-element-mixin.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/style-gather.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-development-mode-detector/vaadin-development-mode-detector.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/utils/case-map.html">
+<link rel="import"
+	href="./frontend/bower_components/polymer/lib/mixins/template-stamp.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/color.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/typography.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/sizing.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/spacing.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/style.html">
+<link rel="import"
+	href="./frontend/bower_components/vaadin-lumo-styles/icons.html">
+<script id="_theme-header-injection">
+	function _inlineHeader(tag, content) {
+		var customStyle = document.createElement(tag);
+		customStyle.innerHTML = content;
+		var firstScript = document.head.querySelector('script');
+		document.head.insertBefore(customStyle, firstScript);
+	}
+	_inlineHeader('custom-style',
+			'<style include="lumo-color lumo-typography"></style>');
+	document.head.removeChild(document
+			.getElementById('_theme-header-injection'));
+</script>
+<meta charset="ISO-8859-1">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+	content="871400351809-l38aa149odc6kj5bhg9oqb1d5g4lh2mm.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<title>Proyecto Prueba</title>
+</head>
+<body>
+	<div class="g-signin2" data-theme="light"></div>
+</body>
+</html>

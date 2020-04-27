@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.VaadinServlet"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.SessionInitListener"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletException"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.VaadinServletService"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.PageConfigurator"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.InitialPageSettings"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.BootstrapListener"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.server.BootstrapPageResponse"/>
+<fullyQualifiedTypeName name="com.vaadin.flow.dom.Element"/>
+<fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
+</qualifiedTypeNameHistroy>

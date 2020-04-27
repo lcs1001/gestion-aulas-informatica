@@ -1,0 +1,41 @@
+Info 0    [17:52:17.939] Format host information updated
+Info 1    [17:52:17.940] reload projects.
+Info 2    [17:52:17.940] Structure before ensureProjectForOpenFiles:
+Info 3    [17:52:17.940] Structure after ensureProjectForOpenFiles:
+Info 4    [17:52:17.940] Host file extension mappings updated
+Info 5    [17:52:17.954] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 6    [17:52:17.957] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in.html :: No config files found.
+Info 7    [17:52:17.959] Loading global plugin @angular/language-service
+Info 8    [17:52:17.959] Enabling plugin @angular/language-service from candidate paths: C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../..,C:\Users\Lisa\.p2\pool\plugins\org.eclipse.wildwebdeveloper_0.5.2.201911072316\language-servers\node_modules\@angular\language-service
+Info 9    [17:52:17.961] Loading @angular/language-service from C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../.. (resolved to C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/node_modules)
+Info 10   [17:52:18.119] Plugin validation succeded
+Info 11   [17:52:18.122] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 12   [17:52:19.725] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 1 structureChanged: true Elapsed: 1603ms
+Info 13   [17:52:19.726] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 14   [17:52:19.726] 	Files (6)
+
+Info 15   [17:52:19.726] -----------------------------------------------
+Info 16   [17:52:38.532] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 17   [17:52:38.532] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in.html :: No config files found.
+Info 18   [17:52:38.533] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 19   [17:52:38.570] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 2 structureChanged: false Elapsed: 37ms
+Info 20   [17:52:38.570] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 21   [17:52:38.570] 	Files (6)
+
+Info 22   [17:52:38.571] -----------------------------------------------
+Info 23   [17:52:43.151] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 24   [17:52:43.152] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in.html :: No config files found.
+Info 25   [17:52:43.152] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 26   [17:52:43.180] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 3 structureChanged: false Elapsed: 28ms
+Info 27   [17:52:43.180] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 28   [17:52:43.180] 	Files (6)
+
+Info 29   [17:52:43.180] -----------------------------------------------
+Info 30   [17:53:6.177] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 31   [17:53:6.178] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/google-sign-in.html :: No config files found.
+Info 32   [17:53:6.178] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 33   [17:53:6.209] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 4 structureChanged: false Elapsed: 30ms
+Info 34   [17:53:6.209] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 35   [17:53:6.209] 	Files (6)
+
+Info 36   [17:53:6.209] -----------------------------------------------

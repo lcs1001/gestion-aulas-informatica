@@ -1,0 +1,93 @@
+Info 0    [19:42:12.653] Format host information updated
+Info 1    [19:42:12.655] reload projects.
+Info 2    [19:42:12.655] Structure before ensureProjectForOpenFiles:
+Info 3    [19:42:12.656] Structure after ensureProjectForOpenFiles:
+Info 4    [19:42:12.656] Host file extension mappings updated
+Info 5    [19:42:12.677] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 6    [19:42:12.682] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 7    [19:42:12.685] Loading global plugin @angular/language-service
+Info 8    [19:42:12.685] Enabling plugin @angular/language-service from candidate paths: C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../..,C:\Users\Lisa\.p2\pool\plugins\org.eclipse.wildwebdeveloper_0.5.2.201911072316\language-servers\node_modules\@angular\language-service
+Info 9    [19:42:12.687] Loading @angular/language-service from C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../.. (resolved to C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/node_modules)
+Info 10   [19:42:12.929] Plugin validation succeded
+Info 11   [19:42:12.933] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 12   [19:42:13.764] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 1 structureChanged: true Elapsed: 831ms
+Info 13   [19:42:13.764] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 14   [19:42:13.764] 	Files (6)
+
+Info 15   [19:42:13.764] -----------------------------------------------
+Info 16   [19:42:48.224] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 17   [19:42:48.225] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 18   [19:42:48.225] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 19   [19:42:48.292] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 2 structureChanged: false Elapsed: 67ms
+Info 20   [19:42:48.292] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 21   [19:42:48.292] 	Files (6)
+
+Info 22   [19:42:48.292] -----------------------------------------------
+Info 23   [19:42:50.592] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 24   [19:42:50.592] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 25   [19:42:50.592] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 26   [19:42:50.645] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 3 structureChanged: false Elapsed: 53ms
+Info 27   [19:42:50.645] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 28   [19:42:50.645] 	Files (6)
+
+Info 29   [19:42:50.645] -----------------------------------------------
+Info 30   [19:43:54.247] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 31   [19:43:54.248] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 32   [19:43:54.248] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 33   [19:43:54.299] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 4 structureChanged: false Elapsed: 51ms
+Info 34   [19:43:54.299] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 35   [19:43:54.299] 	Files (6)
+
+Info 36   [19:43:54.299] -----------------------------------------------
+Info 37   [19:43:55.14] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 38   [19:43:55.15] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 39   [19:43:55.15] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 40   [19:43:55.77] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 5 structureChanged: false Elapsed: 62ms
+Info 41   [19:43:55.77] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 42   [19:43:55.77] 	Files (6)
+
+Info 43   [19:43:55.77] -----------------------------------------------
+Info 44   [19:44:0.152] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 45   [19:44:0.152] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 46   [19:44:0.152] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 47   [19:44:0.210] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 6 structureChanged: false Elapsed: 58ms
+Info 48   [19:44:0.210] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 49   [19:44:0.210] 	Files (6)
+
+Info 50   [19:44:0.210] -----------------------------------------------
+Info 51   [19:44:0.292] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 52   [19:44:0.293] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 53   [19:44:0.434] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 54   [19:44:0.435] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 55   [19:44:0.435] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 56   [19:44:0.496] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 7 structureChanged: false Elapsed: 61ms
+Info 57   [19:44:0.496] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 58   [19:44:0.496] 	Files (6)
+
+Info 59   [19:44:0.496] -----------------------------------------------
+Info 60   [19:44:1.145] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 61   [19:44:1.145] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 62   [19:44:1.146] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 63   [19:44:1.202] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 8 structureChanged: false Elapsed: 56ms
+Info 64   [19:44:1.202] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 65   [19:44:1.202] 	Files (6)
+
+Info 66   [19:44:1.202] -----------------------------------------------
+Info 67   [19:44:1.687] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 68   [19:44:1.688] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 69   [19:44:8.986] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 70   [19:44:8.987] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 71   [19:44:8.988] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 72   [19:44:9.28] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 9 structureChanged: false Elapsed: 40ms
+Info 73   [19:44:9.28] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 74   [19:44:9.28] 	Files (6)
+
+Info 75   [19:44:9.28] -----------------------------------------------
+Info 76   [19:44:9.442] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp
+Info 77   [19:44:9.444] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/webapp/index.html :: No config files found.
+Info 78   [19:44:9.451] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 79   [19:44:9.514] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 10 structureChanged: false Elapsed: 63ms
+Info 80   [19:44:9.515] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 81   [19:44:9.515] 	Files (6)
+
+Info 82   [19:44:9.515] -----------------------------------------------

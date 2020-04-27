@@ -1,0 +1,177 @@
+Info 0    [13:53:39.469] Format host information updated
+Info 1    [13:53:39.471] reload projects.
+Info 2    [13:53:39.471] Structure before ensureProjectForOpenFiles:
+Info 3    [13:53:39.471] Structure after ensureProjectForOpenFiles:
+Info 4    [13:53:39.471] Host file extension mappings updated
+Info 5    [13:53:39.496] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 6    [13:53:39.504] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 7    [13:53:39.509] Loading global plugin @angular/language-service
+Info 8    [13:53:39.510] Enabling plugin @angular/language-service from candidate paths: C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../..,C:\Users\Lisa\.p2\pool\plugins\org.eclipse.wildwebdeveloper_0.5.2.201911072316\language-servers\node_modules\@angular\language-service
+Info 9    [13:53:39.510] Loading @angular/language-service from C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/typescript/lib/tsserverlibrary.js/../../.. (resolved to C:/Users/Lisa/.p2/pool/plugins/org.eclipse.wildwebdeveloper_0.5.2.201911072316/language-servers/node_modules/node_modules)
+Info 10   [13:53:39.703] Plugin validation succeded
+Info 11   [13:53:39.707] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 12   [13:53:41.19] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 1 structureChanged: true Elapsed: 1312ms
+Info 13   [13:53:41.19] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 14   [13:53:41.19] 	Files (6)
+
+Info 15   [13:53:41.19] -----------------------------------------------
+Info 16   [13:53:47.106] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 17   [13:53:47.106] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 18   [13:53:47.106] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 19   [13:53:47.136] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 2 structureChanged: false Elapsed: 30ms
+Info 20   [13:53:47.136] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 21   [13:53:47.136] 	Files (6)
+
+Info 22   [13:53:47.136] -----------------------------------------------
+Info 23   [13:53:58.677] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 24   [13:53:58.678] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 25   [13:53:58.678] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 26   [13:53:58.704] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 3 structureChanged: false Elapsed: 26ms
+Info 27   [13:53:58.704] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 28   [13:53:58.704] 	Files (6)
+
+Info 29   [13:53:58.704] -----------------------------------------------
+Info 30   [13:53:59.198] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 31   [13:53:59.200] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 32   [13:53:59.200] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 33   [13:53:59.234] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 4 structureChanged: false Elapsed: 34ms
+Info 34   [13:53:59.235] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 35   [13:53:59.235] 	Files (6)
+
+Info 36   [13:53:59.235] -----------------------------------------------
+Info 37   [13:54:1.377] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 38   [13:54:1.378] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 39   [13:54:1.379] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 40   [13:54:1.415] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 5 structureChanged: false Elapsed: 36ms
+Info 41   [13:54:1.415] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 42   [13:54:1.415] 	Files (6)
+
+Info 43   [13:54:1.416] -----------------------------------------------
+Info 44   [13:54:5.927] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 45   [13:54:5.928] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 46   [13:54:5.928] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 47   [13:54:5.960] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 6 structureChanged: false Elapsed: 31ms
+Info 48   [13:54:5.960] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 49   [13:54:5.960] 	Files (6)
+
+Info 50   [13:54:5.960] -----------------------------------------------
+Info 51   [13:54:6.88] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 52   [13:54:6.89] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 53   [13:54:6.89] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 54   [13:54:6.123] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 7 structureChanged: false Elapsed: 34ms
+Info 55   [13:54:6.123] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 56   [13:54:6.123] 	Files (6)
+
+Info 57   [13:54:6.123] -----------------------------------------------
+Info 58   [13:54:6.240] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 59   [13:54:6.241] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 60   [13:54:6.241] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 61   [13:54:6.280] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 8 structureChanged: false Elapsed: 39ms
+Info 62   [13:54:6.280] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 63   [13:54:6.280] 	Files (6)
+
+Info 64   [13:54:6.280] -----------------------------------------------
+Info 65   [13:54:6.410] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 66   [13:54:6.411] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 67   [13:54:6.411] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 68   [13:54:6.428] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 9 structureChanged: false Elapsed: 17ms
+Info 69   [13:54:6.428] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 70   [13:54:6.428] 	Files (6)
+
+Info 71   [13:54:6.428] -----------------------------------------------
+Info 72   [13:54:6.505] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 73   [13:54:6.506] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 74   [13:54:6.506] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 75   [13:54:6.543] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 10 structureChanged: false Elapsed: 37ms
+Info 76   [13:54:6.543] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 77   [13:54:6.543] 	Files (6)
+
+Info 78   [13:54:6.543] -----------------------------------------------
+Info 79   [13:54:6.695] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 80   [13:54:6.696] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 81   [13:54:6.696] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 82   [13:54:6.735] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 11 structureChanged: false Elapsed: 39ms
+Info 83   [13:54:6.735] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 84   [13:54:6.735] 	Files (6)
+
+Info 85   [13:54:6.735] -----------------------------------------------
+Info 86   [13:54:6.858] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 87   [13:54:6.859] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 88   [13:54:6.860] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 89   [13:54:6.892] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 12 structureChanged: false Elapsed: 32ms
+Info 90   [13:54:6.892] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 91   [13:54:6.892] 	Files (6)
+
+Info 92   [13:54:6.892] -----------------------------------------------
+Info 93   [13:54:7.8] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 94   [13:54:7.9] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 95   [13:54:7.9] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 96   [13:54:7.32] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 13 structureChanged: false Elapsed: 23ms
+Info 97   [13:54:7.32] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 98   [13:54:7.33] 	Files (6)
+
+Info 99   [13:54:7.33] -----------------------------------------------
+Info 100  [13:54:7.158] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 101  [13:54:7.158] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 102  [13:54:7.159] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 103  [13:54:7.185] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 14 structureChanged: false Elapsed: 26ms
+Info 104  [13:54:7.186] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 105  [13:54:7.186] 	Files (6)
+
+Info 106  [13:54:7.186] -----------------------------------------------
+Info 107  [13:54:7.511] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 108  [13:54:7.511] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 109  [13:54:7.512] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 110  [13:54:7.537] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 15 structureChanged: false Elapsed: 25ms
+Info 111  [13:54:7.537] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 112  [13:54:7.537] 	Files (6)
+
+Info 113  [13:54:7.537] -----------------------------------------------
+Info 114  [13:55:10.64] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 115  [13:55:10.64] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 116  [13:55:10.64] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 117  [13:55:10.73] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 16 structureChanged: false Elapsed: 9ms
+Info 118  [13:55:10.73] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 119  [13:55:10.73] 	Files (6)
+
+Info 120  [13:55:10.73] -----------------------------------------------
+Info 121  [13:55:10.99] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 122  [13:55:10.99] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 123  [13:55:10.99] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 124  [13:55:10.113] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 17 structureChanged: false Elapsed: 14ms
+Info 125  [13:55:10.113] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 126  [13:55:10.113] 	Files (6)
+
+Info 127  [13:55:10.113] -----------------------------------------------
+Info 128  [13:55:19.983] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 129  [13:55:19.984] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 130  [13:55:19.984] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 131  [13:55:20.15] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 18 structureChanged: false Elapsed: 31ms
+Info 132  [13:55:20.16] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 133  [13:55:20.16] 	Files (6)
+
+Info 134  [13:55:20.16] -----------------------------------------------
+Info 135  [13:55:21.728] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 136  [13:55:21.729] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 137  [13:55:21.729] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 138  [13:55:21.758] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 19 structureChanged: false Elapsed: 29ms
+Info 139  [13:55:21.758] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 140  [13:55:21.758] 	Files (6)
+
+Info 141  [13:55:21.758] -----------------------------------------------
+Info 142  [14:3:11.363] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 143  [14:3:11.364] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 144  [14:3:11.364] Starting updateGraphWorker: Project: /dev/null/inferredProject1*
+Info 145  [14:3:11.384] Finishing updateGraphWorker: Project: /dev/null/inferredProject1* Version: 20 structureChanged: false Elapsed: 20ms
+Info 146  [14:3:11.384] Project '/dev/null/inferredProject1*' (Inferred) 
+Info 147  [14:3:11.384] 	Files (6)
+
+Info 148  [14:3:11.384] -----------------------------------------------
+Info 149  [14:3:11.398] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 150  [14:3:11.399] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 151  [14:3:11.429] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 152  [14:3:11.430] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 153  [14:3:11.473] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 154  [14:3:11.473] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.
+Info 155  [14:3:11.496] Search path: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba
+Info 156  [14:3:11.499] For info: d:/Documentos/UNI/TFG/Gestion_Aulas_Informatica/ProyectoPrueba/src/main/java/com/Calendar/ProyectoPrueba/google_sign_in_layout.html :: No config files found.

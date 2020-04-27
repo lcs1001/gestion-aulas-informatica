@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+	content="871400351809-l38aa149odc6kj5bhg9oqb1d5g4lh2mm.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<title>Proyecto Prueba</title>
+</head>
+<body>
+	<div class="g-signin2" data-theme="light"></div>
+</body>
+</html>
