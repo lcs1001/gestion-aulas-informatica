@@ -1,33 +1,22 @@
-# Project Base for Vaadin and Spring Boot
+# Proyecto Gestión Aulas Informática con Vaadin and Spring Boot
 
-This is an example project that can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
-
-
-## Running the Application
-There are two ways to run the application :  using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
-
-You can use any IDE of your preference,but we suggest Eclipse or Intellij IDEA.
-Below are the configuration details to start the project using a `spring-boot:run` command. Both Eclipse and Intellij IDEA are covered.
+## Ejecutar la aplicación
+Hay dos formas de ejecutar la aplicación:
+- Ejecutando `mvn spring-boot:run` en la consola de comandos (cmd) 
+- Ejecutando (Run) la clase `Application` desde el IDE.
 
 #### Eclipse
-- Right click on a project folder and select `Run As` --> `Maven build..` . After that a configuration window is opened.
-- In the window set the value of the **Goals** field to `spring-boot:run` 
-- You can optionally select `Skip tests` checkbox
-- All the other settings can be left to default
+- Click derecho en la carpeta del proyecto seleccionando `Run As` --> `Maven build..`, después de esto la ventana de configuración se abrirá.
+- En la ventana poner hay que establecer el valor de **Goals** como `spring-boot:run`.
+- Opcionalmente se puede seleccionar la opción `Skip tests`.
+- Todas las demás configuraciones se pueden dejar como por defecto.
 
-Once configurations are set clicking `Run` will start the application
+Una vez configurado, se puede lanzar la aplicación clicando en `Run`.
 
-#### Intellij IDEA
-- On the right side of the window, select Maven --> Plugins--> `spring-boot` --> `spring-boot:run` goal
-- Optionally, you can disable tests by clicking on a `Skip Tests mode` blue button.
+Después de esto, se puede ver en http://localhost:8080/ en el explorador.
 
-Clicking on the green run button will start the application.
+Se puede ejecutar la aplicación de forma local en modo de producción con el comando `spring-boot:run -Pproduction`.
 
-After the application has started, you can view your it at http://localhost:8080/ in your browser.
-
-
-If you want to run the application locally in the production mode, use `spring-boot:run -Pproduction` command instead.
 ### Running Integration Tests
 
 Integration tests are implemented using [Vaadin TestBench](https://vaadin.com/testbench). The tests take a few minutes to run and are therefore included in a separate Maven profile. To run the tests using Google Chrome, execute
