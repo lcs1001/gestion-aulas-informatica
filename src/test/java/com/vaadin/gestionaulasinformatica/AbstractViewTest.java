@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 /**
  * Base class for TestBench IntegrationTests on chrome.
  * <p>
@@ -37,7 +38,7 @@ public abstract class AbstractViewTest extends ParallelTest {
             false);
 
     public AbstractViewTest() {
-        this("", By.tagName("body"));
+        this("", By.cssSelector("#outlet > :first-child"));
     }
 
     protected AbstractViewTest(String route, By rootSelector) {
