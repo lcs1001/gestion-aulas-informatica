@@ -227,7 +227,7 @@
 						<configuration>
 							<appName>gestionaulasinformatica</appName>
 							<processTypes>
-								<web>java $JAVA_OPTS -jar target/${project.artifactId}-${project.version}.jar
+								<web>java $JAVA_OPTS -jar target/gestion-aulas-informatica-1.0-SNAPSHOT
 									--server.port=$PORT</web>
 							</processTypes>
 						</configuration>
