@@ -9,7 +9,11 @@ import javax.validation.constraints.*;
 import org.hibernate.annotations.Check;
 
 /**
- * Entidad que identifica a la tabla PropietarioAula de la base de datos.
+ * Clase abstracta que define la entidad que identifica a la tabla
+ * PropietarioAula de la base de datos.
+ * 
+ * Una única tabla para toda la jerarquía, el discriminante es el caracter
+ * "tipoPropietarioAula".
  * 
  * @author Lisa
  *
@@ -19,10 +23,10 @@ import org.hibernate.annotations.Check;
 		@UniqueConstraint(columnNames = { "nombreResponsable", "apellidosResponsable" }),
 		@UniqueConstraint(columnNames = { "correoResponsable" }),
 		@UniqueConstraint(columnNames = { "telefonoResponsable" }) })
-@Check(constraints = "centro IN ('C','D')")
+@Check(constraints = "tipoPropietarioAula IN ('Centro','Departamento')")
 @NamedQuery(name = "PropietarioAula.findAll", query = "SELECT pa FROM PropietarioAula pa")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "centro")
+@DiscriminatorColumn(name = "tipoPropietarioAula")
 public abstract class PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;

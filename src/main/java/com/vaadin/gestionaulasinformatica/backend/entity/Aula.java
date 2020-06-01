@@ -80,24 +80,6 @@ public class Aula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el centro en el que se encuentra el aula.
-	 * 
-	 * @return Centro en el que se encuentra el aula
-	 */
-	public PropietarioAula getUbicacionCentro() {
-		return this.ubicacionCentro;
-	}
-
-	/**
-	 * Función que establece el centro en el que se encuentra el aula.
-	 * 
-	 * @param ubicacionCentro Centro en el que se encuentra el aula
-	 */
-	public void setUbicacionCentro(PropietarioAula ubicacionCentro) {
-		this.ubicacionCentro = ubicacionCentro;
-	}
-
-	/**
 	 * Función que devuelve el centro/departamento propietario del aula.
 	 * 
 	 * @return Centro/departamento propietario del aula

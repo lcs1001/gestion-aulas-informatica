@@ -5,8 +5,17 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+/**
+ * Clase concreta que define la entidad de un centro (PropietarioAula).
+ * 
+ * Un centro tiene una serie de aulas ubicadas físicamente en él
+ * (listaAulasUbicacionCentro).
+ * 
+ * @author Lisa
+ *
+ */
 @Entity
-@DiscriminatorValue(value = "C")
+@DiscriminatorValue(value = "Centro")
 public class Centro extends PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -61,9 +70,9 @@ public class Centro extends PropietarioAula implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Centro [ID - " + this.getIdPropietarioAula() + ", Nombre - "
-				+ this.getNombrePropietarioAula() + ", Aulas ubicadas en el centro [" + this.getAulasUbicacionCentro()
-				+ "], Aulas bajo propiedad " + "[" + this.getAulasPropiedad() + "]";
+		return "Centro [ID - " + this.getIdPropietarioAula() + ", Nombre - " + this.getNombrePropietarioAula()
+				+ ", Aulas ubicadas en el centro [" + this.getAulasUbicacionCentro() + "], Aulas bajo propiedad " + "["
+				+ this.getAulasPropiedad() + "]";
 
 	}
 }

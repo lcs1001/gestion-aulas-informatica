@@ -3,8 +3,13 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * Clase concreta que define la entidad de un departamento (PropietarioAula). 
+ * @author Lisa
+ *
+ */
 @Entity
-@DiscriminatorValue(value = "D")
+@DiscriminatorValue(value = "Departamento")
 public class Departamento extends PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;

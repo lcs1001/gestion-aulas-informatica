@@ -18,14 +18,12 @@ import javax.validation.constraints.NotNull;
 public class HistoricoReservas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "historicoReserva_sequence", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "historicoReserva_sequence")
-	private Integer idOperacionHR;
+	@EmbeddedId
+	private HistoricoReservasPK idOperacionHR;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idReserva", updatable = false, nullable = false)
+	@JoinColumn(name = "idReserva", insertable = false, updatable = false)
 	private Reserva reserva;
 
 	@NotNull
@@ -33,11 +31,12 @@ public class HistoricoReservas implements Serializable {
 	private Date fechaOperacion;
 
 	@NotNull
+	@Column(insertable = false, updatable = false)
 	private TipoOperacionHR tipoOperacion;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idPropietarioAula", updatable = false, nullable = false)
+	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
 	private PropietarioAula responsableOperacion;
 
 	/**
@@ -45,26 +44,19 @@ public class HistoricoReservas implements Serializable {
 	 * 
 	 * @return ID de la operación del histórico de reservas
 	 */
-	public Integer getIdOperacionHR() {
+	public HistoricoReservasPK getIdOperacionHR() {
 		return this.idOperacionHR;
 	}
 
 	/**
-	 * Función que devuelve la reserva sobre la que se ha realizado la operación.
+	 * Función que establece eel id de la operación del histórico de reservas.
 	 * 
-	 * @return Reserva sobre la que se ha realizado la operación
+	 * @param reserva       Reserva sobre la que se ha realizado la operación
+	 * @param tipoOperacion Tipo de operación que se ha realizado
 	 */
-	public Reserva getReserva() {
-		return this.reserva;
-	}
-
-	/**
-	 * Función que establece la reserva sobre la que se ha realizado la operación.
-	 * 
-	 * @param reserva Reserva sobre la que se ha realizado la operación
-	 */
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
+	public void setIdOperacionHR(Reserva reserva, TipoOperacionHR tipoOperacion) {
+		this.idOperacionHR.setReserva(reserva);
+		this.idOperacionHR.setTipoOperacion(tipoOperacion);
 	}
 
 	/**
@@ -83,24 +75,6 @@ public class HistoricoReservas implements Serializable {
 	 */
 	public void setFechaOperacion(Date fecha) {
 		this.fechaOperacion = fecha;
-	}
-
-	/**
-	 * Función que devuelve el tipo de operación que se ha realizado.
-	 * 
-	 * @return Tipo de operación que se ha realizado
-	 */
-	public TipoOperacionHR getTipoOperacion() {
-		return this.tipoOperacion;
-	}
-
-	/**
-	 * Función que establece el tipo de operación que se ha realizado.
-	 * 
-	 * @param tipoOperacion Tipo de operación que se ha realizado
-	 */
-	public void setTipoOperacion(TipoOperacionHR tipoOperacion) {
-		this.tipoOperacion = tipoOperacion;
 	}
 
 	/**

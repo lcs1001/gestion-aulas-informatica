@@ -18,7 +18,8 @@ public class AulaPK implements Serializable {
 	private String nombreAula = "";
 
 	/**
-	 * Centro en el que se encuentra el aula (nombre corto del centro - idPropietarioAula).
+	 * Centro en el que se encuentra el aula (nombre corto del centro -
+	 * idPropietarioAula).
 	 */
 	private PropietarioAula centro;
 
@@ -74,28 +75,28 @@ public class AulaPK implements Serializable {
 	public void setCentro(PropietarioAula centro) {
 		this.centro = centro;
 	}
-	
+
 	@Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        AulaPK other = (AulaPK) obj;
-        if (nombreAula == null) {
-            if (other.nombreAula != null)
-                return false;
-        } else if (!nombreAula.equals(other.nombreAula))
-            return false;
-        if (centro == null) {
-            if (other.centro != null)
-                return false;
-        } else if (!centro.equals(other.centro))
-            return false;
-        return true;
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AulaPK other = (AulaPK) obj;
+		if (nombreAula == null) {
+			if (other.nombreAula != null)
+				return false;
+		} else if (!nombreAula.equals(other.nombreAula))
+			return false;
+		if (centro == null) {
+			if (other.centro != null)
+				return false;
+		} else if (!centro.equals(other.centro))
+			return false;
+		return true;
+	}
 
 	public int hashCode() {
 		final int prime = 31;
@@ -108,6 +109,6 @@ public class AulaPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AulaPK [Nombre - " + this.nombreAula + ", Centro - " + this.centro + "]";
+		return "AulaPK [Nombre - " + this.getNombreAula() + ", Centro - " + this.getCentro() + "]";
 	}
 }
