@@ -22,6 +22,9 @@ CREATE TABLE public."Aula" (
 	"nombreAula" character varying(20),
 	"ubicacionCentro" character varying(20) NOT NULL,
     "propietarioAula" character varying(20) NOT NULL,
+    "capacidad" integer NOT NULL,
+    "numOrdenadores" integer NOT NULL,
+    "disponible" boolean NOT NULL,
     CONSTRAINT "PK_Aula" PRIMARY KEY ("nombreAula", "ubicacionCentro"),
     CONSTRAINT "FK_Aula_PropietarioAula_UbicacionCentro" FOREIGN KEY ("ubicacionCentro")
         REFERENCES public."PropietarioAula" ("idPropietarioAula") 
@@ -30,7 +33,9 @@ CREATE TABLE public."Aula" (
     CONSTRAINT "FK_Aula_PropietarioAula_Propietario" FOREIGN KEY ("propietarioAula")
         REFERENCES public."PropietarioAula" ("idPropietarioAula")
         ON UPDATE CASCADE 
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT "CHK_Aula_Capacidad" CHECK("capacidad" > 0),
+    CONSTRAINT "CHK_Aula_NumOrdenadores" CHECK("numOrdenadores" > 0)
 );
 
 DROP TABLE IF EXISTS public."Reserva" CASCADE;
