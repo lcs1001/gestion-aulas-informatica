@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.hibernate.annotations.Check;
+
 /**
  * Entidad que identifica a la tabla Aula de la base de datos.
  * 
@@ -41,6 +43,14 @@ public class Aula implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
 	private PropietarioAula propietarioAula;
+
+	@Min(value = 0)
+	private Integer capacidad = 0;
+
+	@Min(value = 0)
+	private Integer numOrdenadores = 0;
+
+	private Boolean disponible = true;
 
 	/**
 	 * Asociación bidireccional ManyToOne con Reserva para indicar el aula reservada
@@ -95,6 +105,59 @@ public class Aula implements Serializable {
 	 */
 	public void setPropietarioAula(PropietarioAula propietarioAula) {
 		this.propietarioAula = propietarioAula;
+	}
+
+	/**
+	 * Función que devuelve la capacidad del aula.
+	 * 
+	 * @return Capacidad del aula
+	 */
+	public Integer getCapacidadAula() {
+		return this.capacidad;
+	}
+
+	/**
+	 * Función que establece la capacidad del aula.
+	 * 
+	 * @param capacidad Capacidad del aula
+	 */
+	public void setCapacidadAula(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	/**
+	 * Función que devuelve el número de ordenadores del aula.
+	 * 
+	 * @return Número de ordenadores del aula
+	 */
+	public Integer getNumOrdenadoresAula() {
+		return this.numOrdenadores;
+	}
+
+	/**
+	 * Función que establece el número de ordenadores del aula.
+	 * 
+	 * @param numOrdenadores Número de ordenadores del aula
+	 */
+	public void setNumOrdenadoresAula(Integer numOrdenadores) {
+		this.numOrdenadores = numOrdenadores;
+	}
+
+	/**
+	 * Función que devuelve la disponibilidad del aula.
+	 * 
+	 * @return Disponibilidad del aula
+	 */
+	public Boolean getDisponibilidadAula() {
+		return this.disponible;
+	}
+
+	/**
+	 * Función que establece la disponibilidad del aula, si es 'true' la pone a
+	 * 'false', y al contrario.
+	 */
+	public void setDisponibilidadAula() {
+		this.disponible = !this.disponible;
 	}
 
 	/**
