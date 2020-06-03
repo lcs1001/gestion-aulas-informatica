@@ -2,6 +2,7 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -21,7 +22,8 @@ public class AulaPK implements Serializable {
 	 * Centro en el que se encuentra el aula (nombre corto del centro -
 	 * idPropietarioAula).
 	 */
-	private PropietarioAula centro;
+	@Column(insertable = false, updatable = false)
+	private String centro;
 
 	/**
 	 * Constructor vacío de la clase.
@@ -35,7 +37,7 @@ public class AulaPK implements Serializable {
 	 * @param nombre Nombre del aula.
 	 * @param centro Centro en el que se encuentra el aula
 	 */
-	public AulaPK(String nombre, PropietarioAula centro) {
+	public AulaPK(String nombre, String centro) {
 		this.nombreAula = nombre;
 		this.centro = centro;
 	}
@@ -63,7 +65,7 @@ public class AulaPK implements Serializable {
 	 * 
 	 * @return Centro en el que se encuentra el aula
 	 */
-	public PropietarioAula getCentro() {
+	public String getCentro() {
 		return this.centro;
 	}
 
@@ -72,7 +74,7 @@ public class AulaPK implements Serializable {
 	 * 
 	 * @param centro Centro en el que se encuentra el aula
 	 */
-	public void setCentro(PropietarioAula centro) {
+	public void setCentro(String centro) {
 		this.centro = centro;
 	}
 

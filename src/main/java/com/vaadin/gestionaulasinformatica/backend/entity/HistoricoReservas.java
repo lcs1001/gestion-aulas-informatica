@@ -21,22 +21,24 @@ public class HistoricoReservas implements Serializable {
 	@EmbeddedId
 	private HistoricoReservasPK idOperacionHR;
 
+	@MapsId("idReserva")
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idReserva", insertable = false, updatable = false)
+	@JoinColumn(name = "id_reserva", insertable = false, updatable = false)
 	private Reserva reserva;
+
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(insertable = false, updatable = false)
+	private TipoOperacionHR tipoOperacion;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date fechaOperacion;
 
 	@NotNull
-	@Column(insertable = false, updatable = false)
-	private TipoOperacionHR tipoOperacion;
-
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
+	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsableOperacion;
 
 	/**
@@ -54,8 +56,8 @@ public class HistoricoReservas implements Serializable {
 	 * @param reserva       Reserva sobre la que se ha realizado la operación
 	 * @param tipoOperacion Tipo de operación que se ha realizado
 	 */
-	public void setIdOperacionHR(Reserva reserva, TipoOperacionHR tipoOperacion) {
-		this.idOperacionHR.setReserva(reserva);
+	public void setIdOperacionHR(Integer idReserva, TipoOperacionHR tipoOperacion) {
+		this.idOperacionHR.setIdReserva(idReserva);
 		this.idOperacionHR.setTipoOperacion(tipoOperacion);
 	}
 

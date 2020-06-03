@@ -6,8 +6,6 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.hibernate.annotations.Check;
-
 /**
  * Entidad que identifica a la tabla Aula de la base de datos.
  * 
@@ -29,8 +27,9 @@ public class Aula implements Serializable {
 	 * 
 	 * Asociación bidireccional ManyToOne con PropietarioAula.
 	 */
+	@MapsId("centro")
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
+	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula ubicacionCentro;
 
 	/**
@@ -41,7 +40,7 @@ public class Aula implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
+	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula propietarioAula;
 
 	@Min(value = 0)
@@ -49,8 +48,6 @@ public class Aula implements Serializable {
 
 	@Min(value = 0)
 	private Integer numOrdenadores = 0;
-
-	private Boolean disponible = true;
 
 	/**
 	 * Asociación bidireccional ManyToOne con Reserva para indicar el aula reservada
@@ -84,7 +81,7 @@ public class Aula implements Serializable {
 	 * @param nombre Nombre del aula
 	 * @param centro Centro en el que se encuentar el aula
 	 */
-	public void setIdAula(String nombre, PropietarioAula centro) {
+	public void setIdAula(String nombre, String centro) {
 		this.idAula.setNombreAula(nombre);
 		this.idAula.setCentro(centro);
 	}
@@ -141,23 +138,6 @@ public class Aula implements Serializable {
 	 */
 	public void setNumOrdenadoresAula(Integer numOrdenadores) {
 		this.numOrdenadores = numOrdenadores;
-	}
-
-	/**
-	 * Función que devuelve la disponibilidad del aula.
-	 * 
-	 * @return Disponibilidad del aula
-	 */
-	public Boolean getDisponibilidadAula() {
-		return this.disponible;
-	}
-
-	/**
-	 * Función que establece la disponibilidad del aula, si es 'true' la pone a
-	 * 'false', y al contrario.
-	 */
-	public void setDisponibilidadAula() {
-		this.disponible = !this.disponible;
 	}
 
 	/**

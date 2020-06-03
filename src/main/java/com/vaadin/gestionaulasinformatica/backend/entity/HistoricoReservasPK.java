@@ -2,7 +2,7 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  * Clase para especificar la clave primaria de la tabla HistoricoReservas de la
@@ -15,8 +15,10 @@ import javax.persistence.Embeddable;
 public class HistoricoReservasPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Reserva reserva;
+	@Column(insertable = false, updatable = false)
+	private Integer idReserva;
 
+	@Enumerated(EnumType.STRING)
 	private TipoOperacionHR tipoOperacion;
 
 	/**
@@ -31,27 +33,27 @@ public class HistoricoReservasPK implements Serializable {
 	 * @param reserva       Reserva sobre la que se ha realizado la operación
 	 * @param tipoOperacion Tipo de operación que se ha realizado
 	 */
-	public HistoricoReservasPK(Reserva reserva, TipoOperacionHR tipoOperacion) {
-		this.reserva = reserva;
+	public HistoricoReservasPK(Integer idReserva, TipoOperacionHR tipoOperacion) {
+		this.idReserva = idReserva;
 		this.tipoOperacion = tipoOperacion;
 	}
 
 	/**
-	 * Función que devuelve la reserva sobre la que se ha realizado la operación.
+	 * Función que devuelve el id de la reserva sobre la que se ha realizado la operación.
 	 * 
-	 * @return Reserva sobre la que se ha realizado la operación
+	 * @return Id de la reserva sobre la que se ha realizado la operación
 	 */
-	public Reserva getReserva() {
-		return this.reserva;
+	public Integer getIdReserva() {
+		return this.idReserva;
 	}
 
 	/**
-	 * Función que establece la reserva sobre la que se ha realizado la operación.
+	 * Función que establece el id de la reserva sobre la que se ha realizado la operación.
 	 * 
-	 * @param reserva Reserva sobre la que se ha realizado la operación
+	 * @param idReserva Id de la reserva sobre la que se ha realizado la operación
 	 */
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
+	public void setIdReserva(Integer idReserva) {
+		this.idReserva = idReserva;
 	}
 
 	/**
@@ -81,10 +83,10 @@ public class HistoricoReservasPK implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		HistoricoReservasPK other = (HistoricoReservasPK) obj;
-		if (reserva == null) {
-			if (other.reserva != null)
+		if (idReserva == null) {
+			if (other.idReserva != null)
 				return false;
-		} else if (!reserva.equals(other.reserva))
+		} else if (!idReserva.equals(other.idReserva))
 			return false;
 		if (tipoOperacion == null) {
 			if (other.tipoOperacion != null)
@@ -97,7 +99,7 @@ public class HistoricoReservasPK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.reserva.hashCode();
+		hash = hash * prime + this.idReserva.hashCode();
 		hash = hash * prime + this.tipoOperacion.hashCode();
 
 		return hash;
@@ -105,7 +107,7 @@ public class HistoricoReservasPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return "HistoricoReservasPK [Reserva - " + this.getReserva() + ", Tipo de operación - "
+		return "HistoricoReservasPK [Reserva - " + this.getIdReserva() + ", Tipo de operación - "
 				+ this.getTipoOperacion() + "]";
 	}
 }

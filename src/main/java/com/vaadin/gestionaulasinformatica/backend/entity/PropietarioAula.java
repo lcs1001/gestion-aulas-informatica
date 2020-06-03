@@ -19,14 +19,11 @@ import org.hibernate.annotations.Check;
  *
  */
 @Entity
-@Table(name = "PropietarioAula", uniqueConstraints = { @UniqueConstraint(columnNames = { "nombrePropietarioAula" }),
-		@UniqueConstraint(columnNames = { "nombreResponsable", "apellidosResponsable" }),
-		@UniqueConstraint(columnNames = { "correoResponsable" }),
-		@UniqueConstraint(columnNames = { "telefonoResponsable" }) })
-@Check(constraints = "tipo IN ('Centro','Departamento')")
+@Table(name = "PropietarioAula")
 @NamedQuery(name = "PropietarioAula.findAll", query = "SELECT pa FROM PropietarioAula pa")
+@Check(constraints = "tipo IN ('Centro','Departamento')")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
+@DiscriminatorColumn(name = "TIPO")
 public abstract class PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +32,7 @@ public abstract class PropietarioAula implements Serializable {
 	private String idPropietarioAula = "";
 
 	@NotNull
+	@Column(unique = true)
 	private String nombrePropietarioAula = "";
 
 	@NotNull
@@ -45,9 +43,11 @@ public abstract class PropietarioAula implements Serializable {
 
 	@NotNull
 	@Email
+	@Column(unique = true)
 	private String correoResponsable = "";
 
 	@NotNull
+	@Column(unique = true)
 	private String telefonoResponsable = "";
 
 	/**
@@ -59,7 +59,7 @@ public abstract class PropietarioAula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "propietarioAula")
 	private Set<Aula> listaAulasPropiedad;
 
 	/**
@@ -71,7 +71,7 @@ public abstract class PropietarioAula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "responsable", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "responsable")
 	private Set<Reserva> listaReservasPropietarioAula;
 
 	/**
@@ -84,7 +84,7 @@ public abstract class PropietarioAula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "responsableOperacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "responsableOperacion")
 	private Set<HistoricoReservas> listaOperacionesHR;
 
 	/**

@@ -43,8 +43,8 @@ public class Reserva implements Serializable {
 	@NotNull
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "nombreAula", referencedColumnName = "nombreAula", insertable = false, updatable = false),
-			@JoinColumn(name = "centro", referencedColumnName = "centro", insertable = false, updatable = false) })
+			@JoinColumn(name = "nombre_aula", insertable = false, updatable = false),
+			@JoinColumn(name = "ubicacion_centro", insertable = false, updatable = false) })
 	private Aula aula;
 
 	/**
@@ -67,7 +67,7 @@ public class Reserva implements Serializable {
 	/** Centro o departamento responsable de hacer la reserva */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPropietarioAula", insertable = false, updatable = false)
+	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsable;
 
 	/** Booleano que indica si se trata de una reserva por rango de fechas */
@@ -83,7 +83,7 @@ public class Reserva implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "reserva")
 	private Set<HistoricoReservas> listaOperacionesHR;
 
 	/**
@@ -178,6 +178,24 @@ public class Reserva implements Serializable {
 	 */
 	public Aula getAula() {
 		return this.aula;
+	}
+	
+	/**
+	 * Función que devuelve el nombre del aula de la reserva.
+	 * 
+	 * @return Aula de la reserva
+	 */
+	public String getNombreAula() {
+		return this.aula.getIdAula().getNombreAula();
+	}
+	
+	/**
+	 * Función que devuelve el nombre del aula de la reserva.
+	 * 
+	 * @return Aula de la reserva
+	 */
+	public String getCentroAula() {
+		return this.aula.getIdAula().getCentro();
 	}
 
 	/**

@@ -29,10 +29,14 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "ubicacionCentro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ubicacionCentro")
 	private Set<Aula> listaAulasUbicacionCentro;
+	
+	public Centro() {
+		super();
+	}
 
-	public Centro(String id, String nombre, char centro, String nombreResponsable, String apellidosResponsable,
+	public Centro(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
 		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable);
 	}
