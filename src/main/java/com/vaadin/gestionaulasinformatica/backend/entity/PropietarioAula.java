@@ -23,7 +23,7 @@ import org.hibernate.annotations.Check;
 @NamedQuery(name = "PropietarioAula.findAll", query = "SELECT pa FROM PropietarioAula pa")
 @Check(constraints = "tipo IN ('Centro','Departamento')")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TIPO")
+@DiscriminatorColumn(name = "tipo")
 public abstract class PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,11 +43,9 @@ public abstract class PropietarioAula implements Serializable {
 
 	@NotNull
 	@Email
-	@Column(unique = true)
 	private String correoResponsable = "";
 
 	@NotNull
-	@Column(unique = true)
 	private String telefonoResponsable = "";
 
 	/**

@@ -10,9 +10,6 @@ CREATE TABLE public."propietario_aula" (
 	tipo character varying(15) NOT NULL,
 	CONSTRAINT "PK_PopietarioAula" PRIMARY KEY (id_propietario_aula),	
     CONSTRAINT "UNQ_PopietarioAula_NombrePropietarioAula" UNIQUE (nombre_propietario_aula),
-	CONSTRAINT "UNQ_PopietarioAula_NombreApellidosResponsable" UNIQUE (nombre_responsable, apellidos_responsable),
-	CONSTRAINT "UNQ_PopietarioAula_CorreoResponsable" UNIQUE (correo_responsable),
-    CONSTRAINT "UNQ_PopietarioAula_TelefonoResponsable" UNIQUE (telefono_responsable),
 	CONSTRAINT "CHK_PopietarioAula_Tipo" CHECK(tipo IN ('Centro', 'Departamento'))
 );
 
