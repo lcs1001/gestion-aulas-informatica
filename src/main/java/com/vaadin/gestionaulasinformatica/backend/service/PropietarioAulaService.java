@@ -1,13 +1,10 @@
 package com.vaadin.gestionaulasinformatica.backend.service;
 
-import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 

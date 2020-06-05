@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vaadin.gestionaulasinformatica.backend.entity.HistoricoReservas;
-import com.vaadin.gestionaulasinformatica.backend.repository.IHistoricoReservas;
+import com.vaadin.gestionaulasinformatica.backend.repository.IHistoricoReservasRepository;
 
 /**
  * Service para la entidad HistoricoReservas.
@@ -17,9 +17,9 @@ import com.vaadin.gestionaulasinformatica.backend.repository.IHistoricoReservas;
 @Service
 public class HistoricoReservasService {
 	private static final Logger LOGGER = Logger.getLogger(HistoricoReservasService.class.getName());
-	private IHistoricoReservas historicoReservasRepository;
+	private IHistoricoReservasRepository historicoReservasRepository;
 
-	public HistoricoReservasService(IHistoricoReservas historicoReservasRepository) {
+	public HistoricoReservasService(IHistoricoReservasRepository historicoReservasRepository) {
 		this.historicoReservasRepository = historicoReservasRepository;
 	}
 
