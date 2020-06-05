@@ -27,7 +27,7 @@ public class Aula implements Serializable {
 	 * Asociación bidireccional ManyToOne con PropietarioAula.
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula propietarioAula;
 
@@ -47,7 +47,7 @@ public class Aula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "aula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "aula")
 	private Set<Reserva> listaReservas;
 
 	/**

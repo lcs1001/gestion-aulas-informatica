@@ -74,9 +74,9 @@ public class Centro extends PropietarioAula implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Centro [ID - " + this.getIdPropietarioAula() + ", Nombre - " + this.getNombrePropietarioAula()
-				+ ", Aulas ubicadas en el centro [" + this.getAulasUbicacionCentro() + "], Aulas bajo propiedad " + "["
-				+ this.getAulasPropiedad() + "]";
+		return "Centro [ID - " + this.getIdPropietarioAula() + ", Nombre - " + this.getNombrePropietarioAula() + "]";
+//				+ ", Aulas ubicadas en el centro [" + this.getAulasUbicacionCentro() + "], Aulas bajo propiedad " + "["
+//				+ this.getAulasPropiedad() + "]";
 
 	}
 }

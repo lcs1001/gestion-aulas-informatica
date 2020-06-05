@@ -22,7 +22,7 @@ public class HistoricoReservasPK implements Serializable {
 	 * Asociación bidireccional ManyToOne con Reserva.
 	 */
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "reserva", referencedColumnName = "id_reserva", insertable = false, updatable = false)
 	private Reserva reserva;
 

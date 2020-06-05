@@ -26,7 +26,7 @@ public class HistoricoReservas implements Serializable {
 	private Date fechaOperacion;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsableOperacion;
 

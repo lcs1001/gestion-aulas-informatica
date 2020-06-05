@@ -45,7 +45,7 @@ public class Reserva implements Serializable {
 	private Time horaFin;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumns({
 			@JoinColumn(name = "nombre_aula", referencedColumnName = "nombre_aula", insertable = false, updatable = false),
 			@JoinColumn(name = "ubicacion_centro", referencedColumnName = "ubicacion_centro", insertable = false, updatable = false) })
@@ -73,7 +73,7 @@ public class Reserva implements Serializable {
 
 	/** Centro o departamento responsable de hacer la reserva */
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsable;
 

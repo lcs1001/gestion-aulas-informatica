@@ -81,8 +81,7 @@ public class ConsultaAulasView extends VerticalLayout {
 				GridVariant.LUMO_ROW_STRIPES);
 	}
 
-	private void consultarReservas() {
-		
+	private void consultarReservas() {		
 		gridReservas.setItems(reservaService.findAll());
 	}
 

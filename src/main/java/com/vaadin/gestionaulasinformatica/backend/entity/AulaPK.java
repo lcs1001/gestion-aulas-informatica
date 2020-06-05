@@ -29,7 +29,7 @@ public class AulaPK implements Serializable {
 	 * 
 	 * Asociación bidireccional ManyToOne con PropietarioAula.
 	 */
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula",  insertable = false, updatable = false)
 	private PropietarioAula ubicacionCentro;
 
