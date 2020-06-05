@@ -13,32 +13,21 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(name = "HistoricoReservas")
-@NamedQuery(name = "HistoricoReservas.findAll", query = "SELECT hr FROM HistoricoReservas hr")
+@Table(name = "historico_reservas", schema = "public")
 public class HistoricoReservas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private HistoricoReservasPK idOperacionHR;
 
-	@MapsId("idReserva")
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "id_reserva", insertable = false, updatable = false)
-	private Reserva reserva;
-
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(insertable = false, updatable = false)
-	private TipoOperacionHR tipoOperacion;
-
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_operacion")
 	private Date fechaOperacion;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsableOperacion;
 
 	/**
@@ -51,13 +40,13 @@ public class HistoricoReservas implements Serializable {
 	}
 
 	/**
-	 * Función que establece eel id de la operación del histórico de reservas.
+	 * Función que establece el id de la operación del histórico de reservas.
 	 * 
 	 * @param reserva       Reserva sobre la que se ha realizado la operación
 	 * @param tipoOperacion Tipo de operación que se ha realizado
 	 */
-	public void setIdOperacionHR(Integer idReserva, TipoOperacionHR tipoOperacion) {
-		this.idOperacionHR.setIdReserva(idReserva);
+	public void setIdOperacionHR(Reserva reserva, TipoOperacionHR tipoOperacion) {
+		this.idOperacionHR.setReserva(reserva);
 		this.idOperacionHR.setTipoOperacion(tipoOperacion);
 	}
 

@@ -13,24 +13,12 @@ import javax.validation.constraints.*;
  *
  */
 @Entity
-@Table(name = "Aula")
-@NamedQuery(name = "Aula.findAll", query = "SELECT a FROM Aula a")
+@Table(name = "aula", schema = "public")
 public class Aula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private AulaPK idAula;
-
-	/**
-	 * Centro en el que se encuentra el aula (nombre corto del centro -
-	 * idPropietarioAula).
-	 * 
-	 * Asociación bidireccional ManyToOne con PropietarioAula.
-	 */
-	@MapsId("centro")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
-	private PropietarioAula ubicacionCentro;
 
 	/**
 	 * Centro/Departamento propietario del aula (nombre corto del centro -
@@ -40,13 +28,15 @@ public class Aula implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula propietarioAula;
 
 	@Min(value = 0)
+	@Column(name = "capacidad")
 	private Integer capacidad = 0;
 
 	@Min(value = 0)
+	@Column(name = "num_ordenadores")
 	private Integer numOrdenadores = 0;
 
 	/**
@@ -81,7 +71,7 @@ public class Aula implements Serializable {
 	 * @param nombre Nombre del aula
 	 * @param centro Centro en el que se encuentar el aula
 	 */
-	public void setIdAula(String nombre, String centro) {
+	public void setIdAula(String nombre, PropietarioAula centro) {
 		this.idAula.setNombreAula(nombre);
 		this.idAula.setCentro(centro);
 	}

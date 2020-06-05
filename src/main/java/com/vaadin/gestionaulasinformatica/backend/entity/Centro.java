@@ -29,7 +29,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "ubicacionCentro")
+	@OneToMany(mappedBy = "idAula.ubicacionCentro")
 	private Set<Aula> listaAulasUbicacionCentro;
 	
 	public Centro() {

@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(name = "Reserva")
-@NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
+@Table(name = "reserva", schema = "public")
 public class Reserva implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,37 +23,44 @@ public class Reserva implements Serializable {
 	@Id
 	@SequenceGenerator(name = "reserva_sequence", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reserva_sequence")
+	@Column(name = "id_reserva")
 	private Integer idReserva;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_inicio")
 	private Date fechaInicio;
 
 	/** Para reservas por rango de fechas */
 	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_fin")
 	private Date fechaFin;
 
 	@NotNull
+	@Column(name = "hora_inicio")
 	private Time horaInicio;
 
 	@NotNull
+	@Column(name = "hora_fin")
 	private Time horaFin;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "nombre_aula", insertable = false, updatable = false),
-			@JoinColumn(name = "ubicacion_centro", insertable = false, updatable = false) })
+			@JoinColumn(name = "nombre_aula", referencedColumnName = "nombre_aula", insertable = false, updatable = false),
+			@JoinColumn(name = "ubicacion_centro", referencedColumnName = "ubicacion_centro", insertable = false, updatable = false) })
 	private Aula aula;
 
 	/**
 	 * Para reservas por rango de fechas, indica el día de la semana que se va a
 	 * reservar
 	 */
+	@Column(name = "dia_semana")
 	private String diaSemana = "";
 
 	/** Motivo de la reserva (examen, curso, reunión, etc) */
 	@NotNull
+	@Column(name = "motivo")
 	private String motivo = "";
 
 	/**
@@ -62,16 +68,18 @@ public class Reserva implements Serializable {
 	 * centro o departamento)
 	 */
 	@NotNull
+	@Column(name = "a_cargo_de")
 	private String aCargoDe = "";
 
 	/** Centro o departamento responsable de hacer la reserva */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_propietario_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsable;
 
 	/** Booleano que indica si se trata de una reserva por rango de fechas */
 	@NotNull
+	@Column(name = "reserva_rango")
 	private Boolean reservaRango = false;
 
 	/**
@@ -83,7 +91,7 @@ public class Reserva implements Serializable {
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
 	 */
-	@OneToMany(mappedBy = "reserva")
+	@OneToMany(mappedBy = "idOperacionHR.reserva")
 	private Set<HistoricoReservas> listaOperacionesHR;
 
 	/**
@@ -179,7 +187,7 @@ public class Reserva implements Serializable {
 	public Aula getAula() {
 		return this.aula;
 	}
-	
+
 	/**
 	 * Función que devuelve el nombre del aula de la reserva.
 	 * 
@@ -188,13 +196,13 @@ public class Reserva implements Serializable {
 	public String getNombreAula() {
 		return this.aula.getIdAula().getNombreAula();
 	}
-	
+
 	/**
-	 * Función que devuelve el nombre del aula de la reserva.
+	 * Función que devuelve el centro en el que se encuentra el aula de la reserva.
 	 * 
-	 * @return Aula de la reserva
+	 * @return Centro en el que se encuentra el aula de la reserva
 	 */
-	public String getCentroAula() {
+	public PropietarioAula getCentroAula() {
 		return this.aula.getIdAula().getCentro();
 	}
 

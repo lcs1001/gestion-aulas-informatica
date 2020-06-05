@@ -19,8 +19,7 @@ import org.hibernate.annotations.Check;
  *
  */
 @Entity
-@Table(name = "PropietarioAula")
-@NamedQuery(name = "PropietarioAula.findAll", query = "SELECT pa FROM PropietarioAula pa")
+@Table(name = "propietario_aula", schema = "public")
 @Check(constraints = "tipo IN ('Centro','Departamento')")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
@@ -29,24 +28,33 @@ public abstract class PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "id_propietario_aula")
 	private String idPropietarioAula = "";
 
 	@NotNull
-	@Column(unique = true)
+	@Column(name = "nombre_propietario_aula", unique = true)
 	private String nombrePropietarioAula = "";
 
 	@NotNull
+	@Column(name = "nombre_responsable")
 	private String nombreResponsable = "";
 
 	@NotNull
+	@Column(name = "apellidos_responsable")
 	private String apellidosResponsable = "";
 
 	@NotNull
 	@Email
+	@Column(name = "correo_responsable")
 	private String correoResponsable = "";
 
 	@NotNull
+	@Column(name = "telefono_responsable")
 	private String telefonoResponsable = "";
+
+	@NotNull
+	@Column(name = "tipo", insertable = false, updatable = false)
+	private String tipo = "";
 
 	/**
 	 * Asociación bidireccional ManyToOne con Aula para indicar las aulas de las que
@@ -120,7 +128,7 @@ public abstract class PropietarioAula implements Serializable {
 	/**
 	 * Función que devuelve el nombre del centro/departamento.
 	 * 
-	 * @return nombre del centro/departamento
+	 * @return Nombre del centro/departamento
 	 */
 	public String getNombrePropietarioAula() {
 		return this.nombrePropietarioAula;
@@ -133,6 +141,82 @@ public abstract class PropietarioAula implements Serializable {
 	 */
 	public void setNombrePropietarioAula(String nombre) {
 		this.nombrePropietarioAula = nombre;
+	}
+
+	/**
+	 * Función que devuelve el nombre y apellidos del responsable del
+	 * centro/departamento.
+	 * 
+	 * @return Nombre y apellidos del responsable del centro/departamento
+	 */
+	public String getNombreApellidosResponsable() {
+		return this.nombreResponsable + " " + this.apellidosResponsable;
+	}
+
+	/**
+	 * Función que establece el nombre y apellidos del responsable del
+	 * centro/departamento.
+	 * 
+	 * @param nombre    Nombre del responsable del centro/departamento
+	 * @param apellidos Apellidos del responsable del centro/departamento
+	 */
+	public void setNombreApellidosResponsable(String nombre, String apellidos) {
+		this.nombreResponsable = nombre;
+		this.apellidosResponsable = apellidos;
+	}
+
+	/**
+	 * Función que devuelve el correo del responsable del centro/departamento.
+	 * 
+	 * @return Correo del responsable del centro/departamento
+	 */
+	public String getCorreoResponsable() {
+		return this.correoResponsable;
+	}
+
+	/**
+	 * Función que establece el correo del responsable del centro/departamento.
+	 * 
+	 * @param correo Correo del responsable del centro/departamento
+	 */
+	public void setCorreoResponsable(String correo) {
+		this.correoResponsable = correo;
+	}
+
+	/**
+	 * Función que devuelve el teléfono del responsable del centro/departamento.
+	 * 
+	 * @return Teléfono del responsable del centro/departamento
+	 */
+	public String getTelefonoResponsable() {
+		return this.telefonoResponsable;
+	}
+
+	/**
+	 * Función que establece el teléfono del responsable del centro/departamento.
+	 * 
+	 * @param telefono Teléfono del responsable del centro/departamento
+	 */
+	public void setTelefonoResponsable(String telefono) {
+		this.telefonoResponsable = telefono;
+	}
+
+	/**
+	 * Función que devuelve el tipo de propietario (centro o departamento).
+	 * 
+	 * @return Tipo de propietario (centro o departamento)
+	 */
+	public String getTipoPropietarioAula() {
+		return this.tipo;
+	}
+
+	/**
+	 * Función que establece el tipo de propietario (centro o departamento).
+	 * 
+	 * @param tipo Tipo de propietario (centro o departamento)
+	 */
+	public void setTipoPropietarioAula(String tipo) {
+		this.tipo = tipo;
 	}
 
 	/**

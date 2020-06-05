@@ -2,8 +2,12 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Clase para especificar la clave primaria de la tabla Aula de la base de
@@ -16,14 +20,18 @@ import javax.persistence.Embeddable;
 public class AulaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "nombre_aula")
 	private String nombreAula = "";
 
 	/**
 	 * Centro en el que se encuentra el aula (nombre corto del centro -
 	 * idPropietarioAula).
+	 * 
+	 * Asociación bidireccional ManyToOne con PropietarioAula.
 	 */
-	@Column(insertable = false, updatable = false)
-	private String centro;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula",  insertable = false, updatable = false)
+	private PropietarioAula ubicacionCentro;
 
 	/**
 	 * Constructor vacío de la clase.
@@ -37,9 +45,9 @@ public class AulaPK implements Serializable {
 	 * @param nombre Nombre del aula.
 	 * @param centro Centro en el que se encuentra el aula
 	 */
-	public AulaPK(String nombre, String centro) {
+	public AulaPK(String nombre, PropietarioAula centro) {
 		this.nombreAula = nombre;
-		this.centro = centro;
+		this.ubicacionCentro = centro;
 	}
 
 	/**
@@ -65,8 +73,8 @@ public class AulaPK implements Serializable {
 	 * 
 	 * @return Centro en el que se encuentra el aula
 	 */
-	public String getCentro() {
-		return this.centro;
+	public PropietarioAula getCentro() {
+		return this.ubicacionCentro;
 	}
 
 	/**
@@ -74,8 +82,8 @@ public class AulaPK implements Serializable {
 	 * 
 	 * @param centro Centro en el que se encuentra el aula
 	 */
-	public void setCentro(String centro) {
-		this.centro = centro;
+	public void setCentro(PropietarioAula centro) {
+		this.ubicacionCentro = centro;
 	}
 
 	@Override
@@ -92,10 +100,10 @@ public class AulaPK implements Serializable {
 				return false;
 		} else if (!nombreAula.equals(other.nombreAula))
 			return false;
-		if (centro == null) {
-			if (other.centro != null)
+		if (ubicacionCentro == null) {
+			if (other.ubicacionCentro != null)
 				return false;
-		} else if (!centro.equals(other.centro))
+		} else if (!ubicacionCentro.equals(other.ubicacionCentro))
 			return false;
 		return true;
 	}
@@ -104,7 +112,7 @@ public class AulaPK implements Serializable {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.nombreAula.hashCode();
-		hash = hash * prime + this.centro.hashCode();
+		hash = hash * prime + this.ubicacionCentro.hashCode();
 
 		return hash;
 	}
