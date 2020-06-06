@@ -2,7 +2,7 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -27,14 +27,12 @@ public class Reserva implements Serializable {
 	private Integer idReserva;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_inicio")
-	private Date fechaInicio;
+	private LocalDate fechaInicio;
 
 	/** Para reservas por rango de fechas */
-	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_fin")
-	private Date fechaFin;
+	private LocalDate fechaFin;
 
 	@NotNull
 	@Column(name = "hora_inicio")
@@ -108,7 +106,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @return Fecha de inicio de la reserva
 	 */
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return this.fechaInicio;
 	}
 
@@ -117,7 +115,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @param fechaInicio Fecha de inicio de la reserva
 	 */
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
@@ -127,7 +125,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @return Fecha de fin de la reserva
 	 */
-	public Date getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
@@ -137,7 +135,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @param fechaFin Fecha de fin de la reserva
 	 */
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(LocalDate fechaFin) {
 		if (this.reservaRango) {
 			this.fechaFin = fechaFin;
 		}

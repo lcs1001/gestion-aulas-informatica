@@ -3,6 +3,9 @@ package com.vaadin.gestionaulasinformatica.backend.service;
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +26,16 @@ public class PropietarioAulaService {
 		this.propietarioAulaRepository = propietarioAulaRepository;
 	}
 
-	public Iterable<PropietarioAula> findAllAulas() {
+	public Collection<PropietarioAula> findAll() {
 		return propietarioAulaRepository.findAll();
+	}
+	
+	public Optional<PropietarioAula> findById(String id) {
+		return propietarioAulaRepository.findById(id);
+	}
+	
+	public List<String> findAllNombres(){
+		return propietarioAulaRepository.findAllNombres();
 	}
 
 	public long count() {
@@ -42,5 +53,9 @@ public class PropietarioAulaService {
 			return;
 		}
 		propietarioAulaRepository.save(propietario);
+	}
+	
+	public Boolean existById(String id) {
+		return propietarioAulaRepository.existsById(id);
 	}
 }

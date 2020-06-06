@@ -1,24 +1,22 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
-import java.text.SimpleDateFormat;
+// Imports Java
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
+// Imports Vaadin
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 
+// Imports backend
+import com.vaadin.gestionaulasinformatica.backend.service.*;
+
 public class FiltrosConsulta extends FormLayout {
-	
-	private final SimpleDateFormat formatoFecha;
+
+	private static final long serialVersionUID = 1L;
 	
 	private DatePicker fechaDesde;
 	private DatePicker fechaHasta;
@@ -28,16 +26,12 @@ public class FiltrosConsulta extends FormLayout {
 	private NumberField numOrdenadores;
 	private Select<String> centroDepartamento;
 	
-	private Button btnConsultarReservas;
-	private Button btnConsultarDispAulas;
-	private Button btnLimpiarFiltros;
-	
-	private HorizontalLayout lytBotones;
-	
+	private PropietarioAulaService propietarioAulaService;
 
-	public FiltrosConsulta() {
+	public FiltrosConsulta(PropietarioAulaService propietarioAulaService) {
 		try {
-			formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+
+			this.propietarioAulaService = propietarioAulaService;
 			
 			// Se establecen 4 columnas
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
@@ -49,90 +43,63 @@ public class FiltrosConsulta extends FormLayout {
 			fechaDesde = new DatePicker();
 			fechaDesde.setLabel("Fecha desde");
 			fechaDesde.setRequiredIndicatorVisible(true);
+			fechaDesde.setClearButtonVisible(true);
 			fechaDesde.setValue(LocalDate.now());
 
 			fechaHasta = new DatePicker();
 			fechaHasta.setLabel("Fecha hasta");
+			fechaDesde.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker();
 			horaDesde.setLabel("Hora desde");
+			fechaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker();
 			horaHasta.setLabel("Hora hasta");
+			fechaDesde.setClearButtonVisible(true);
 
 			capacidad = new NumberField();
 			capacidad.setLabel("Capacidad");
 			capacidad.setHasControls(true);
+			fechaDesde.setClearButtonVisible(true);
 
 			numOrdenadores = new NumberField();
 			numOrdenadores.setLabel("Nº Ordenadores");
 			numOrdenadores.setHasControls(true);
+			fechaDesde.setClearButtonVisible(true);
 
 			// Campo obligatorio
 			centroDepartamento = new Select<>();
 			centroDepartamento.setLabel("Centro/Departamento");
-			centroDepartamento.setItems("", "Centro 1", "Centro 2", "Departamento 1", "Departamento 2");
+			centroDepartamento.setItems(this.propietarioAulaService.findAllNombres());
 			centroDepartamento.setPlaceholder("Seleccione");
 			centroDepartamento.setRequiredIndicatorVisible(true);
-
-			// Botones para consultar y limpiar filtros
-			btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
-			btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnConsultarReservas.setSizeFull();
-
-			btnConsultarDispAulas = new Button("Consultar Disponibilidad Aulas",
-					event -> consultarDisponibilidadAulas());
-			btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnConsultarDispAulas.setSizeFull();
-
-			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> limpiarFiltros());
-			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-			lytBotones = new HorizontalLayout();
-			lytBotones.add(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+			fechaDesde.setClearButtonVisible(true);
 
 			// Se añaden los campos al formulario
 			add(fechaDesde, horaDesde, capacidad);
 			add(centroDepartamento, 2);
 			add(fechaHasta, horaHasta, numOrdenadores);
-			add(lytBotones, 2);
-
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
-	private void consultarReservas() {
-		try {
-
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	private void consultarDisponibilidadAulas() {
-		try {
-
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	private Boolean validarFiltros() {
+	protected Boolean validarFiltros() {
 		Boolean valido = false;
 		try {
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
-		
+
 		return valido;
 	}
 
 	/**
 	 * Se limpian todos los filtros aplicados, se vacían los campos.
 	 */
-	private void limpiarFiltros() {
+	protected void limpiarFiltros() {
 		try {
 			fechaDesde.setValue(LocalDate.now());
 			fechaHasta.clear();
