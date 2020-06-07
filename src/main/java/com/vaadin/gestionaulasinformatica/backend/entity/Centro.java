@@ -31,11 +31,24 @@ public class Centro extends PropietarioAula implements Serializable {
 	 */
 	@OneToMany(mappedBy = "idAula.ubicacionCentro")
 	private Set<Aula> listaAulasUbicacionCentro;
-	
+
+	/**
+	 * Constructor de la clase sin parámetros.
+	 */
 	public Centro() {
 		super();
 	}
 
+	/**
+	 * Constructor de la clase con parámetros.
+	 * 
+	 * @param id                   ID del propietario (centro/departamento)
+	 * @param nombre               Nombre del propietario (centro/departamento)
+	 * @param nombreResponsable    Nombre del responsable del centro/departamento
+	 * @param apellidosResponsable Apellidos del responsable del centro/departamento
+	 * @param correoResponsable    Correo del responsable del centro/departamento
+	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
+	 */
 	public Centro(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
 		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable);

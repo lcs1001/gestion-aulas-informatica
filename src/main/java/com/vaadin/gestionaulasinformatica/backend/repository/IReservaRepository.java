@@ -1,6 +1,7 @@
 package com.vaadin.gestionaulasinformatica.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
 
@@ -10,6 +11,6 @@ import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
  * @author Lisa
  *
  */
-public interface IReservaRepository extends JpaRepository<Reserva, Integer>{
+public interface IReservaRepository extends JpaRepository<Reserva, Integer>, JpaSpecificationExecutor<Reserva>{
 
 }

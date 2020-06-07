@@ -2,7 +2,7 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.*;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -36,11 +36,11 @@ public class Reserva implements Serializable {
 
 	@NotNull
 	@Column(name = "hora_inicio")
-	private Time horaInicio;
+	private LocalTime horaInicio;
 
 	@NotNull
 	@Column(name = "hora_fin")
-	private Time horaFin;
+	private LocalTime horaFin;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -146,7 +146,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @return Hora de inicio de la reserva
 	 */
-	public Time getHoraInicio() {
+	public LocalTime getHoraInicio() {
 		return horaInicio;
 	}
 
@@ -155,7 +155,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @param horaInicio Hora de inicio de la reserva
 	 */
-	public void setHoraInicio(Time horaInicio) {
+	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
@@ -164,7 +164,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @return Hora de fin de la reserva
 	 */
-	public Time getHoraFin() {
+	public LocalTime getHoraFin() {
 		return horaFin;
 	}
 
@@ -173,7 +173,7 @@ public class Reserva implements Serializable {
 	 * 
 	 * @param horaFin Hora de fin de la reserva
 	 */
-	public void setHoraFin(Time horaFin) {
+	public void setHoraFin(LocalTime horaFin) {
 		this.horaFin = horaFin;
 	}
 

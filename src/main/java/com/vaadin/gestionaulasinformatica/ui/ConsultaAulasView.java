@@ -1,14 +1,12 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
+import com.vaadin.flow.component.Component;
 // Imports Vaadin
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.button.*;
+import com.vaadin.flow.component.grid.*;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.*;
+import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.Route;
 
@@ -32,20 +30,19 @@ public class ConsultaAulasView extends VerticalLayout {
 	private ReservaService reservaService;
 	private PropietarioAulaService propietarioAulaService;
 
-	private FiltrosConsulta filtrosConsulta;
+	private ConsultaAulasForm consultaAulasForm;
+
+	private Grid<Reserva> gridReservas;
 
 	private Button btnConsultarReservas;
 	private Button btnConsultarDispAulas;
 	private Button btnLimpiarFiltros;
 
-	private HorizontalLayout lytBotones;
-
-	private Grid<Reserva> gridReservas;
-
 	/**
 	 * Constructor de la ventana ConsultaAulasView.
 	 * 
-	 * @param reservaService Service de JPA para acceder al backend
+	 * @param reservaService         Service de JPA de la entidad Reserva
+	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 */
 	public ConsultaAulasView(ReservaService reservaService, PropietarioAulaService propietarioAulaService) {
 		this.reservaService = reservaService;
@@ -56,34 +53,34 @@ public class ConsultaAulasView extends VerticalLayout {
 		// Se ajusta el tamaño de la ventana al del navegador
 		setSizeFull();
 
-		// Se instancia el formulario de filtros y se configuran los botones
-		filtrosConsulta = new FiltrosConsulta(this.propietarioAulaService);
-		configurarBotonesConsulta();
-
-		// Se instancia el grid de reservas y se configura
-		// Sólo se muestra cuando se pulse en el botón "Consultar reservas"
+		// Se instancia el grid de reservas, se oculta (sólo se muestra cuando se pulse
+		// en el botón "Consultar reservas") y se configura
 		gridReservas = new Grid<>();
 		gridReservas.setVisible(false);
 		configurarGridReservas();
 
-		add(filtrosConsulta, lytBotones, gridReservas);
+		// Se instancia el form de consulta (filtros)
+		consultaAulasForm = new ConsultaAulasForm(this.propietarioAulaService.findAll());
+
+		Div contenido = new Div(consultaAulasForm, crearButtonLayout(), gridReservas);
+		contenido.addClassName("contenido");
+		contenido.setSizeFull();
+
+		add(contenido);
 	}
 
-	private void configurarBotonesConsulta() {
-		// Botones para consultar y limpiar filtros
+	private Component crearButtonLayout() {
+		// Se crean los botones y el layout que los contiene
 		btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
 		btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		btnConsultarReservas.setSizeFull();
 
 		btnConsultarDispAulas = new Button("Consultar Disponibilidad Aulas", event -> consultarDisponibilidadAulas());
 		btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		btnConsultarDispAulas.setSizeFull();
 
-		btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> filtrosConsulta.limpiarFiltros());
+		btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> consultaAulasForm.limpiarFiltros());
 		btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		lytBotones = new HorizontalLayout();
-		lytBotones.add(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+		return new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
 	}
 
 	/**
@@ -98,23 +95,23 @@ public class ConsultaAulasView extends VerticalLayout {
 
 		gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaFin, "dd/MM/yyyy")).setHeader("Fecha fin")
 				.setKey("fechaFin");
-		
+
 		gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
-		
+
 		gridReservas.addColumn(Reserva::getHoraInicio).setHeader("Hora inicio").setKey("horaInicio");
-		
+
 		gridReservas.addColumn(Reserva::getHoraFin).setHeader("Hora fin").setKey("horaFin");
 
 		gridReservas.addColumn(reserva -> {
 			Aula aula = reserva.getAula();
 			return aula == null ? "-" : aula.getIdAula().getNombreAula();
 		}).setHeader("Aula").setKey("aula");
-		
+
 		gridReservas.addColumn(reserva -> {
 			Aula aula = reserva.getAula();
-			return aula == null ? "-" : aula.getIdAula().getCentro();
+			return aula == null ? "-" : aula.getIdAula().getCentro().getNombrePropietarioAula();
 		}).setHeader("Centro").setKey("centro");
-		
+
 		gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
 
 		gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
@@ -127,13 +124,48 @@ public class ConsultaAulasView extends VerticalLayout {
 				GridVariant.LUMO_ROW_STRIPES);
 	}
 
+	public Boolean validarFiltrosConsultaReservas() {
+		Boolean valido = false;
+		try {
+
+			// Si se intenta filtrar por capacidad o número de ordenadores se muestra un
+			// mensaje de alerta
+//			if(filtrosConsulta.getfil)
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return valido;
+	}
+
+	public Boolean validarFiltros() {
+		Boolean valido = false;
+		try {
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return valido;
+	}
+
 	/**
 	 * Función que permite consultar las reservas con los filtros aplicados.
 	 */
 	protected void consultarReservas() {
 		try {
+			// Se validan los filtros aplicados
+//			if (validarFiltros()) {
+
+			// Se hace visible el grid de reservas
 			gridReservas.setVisible(true);
-			gridReservas.setItems(reservaService.findAll());
+
+			// Se obtienen las reservas que cumplen con los filtros aplicados
+			gridReservas.setItems(reservaService.findAll(consultaAulasForm.getFiltroFechaDesde(),
+					consultaAulasForm.getFiltroFechaHasta(), consultaAulasForm.getFiltroHoraDesde(),
+					consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroPropietarioAula()));
+//			}
 		} catch (Exception e) {
 			throw e;
 		}

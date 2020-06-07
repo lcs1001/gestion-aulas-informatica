@@ -102,9 +102,12 @@ public abstract class PropietarioAula implements Serializable {
 	/**
 	 * Constructor de la clase con parámetros.
 	 * 
-	 * @param nombre Nombre del centro/departamento
-	 * @param centro Booleano que indica si se trata de un centro o de un
-	 *               departamento
+	 * @param id                   ID del propietario (centro/departamento)
+	 * @param nombre               Nombre del propietario (centro/departamento)
+	 * @param nombreResponsable    Nombre del responsable del centro/departamento
+	 * @param apellidosResponsable Apellidos del responsable del centro/departamento
+	 * @param correoResponsable    Correo del responsable del centro/departamento
+	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
 	 */
 	public PropietarioAula(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
@@ -117,10 +120,20 @@ public abstract class PropietarioAula implements Serializable {
 		this.telefonoResponsable = telefonoResponsable;
 	}
 
+	/**
+	 * Función que devuelve el ID del centro/departamento.
+	 * 
+	 * @return ID del centro/departamento
+	 */
 	public String getIdPropietarioAula() {
 		return this.idPropietarioAula;
 	}
 
+	/**
+	 * Función que establece el ID del centro/departamento.
+	 * 
+	 * @param nombre Nombre del centro/departamento
+	 */
 	public void setIdPropietarioAula(String idPropietarioAula) {
 		this.idPropietarioAula = idPropietarioAula;
 	}

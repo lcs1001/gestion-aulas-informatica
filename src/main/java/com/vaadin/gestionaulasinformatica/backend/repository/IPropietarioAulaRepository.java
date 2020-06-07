@@ -13,6 +13,6 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface IPropietarioAulaRepository extends JpaRepository<PropietarioAula, String> {
-	@Query("select p.nombrePropietarioAula from PropietarioAula p")
-	List<String> findAllNombres();
+//	@Query("select p.nombrePropietarioAula from PropietarioAula p")
+//	List<String> findAllNombres();
 }
