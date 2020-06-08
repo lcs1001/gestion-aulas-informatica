@@ -33,7 +33,7 @@ public class ReservaSpecification {
 	 * @return Reservas que cumplen con los filtros aplicados
 	 */
 	public static Specification<Reserva> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
-			LocalTime horaHasta, String propietarioAula) {
+			LocalTime horaHasta, PropietarioAula responsable) {
 		return new Specification<Reserva>() {
 
 			@Override
@@ -66,14 +66,9 @@ public class ReservaSpecification {
 
 				// Se obtienen las reservas realizadas de un determinado centro o departamento
 				// (propietario del aula de la reserva)
-				if (!StringUtils.isEmpty(propietarioAula)) {
-					final Join<Reserva, Aula> aula = root.join("aula");
-					final Join<PropietarioAula, Aula> propietarioAula = aula.join("propietarioAula");
-
-					final Predicate propietarioAulaPredicate = cb.equal(propietarioAula.get("nombrePropietarioAula"),
-							propietarioAula);
-					query.distinct(true);
-					predicates.add(propietarioAulaPredicate);
+				if (!StringUtils.isEmpty(responsable)) {
+					final Predicate responsablePredicate = cb.equal(root.get("responsable"), responsable);
+					predicates.add(responsablePredicate);
 				}
 
 				return cb.and(predicates.toArray(new Predicate[predicates.size()]));

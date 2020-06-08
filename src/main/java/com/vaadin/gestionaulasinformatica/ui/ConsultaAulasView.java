@@ -1,6 +1,5 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
-import com.vaadin.flow.component.Component;
 // Imports Vaadin
 import com.vaadin.flow.component.button.*;
 import com.vaadin.flow.component.grid.*;
@@ -9,6 +8,7 @@ import com.vaadin.flow.component.icon.*;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.Component;
 
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.*;
@@ -164,7 +164,7 @@ public class ConsultaAulasView extends VerticalLayout {
 			// Se obtienen las reservas que cumplen con los filtros aplicados
 			gridReservas.setItems(reservaService.findAll(consultaAulasForm.getFiltroFechaDesde(),
 					consultaAulasForm.getFiltroFechaHasta(), consultaAulasForm.getFiltroHoraDesde(),
-					consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroPropietarioAula()));
+					consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroResponsableAula()));
 //			}
 		} catch (Exception e) {
 			throw e;

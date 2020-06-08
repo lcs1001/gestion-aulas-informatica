@@ -34,17 +34,6 @@ public class PropietarioAulaService {
 		return propietarioAulaRepository.findAll();
 	}
 
-//	/**
-//	 * Función que devuelve una lista con todos los nombres de los propietarios de
-//	 * aulas que hay en el repositorio.
-//	 * 
-//	 * @return Lista con todos los nombres de los propietarios de aulas que hay en
-//	 *         el repositorio
-//	 */
-//	public List<String> findAllNombres() {
-//		return propietarioAulaRepository.findAllNombres();
-//	}
-
 	/**
 	 * Función que devuelve el número de propietarios de aulas que hay en el
 	 * repositorio.

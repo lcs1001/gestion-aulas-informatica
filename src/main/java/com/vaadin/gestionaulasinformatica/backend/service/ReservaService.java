@@ -1,11 +1,15 @@
 package com.vaadin.gestionaulasinformatica.backend.service;
 
+// Imports Java
 import java.time.*;
 import java.util.*;
 import java.util.logging.*;
 
+//Imports SpringFramework
 import org.springframework.stereotype.Service;
 
+// Imports backend
+import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
 import com.vaadin.gestionaulasinformatica.backend.repository.IReservaRepository;
 import com.vaadin.gestionaulasinformatica.backend.specification.ReservaSpecification;
@@ -40,22 +44,22 @@ public class ReservaService {
 	 * Función que devuelve una lista con todas las reservas que hay en el
 	 * repositorio que cumplen con los filtros aplicados.
 	 * 
-	 * @param fechaDesde      Fecha (de inicio) desde la que obtener las reservas
-	 * @param fechaHasta      Fecha (de inicio) hasta la que obtener las reservas
-	 * @param horaDesde       Hora (de inicio) de la reserva desde la que obtener
-	 *                        las reservas
-	 * @param horaHasta       Hora (de inicio) de la reserva hasta la que obtener
-	 *                        las reservas
-	 * @param propietarioAula Propietario del aula de la reserva del que obtener las
-	 *                        reservas
+	 * @param fechaDesde  Fecha (de inicio) desde la que obtener las reservas
+	 * @param fechaHasta  Fecha (de inicio) hasta la que obtener las reservas
+	 * @param horaDesde   Hora (de inicio) de la reserva desde la que obtener las
+	 *                    reservas
+	 * @param horaHasta   Hora (de inicio) de la reserva hasta la que obtener las
+	 *                    reservas
+	 * @param responsable Responsable del aula de la reserva del que obtener las
+	 *                    reservas
 	 * 
 	 * @return Lista con todas las reservas que hay en el repositorio que cumplen
 	 *         con los filtros aplicados
 	 */
 	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
-			String propietarioAula) {
-		return reservaRepository.findAll(
-				ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, propietarioAula));
+			PropietarioAula responsable) {
+		return reservaRepository
+				.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, responsable));
 	}
 
 	/**

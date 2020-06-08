@@ -1,15 +1,19 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
+//Imports Java
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Locale;
 
+//Imports Vaadin
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.timepicker.TimePicker;
+
+//Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 
 /**
@@ -22,7 +26,7 @@ import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 public class ConsultaAulasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
-	private List<PropietarioAula> lstPropietariosAulas;
+	List<PropietarioAula> lstPropietariosAulas;
 
 	private DatePicker fechaDesde = new DatePicker("Fecha Desde");
 	private DatePicker fechaHasta = new DatePicker("Fecha hasta");
@@ -30,7 +34,7 @@ public class ConsultaAulasForm extends FormLayout {
 	private TimePicker horaHasta = new TimePicker("Hora hasta");
 	private NumberField capacidad = new NumberField("Capacidad");
 	private NumberField numOrdenadores = new NumberField("Nº ordenadores");
-	private ComboBox<PropietarioAula> propietarioAula = new ComboBox<PropietarioAula>("Centro/Departamento");
+	private ComboBox<PropietarioAula> responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
 
 	public ConsultaAulasForm(List<PropietarioAula> propietarios) {
 		addClassName("consulta-aulas-form");
@@ -46,7 +50,7 @@ public class ConsultaAulasForm extends FormLayout {
 
 		// Se añaden los campos al formulario
 		add(fechaDesde, horaDesde, capacidad);
-		add(propietarioAula, 2);
+		add(responsable, 2);
 		add(fechaHasta, horaHasta, numOrdenadores);
 	}
 
@@ -69,10 +73,10 @@ public class ConsultaAulasForm extends FormLayout {
 		numOrdenadores.setHasControls(true);
 
 		// Campo obligatorio
-		propietarioAula.setPlaceholder("Seleccione");
-		propietarioAula.setItems(lstPropietariosAulas);
-		propietarioAula.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-		propietarioAula.setRequiredIndicatorVisible(true);
+		responsable.setPlaceholder("Seleccione");
+		responsable.setItems(lstPropietariosAulas);
+		responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+		responsable.setRequiredIndicatorVisible(true);
 	}
 
 	/**
@@ -130,17 +134,13 @@ public class ConsultaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que devuelve el valor del filtro de centro/departamento (propietario
+	 * Función que devuelve el valor del filtro de centro/departamento (responsable
 	 * del aula).
 	 * 
 	 * @return Valor del filtro de centro/departamento
 	 */
-	public String getFiltroPropietarioAula() {
-		if(propietarioAula.getValue() == null) {
-			return "";
-		} else {
-			return propietarioAula.getValue().getNombrePropietarioAula();
-		} 
+	public PropietarioAula getFiltroResponsableAula() {
+		return responsable.getValue();
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class ConsultaAulasForm extends FormLayout {
 			horaHasta.clear();
 			capacidad.clear();
 			numOrdenadores.clear();
-			propietarioAula.clear();
+			responsable.clear();
 		} catch (Exception e) {
 			throw e;
 		}
