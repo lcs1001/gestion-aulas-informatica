@@ -59,7 +59,6 @@ public class ConsultaAulasForm extends FormLayout {
 	 */
 	private void configurarFiltrosConsulta() {
 		// Campo obligatorio - Por defecto con la fecha actual
-		fechaDesde.setRequiredIndicatorVisible(true);
 		fechaDesde.setValue(LocalDate.now());
 		fechaDesde.setLocale(Locale.ITALY); // Para establecer el formato dd/MM/yyyy
 

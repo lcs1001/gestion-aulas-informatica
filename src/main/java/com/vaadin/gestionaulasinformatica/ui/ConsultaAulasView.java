@@ -2,9 +2,13 @@ package com.vaadin.gestionaulasinformatica.ui;
 
 // Imports Vaadin
 import com.vaadin.flow.component.button.*;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.*;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.Route;
@@ -23,6 +27,7 @@ import com.vaadin.gestionaulasinformatica.backend.service.*;
  * <p>
  */
 @Route("")
+@CssImport("./styles/shared-styles.css")
 public class ConsultaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
@@ -124,24 +129,43 @@ public class ConsultaAulasView extends VerticalLayout {
 				GridVariant.LUMO_ROW_STRIPES);
 	}
 
-	public Boolean validarFiltrosConsultaReservas() {
-		Boolean valido = false;
+	/**
+	 * Función que comprueba si los filtros introducidos para consultar las reservas
+	 * son correctos.
+	 * 
+	 * @return Si los filtros introducidos para consultar las reservas son correctos
+	 */
+	private Boolean validarFiltrosConsultaReservas() {
+		Boolean valido = true;
+		Notification notificacion;
+		String msgAlerta = "";
 		try {
 
-			// Si se intenta filtrar por capacidad o número de ordenadores se muestra un
-			// mensaje de alerta
-//			if(filtrosConsulta.getfil)
+			// Si se intenta filtrar por capacidad
+			if (consultaAulasForm.getFiltroCapacidad() != null) {
+				msgAlerta += Mensajes.MSG_CONSULTA_RESERVA_CAP.getMensaje();
+				valido = false;
+			}
 
-		} catch (Exception e) {
-			throw e;
-		}
+			// Si se intenta filtrar por número de ordenadores
+			if (consultaAulasForm.getFiltroNumOrdenadores() != null) {
+				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESERVA_ORD.getMensaje();
+				valido = false;
+			}
 
-		return valido;
-	}
+			// Si no se ha introducido el filtro de Centro/Departamento
+			if (consultaAulasForm.getFiltroResponsableAula() == null) {
+				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
+				valido = false;
+			}
 
-	public Boolean validarFiltros() {
-		Boolean valido = false;
-		try {
+			// Si no es válido se muestra la notificación de alerta
+			if (!valido) {
+				notificacion = new Notification(msgAlerta, 3000);
+				notificacion.addThemeVariants(NotificationVariant.LUMO_ERROR);
+				notificacion.setPosition(Position.MIDDLE);
+				notificacion.open();
+			}
 
 		} catch (Exception e) {
 			throw e;
@@ -153,29 +177,50 @@ public class ConsultaAulasView extends VerticalLayout {
 	/**
 	 * Función que permite consultar las reservas con los filtros aplicados.
 	 */
-	protected void consultarReservas() {
+	private void consultarReservas() {
 		try {
+			// Se oculta el grid por si ya se había mostrado
+			gridReservas.setVisible(false);
+
 			// Se validan los filtros aplicados
-//			if (validarFiltros()) {
+			if (validarFiltrosConsultaReservas()) {
 
-			// Se hace visible el grid de reservas
-			gridReservas.setVisible(true);
+				// Se hace visible el grid de reservas
+				gridReservas.setVisible(true);
 
-			// Se obtienen las reservas que cumplen con los filtros aplicados
-			gridReservas.setItems(reservaService.findAll(consultaAulasForm.getFiltroFechaDesde(),
-					consultaAulasForm.getFiltroFechaHasta(), consultaAulasForm.getFiltroHoraDesde(),
-					consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroResponsableAula()));
-//			}
+				// Se obtienen las reservas que cumplen con los filtros aplicados
+				gridReservas.setItems(reservaService.findAll(consultaAulasForm.getFiltroFechaDesde(),
+						consultaAulasForm.getFiltroFechaHasta(), consultaAulasForm.getFiltroHoraDesde(),
+						consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroResponsableAula()));
+			}
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
+	 * Función que comprueba si los filtros introducidos para consultar la
+	 * disponibilidad de aulas son correctos.
+	 * 
+	 * @return Si los filtros introducidos para consultar la disponibilidad de aulas
+	 *         son correctos
+	 */
+	private Boolean validarFiltrosConsultaAulas() {
+		Boolean valido = false;
+		try {
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return valido;
+	}
+
+	/**
 	 * Función que permite consultar la disponibilidad de aulas con los filtros
 	 * aplicados.
 	 */
-	protected void consultarDisponibilidadAulas() {
+	private void consultarDisponibilidadAulas() {
 		try {
 
 		} catch (Exception e) {
