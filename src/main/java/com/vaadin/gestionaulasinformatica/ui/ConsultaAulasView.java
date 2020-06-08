@@ -140,6 +140,11 @@ public class ConsultaAulasView extends VerticalLayout {
 		Notification notificacion;
 		String msgAlerta = "";
 		try {
+			// Si no se ha introducido el filtro de Centro/Departamento
+			if (consultaAulasForm.getFiltroResponsableAula() == null) {
+				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
+				valido = false;
+			}
 
 			// Si se intenta filtrar por capacidad
 			if (consultaAulasForm.getFiltroCapacidad() != null) {
@@ -153,15 +158,16 @@ public class ConsultaAulasView extends VerticalLayout {
 				valido = false;
 			}
 
-			// Si no se ha introducido el filtro de Centro/Departamento
-			if (consultaAulasForm.getFiltroResponsableAula() == null) {
-				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
+			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
+			// se quiere filtrar
+			if (consultaAulasForm.getFiltroHoraDesde().compareTo(consultaAulasForm.getFiltroHoraHasta()) > 0) {
+				msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
 				valido = false;
 			}
 
 			// Si no es válido se muestra la notificación de alerta
 			if (!valido) {
-				notificacion = new Notification(msgAlerta, 3000);
+				notificacion = new Notification(msgAlerta, 5000);
 				notificacion.addThemeVariants(NotificationVariant.LUMO_ERROR);
 				notificacion.setPosition(Position.MIDDLE);
 				notificacion.open();

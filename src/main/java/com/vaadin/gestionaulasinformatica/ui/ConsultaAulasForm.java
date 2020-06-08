@@ -61,15 +61,21 @@ public class ConsultaAulasForm extends FormLayout {
 		// Campo obligatorio - Por defecto con la fecha actual
 		fechaDesde.setValue(LocalDate.now());
 		fechaDesde.setLocale(Locale.ITALY); // Para establecer el formato dd/MM/yyyy
+		fechaDesde.setClearButtonVisible(true);
 
 		fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
 		fechaHasta.setLocale(Locale.ITALY); // Para establecer el formato dd/MM/yyyy
+		fechaHasta.setClearButtonVisible(true);
 
-		horaHasta.setMinTime(horaDesde.getValue()); // Como mínimo debe ser la hora desde la que se ha filtrado
+		horaDesde.setClearButtonVisible(true);
+
+		horaHasta.setClearButtonVisible(true);
 
 		capacidad.setHasControls(true);
+		capacidad.setClearButtonVisible(true);
 
 		numOrdenadores.setHasControls(true);
+		numOrdenadores.setClearButtonVisible(true);
 
 		// Campo obligatorio
 		responsable.setPlaceholder("Seleccione");

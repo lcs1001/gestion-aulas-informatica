@@ -9,6 +9,7 @@ package com.vaadin.gestionaulasinformatica.ui;
 public enum Mensajes {
 	MSG_CONSULTA_RESERVA_CAP("No se pueden consultar reservas por la capacidad del aula."),
 	MSG_CONSULTA_RESERVA_ORD("No se pueden consultar reservas por el número de ordenadores del aula."),
+	MSG_CONSULTA_HORA_DESDE_MAYOR("La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar."),
 	MSG_CONSULTA_RESPONSABLE("El Centro/Departamento es un campo obligatorio.");
 
 	private final String mensaje;
