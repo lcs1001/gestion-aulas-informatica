@@ -15,8 +15,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.Component;
 
 // Imports backend
-import com.vaadin.gestionaulasinformatica.backend.entity.*;
-import com.vaadin.gestionaulasinformatica.backend.service.*;
+import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
+import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
+import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
+import com.vaadin.gestionaulasinformatica.backend.service.ReservaService;
 
 /**
  * Ventana principal que permite consultar las reservas registradas y la
@@ -44,7 +46,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	private Button btnLimpiarFiltros;
 
 	/**
-	 * Constructor de la ventana ConsultaAulasView.
+	 * Constructor de la ventana de consulta de reservas y disponibilidad de aulas.
 	 * 
 	 * @param reservaService         Service de JPA de la entidad Reserva
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
@@ -122,7 +124,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
 
 		// Se establece el ancho de columna automático
-		gridReservas.getColumns().forEach(columnaReserva -> columnaReserva.setAutoWidth(true));
+		gridReservas.getColumns().forEach(columna-> columna.setAutoWidth(true));
 
 		// Se da un formato específico al grid
 		gridReservas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,

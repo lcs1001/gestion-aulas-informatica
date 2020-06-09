@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 /**
  * Repositorio para la entidad PropietarioAula con clave primaria de tipo String.
  * 
@@ -13,4 +14,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface IPropietarioAulaRepository extends JpaRepository<PropietarioAula, String> {
+	@Query("select p from PropietarioAula p " +
+	          "where lower(p.nombrePropietarioAula) like lower(concat('%', :filtroTexto, '%'))")
+	List<PropietarioAula> search(@Param("filtroTexto") String filtroTexto);
 }

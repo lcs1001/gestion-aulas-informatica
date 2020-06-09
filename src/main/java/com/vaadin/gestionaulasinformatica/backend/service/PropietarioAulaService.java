@@ -33,6 +33,14 @@ public class PropietarioAulaService {
 	public List<PropietarioAula> findAll() {
 		return propietarioAulaRepository.findAll();
 	}
+	
+	public List<PropietarioAula> findAll(String filtroTexto) {
+		if(filtroTexto == null || filtroTexto.isEmpty()) {
+			return propietarioAulaRepository.findAll();
+		} else {
+			return propietarioAulaRepository.search(filtroTexto);
+		}
+	}
 
 	/**
 	 * Función que devuelve el número de propietarios de aulas que hay en el

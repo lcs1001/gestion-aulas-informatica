@@ -28,27 +28,33 @@ public abstract class PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@NotEmpty
 	@Column(name = "id_propietario_aula")
 	private String idPropietarioAula = "";
 
 	@NotNull
+	@NotEmpty
 	@Column(name = "nombre_propietario_aula", unique = true)
 	private String nombrePropietarioAula = "";
 
 	@NotNull
+	@NotEmpty
 	@Column(name = "nombre_responsable")
 	private String nombreResponsable = "";
 
 	@NotNull
+	@NotEmpty
 	@Column(name = "apellidos_responsable")
 	private String apellidosResponsable = "";
 
 	@NotNull
+	@NotEmpty
 	@Email
 	@Column(name = "correo_responsable")
 	private String correoResponsable = "";
 
 	@NotNull
+	@NotEmpty
 	@Column(name = "telefono_responsable")
 	private String telefonoResponsable = "";
 
@@ -157,6 +163,24 @@ public abstract class PropietarioAula implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve el nombre del responsable del centro/departamento;
+	 * 
+	 * @return Nombre del responsable del centro/departamento
+	 */
+	public String getNombreResponsable() {
+		return this.nombreResponsable;
+	}
+
+	/**
+	 * Función que devuelve los apellidos del responsable del centro/departamento.
+	 * 
+	 * @return Apellidos del responsable del centro/departamento
+	 */
+	public String getApellidosResponsable() {
+		return this.apellidosResponsable;
+	}
+
+	/**
 	 * Función que devuelve el nombre y apellidos del responsable del
 	 * centro/departamento.
 	 * 
@@ -167,14 +191,20 @@ public abstract class PropietarioAula implements Serializable {
 	}
 
 	/**
-	 * Función que establece el nombre y apellidos del responsable del
-	 * centro/departamento.
+	 * Función que establece el nombre del responsable del centro/departamento.
 	 * 
-	 * @param nombre    Nombre del responsable del centro/departamento
+	 * @param nombre Nombre del responsable del centro/departamento
+	 */
+	public void setNombreResponsable(String nombre) {
+		this.nombreResponsable = nombre;
+	}
+
+	/**
+	 * Función que establece los apellidos del responsable del centro/departamento.
+	 * 
 	 * @param apellidos Apellidos del responsable del centro/departamento
 	 */
-	public void setNombreApellidosResponsable(String nombre, String apellidos) {
-		this.nombreResponsable = nombre;
+	public void setApellidosResponsable(String apellidos) {
 		this.apellidosResponsable = apellidos;
 	}
 
