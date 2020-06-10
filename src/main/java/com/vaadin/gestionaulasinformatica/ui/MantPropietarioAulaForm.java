@@ -1,13 +1,12 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
-// Import Vaadin
+// Imports Vaadin
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -18,7 +17,6 @@ import com.vaadin.flow.shared.Registration;
 
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
-import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
 
 /**
  * Clase que contiene el formulario del Mantenimiento de Centros y
@@ -29,32 +27,36 @@ import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
  */
 public class MantPropietarioAulaForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
-	
-	TextField idPropAula = new TextField("ID del Centro/Departamento");
-	TextField nombrePropAula = new TextField("Nombre del Centro/Departamento");
-	TextField nombreResponsable = new TextField("Nombre del Responsable");
-	TextField apellidosResponsable = new TextField("Apellidos del Responsable");
-	EmailField correoResponsable = new EmailField("Correo del Responsable");
-	TextField telefonoResponsable = new TextField("Teléfono del Responsable");
 
-	Button btnGuardar = new Button("Guardar");
-	Button btnEliminar = new Button("Eliminar");
-	Button btnCerrar = new Button("Cancelar");
+	protected TextField idPropAula = new TextField("ID del Centro/Departamento");
+	protected 	TextField nombrePropAula = new TextField("Nombre del Centro/Departamento");
+	protected TextField nombreResponsable = new TextField("Nombre del Responsable");
+	protected TextField apellidosResponsable = new TextField("Apellidos del Responsable");
+	protected EmailField correoResponsable = new EmailField("Correo del Responsable");
+	protected TextField telefonoResponsable = new TextField("Teléfono del Responsable");
 
-	Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
+	private Button btnGuardar = new Button("Guardar");
+	private Button btnEliminar = new Button("Eliminar");
+	private Button btnCerrar = new Button("Cancelar");
+
+	private Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
 
 	/**
 	 * Constructor de la clase.
 	 */
 	public MantPropietarioAulaForm() {
-		addClassName("form-mant-propietarios");
-		
-		binder.bindInstanceFields(this);
-		binder.forField(idPropAula).bind("idPropietarioAula");
-		binder.forField(nombrePropAula).bind("nombrePropietarioAula");
+		try {
+			addClassName("form-mant-propietarios");
 
-		add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
-				crearButtonsLayout());
+			binder.bindInstanceFields(this);
+			binder.forField(idPropAula).bind("idPropietarioAula");
+			binder.forField(nombrePropAula).bind("nombrePropietarioAula");
+
+			add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable,
+					telefonoResponsable, crearButtonsLayout());
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -63,7 +65,11 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 * @param propietario Propietario actual
 	 */
 	public void setPropietarioAula(PropietarioAula propietario) {
-		binder.setBean(propietario);
+		try {
+			binder.setBean(propietario);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -73,30 +79,39 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 * @return Layout de botones
 	 */
 	private Component crearButtonsLayout() {
-		btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+		try {
+			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
-		// Se guarda al pulsar Enter en el teclado
-		btnGuardar.addClickShortcut(Key.ENTER);
-		// Se cierra al pulsar ESC en el teclado
-		btnCerrar.addClickShortcut(Key.ESCAPE);
+			// Se guarda al pulsar Enter en el teclado
+			btnGuardar.addClickShortcut(Key.ENTER);
+			// Se cierra al pulsar ESC en el teclado
+			btnCerrar.addClickShortcut(Key.ESCAPE);
 
-		btnGuardar.addClickListener(click -> validarGuardar());
-		btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, binder.getBean())));
-		btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
+			btnGuardar.addClickListener(click -> validarGuardar());
+			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, binder.getBean())));
+			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 
-		binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
+			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-		return new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			return new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
 	 * Función que valida el propietario y lo guarda (si es válido).
 	 */
 	private void validarGuardar() {
-		if (binder.isValid()) {
-			fireEvent(new SaveEvent(this, binder.getBean()));
+		try {
+			if (binder.isValid()) {
+				fireEvent(new SaveEvent(this, binder.getBean()));
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -108,6 +123,7 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 *
 	 */
 	public static abstract class MantPropietarioAulaFormEvent extends ComponentEvent<MantPropietarioAulaForm> {
+		private static final long serialVersionUID = 1L;
 		private PropietarioAula propietario;
 
 		/**
@@ -139,6 +155,8 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 *
 	 */
 	public static class SaveEvent extends MantPropietarioAulaFormEvent {
+		private static final long serialVersionUID = 1L;
+
 		SaveEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
 			super(source, propietario);
 		}
@@ -152,6 +170,8 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 *
 	 */
 	public static class DeleteEvent extends MantPropietarioAulaFormEvent {
+		private static final long serialVersionUID = 1L;
+
 		DeleteEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
 			super(source, propietario);
 		}
@@ -166,6 +186,8 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 *
 	 */
 	public static class CloseEvent extends MantPropietarioAulaFormEvent {
+		private static final long serialVersionUID = 1L;
+
 		CloseEvent(MantPropietarioAulaForm source) {
 			super(source, null);
 		}

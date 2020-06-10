@@ -33,7 +33,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	private ReservaService reservaService;
 	private PropietarioAulaService propietarioAulaService;
 
-	private ConsultaAulasForm consultaAulasForm;
+	private ConsultaAulasForm formularioAulas;
 
 	private Grid<Reserva> gridReservas;
 
@@ -48,28 +48,32 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 */
 	public ConsultaAulasView(ReservaService reservaService, PropietarioAulaService propietarioAulaService) {
-		this.reservaService = reservaService;
-		this.propietarioAulaService = propietarioAulaService;
+		try {
+			this.reservaService = reservaService;
+			this.propietarioAulaService = propietarioAulaService;
 
-		addClassName("consulta-view");
+			addClassName("consulta-view");
 
-		// Se ajusta el tamaño de la ventana al del navegador
-		setSizeFull();
+			// Se ajusta el tamaño de la ventana al del navegador
+			setSizeFull();
 
-		// Se instancia el grid de reservas, se oculta (sólo se muestra cuando se pulse
-		// en el botón "Consultar reservas") y se configura
-		gridReservas = new Grid<>();
-		gridReservas.setVisible(false);
-		configurarGridReservas();
+			// Se instancia el grid de reservas, se oculta (sólo se muestra cuando se pulse
+			// en el botón "Consultar reservas") y se configura
+			gridReservas = new Grid<>();
+			gridReservas.setVisible(false);
+			configurarGridReservas();
 
-		// Se instancia el form de consulta (filtros)
-		consultaAulasForm = new ConsultaAulasForm(this.propietarioAulaService.findAll());
+			// Se instancia el form de consulta (filtros)
+			formularioAulas = new ConsultaAulasForm(this.propietarioAulaService.findAll());
 
-		Div contenido = new Div(consultaAulasForm, crearButtonLayout(), gridReservas);
-		contenido.addClassName("contenido");
-		contenido.setSizeFull();
+			Div contenido = new Div(formularioAulas, crearButtonLayout(), gridReservas);
+			contenido.addClassName("contenido");
+			contenido.setSizeFull();
 
-		add(contenido);
+			add(contenido);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -79,58 +83,67 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * @return Layout de botones
 	 */
 	private Component crearButtonLayout() {
-		// Se crean los botones y el layout que los contiene
-		btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
-		btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+		try {
+			// Se crean los botones y el layout que los contiene
+			btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
+			btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		btnConsultarDispAulas = new Button("Consultar Disponibilidad Aulas", event -> consultarDisponibilidadAulas());
-		btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnConsultarDispAulas = new Button("Consultar Disponibilidad Aulas",
+					event -> consultarDisponibilidadAulas());
+			btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> consultaAulasForm.limpiarFiltros());
-		btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> formularioAulas.limpiarFiltros());
+			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		return new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+			return new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
 	 * Función que configura el grid que muestra las reservas.
 	 */
 	private void configurarGridReservas() {
-		gridReservas.addClassName("reservas-grid");
-		gridReservas.setSizeFull();
+		try {
+			gridReservas.addClassName("reservas-grid");
+			gridReservas.setSizeFull();
 
-		gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaInicio, "dd/MM/yyyy")).setHeader("Fecha inicio")
-				.setKey("fechaInicio");
+			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaInicio, "dd/MM/yyyy"))
+					.setHeader("Fecha inicio").setKey("fechaInicio");
 
-		gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaFin, "dd/MM/yyyy")).setHeader("Fecha fin")
-				.setKey("fechaFin");
+			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaFin, "dd/MM/yyyy")).setHeader("Fecha fin")
+					.setKey("fechaFin");
 
-		gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
+			gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
 
-		gridReservas.addColumn(Reserva::getHoraInicio).setHeader("Hora inicio").setKey("horaInicio");
+			gridReservas.addColumn(Reserva::getHoraInicio).setHeader("Hora inicio").setKey("horaInicio");
 
-		gridReservas.addColumn(Reserva::getHoraFin).setHeader("Hora fin").setKey("horaFin");
+			gridReservas.addColumn(Reserva::getHoraFin).setHeader("Hora fin").setKey("horaFin");
 
-		gridReservas.addColumn(reserva -> {
-			Aula aula = reserva.getAula();
-			return aula == null ? "-" : aula.getIdAula().getNombreAula();
-		}).setHeader("Aula").setKey("aula");
+			gridReservas.addColumn(reserva -> {
+				Aula aula = reserva.getAula();
+				return aula == null ? "-" : aula.getIdAula().getNombreAula();
+			}).setHeader("Aula").setKey("aula");
 
-		gridReservas.addColumn(reserva -> {
-			Aula aula = reserva.getAula();
-			return aula == null ? "-" : aula.getIdAula().getCentro().getNombrePropietarioAula();
-		}).setHeader("Centro").setKey("centro");
+			gridReservas.addColumn(reserva -> {
+				Aula aula = reserva.getAula();
+				return aula == null ? "-" : aula.getIdAula().getCentro().getNombrePropietarioAula();
+			}).setHeader("Centro").setKey("centro");
 
-		gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
+			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
 
-		gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
+			gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
 
-		// Se establece el ancho de columna automático
-		gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
+			// Se establece el ancho de columna automático
+			gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
-		// Se da un formato específico al grid
-		gridReservas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
-				GridVariant.LUMO_ROW_STRIPES);
+			// Se da un formato específico al grid
+			gridReservas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
+					GridVariant.LUMO_ROW_STRIPES);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -145,28 +158,30 @@ public class ConsultaAulasView extends VerticalLayout {
 		String msgAlerta = "";
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
-			if (consultaAulasForm.getFiltroResponsableAula() == null) {
+			if (formularioAulas.responsable.getValue() == null) {
 				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
 				valido = false;
 			}
 
 			// Si se intenta filtrar por capacidad
-			if (consultaAulasForm.getFiltroCapacidad() != null) {
+			if (formularioAulas.capacidad.getValue() != null) {
 				msgAlerta += Mensajes.MSG_CONSULTA_RESERVA_CAP.getMensaje();
 				valido = false;
 			}
 
 			// Si se intenta filtrar por número de ordenadores
-			if (consultaAulasForm.getFiltroNumOrdenadores() != null) {
+			if (formularioAulas.numOrdenadores.getValue() != null) {
 				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESERVA_ORD.getMensaje();
 				valido = false;
 			}
 
 			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
 			// se quiere filtrar
-			if (consultaAulasForm.getFiltroHoraDesde().compareTo(consultaAulasForm.getFiltroHoraHasta()) > 0) {
-				msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
-				valido = false;
+			if (formularioAulas.horaDesde.getValue() != null && formularioAulas.horaHasta.getValue() != null) {
+				if (formularioAulas.horaDesde.getValue().compareTo(formularioAulas.horaHasta.getValue()) > 0) {
+					msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
+					valido = false;
+				}
 			}
 
 			// Si no es válido se muestra la notificación de alerta
@@ -176,12 +191,11 @@ public class ConsultaAulasView extends VerticalLayout {
 				notificacion.setPosition(Position.MIDDLE);
 				notificacion.open();
 			}
+			return valido;
 
 		} catch (Exception e) {
 			throw e;
 		}
-
-		return valido;
 	}
 
 	/**
@@ -199,9 +213,9 @@ public class ConsultaAulasView extends VerticalLayout {
 				gridReservas.setVisible(true);
 
 				// Se obtienen las reservas que cumplen con los filtros aplicados
-				gridReservas.setItems(reservaService.findAll(consultaAulasForm.getFiltroFechaDesde(),
-						consultaAulasForm.getFiltroFechaHasta(), consultaAulasForm.getFiltroHoraDesde(),
-						consultaAulasForm.getFiltroHoraHasta(), consultaAulasForm.getFiltroResponsableAula()));
+				gridReservas.setItems(reservaService.findAll(formularioAulas.fechaDesde.getValue(),
+						formularioAulas.fechaHasta.getValue(), formularioAulas.horaDesde.getValue(),
+						formularioAulas.horaHasta.getValue(), formularioAulas.responsable.getValue()));
 			}
 		} catch (Exception e) {
 			throw e;
@@ -219,11 +233,10 @@ public class ConsultaAulasView extends VerticalLayout {
 		Boolean valido = false;
 		try {
 
+			return valido;
 		} catch (Exception e) {
 			throw e;
 		}
-
-		return valido;
 	}
 
 	/**

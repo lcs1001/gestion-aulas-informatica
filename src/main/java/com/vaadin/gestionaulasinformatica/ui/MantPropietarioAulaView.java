@@ -42,53 +42,63 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 */
 	public MantPropietarioAulaView(PropietarioAulaService propietarioAulaService) {
-		this.propietarioAulaService = propietarioAulaService;
+		try {
+			this.propietarioAulaService = propietarioAulaService;
 
-		addClassName("mant-propietarios-view");
+			addClassName("mant-propietarios-view");
 
-		// Se ajusta el tamaño de la ventana al del navegador
-		setSizeFull();
+			// Se ajusta el tamaño de la ventana al del navegador
+			setSizeFull();
 
-		gridPropietarios = new Grid<>();
-		configurarGridPropietarios();
+			gridPropietarios = new Grid<>();
+			configurarGridPropietarios();
 
-		formulario = new MantPropietarioAulaForm();
-		formulario.addListener(MantPropietarioAulaForm.SaveEvent.class, this::guardarPropietario);
-		formulario.addListener(MantPropietarioAulaForm.DeleteEvent.class, this::eliminarPropietario);
-		formulario.addListener(MantPropietarioAulaForm.CloseEvent.class, e -> cerrarEditor());
+			formulario = new MantPropietarioAulaForm();
+			formulario.addListener(MantPropietarioAulaForm.SaveEvent.class, this::guardarPropietario);
+			formulario.addListener(MantPropietarioAulaForm.DeleteEvent.class, this::eliminarPropietario);
+			formulario.addListener(MantPropietarioAulaForm.CloseEvent.class, e -> cerrarEditor());
 
-		add(formulario, getToolbar(), gridPropietarios);
-		actualizarPropietarios();
-		cerrarEditor();
+			add(formulario, getToolbar(), gridPropietarios);
+			actualizarPropietarios();
+			cerrarEditor();
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
 	 * Función que configura el grid que muestra los propietarios de aulas.
 	 */
 	private void configurarGridPropietarios() {
-		gridPropietarios.addClassName("grid-propietarios");
-		gridPropietarios.setSizeFull();
+		try {
+			gridPropietarios.addClassName("grid-propietarios");
+			gridPropietarios.setSizeFull();
 
-		gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Propietario Aula")
-				.setKey("nombrePropietario");
-		gridPropietarios
-				.addColumn(PropietarioAula -> PropietarioAula.getNombreResponsable() + " "
-						+ PropietarioAula.getApellidosResponsable())
-				.setHeader("Responsable").setKey("nombreApellidosResponsable");
-		gridPropietarios.addColumn(PropietarioAula::getCorreoResponsable).setHeader("Correo")
-				.setKey("correoResponsable");
-		gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
-				.setKey("telefonoResponsable");
+			gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Propietario Aula")
+					.setKey("nombrePropietario");
+			gridPropietarios
+					.addColumn(PropietarioAula -> PropietarioAula.getNombreResponsable() + " "
+							+ PropietarioAula.getApellidosResponsable())
+					.setHeader("Responsable").setKey("nombreApellidosResponsable");
+			gridPropietarios.addColumn(PropietarioAula::getCorreoResponsable).setHeader("Correo")
+					.setKey("correoResponsable");
+			gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
+					.setKey("telefonoResponsable");
 
-		// Se establece el ancho de columna automático
-		gridPropietarios.getColumns().forEach(columna -> columna.setAutoWidth(true));
+			// Se establece el ancho de columna automático
+			gridPropietarios.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
-		// Se da un formato específico al grid
-		gridPropietarios.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
-				GridVariant.LUMO_ROW_STRIPES);
+			// Se da un formato específico al grid
+			gridPropietarios.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
+					GridVariant.LUMO_ROW_STRIPES);
 
-		// Sólo se permite editar una fila a la vez
-		gridPropietarios.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
+			// Sólo se permite editar una fila a la vez
+			gridPropietarios.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -99,22 +109,27 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * @return Toolbar
 	 */
 	private HorizontalLayout getToolbar() {
-		filtroTexto = new TextField();
-		filtroTexto.setPlaceholder("Buscar por nombre...");
-		filtroTexto.setClearButtonVisible(true);
-		filtroTexto.setValueChangeMode(ValueChangeMode.LAZY);
-		filtroTexto.addValueChangeListener(e -> actualizarPropietarios());
+		try {
+			filtroTexto = new TextField();
+			filtroTexto.setPlaceholder("Buscar por nombre...");
+			filtroTexto.setClearButtonVisible(true);
+			filtroTexto.setValueChangeMode(ValueChangeMode.LAZY);
+			filtroTexto.addValueChangeListener(e -> actualizarPropietarios());
 
-		btnAnadirCentro = new Button("Añadir centro", click -> anadirCentro());
-		btnAnadirCentro.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		
-		btnAnadirDepartamento = new Button("Añadir departamento", click -> anadirDepartamento());
-		btnAnadirDepartamento.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnAnadirCentro = new Button("Añadir centro", click -> anadirCentro());
+			btnAnadirCentro.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
-		toolbar.addClassName("toolbar-propietarios");
+			btnAnadirDepartamento = new Button("Añadir departamento", click -> anadirDepartamento());
+			btnAnadirDepartamento.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		return toolbar;
+			toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
+			toolbar.addClassName("toolbar-propietarios");
+
+			return toolbar;
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -122,7 +137,11 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * propietarios de aulas.
 	 */
 	private void cerrarEditor() {
-		formulario.setVisible(false);
+		try {
+			formulario.setVisible(false);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -134,18 +153,22 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 *                    o una creación(false)
 	 */
 	private void abrirEditor(PropietarioAula propietario, Boolean editar) {
-		if (propietario == null) {
-			cerrarEditor();
-		} else {
-			formulario.setPropietarioAula(propietario);
-			formulario.setVisible(true);
-			
-			// No se pueden editar el ID del propietario ni el tipo (se ocultan)
-			if(editar) {
-				formulario.idPropAula.setVisible(false);
+		try {
+			if (propietario == null) {
+				cerrarEditor();
 			} else {
-				formulario.idPropAula.setVisible(true);
+				formulario.setPropietarioAula(propietario);
+				formulario.setVisible(true);
+
+				// No se pueden editar el ID del propietario ni el tipo (se ocultan)
+				if (editar) {
+					formulario.idPropAula.setVisible(false);
+				} else {
+					formulario.idPropAula.setVisible(true);
+				}
 			}
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -153,16 +176,25 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * Función que permite añadir un centro.
 	 */
 	private void anadirCentro() {
-		gridPropietarios.asSingleSelect().clear();
-		abrirEditor(new Centro(), false);
+		try {
+			gridPropietarios.asSingleSelect().clear();
+			abrirEditor(new Centro(), false);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
-	
+
 	/**
 	 * Función que permite añadir un departamento.
 	 */
 	private void anadirDepartamento() {
-		gridPropietarios.asSingleSelect().clear();
-		abrirEditor(new Departamento(), false);
+		try {
+
+			gridPropietarios.asSingleSelect().clear();
+			abrirEditor(new Departamento(), false);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -170,10 +202,14 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * 
 	 * @param e Evento de guardado
 	 */
-	private void guardarPropietario(MantPropietarioAulaForm.SaveEvent e) {		
-		propietarioAulaService.save(e.getPropietarioAula());
-		actualizarPropietarios();
-		cerrarEditor();
+	private void guardarPropietario(MantPropietarioAulaForm.SaveEvent evt) {
+		try {
+			propietarioAulaService.save(evt.getPropietarioAula());
+			actualizarPropietarios();
+			cerrarEditor();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -181,17 +217,25 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * 
 	 * @param e Evento de eliminación
 	 */
-	private void eliminarPropietario(MantPropietarioAulaForm.DeleteEvent e) {
-		propietarioAulaService.delete(e.getPropietarioAula());
-		actualizarPropietarios();
-		cerrarEditor();
+	private void eliminarPropietario(MantPropietarioAulaForm.DeleteEvent evt) {
+		try {
+			propietarioAulaService.delete(evt.getPropietarioAula());
+			actualizarPropietarios();
+			cerrarEditor();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	/**
 	 * Función que actualiza el grid que muestra los propietarios de aulas.
 	 */
 	private void actualizarPropietarios() {
-		gridPropietarios.setItems(propietarioAulaService.findAll(filtroTexto.getValue()));
+		try {
+			gridPropietarios.setItems(propietarioAulaService.findAll(filtroTexto.getValue()));
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }
