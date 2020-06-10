@@ -1,4 +1,4 @@
-package com.vaadin.gestionaulasinformatica.ui;
+package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 
 //Imports Java
 import java.time.LocalDate;

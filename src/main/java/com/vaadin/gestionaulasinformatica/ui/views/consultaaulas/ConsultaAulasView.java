@@ -1,8 +1,7 @@
-package com.vaadin.gestionaulasinformatica.ui;
+package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 
 // Imports Vaadin
 import com.vaadin.flow.component.button.*;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.*;
@@ -11,6 +10,7 @@ import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.Component;
 
@@ -19,13 +19,14 @@ import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
 import com.vaadin.gestionaulasinformatica.backend.service.ReservaService;
+import com.vaadin.gestionaulasinformatica.ui.MainLayout;
+import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
 /**
- * Ventana principal para la consulta las reservas registradas y la
- * disponibilidad de las aulas.
+ * Ventana de Consulta de Reservas y Disponibilidad de Aulas.
  */
-@Route("")
-@CssImport("./styles/shared-styles.css")
+@Route(value = "", layout = MainLayout.class)
+@PageTitle("Consulta de Reservas y Disponibilidad de Aulas")
 public class ConsultaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;

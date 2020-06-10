@@ -1,35 +1,36 @@
-package com.vaadin.gestionaulasinformatica.ui;
+package com.vaadin.gestionaulasinformatica.ui.views.mantpropietarios;
 
 // Imports Vaadin
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
 import com.vaadin.gestionaulasinformatica.backend.entity.Departamento;
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
+import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 
 /**
  * Ventana para el Mantenimiento de Centros y Departamentos (CRUD de la entidad
  * PropietarioAula).
  */
-@Route("MantPropietarioAula")
-@CssImport("./styles/shared-styles.css")
-public class MantPropietarioAulaView extends VerticalLayout {
+@Route(value = "MantPropietarioAula", layout = MainLayout.class)
+@PageTitle("Mantenimiento de Centros y Departamentos")
+public class MantPropietariosView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
 	private PropietarioAulaService propietarioAulaService;
 
-	private final MantPropietarioAulaForm formulario;
+	private final MantPropietariosForm formulario;
 	private Grid<PropietarioAula> gridPropietarios;
 	private TextField filtroTexto;
 	private Button btnAnadirCentro;
@@ -41,7 +42,7 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * 
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 */
-	public MantPropietarioAulaView(PropietarioAulaService propietarioAulaService) {
+	public MantPropietariosView(PropietarioAulaService propietarioAulaService) {
 		try {
 			this.propietarioAulaService = propietarioAulaService;
 
@@ -53,10 +54,10 @@ public class MantPropietarioAulaView extends VerticalLayout {
 			gridPropietarios = new Grid<>();
 			configurarGridPropietarios();
 
-			formulario = new MantPropietarioAulaForm();
-			formulario.addListener(MantPropietarioAulaForm.SaveEvent.class, this::guardarPropietario);
-			formulario.addListener(MantPropietarioAulaForm.DeleteEvent.class, this::eliminarPropietario);
-			formulario.addListener(MantPropietarioAulaForm.CloseEvent.class, e -> cerrarEditor());
+			formulario = new MantPropietariosForm();
+			formulario.addListener(MantPropietariosForm.SaveEvent.class, this::guardarPropietario);
+			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::eliminarPropietario);
+			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());
 
 			add(formulario, getToolbar(), gridPropietarios);
 			actualizarPropietarios();
@@ -202,7 +203,7 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * 
 	 * @param e Evento de guardado
 	 */
-	private void guardarPropietario(MantPropietarioAulaForm.SaveEvent evt) {
+	private void guardarPropietario(MantPropietariosForm.SaveEvent evt) {
 		try {
 			propietarioAulaService.save(evt.getPropietarioAula());
 			actualizarPropietarios();
@@ -217,7 +218,7 @@ public class MantPropietarioAulaView extends VerticalLayout {
 	 * 
 	 * @param e Evento de eliminación
 	 */
-	private void eliminarPropietario(MantPropietarioAulaForm.DeleteEvent evt) {
+	private void eliminarPropietario(MantPropietariosForm.DeleteEvent evt) {
 		try {
 			propietarioAulaService.delete(evt.getPropietarioAula());
 			actualizarPropietarios();
