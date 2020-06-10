@@ -33,10 +33,11 @@ public class Centro extends PropietarioAula implements Serializable {
 	private Set<Aula> listaAulasUbicacionCentro;
 
 	/**
-	 * Constructor de la clase sin parámetros.
+	 * Constructor de la clase sin parámetros, indicando el tipo de propietario al
+	 * constructor del padre.
 	 */
 	public Centro() {
-		super();
+		super(TipoPropietarioAula.Centro);
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 */
 	public Centro(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
-		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable);
+		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable, TipoPropietarioAula.Centro);
 	}
 
 	/**

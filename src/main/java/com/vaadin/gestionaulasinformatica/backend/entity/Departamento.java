@@ -16,10 +16,11 @@ public class Departamento extends PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor de la clase sin parámetros.
+	 * Constructor de la clase sin parámetros, indicando el tipo de propietario al
+	 * constructor del padre.
 	 */
 	public Departamento() {
-		super();
+		super(TipoPropietarioAula.Departamento);
 	}
 
 	/**
@@ -34,7 +35,8 @@ public class Departamento extends PropietarioAula implements Serializable {
 	 */
 	public Departamento(String id, String nombre, char centro, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
-		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable);
+		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
+				TipoPropietarioAula.Departamento);
 	}
 
 	@Override

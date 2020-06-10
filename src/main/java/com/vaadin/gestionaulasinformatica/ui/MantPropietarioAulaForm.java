@@ -1,13 +1,13 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
-import java.util.List;
-
+// Import Vaadin
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -15,9 +15,21 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 
+// Imports backend
+import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
+import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
+
+/**
+ * Clase que contiene el formulario del Mantenimiento de Centros y
+ * Departamentos.
+ * 
+ * @author Lisa
+ *
+ */
 public class MantPropietarioAulaForm extends FormLayout {
+	private static final long serialVersionUID = 1L;
+	
 	TextField idPropAula = new TextField("ID del Centro/Departamento");
 	TextField nombrePropAula = new TextField("Nombre del Centro/Departamento");
 	TextField nombreResponsable = new TextField("Nombre del Responsable");
@@ -25,41 +37,58 @@ public class MantPropietarioAulaForm extends FormLayout {
 	EmailField correoResponsable = new EmailField("Correo del Responsable");
 	TextField telefonoResponsable = new TextField("Teléfono del Responsable");
 
-	Button guardar = new Button("Guardar");
-	Button eliminar = new Button("Eliminar");
-	Button cerrar = new Button("Cancelar");
+	Button btnGuardar = new Button("Guardar");
+	Button btnEliminar = new Button("Eliminar");
+	Button btnCerrar = new Button("Cancelar");
 
 	Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
 
+	/**
+	 * Constructor de la clase.
+	 */
 	public MantPropietarioAulaForm() {
-		addClassName("mant-propietarios-form");
+		addClassName("form-mant-propietarios");
 		
-		idPropAula.setRequiredIndicatorVisible(true);
-		nombrePropAula.setRequiredIndicatorVisible(true);
-
 		binder.bindInstanceFields(this);
+		binder.forField(idPropAula).bind("idPropietarioAula");
+		binder.forField(nombrePropAula).bind("nombrePropietarioAula");
 
 		add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
 				crearButtonsLayout());
 	}
 
+	/**
+	 * Función que establece el propietario actual del binder.
+	 * 
+	 * @param propietario Propietario actual
+	 */
+	public void setPropietarioAula(PropietarioAula propietario) {
+		binder.setBean(propietario);
+	}
+
+	/**
+	 * Función que crea el layout de botones para guardar, eliminar o cerrar el
+	 * editor.
+	 * 
+	 * @return Layout de botones
+	 */
 	private Component crearButtonsLayout() {
-		guardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		eliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		cerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+		btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+		btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+		btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
 		// Se guarda al pulsar Enter en el teclado
-		guardar.addClickShortcut(Key.ENTER);
+		btnGuardar.addClickShortcut(Key.ENTER);
 		// Se cierra al pulsar ESC en el teclado
-		cerrar.addClickShortcut(Key.ESCAPE);
+		btnCerrar.addClickShortcut(Key.ESCAPE);
 
-		guardar.addClickListener(click -> validarGuardar());
-		eliminar.addClickListener(click -> fireEvent(new EliminarEvent(this, binder.getBean())));
-		cerrar.addClickListener(click -> fireEvent(new CerrarEvent(this)));
+		btnGuardar.addClickListener(click -> validarGuardar());
+		btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, binder.getBean())));
+		btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 
-		binder.addStatusChangeListener(evt -> guardar.setEnabled(binder.isValid()));
+		binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-		return new HorizontalLayout(guardar, eliminar, cerrar);
+		return new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
 	}
 
 	/**
@@ -67,39 +96,77 @@ public class MantPropietarioAulaForm extends FormLayout {
 	 */
 	private void validarGuardar() {
 		if (binder.isValid()) {
-			fireEvent(new GuardarEvent(this, binder.getBean()));
+			fireEvent(new SaveEvent(this, binder.getBean()));
 		}
 	}
 
-	// Eventos
+	/**
+	 * Clase estática y abstracta para definir los eventos del formulario de
+	 * Mantenimiento de Centros y Departamentos.
+	 * 
+	 * @author Lisa
+	 *
+	 */
 	public static abstract class MantPropietarioAulaFormEvent extends ComponentEvent<MantPropietarioAulaForm> {
 		private PropietarioAula propietario;
 
+		/**
+		 * Constructor de la clase.
+		 * 
+		 * @param source      Origen
+		 * @param propietario Propietario de aulas
+		 */
 		protected MantPropietarioAulaFormEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
 			super(source, false);
 			this.propietario = propietario;
 		}
 
+		/**
+		 * Función que devuelve el propietario de aulas asociado a la clase.
+		 * 
+		 * @return Propietario de aulas asociado a la clase
+		 */
 		public PropietarioAula getPropietarioAula() {
 			return propietario;
 		}
 	}
 
-	public static class GuardarEvent extends MantPropietarioAulaFormEvent {
-		GuardarEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
+	/**
+	 * Clase estática para definir el evento "Guardar" del formulario de
+	 * Mantenimiento de Centros y Departamentos.
+	 * 
+	 * @author Lisa
+	 *
+	 */
+	public static class SaveEvent extends MantPropietarioAulaFormEvent {
+		SaveEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
 			super(source, propietario);
 		}
 	}
 
-	public static class EliminarEvent extends MantPropietarioAulaFormEvent {
-		EliminarEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
+	/**
+	 * Clase estática para definir el evento "Eliminar" del formulario de
+	 * Mantenimiento de Centros y Departamentos.
+	 * 
+	 * @author Lisa
+	 *
+	 */
+	public static class DeleteEvent extends MantPropietarioAulaFormEvent {
+		DeleteEvent(MantPropietarioAulaForm source, PropietarioAula propietario) {
 			super(source, propietario);
 		}
 
 	}
 
-	public static class CerrarEvent extends MantPropietarioAulaFormEvent {
-		CerrarEvent(MantPropietarioAulaForm source) {
+	/**
+	 * Clase estática para definir el evento "Cerrar" del formulario de
+	 * Mantenimiento de Centros y Departamentos.
+	 * 
+	 * @author Lisa
+	 *
+	 */
+	public static class CloseEvent extends MantPropietarioAulaFormEvent {
+		CloseEvent(MantPropietarioAulaForm source) {
 			super(source, null);
 		}
 	}

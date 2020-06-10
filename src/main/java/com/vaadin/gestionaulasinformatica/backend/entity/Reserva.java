@@ -1,7 +1,6 @@
 package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.sql.*;
 import java.time.*;
 import java.util.Set;
 

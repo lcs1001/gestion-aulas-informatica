@@ -21,12 +21,8 @@ import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService
 import com.vaadin.gestionaulasinformatica.backend.service.ReservaService;
 
 /**
- * Ventana principal que permite consultar las reservas registradas y la
+ * Ventana principal para la consulta las reservas registradas y la
  * disponibilidad de las aulas.
- * <p>
- * A new instance of this class is created for every new user and every browser
- * tab/window.
- * <p>
  */
 @Route("")
 @CssImport("./styles/shared-styles.css")
@@ -46,7 +42,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	private Button btnLimpiarFiltros;
 
 	/**
-	 * Constructor de la ventana de consulta de reservas y disponibilidad de aulas.
+	 * Constructor de la clase.
 	 * 
 	 * @param reservaService         Service de JPA de la entidad Reserva
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
@@ -76,6 +72,12 @@ public class ConsultaAulasView extends VerticalLayout {
 		add(contenido);
 	}
 
+	/**
+	 * Función que crea el layout de botones para consultar las reservas, consultar
+	 * la disponibilidad de aulas y para limpiar todos los filtros aplicados.
+	 * 
+	 * @return Layout de botones
+	 */
 	private Component crearButtonLayout() {
 		// Se crean los botones y el layout que los contiene
 		btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
@@ -91,7 +93,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función para configurar el grid que muestra las reservas.
+	 * Función que configura el grid que muestra las reservas.
 	 */
 	private void configurarGridReservas() {
 		gridReservas.addClassName("reservas-grid");
@@ -124,7 +126,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
 
 		// Se establece el ancho de columna automático
-		gridReservas.getColumns().forEach(columna-> columna.setAutoWidth(true));
+		gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
 		// Se da un formato específico al grid
 		gridReservas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,

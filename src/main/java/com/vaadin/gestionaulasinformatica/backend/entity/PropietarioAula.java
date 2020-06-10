@@ -23,7 +23,7 @@ import org.hibernate.annotations.Check;
 @Check(constraints = "tipo IN ('Centro','Departamento')")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
-public abstract class PropietarioAula implements Serializable {
+public class PropietarioAula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -58,9 +58,10 @@ public abstract class PropietarioAula implements Serializable {
 	@Column(name = "telefono_responsable")
 	private String telefonoResponsable = "";
 
+	@Enumerated(EnumType.STRING)
 	@NotNull
 	@Column(name = "tipo", insertable = false, updatable = false)
-	private String tipo = "";
+	private TipoPropietarioAula tipoPropietarioAula;
 
 	/**
 	 * Asociación bidireccional ManyToOne con Aula para indicar las aulas de las que
@@ -98,11 +99,18 @@ public abstract class PropietarioAula implements Serializable {
 	 */
 	@OneToMany(mappedBy = "responsableOperacion")
 	private Set<HistoricoReservas> listaOperacionesHR;
-
+	
 	/**
 	 * Constructor de la clase sin parámetros.
 	 */
 	public PropietarioAula() {
+	}
+
+	/**
+	 * Constructor de la clase con el tipo de propietario (centro o departamento).
+	 */
+	public PropietarioAula(TipoPropietarioAula tipo) {
+		this.tipoPropietarioAula = tipo;
 	}
 
 	/**
@@ -116,14 +124,14 @@ public abstract class PropietarioAula implements Serializable {
 	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
 	 */
 	public PropietarioAula(String id, String nombre, String nombreResponsable, String apellidosResponsable,
-			String correoResponsable, String telefonoResponsable) {
-		super();
-		this.setIdPropietarioAula(id);
-		this.setNombrePropietarioAula(nombre);
+			String correoResponsable, String telefonoResponsable, TipoPropietarioAula tipo) {
+		this.idPropietarioAula = id;
+		this.nombrePropietarioAula = nombre;
 		this.nombreResponsable = nombreResponsable;
 		this.apellidosResponsable = apellidosResponsable;
 		this.correoResponsable = correoResponsable;
 		this.telefonoResponsable = telefonoResponsable;
+		this.tipoPropietarioAula = tipo;
 	}
 
 	/**
@@ -178,16 +186,6 @@ public abstract class PropietarioAula implements Serializable {
 	 */
 	public String getApellidosResponsable() {
 		return this.apellidosResponsable;
-	}
-
-	/**
-	 * Función que devuelve el nombre y apellidos del responsable del
-	 * centro/departamento.
-	 * 
-	 * @return Nombre y apellidos del responsable del centro/departamento
-	 */
-	public String getNombreApellidosResponsable() {
-		return this.nombreResponsable + " " + this.apellidosResponsable;
 	}
 
 	/**
@@ -249,8 +247,8 @@ public abstract class PropietarioAula implements Serializable {
 	 * 
 	 * @return Tipo de propietario (centro o departamento)
 	 */
-	public String getTipoPropietarioAula() {
-		return this.tipo;
+	public TipoPropietarioAula getTipoPropietarioAula() {
+		return this.tipoPropietarioAula;
 	}
 
 	/**
@@ -258,8 +256,8 @@ public abstract class PropietarioAula implements Serializable {
 	 * 
 	 * @param tipo Tipo de propietario (centro o departamento)
 	 */
-	public void setTipoPropietarioAula(String tipo) {
-		this.tipo = tipo;
+	public void setTipoPropietarioAula(TipoPropietarioAula tipo) {
+		this.tipoPropietarioAula = tipo;
 	}
 
 	/**
