@@ -12,3 +12,8 @@ a[highlight] {
     font-size: 1em;
     margin: var(--lumo-space-m);
 }
+
+/* Consulta de Reservas y Disponibilidad de Aulas*/
+.consulta-aulas-toolbar{
+	margin-top: 15px;
+}
