@@ -12,7 +12,6 @@ import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.component.Component;
 
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
@@ -23,7 +22,7 @@ import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
 /**
- * Ventana de Consulta de Reservas y Disponibilidad de Aulas.
+ * Ventana Consulta de Reservas y Disponibilidad de Aulas.
  */
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Consulta de Reservas y Disponibilidad de Aulas")
@@ -35,12 +34,8 @@ public class ConsultaAulasView extends VerticalLayout {
 	private PropietarioAulaService propietarioAulaService;
 
 	private ConsultaAulasForm formularioAulas;
-
+	private HorizontalLayout toolbar;
 	private Grid<Reserva> gridReservas;
-
-	private Button btnConsultarReservas;
-	private Button btnConsultarDispAulas;
-	private Button btnLimpiarFiltros;
 
 	/**
 	 * Constructor de la clase.
@@ -83,7 +78,11 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private Component crearButtonLayout() {
+	private HorizontalLayout crearButtonLayout() {
+		Button btnConsultarReservas;
+		Button btnConsultarDispAulas;
+		Button btnLimpiarFiltros;
+		
 		try {
 			// Se crean los botones y el layout que los contiene
 			btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
@@ -96,7 +95,10 @@ public class ConsultaAulasView extends VerticalLayout {
 			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> formularioAulas.limpiarFiltros());
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			return new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+			toolbar = new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
+			toolbar.addClassName("toolbar-consulta-aulas");
+			
+			return toolbar;
 		} catch (Exception e) {
 			throw e;
 		}
@@ -157,6 +159,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		Boolean valido = true;
 		Notification notificacion;
 		String msgAlerta = "";
+		
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
 			if (formularioAulas.responsable.getValue() == null) {
@@ -185,7 +188,7 @@ public class ConsultaAulasView extends VerticalLayout {
 				}
 			}
 
-			// Si no es válido se muestra la notificación de alerta
+			// Si no es válido se muestra la alerta
 			if (!valido) {
 				notificacion = new Notification(msgAlerta, 5000);
 				notificacion.addThemeVariants(NotificationVariant.LUMO_ERROR);

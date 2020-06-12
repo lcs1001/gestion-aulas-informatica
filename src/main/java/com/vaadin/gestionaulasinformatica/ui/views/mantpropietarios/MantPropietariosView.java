@@ -19,7 +19,7 @@ import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 
 /**
- * Ventana para el Mantenimiento de Centros y Departamentos (CRUD de la entidad
+ * Ventana Mantenimiento de Centros y Departamentos (CRUD de la entidad
  * PropietarioAula).
  */
 @Route(value = "MantPropietarioAula", layout = MainLayout.class)
@@ -33,8 +33,6 @@ public class MantPropietariosView extends VerticalLayout {
 	private final MantPropietariosForm formulario;
 	private Grid<PropietarioAula> gridPropietarios;
 	private TextField filtroTexto;
-	private Button btnAnadirCentro;
-	private Button btnAnadirDepartamento;
 	private HorizontalLayout toolbar;
 
 	/**
@@ -110,6 +108,9 @@ public class MantPropietariosView extends VerticalLayout {
 	 * @return Toolbar
 	 */
 	private HorizontalLayout getToolbar() {
+		Button btnAnadirCentro;
+		Button btnAnadirDepartamento;
+
 		try {
 			filtroTexto = new TextField();
 			filtroTexto.setPlaceholder("Buscar por nombre...");
@@ -125,7 +126,6 @@ public class MantPropietariosView extends VerticalLayout {
 
 			toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
 			toolbar.addClassName("toolbar-propietarios");
-
 			return toolbar;
 
 		} catch (Exception e) {

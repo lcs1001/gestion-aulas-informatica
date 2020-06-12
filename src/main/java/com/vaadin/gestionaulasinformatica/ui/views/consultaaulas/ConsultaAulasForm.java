@@ -27,14 +27,21 @@ public class ConsultaAulasForm extends FormLayout {
 
 	private List<PropietarioAula> lstPropietariosAulas;
 
-	protected DatePicker fechaDesde = new DatePicker("Fecha Desde");
-	protected DatePicker fechaHasta = new DatePicker("Fecha hasta");
-	protected TimePicker horaDesde = new TimePicker("Hora desde");
-	protected TimePicker horaHasta = new TimePicker("Hora hasta");
-	protected NumberField capacidad = new NumberField("Capacidad");
-	protected NumberField numOrdenadores = new NumberField("Nº ordenadores");
-	protected ComboBox<PropietarioAula> responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
+	private Locale spain;
+	protected DatePicker fechaDesde;
+	protected DatePicker fechaHasta;
+	protected TimePicker horaDesde;
+	protected TimePicker horaHasta;
+	protected NumberField capacidad;
+	protected NumberField numOrdenadores;
+	protected ComboBox<PropietarioAula> responsable;
 
+	/**
+	 * Constructor de la clase
+	 * 
+	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
+	 *                     el desplegable de responsables
+	 */
 	public ConsultaAulasForm(List<PropietarioAula> propietarios) {
 		try {
 			addClassName("consulta-aulas-form");
@@ -46,7 +53,7 @@ public class ConsultaAulasForm extends FormLayout {
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4), new ResponsiveStep("25em", 5));
 
 			// Se configuran los campos de filtrado
-			configurarFiltrosConsulta();
+			configurarFiltros();
 
 			// Se añaden los campos al formulario
 			add(fechaDesde, horaDesde, capacidad);
@@ -60,28 +67,36 @@ public class ConsultaAulasForm extends FormLayout {
 	/**
 	 * Función que configura los campos de filtrado.
 	 */
-	private void configurarFiltrosConsulta() {
+	private void configurarFiltros() {
 		try {
-			// Campo obligatorio - Por defecto con la fecha actual
-			fechaDesde.setValue(LocalDate.now());
-			fechaDesde.setLocale(Locale.ITALY); // Para establecer el formato dd/MM/yyyy
+			spain = new Locale("es", "ES");
+
+			fechaDesde = new DatePicker("Fecha Desde");
+			fechaDesde.setValue(LocalDate.now());			// Por defecto la fecha actual
+			fechaDesde.setLocale(spain); 					// Formato dd/M/yyyy
 			fechaDesde.setClearButtonVisible(true);
 
-			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
-			fechaHasta.setLocale(Locale.ITALY); // Para establecer el formato dd/MM/yyyy
+			fechaHasta = new DatePicker("Fecha hasta");
+			fechaHasta.setMin(fechaDesde.getValue()); 		// Como mínimo debe ser la fecha desde la que se ha filtrado
+			fechaHasta.setLocale(spain); 					// Formato dd/M/yyyy
 			fechaHasta.setClearButtonVisible(true);
 
+			horaDesde = new TimePicker("Hora desde");
 			horaDesde.setClearButtonVisible(true);
 
+			horaHasta = new TimePicker("Hora hasta");
 			horaHasta.setClearButtonVisible(true);
 
+			capacidad = new NumberField("Capacidad");
 			capacidad.setHasControls(true);
 			capacidad.setClearButtonVisible(true);
 
+			numOrdenadores = new NumberField("Nº ordenadores");
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
 
 			// Campo obligatorio
+			responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
 			responsable.setPlaceholder("Seleccione");
 			responsable.setItems(lstPropietariosAulas);
 			responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);

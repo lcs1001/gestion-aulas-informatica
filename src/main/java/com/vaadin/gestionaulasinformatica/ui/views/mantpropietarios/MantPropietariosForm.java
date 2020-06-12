@@ -28,12 +28,12 @@ import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 public class MantPropietariosForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
-	protected TextField idPropAula = new TextField("ID del Centro/Departamento");
-	protected 	TextField nombrePropAula = new TextField("Nombre del Centro/Departamento");
-	protected TextField nombreResponsable = new TextField("Nombre del Responsable");
-	protected TextField apellidosResponsable = new TextField("Apellidos del Responsable");
-	protected EmailField correoResponsable = new EmailField("Correo del Responsable");
-	protected TextField telefonoResponsable = new TextField("Teléfono del Responsable");
+	protected TextField idPropAula ;
+	protected TextField nombrePropAula ;
+	protected TextField nombreResponsable;
+	protected TextField apellidosResponsable ;
+	protected EmailField correoResponsable;
+	protected TextField telefonoResponsable;
 
 	private Button btnGuardar = new Button("Guardar");
 	private Button btnEliminar = new Button("Eliminar");
@@ -48,6 +48,9 @@ public class MantPropietariosForm extends FormLayout {
 		try {
 			addClassName("form-mant-propietarios");
 
+			// Se configuran los campos de filtrado
+			configurarCamposFormulario();
+
 			binder.bindInstanceFields(this);
 			binder.forField(idPropAula).bind("idPropietarioAula");
 			binder.forField(nombrePropAula).bind("nombrePropietarioAula");
@@ -57,6 +60,26 @@ public class MantPropietariosForm extends FormLayout {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	/**
+	 * Función que configura los campos del formulario.
+	 */
+	private void configurarCamposFormulario() {
+		try {
+			idPropAula= new TextField("ID del Centro/Departamento");
+			nombrePropAula = new TextField("Nombre del Centro/Departamento");
+			nombreResponsable = new TextField("Nombre del Responsable");
+			apellidosResponsable = new TextField("Apellidos del Responsable");
+			correoResponsable = new EmailField("Correo del Responsable");
+			
+			telefonoResponsable = new TextField("Teléfono del Responsable");
+			telefonoResponsable.setMinLength(9);
+			telefonoResponsable.setMaxLength(9);
+		}catch(Exception e) {
+			throw e;
+		}
+		
 	}
 
 	/**
