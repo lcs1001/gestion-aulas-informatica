@@ -27,7 +27,6 @@ public class ConsultaAulasForm extends FormLayout {
 
 	private List<PropietarioAula> lstPropietariosAulas;
 
-	private Locale spain;
 	protected DatePicker fechaDesde;
 	protected DatePicker fechaHasta;
 	protected TimePicker horaDesde;
@@ -48,14 +47,11 @@ public class ConsultaAulasForm extends FormLayout {
 
 			this.lstPropietariosAulas = propietarios;
 
-			// Se establecen 4 columnas
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4), new ResponsiveStep("25em", 5));
 
-			// Se configuran los campos de filtrado
 			configurarFiltros();
 
-			// Se añaden los campos al formulario
 			add(fechaDesde, horaDesde, capacidad);
 			add(responsable, 2);
 			add(fechaHasta, horaHasta, numOrdenadores);
@@ -68,17 +64,19 @@ public class ConsultaAulasForm extends FormLayout {
 	 * Función que configura los campos de filtrado.
 	 */
 	private void configurarFiltros() {
+		Locale localeSpain;
+
 		try {
-			spain = new Locale("es", "ES");
+			localeSpain = new Locale("es", "ES");
 
 			fechaDesde = new DatePicker("Fecha Desde");
-			fechaDesde.setValue(LocalDate.now());			// Por defecto la fecha actual
-			fechaDesde.setLocale(spain); 					// Formato dd/M/yyyy
+			fechaDesde.setValue(LocalDate.now()); // Por defecto la fecha actual
+			fechaDesde.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaDesde.setClearButtonVisible(true);
 
 			fechaHasta = new DatePicker("Fecha hasta");
-			fechaHasta.setMin(fechaDesde.getValue()); 		// Como mínimo debe ser la fecha desde la que se ha filtrado
-			fechaHasta.setLocale(spain); 					// Formato dd/M/yyyy
+			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
+			fechaHasta.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
@@ -95,12 +93,11 @@ public class ConsultaAulasForm extends FormLayout {
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
 
-			// Campo obligatorio
 			responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
 			responsable.setPlaceholder("Seleccione");
 			responsable.setItems(lstPropietariosAulas);
 			responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			responsable.setRequiredIndicatorVisible(true);
+			responsable.setRequiredIndicatorVisible(true); // Campo obligatorio
 		} catch (Exception e) {
 			throw e;
 		}

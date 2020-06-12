@@ -48,7 +48,6 @@ public class MantPropietariosForm extends FormLayout {
 		try {
 			addClassName("form-mant-propietarios");
 
-			// Se configuran los campos de filtrado
 			configurarCamposFormulario();
 
 			binder.bindInstanceFields(this);

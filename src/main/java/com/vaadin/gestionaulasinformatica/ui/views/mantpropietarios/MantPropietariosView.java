@@ -101,9 +101,9 @@ public class MantPropietariosView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que configura el toolbar que contiene: - Un filtro de texto que
-	 * permite filtrar los propietarios de aulas por su nombre. - Un botón para
-	 * añadir propietarios
+	 * Función que configura el toolbar que contiene: un filtro de texto que permite
+	 * filtrar los propietarios de aulas por su nombre, un botón para añadir centros
+	 * y un botón para añadir departamentos.
 	 * 
 	 * @return Toolbar
 	 */

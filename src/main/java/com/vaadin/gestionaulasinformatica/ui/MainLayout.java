@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
+import com.vaadin.gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantpropietarios.MantPropietariosView;
 
 /**
@@ -37,7 +38,8 @@ public class MainLayout extends AppLayout {
 	}
 
 	/**
-	 * Función que crea la cabecera, que contiene el nombre de al app y el acceso al menú lateral.
+	 * Función que crea la cabecera, que contiene el nombre de al app y el acceso al
+	 * menú lateral.
 	 */
 	private void crearCabecera() {
 		H1 titulo;
@@ -65,17 +67,24 @@ public class MainLayout extends AppLayout {
 	private void crearMenuLateral() {
 		RouterLink consultaAulasLink;
 		RouterLink mantPropietarioLink;
+		RouterLink historicoReservasLink;
 
 		try {
-			// Link a la ventana de Consulta de Reservas y Disponibilidad de Aulas
+			// Link a la ventana Consulta de Reservas y Disponibilidad de Aulas
 			consultaAulasLink = new RouterLink("Consulta de Reservas y Aulas", ConsultaAulasView.class);
 			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			// Link a la ventana de Mantenimiento de Centros y Departamentos
-			mantPropietarioLink = new RouterLink("Mantenimiento de Centros y Departamentos", MantPropietariosView.class);
+			// Link a la ventana Mantenimiento de Centros y Departamentos
+			mantPropietarioLink = new RouterLink("Mantenimiento de Centros y Departamentos",
+					MantPropietariosView.class);
 			mantPropietarioLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			addToDrawer(new VerticalLayout(consultaAulasLink, mantPropietarioLink));
+			// Link a la ventana Histórico de Reservas
+			historicoReservasLink = new RouterLink("Histórico de Reservas",
+					HistoricoReservasView.class);
+			historicoReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+			addToDrawer(new VerticalLayout(consultaAulasLink, mantPropietarioLink, historicoReservasLink));
 		} catch (Exception e) {
 			throw e;
 		}
