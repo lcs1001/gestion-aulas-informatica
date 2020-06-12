@@ -1,7 +1,8 @@
 package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,9 +22,8 @@ public class HistoricoReservas implements Serializable {
 	private HistoricoReservasPK idOperacionHR;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_operacion")
-	private Date fechaOperacion;
+	private LocalDate fechaOperacion;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -55,7 +55,7 @@ public class HistoricoReservas implements Serializable {
 	 * 
 	 * @return Fecha en que se ha realizado la operación
 	 */
-	public Date getFechaOperacion() {
+	public LocalDate getFechaOperacion() {
 		return this.fechaOperacion;
 	}
 
@@ -64,7 +64,7 @@ public class HistoricoReservas implements Serializable {
 	 * 
 	 * @param fecha Fecha en que se ha realizado la operación
 	 */
-	public void setFechaOperacion(Date fecha) {
+	public void setFechaOperacion(LocalDate fecha) {
 		this.fechaOperacion = fecha;
 	}
 

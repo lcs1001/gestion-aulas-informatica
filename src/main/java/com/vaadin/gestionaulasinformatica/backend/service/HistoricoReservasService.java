@@ -1,5 +1,6 @@
 package com.vaadin.gestionaulasinformatica.backend.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vaadin.gestionaulasinformatica.backend.entity.HistoricoReservas;
 import com.vaadin.gestionaulasinformatica.backend.repository.IHistoricoReservasRepository;
+import com.vaadin.gestionaulasinformatica.backend.specification.HistoricoReservasSpecification;
 
 /**
  * Service para la entidad HistoricoReservas.
@@ -33,6 +35,21 @@ public class HistoricoReservasService {
 	 */
 	public List<HistoricoReservas> findAll() {
 		return historicoReservasRepository.findAll();
+	}
+
+	/**
+	 * Función que devuelve una lista con todas las operaciones realizadas sobre las
+	 * reservas que hay en el repositorio que cumplen con los filtros aplicados.
+	 * 
+	 * @param fechaDesde Fecha desde la que obtener las reservas
+	 * @param fechaHasta Fecha hasta la que obtener las reservas
+	 * 
+	 * @return Lista con todas las operaciones realizadas sobre las reservas que hay
+	 *         en el repositorio que cumplen con los filtros aplicados
+	 */
+	public List<HistoricoReservas> findAll(LocalDate fechaDesde, LocalDate fechaHasta) {
+		return historicoReservasRepository
+				.findAll(HistoricoReservasSpecification.findByFilters(fechaDesde, fechaHasta));
 	}
 
 	/**

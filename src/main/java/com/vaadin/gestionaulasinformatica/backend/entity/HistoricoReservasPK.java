@@ -23,7 +23,7 @@ public class HistoricoReservasPK implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "reserva", referencedColumnName = "id_reserva", insertable = false, updatable = false)
+	@JoinColumn(name = "id_reserva", referencedColumnName = "id_reserva", insertable = false, updatable = false)
 	private Reserva reserva;
 
 	@Enumerated(EnumType.STRING)
