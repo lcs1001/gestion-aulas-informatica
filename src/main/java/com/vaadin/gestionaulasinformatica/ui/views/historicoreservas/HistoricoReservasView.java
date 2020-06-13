@@ -108,7 +108,7 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-" : reserva.getAula() + " - " + reserva.getCentroAula();
+				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getCentroAula();
 			}).setHeader("Lugar").setKey("lugarReserva");
 
 			gridHistorico.addColumn(operacion -> {
