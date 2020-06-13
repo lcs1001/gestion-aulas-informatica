@@ -43,9 +43,7 @@ public class Reserva implements Serializable {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumns({
-			@JoinColumn(name = "nombre_aula", referencedColumnName = "nombre_aula", insertable = false, updatable = false),
-			@JoinColumn(name = "ubicacion_centro", referencedColumnName = "ubicacion_centro", insertable = false, updatable = false) })
+	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula", insertable = false, updatable = false)
 	private Aula aula;
 
 	/**
@@ -191,7 +189,7 @@ public class Reserva implements Serializable {
 	 * @return Aula de la reserva
 	 */
 	public String getNombreAula() {
-		return this.aula.getIdAula().getNombreAula();
+		return this.getAula().getNombreAula();
 	}
 
 	/**
@@ -200,7 +198,7 @@ public class Reserva implements Serializable {
 	 * @return Centro en el que se encuentra el aula de la reserva
 	 */
 	public PropietarioAula getCentroAula() {
-		return this.aula.getIdAula().getCentro();
+		return this.getAula().getCentro();
 	}
 
 	/**
@@ -346,14 +344,14 @@ public class Reserva implements Serializable {
 		if (reservaRango) {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Fecha fin - " + this.getFechaFin() + ", Hora inicio - " + this.getHoraInicio()
-					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getAula().getIdAula().getNombreAula()
-					+ "-" + this.getAula().getIdAula().getCentro() + ", Dia semana - " + this.getDiaSemana()
+					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getAula().getNombreAula()
+					+ "-" + this.getAula().getCentro() + ", Dia semana - " + this.getDiaSemana()
 					+ ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe() + " ("
 					+ this.getResponsable() + ")]";
 		} else {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Hora inicio - " + this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - "
-					+ this.getAula().getIdAula().getNombreAula() + "-" + this.getAula().getIdAula().getCentro()
+					+ this.getAula().getNombreAula() + "-" + this.getAula().getCentro()
 					+ ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe() + " ("
 					+ this.getResponsable() + ")]";
 		}

@@ -123,12 +123,12 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			gridReservas.addColumn(reserva -> {
 				Aula aula = reserva.getAula();
-				return aula == null ? "-" : aula.getIdAula().getNombreAula();
+				return aula == null ? "-" : aula.getNombreAula();
 			}).setHeader("Aula").setKey("aula");
 
 			gridReservas.addColumn(reserva -> {
 				Aula aula = reserva.getAula();
-				return aula == null ? "-" : aula.getIdAula().getCentro().getNombrePropietarioAula();
+				return aula == null ? "-" : aula.getCentro().getNombrePropietarioAula();
 			}).setHeader("Centro").setKey("centro");
 
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
