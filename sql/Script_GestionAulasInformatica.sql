@@ -16,12 +16,13 @@ CREATE TABLE public."propietario_aula" (
 DROP TABLE IF EXISTS public."aula" CASCADE;
 
 CREATE TABLE public."aula" (
+	id_aula integer,
 	nombre_aula character varying(20),
 	ubicacion_centro character varying(20) NOT NULL,
     propietario_aula character varying(20) NOT NULL,
     capacidad integer NOT NULL DEFAULT 0,
     num_ordenadores integer NOT NULL DEFAULT 0,
-    CONSTRAINT "PK_Aula" PRIMARY KEY (nombre_aula, ubicacion_centro),
+    CONSTRAINT "PK_Aula" PRIMARY KEY (id_aula),
     CONSTRAINT "FK_Aula_PopietarioAula_UbicacionCentro" FOREIGN KEY (ubicacion_centro)
         REFERENCES public."propietario_aula" (id_propietario_aula) 
         ON UPDATE CASCADE 
@@ -30,6 +31,7 @@ CREATE TABLE public."aula" (
         REFERENCES public."propietario_aula" (id_propietario_aula)
         ON UPDATE CASCADE 
         ON DELETE CASCADE,
+    CONSTRAINT "UNQ_Aula_NombreAula_UbicacionCentro" UNIQUE (nombre_aula, ubicacion_centro),
     CONSTRAINT "CHK_Aula_Capacidad" CHECK(capacidad >= 0),
     CONSTRAINT "CHK_Aula_NumOrdenadores" CHECK(num_ordenadores >= 0)
 );
@@ -42,15 +44,14 @@ CREATE TABLE public."reserva" (
 	fecha_fin date,
     hora_inicio time without time zone NOT NULL,
     hora_fin time without time zone NOT NULL,
-    nombre_aula character varying(20) NOT NULL,
-    ubicacion_centro character varying(20) NOT NULL,
+    id_aula integer NOT NULL,
     dia_semana character varying(10),
     motivo character varying(50) NOT NULL,
     a_cargo_de character varying(50) NOT NULL,
     responsable character varying(20) NOT NULL,
     reserva_rango boolean NOT NULL DEFAULT false,
     CONSTRAINT "PK_Reserva" PRIMARY KEY (id_reserva),
-    CONSTRAINT "FK_Reserva_Aula_AulaCentro" FOREIGN KEY (nombre_aula, ubicacion_centro)
+    CONSTRAINT "FK_Reserva_Aula_Aula" FOREIGN KEY (id_aula)
         REFERENCES public."aula"
         ON UPDATE CASCADE
         ON DELETE CASCADE,
@@ -94,10 +95,10 @@ INSERT INTO public."propietario_aula" VALUES('EPS', 'Escuela Politecnica Superio
 INSERT INTO public."propietario_aula" VALUES('DPTO-Educacion', 'Departamento de Ciencias de la Educacion', 'Responsable', 'Dpto Educacion', 'responsableDptoEducacion@gmail.com', '548759547', 'Departamento');
 INSERT INTO public."propietario_aula" VALUES('DPTO-Informatica', 'Departamento de Ingenieria Informatica', 'Responsable', 'Dpto Informatica', 'responsableDptoInformatica@gmail.com', '745621456', 'Departamento');
 
-INSERT INTO public."aula" VALUES ('36-A1', 'EPS', 'DPTO-Informatica', '50');
-INSERT INTO public."aula" VALUES ('Sala de Juntas', 'EPS', 'EPS', '100');
+INSERT INTO public."aula" VALUES (1, '36-A1', 'EPS', 'DPTO-Informatica', '50');
+INSERT INTO public."aula" VALUES (2, 'Sala de Juntas', 'EPS', 'EPS', '100');
 
 -- Simulación reserva
-INSERT INTO public."reserva" VALUES ('0', '2020-06-22', NULL , '12:30', '13:30', 'Sala de Juntas', 'EPS', NULL,'Reunion cuatrimestral', 'Sara Peña', 'EPS');
+INSERT INTO public."reserva" VALUES ('0', '2020-06-22', NULL , '12:30', '13:30', '2' , NULL,'Reunion cuatrimestral', 'Sara Peña', 'EPS');
 
 COMMIT;
