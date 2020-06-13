@@ -111,6 +111,15 @@ public class Aula implements Serializable {
 	public PropietarioAula getCentro() {
 		return this.ubicacionCentro;
 	}
+	
+	/**
+	 * Función que devuelve el nombre del centro en el que se encuentra el aula.
+	 * 
+	 * @return Centro en el que se encuentra el aula
+	 */
+	public String getNombreCentro() {
+		return this.ubicacionCentro.getNombrePropietarioAula();
+	}
 
 	/**
 	 * Función que establece el centro en el que se encuentra el aula.
