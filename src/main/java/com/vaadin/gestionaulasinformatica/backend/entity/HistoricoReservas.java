@@ -1,7 +1,6 @@
 package com.vaadin.gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.*;
