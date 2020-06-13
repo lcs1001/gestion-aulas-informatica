@@ -1,4 +1,4 @@
-package com.vaadin.gestionaulasinformatica.ui.views.mantpropietarios;
+package com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios;
 
 // Imports Vaadin
 import com.vaadin.flow.component.Component;
@@ -46,13 +46,13 @@ public class MantPropietariosForm extends FormLayout {
 	 */
 	public MantPropietariosForm() {
 		try {
-			addClassName("form-mant-propietarios");
+			addClassName("mant-propietarios-form");
 
 			configurarCamposFormulario();
 
 			binder.bindInstanceFields(this);
-			binder.forField(idPropAula).bind("idPropietarioAula");
-			binder.forField(nombrePropAula).bind("nombrePropietarioAula");
+			binder.bind(idPropAula, "idPropietarioAula");
+			binder.bind(nombrePropAula, "nombrePropietarioAula");	
 
 			add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable,
 					telefonoResponsable, crearButtonsLayout());
@@ -77,8 +77,7 @@ public class MantPropietariosForm extends FormLayout {
 			telefonoResponsable.setMaxLength(9);
 		}catch(Exception e) {
 			throw e;
-		}
-		
+		}		
 	}
 
 	/**
@@ -144,7 +143,7 @@ public class MantPropietariosForm extends FormLayout {
 	 * @author Lisa
 	 *
 	 */
-	public static abstract class MantPropietarioAulaFormEvent extends ComponentEvent<MantPropietariosForm> {
+	public static abstract class MantPropietariosAulaFormEvent extends ComponentEvent<MantPropietariosForm> {
 		private static final long serialVersionUID = 1L;
 		private PropietarioAula propietario;
 
@@ -154,7 +153,7 @@ public class MantPropietariosForm extends FormLayout {
 		 * @param source      Origen
 		 * @param propietario Propietario de aulas
 		 */
-		protected MantPropietarioAulaFormEvent(MantPropietariosForm source, PropietarioAula propietario) {
+		protected MantPropietariosAulaFormEvent(MantPropietariosForm source, PropietarioAula propietario) {
 			super(source, false);
 			this.propietario = propietario;
 		}
@@ -176,7 +175,7 @@ public class MantPropietariosForm extends FormLayout {
 	 * @author Lisa
 	 *
 	 */
-	public static class SaveEvent extends MantPropietarioAulaFormEvent {
+	public static class SaveEvent extends MantPropietariosAulaFormEvent {
 		private static final long serialVersionUID = 1L;
 
 		SaveEvent(MantPropietariosForm source, PropietarioAula propietario) {
@@ -191,7 +190,7 @@ public class MantPropietariosForm extends FormLayout {
 	 * @author Lisa
 	 *
 	 */
-	public static class DeleteEvent extends MantPropietarioAulaFormEvent {
+	public static class DeleteEvent extends MantPropietariosAulaFormEvent {
 		private static final long serialVersionUID = 1L;
 
 		DeleteEvent(MantPropietariosForm source, PropietarioAula propietario) {
@@ -207,7 +206,7 @@ public class MantPropietariosForm extends FormLayout {
 	 * @author Lisa
 	 *
 	 */
-	public static class CloseEvent extends MantPropietarioAulaFormEvent {
+	public static class CloseEvent extends MantPropietariosAulaFormEvent {
 		private static final long serialVersionUID = 1L;
 
 		CloseEvent(MantPropietariosForm source) {

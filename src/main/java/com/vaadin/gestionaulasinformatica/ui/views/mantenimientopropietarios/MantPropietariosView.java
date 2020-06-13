@@ -1,4 +1,4 @@
-package com.vaadin.gestionaulasinformatica.ui.views.mantpropietarios;
+package com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios;
 
 // Imports Vaadin
 import com.vaadin.flow.component.button.Button;
@@ -45,8 +45,6 @@ public class MantPropietariosView extends VerticalLayout {
 			this.propietarioAulaService = propietarioAulaService;
 
 			addClassName("mant-propietarios-view");
-
-			// Se ajusta el tamaño de la ventana al del navegador
 			setSizeFull();
 
 			gridPropietarios = new Grid<>();
@@ -60,7 +58,6 @@ public class MantPropietariosView extends VerticalLayout {
 			add(formulario, getToolbar(), gridPropietarios);
 			actualizarPropietarios();
 			cerrarEditor();
-
 		} catch (Exception e) {
 			throw e;
 		}
@@ -85,14 +82,11 @@ public class MantPropietariosView extends VerticalLayout {
 			gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
 					.setKey("telefonoResponsable");
 
-			// Se establece el ancho de columna automático
 			gridPropietarios.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
-			// Se da un formato específico al grid
 			gridPropietarios.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
 					GridVariant.LUMO_ROW_STRIPES);
 
-			// Sólo se permite editar una fila a la vez
 			gridPropietarios.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
 
 		} catch (Exception e) {
