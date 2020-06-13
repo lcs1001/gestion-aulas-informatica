@@ -34,6 +34,23 @@ public class AulaService {
 	}
 
 	/**
+	 * Función que devuelve una lista con todas las aulas cuyo nombre contenga el
+	 * filtro de texto, o todas las aulas en caso de que el filtro sea null.
+	 * 
+	 * @param filtroTexto Filtro que se quiere aplicar
+	 * 
+	 * @return Lista con todas las aulas cuyo nombre contenga el filtro de texto, o
+	 *         todas las aulas en caso de que el filtro sea null
+	 */
+	public List<Aula> findAll(String filtroTexto) {
+		if (filtroTexto == null || filtroTexto.isEmpty()) {
+			return aulaRepository.findAll();
+		} else {
+			return aulaRepository.search(filtroTexto);
+		}
+	}
+
+	/**
 	 * Función que devuelve el número de aulas que hay en el repositorio.
 	 * 
 	 * @return Número de aulas que hay en el repositorio
