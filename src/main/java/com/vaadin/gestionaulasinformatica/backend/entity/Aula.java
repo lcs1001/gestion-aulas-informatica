@@ -17,8 +17,26 @@ import javax.validation.constraints.*;
 public class Aula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private AulaPK idAula;
+	@Id
+	@SequenceGenerator(name = "aula_sequence", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aula_sequence")
+	@Column(name = "id_aula")
+	private Integer idAula;
+
+	@NotNull
+	@Column(name = "nombre_aula")
+	private String nombreAula = "";
+
+	/**
+	 * Centro en el que se encuentra el aula (nombre corto del centro -
+	 * idPropietarioAula).
+	 * 
+	 * Asociación bidireccional ManyToOne con PropietarioAula.
+	 */
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
+	private PropietarioAula ubicacionCentro;
 
 	/**
 	 * Centro/Departamento propietario del aula (nombre corto del centro -
@@ -31,10 +49,12 @@ public class Aula implements Serializable {
 	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula propietarioAula;
 
+	@NotNull
 	@Min(value = 0)
 	@Column(name = "capacidad")
 	private Integer capacidad = 0;
 
+	@NotNull
 	@Min(value = 0)
 	@Column(name = "num_ordenadores")
 	private Integer numOrdenadores = 0;
@@ -57,23 +77,48 @@ public class Aula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el id del aula (nombre aula + ubicación centro).
+	 * Función que devuelve el id del aula.
 	 * 
 	 * @return ID del aula
 	 */
-	public AulaPK getIdAula() {
+	public Integer getIdAula() {
 		return this.idAula;
 	}
 
 	/**
-	 * Función que establece el id del aula.
+	 * Función que devuelve el nombre del aula.
 	 * 
-	 * @param nombre Nombre del aula
-	 * @param centro Centro en el que se encuentar el aula
+	 * @return Nombre del aula
 	 */
-	public void setIdAula(String nombre, PropietarioAula centro) {
-		this.idAula.setNombreAula(nombre);
-		this.idAula.setCentro(centro);
+	public String getNombreAula() {
+		return this.nombreAula;
+	}
+
+	/**
+	 * Función que establece el nombre del aula.
+	 * 
+	 * @param nombreAula Nombre del aula
+	 */
+	public void setNombreAula(String nombreAula) {
+		this.nombreAula = nombreAula;
+	}
+
+	/**
+	 * Función que devuelve el centro en el que se encuentra el aula.
+	 * 
+	 * @return Centro en el que se encuentra el aula
+	 */
+	public PropietarioAula getCentro() {
+		return this.ubicacionCentro;
+	}
+
+	/**
+	 * Función que establece el centro en el que se encuentra el aula.
+	 * 
+	 * @param centro Centro en el que se encuentra el aula
+	 */
+	public void setCentro(PropietarioAula centro) {
+		this.ubicacionCentro = centro;
 	}
 
 	/**
@@ -95,39 +140,43 @@ public class Aula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve la capacidad del aula.
+	 * Función que devuelve la capacidad del aula como Double para el Mantenimiento
+	 * de Aulas.
 	 * 
 	 * @return Capacidad del aula
 	 */
-	public Integer getCapacidadAula() {
-		return this.capacidad;
+	public Double getCapacidad() {
+		return this.capacidad.doubleValue();
 	}
 
 	/**
-	 * Función que establece la capacidad del aula.
+	 * Función que establece la capacidad del aula pasada como Double para el
+	 * Mantenimiento de Aulas.
 	 * 
 	 * @param capacidad Capacidad del aula
 	 */
-	public void setCapacidadAula(Integer capacidad) {
-		this.capacidad = capacidad;
+	public void setCapacidad(Double capacidad) {
+		this.capacidad = capacidad.intValue();
 	}
 
 	/**
-	 * Función que devuelve el número de ordenadores del aula.
+	 * Función que devuelve el número de ordenadores del aula como Double para el
+	 * Mantenimiento de Aulas.
 	 * 
 	 * @return Número de ordenadores del aula
 	 */
-	public Integer getNumOrdenadoresAula() {
-		return this.numOrdenadores;
+	public Double getNumOrdenadores() {
+		return this.numOrdenadores.doubleValue();
 	}
 
 	/**
-	 * Función que establece el número de ordenadores del aula.
+	 * Función que establece el número de ordenadores del aula pasado como Double
+	 * para el Mantenimiento de Aulas.
 	 * 
 	 * @param numOrdenadores Número de ordenadores del aula
 	 */
-	public void setNumOrdenadoresAula(Integer numOrdenadores) {
-		this.numOrdenadores = numOrdenadores;
+	public void setNumOrdenadores(Double numOrdenadores) {
+		this.numOrdenadores = numOrdenadores.intValue();
 	}
 
 	/**
@@ -206,7 +255,8 @@ public class Aula implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Aula [Nombre - " + this.getIdAula() + ", Propietario - " + this.propietarioAula + "]";
+		return "Aula [Nombre - " + this.getNombreAula() + ", Centro - " + this.getCentro().getNombrePropietarioAula()
+				+ ", Propietario - " + this.getPropietarioAula().getNombrePropietarioAula() + "]";
 	}
 
 }
