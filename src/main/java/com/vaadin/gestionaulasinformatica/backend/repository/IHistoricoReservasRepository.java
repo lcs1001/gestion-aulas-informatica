@@ -15,5 +15,4 @@ import com.vaadin.gestionaulasinformatica.backend.entity.HistoricoReservasPK;
  */
 public interface IHistoricoReservasRepository
 		extends JpaRepository<HistoricoReservas, HistoricoReservasPK>, JpaSpecificationExecutor<HistoricoReservas> {
-
 }

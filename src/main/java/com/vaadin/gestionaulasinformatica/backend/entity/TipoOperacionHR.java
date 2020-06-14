@@ -8,5 +8,5 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
  *
  */
 public enum TipoOperacionHR {
-	ALTA, MODIFICACION, ELIMINACION
+	CREACIÓN, MODIFICACIÓN, ELIMINACIÓN
 }
