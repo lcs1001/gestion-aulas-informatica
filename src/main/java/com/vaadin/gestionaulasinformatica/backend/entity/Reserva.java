@@ -129,7 +129,7 @@ public class Reserva implements Serializable {
 	 * @return Fecha de fin de la reserva
 	 */
 	public LocalDate getFechaFin() {
-		return fechaFin;
+		return this.fechaFin;
 	}
 
 	/**
@@ -203,8 +203,8 @@ public class Reserva implements Serializable {
 	 * 
 	 * @return Centro en el que se encuentra el aula de la reserva
 	 */
-	public PropietarioAula getCentroAula() {
-		return this.getAula().getUbicacionCentro();
+	public String getNombreCentroAula() {
+		return this.getAula().getUbicacionCentro().getNombrePropietarioAula();
 	}
 
 	/**
@@ -351,12 +351,12 @@ public class Reserva implements Serializable {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Fecha fin - " + this.getFechaFin() + ", Hora inicio - " + this.getHoraInicio()
 					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
-					+ this.getCentroAula() + ", Dia semana - " + this.getDiaSemana() + ", Motivo - " + this.getMotivo()
+					+ this.getNombreCentroAula() + ", Dia semana - " + this.getDiaSemana() + ", Motivo - " + this.getMotivo()
 					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
 		} else {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Hora inicio - " + this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - "
-					+ this.getNombreAula() + "-" + this.getCentroAula() + ", Motivo - " + this.getMotivo()
+					+ this.getNombreAula() + "-" + this.getNombreCentroAula() + ", Motivo - " + this.getMotivo()
 					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
 		}
 

@@ -2,6 +2,7 @@ package com.vaadin.gestionaulasinformatica.ui.views.historicoreservas;
 
 // Imports Vaadin
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.button.Button;
@@ -99,7 +100,8 @@ public class HistoricoReservasView extends VerticalLayout {
 			gridHistorico.addClassName("grid-historico-reservas");
 			gridHistorico.setSizeFull();
 
-			gridHistorico.addColumn(HistoricoReservas::getFechaOperacion).setHeader("Fecha").setKey("fechaOperacion");
+			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaOperacion, "dd/MM/yyyy"))
+					.setHeader("Fecha").setKey("fechaOperacion");
 
 			gridHistorico.addColumn(operacion -> {
 				HistoricoReservasPK historicoPK = operacion.getIdOperacionHR();
@@ -108,15 +110,16 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getCentroAula();
+				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getNombreCentroAula();
 			}).setHeader("Lugar").setKey("lugarReserva");
 
-			gridHistorico.addColumn(operacion -> {
-				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-"
-						: (reserva.getFechaInicio()
-								+ (reserva.getFechaFin() == null ? "" : " - " + reserva.getFechaFin()));
-			}).setHeader("Fecha").setKey("fechaReserva");
+			gridHistorico
+					.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaInicioReservaOperacion, "dd/MM/yyyy"))
+					.setHeader("Fecha inicio").setKey("fechaInicioReserva");
+
+			gridHistorico
+					.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaFinReservaOperacion, "dd/MM/yyyy"))
+					.setHeader("Fecha fin").setKey("fechaFinReserva");
 
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
@@ -143,9 +146,8 @@ public class HistoricoReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que permite filtrar el histórico.
-	 * 
-	 * @return
+	 * Función que actualiza el grid que muestra las operaciones realizadas sobre
+	 * las reservas.
 	 */
 	private void actualizarHistorico() {
 		try {
