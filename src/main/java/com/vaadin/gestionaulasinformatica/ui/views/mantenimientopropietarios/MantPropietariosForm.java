@@ -95,7 +95,7 @@ public class MantPropietariosForm extends FormLayout {
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, binder.getBean())));
+			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, propietarioAula)));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
