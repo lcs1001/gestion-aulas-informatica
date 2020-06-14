@@ -1,6 +1,7 @@
 package com.vaadin.gestionaulasinformatica.backend.service;
 
 import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
+import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.repository.IAulaRepository;
 
 import java.util.List;
@@ -25,42 +26,33 @@ public class AulaService {
 	}
 
 	/**
-	 * Función que devuelve una lista con todas las aulas que hay en el repositorio.
+	 * Función que devuelve una lista con todas las aulas que hay en la BD.
 	 * 
-	 * @return Lista con todas las aulas que hay en el repositorio
+	 * @return Lista con todas las aulas que hay en la BD
 	 */
 	public List<Aula> findAll() {
 		return aulaRepository.findAll();
 	}
 
 	/**
-	 * Función que devuelve una lista con todas las aulas cuyo nombre contenga el
-	 * filtro de texto, o todas las aulas en caso de que el filtro sea null.
+	 * Función que devuelve una lista con todas las aulas de las que es propietario
+	 * el centro o departamento seleccionado.
 	 * 
-	 * @param filtroTexto Filtro que se quiere aplicar
+	 * @param filtroPropietarioAula Propietario del que se quieren obtener las aulas
 	 * 
-	 * @return Lista con todas las aulas cuyo nombre contenga el filtro de texto, o
-	 *         todas las aulas en caso de que el filtro sea null
+	 * @return Lista con todas las aulas de las que es propietario el centro o
+	 *         departamento seleccionado
 	 */
-	public List<Aula> findAll(String filtroTexto) {
-		if (filtroTexto == null || filtroTexto.isEmpty()) {
+	public List<Aula> findAll(PropietarioAula filtroPropietarioAula) {
+		if (filtroPropietarioAula == null) {
 			return aulaRepository.findAll();
 		} else {
-			return aulaRepository.search(filtroTexto);
+			return aulaRepository.search(filtroPropietarioAula);
 		}
 	}
 
 	/**
-	 * Función que devuelve el número de aulas que hay en el repositorio.
-	 * 
-	 * @return Número de aulas que hay en el repositorio
-	 */
-	public long count() {
-		return aulaRepository.count();
-	}
-
-	/**
-	 * Función que elimina el aula pasada por parámetro del repositorio.
+	 * Función que elimina el aula pasada por parámetro de la BD.
 	 * 
 	 * @param aula Aula que se quiere eliminar
 	 */
@@ -69,10 +61,10 @@ public class AulaService {
 	}
 
 	/**
-	 * Función que guarda el aula pasada por parámetro en el repositorio si no es
+	 * Función que guarda el aula pasada por parámetro en la BD si no es
 	 * null.
 	 * 
-	 * @param aula Aula que se quier guardar
+	 * @param aula Aula que se quiere guardar
 	 */
 	public void save(Aula aula) {
 		if (aula == null) {

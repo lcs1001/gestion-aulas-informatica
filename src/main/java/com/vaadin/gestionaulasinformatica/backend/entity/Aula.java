@@ -18,36 +18,14 @@ public class Aula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "aula_sequence", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aula_sequence")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_aula")
 	private Integer idAula;
 
 	@NotNull
+	@NotEmpty
 	@Column(name = "nombre_aula")
 	private String nombreAula = "";
-
-	/**
-	 * Centro en el que se encuentra el aula (nombre corto del centro -
-	 * idPropietarioAula).
-	 * 
-	 * Asociación bidireccional ManyToOne con PropietarioAula.
-	 */
-	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
-	private PropietarioAula ubicacionCentro;
-
-	/**
-	 * Centro/Departamento propietario del aula (nombre corto del centro -
-	 * idPropietarioAula).
-	 * 
-	 * Asociación bidireccional ManyToOne con PropietarioAula.
-	 */
-	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
-	private PropietarioAula propietarioAula;
 
 	@NotNull
 	@Min(value = 0)
@@ -60,12 +38,32 @@ public class Aula implements Serializable {
 	private Integer numOrdenadores = 0;
 
 	/**
-	 * Asociación bidireccional ManyToOne con Reserva para indicar el aula reservada
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
+	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el centro
+	 * en el que se encuentra el aula.
 	 * 
 	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
 	 * REFRESH, REMOVE)
+	 */
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula", updatable = false)
+	private PropietarioAula ubicacionCentro;
+
+	/**
+	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el centro
+	 * o departamento propietario del aula.
+	 * 
+	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
+	 * REFRESH, REMOVE)
+	 */
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula")
+	private PropietarioAula propietarioAula;
+
+	/**
+	 * Asociación bidireccional OneToMany con Reserva para indicar las reservas
+	 * hechas sobre el aula.
 	 */
 	@OneToMany(mappedBy = "aula")
 	private Set<Reserva> listaReservas;
@@ -74,6 +72,24 @@ public class Aula implements Serializable {
 	 * Constructor vacío de la clase.
 	 */
 	public Aula() {
+	}
+
+	/**
+	 * Constructor de la clase con parámetros.
+	 * 
+	 * @param nombre          Nombre del aula
+	 * @param capacidad       Capacidad del aula
+	 * @param numOrdenadores  Número de ordenadores del aula
+	 * @param ubicacionCentro Centro en el que se encuentra el aula
+	 * @param propietario     Centro o departamento propietario del aula
+	 */
+	public Aula(String nombre, Integer capacidad, Integer numOrdenadores, PropietarioAula ubicacionCentro,
+			PropietarioAula propietario) {
+		this.nombreAula = nombre;
+		this.capacidad = capacidad;
+		this.numOrdenadores = numOrdenadores;
+		this.ubicacionCentro = ubicacionCentro;
+		this.propietarioAula = propietario;
 	}
 
 	/**
@@ -108,10 +124,10 @@ public class Aula implements Serializable {
 	 * 
 	 * @return Centro en el que se encuentra el aula
 	 */
-	public PropietarioAula getCentro() {
+	public PropietarioAula getUbicacionCentro() {
 		return this.ubicacionCentro;
 	}
-	
+
 	/**
 	 * Función que devuelve el nombre del centro en el que se encuentra el aula.
 	 * 
@@ -126,7 +142,7 @@ public class Aula implements Serializable {
 	 * 
 	 * @param centro Centro en el que se encuentra el aula
 	 */
-	public void setCentro(PropietarioAula centro) {
+	public void setUbicacionCentro(PropietarioAula centro) {
 		this.ubicacionCentro = centro;
 	}
 
@@ -159,6 +175,15 @@ public class Aula implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve la capacidad del aula como Integer.
+	 * 
+	 * @return Capacidad del aula
+	 */
+	public Integer getCapacidadInt() {
+		return this.capacidad;
+	}
+
+	/**
 	 * Función que establece la capacidad del aula pasada como Double para el
 	 * Mantenimiento de Aulas.
 	 * 
@@ -176,6 +201,15 @@ public class Aula implements Serializable {
 	 */
 	public Double getNumOrdenadores() {
 		return this.numOrdenadores.doubleValue();
+	}
+
+	/**
+	 * Función que devuelve el número de ordenadores del aula como Integer.
+	 * 
+	 * @return Número de ordenadores del aula
+	 */
+	public Integer getNumOrdenadoresInt() {
+		return this.numOrdenadores;
 	}
 
 	/**
@@ -264,8 +298,9 @@ public class Aula implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Aula [Nombre - " + this.getNombreAula() + ", Centro - " + this.getCentro().getNombrePropietarioAula()
-				+ ", Propietario - " + this.getPropietarioAula().getNombrePropietarioAula() + "]";
+		return "Aula [Nombre - " + this.getNombreAula() + ", Centro - "
+				+ this.getUbicacionCentro().getNombrePropietarioAula() + ", Propietario - "
+				+ this.getPropietarioAula().getNombrePropietarioAula() + "]";
 	}
 
 }
