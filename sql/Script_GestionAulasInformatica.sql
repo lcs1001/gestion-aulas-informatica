@@ -16,7 +16,7 @@ CREATE TABLE public."propietario_aula" (
 DROP TABLE IF EXISTS public."aula" CASCADE;
 
 CREATE TABLE public."aula" (
-	id_aula integer,
+	id_aula SERIAL,
 	nombre_aula character varying(20),
 	ubicacion_centro character varying(20) NOT NULL,
     propietario_aula character varying(20) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE public."aula" (
 DROP TABLE IF EXISTS public."reserva" CASCADE;
 
 CREATE TABLE public."reserva" (
-	id_reserva integer,
+	id_reserva SERIAL,
     fecha_inicio date NOT NULL,
 	fecha_fin date,
     hora_inicio time without time zone NOT NULL,
@@ -81,24 +81,3 @@ CREATE TABLE public."historico_reservas" (
         ON DELETE NO ACTION,
     CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_reserva, tipo_operacion, fecha_operacion, responsable_operacion)    
 );
-
--- Inserciones en las tablas
-
-INSERT INTO public."propietario_aula" VALUES('Ciencias', 'Facultad de Ciencias', 'Responsable', 'Ciencias', 'responsableCiencias@gmail.com', '123456789', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('Salud', 'Facultad de Ciencias de la Salud', 'Responsable', 'Salud', 'responsableSalud@gmail.com', '154236785', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('Economicas-Empresariales', 'Facultad de Ciencias Economicas y Empresariales', 'Responsable', 'Economicas Empresariales', 'responsableEconomicasEmpresariales@gmail.com', '478663425', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('Derecho', 'Facultad de Derecho', 'Responsable', 'Derecho', 'responsableDerecho@gmail.com', '785496584', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('Educacion', 'Facultad de Educacion', 'Responsable', 'Educacion', 'responsableEducacion@gmail.com', '478512648', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('Humanidades-Comunicacion', 'Facultad de Humanidades y Comunicacion', 'Responsable', 'Humanidades Comunicacion', 'responsableHumanidadesComunicacion@gmail.com', '458726485', 'Centro');
-INSERT INTO public."propietario_aula" VALUES('EPS', 'Escuela Politecnica Superior', 'Responsable', 'EPS', 'responsableEPS@gmail.com', '458756324', 'Centro');
-
-INSERT INTO public."propietario_aula" VALUES('DPTO-Educacion', 'Departamento de Ciencias de la Educacion', 'Responsable', 'Dpto Educacion', 'responsableDptoEducacion@gmail.com', '548759547', 'Departamento');
-INSERT INTO public."propietario_aula" VALUES('DPTO-Informatica', 'Departamento de Ingenieria Informatica', 'Responsable', 'Dpto Informatica', 'responsableDptoInformatica@gmail.com', '745621456', 'Departamento');
-
-INSERT INTO public."aula" VALUES (1, '36-A1', 'EPS', 'DPTO-Informatica', '50');
-INSERT INTO public."aula" VALUES (2, 'Sala de Juntas', 'EPS', 'EPS', '100');
-
--- Simulación reserva
-INSERT INTO public."reserva" VALUES ('0', '2020-06-22', NULL , '12:30', '13:30', '2' , NULL,'Reunion cuatrimestral', 'Sara Peña', 'EPS');
-
-COMMIT;
