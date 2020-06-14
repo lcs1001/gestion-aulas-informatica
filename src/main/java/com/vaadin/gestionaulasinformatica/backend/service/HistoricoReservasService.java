@@ -28,10 +28,10 @@ public class HistoricoReservasService {
 
 	/**
 	 * Función que devuelve una lista con todas las operaciones realizadas sobre las
-	 * reservas que hay en el repositorio.
+	 * reservas que hay en la BD.
 	 * 
 	 * @return Lista con todas las operaciones realizadas sobre las reservas que hay
-	 *         en el repositorio
+	 *         en la BD
 	 */
 	public List<HistoricoReservas> findAll() {
 		return historicoReservasRepository.findAll();
@@ -39,13 +39,13 @@ public class HistoricoReservasService {
 
 	/**
 	 * Función que devuelve una lista con todas las operaciones realizadas sobre las
-	 * reservas que hay en el repositorio que cumplen con los filtros aplicados.
+	 * reservas que hay en la BD que cumplen con los filtros aplicados.
 	 * 
 	 * @param fechaDesde Fecha desde la que obtener las reservas
 	 * @param fechaHasta Fecha hasta la que obtener las reservas
 	 * 
 	 * @return Lista con todas las operaciones realizadas sobre las reservas que hay
-	 *         en el repositorio que cumplen con los filtros aplicados
+	 *         en la BD que cumplen con los filtros aplicados
 	 */
 	public List<HistoricoReservas> findAll(LocalDate fechaDesde, LocalDate fechaHasta) {
 		return historicoReservasRepository
@@ -54,10 +54,9 @@ public class HistoricoReservasService {
 
 	/**
 	 * Función que devuelve el número de operaciones realizadas sobre las reservas
-	 * que hay en el repositorio.
+	 * que hay en la BD.
 	 * 
-	 * @return Número de operaciones realizadas sobre las reservas que hay en el
-	 *         repositorio
+	 * @return Número de operaciones realizadas sobre las reservas que hay en la BD
 	 */
 	public long count() {
 		return historicoReservasRepository.count();
@@ -65,9 +64,9 @@ public class HistoricoReservasService {
 
 	/**
 	 * Función que guarda la operación realizada sobre una reserva pasada por
-	 * parámetro en el repositorio si no es null.
+	 * parámetro en la BD si no es null.
 	 * 
-	 * @param operacion Operación realizada sobre una reserva que se quier guardar
+	 * @param operacion Operación realizada sobre una reserva que se quiere guardar
 	 */
 	public void save(HistoricoReservas operacion) {
 		if (operacion == null) {

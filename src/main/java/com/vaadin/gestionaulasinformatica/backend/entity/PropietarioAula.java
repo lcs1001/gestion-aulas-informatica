@@ -64,42 +64,28 @@ public class PropietarioAula implements Serializable {
 	private TipoPropietarioAula tipoPropietarioAula;
 
 	/**
-	 * Asociación bidireccional ManyToOne con Aula para indicar las aulas de las que
-	 * dispone el centro.
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
+	 * Asociación bidireccional OneToMany con Aula para indicar las aulas de las que
+	 * es responsable el centro o departamento.
 	 */
 	@OneToMany(mappedBy = "propietarioAula")
 	private Set<Aula> listaAulasPropiedad;
 
 	/**
-	 * Asociación bidireccional ManyToOne con Reserva para indicar el responsable de
-	 * la reserva.
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
+	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
+	 * ha realizado el responsable del centro o departamento.
 	 */
 	@OneToMany(mappedBy = "responsable")
 	private Set<Reserva> listaReservasPropietarioAula;
 
 	/**
-	 * Asociación bidireccional ManyToOne con HistoricoReservas para indicar el
-	 * responsable de la operación realizada con una reserva, que se almacena en el
+	 * Asociación bidireccional OneToMany con HistoricoReservas para indicar las
+	 * operaciones sobre las reservas (añadir, modificar o eliminar) que ha
+	 * realizado el responsable del centro o departamento, que se almacenan en el
 	 * histórico de reservas.
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
 	 */
 	@OneToMany(mappedBy = "responsableOperacion")
 	private Set<HistoricoReservas> listaOperacionesHR;
-	
+
 	/**
 	 * Constructor de la clase sin parámetros.
 	 */

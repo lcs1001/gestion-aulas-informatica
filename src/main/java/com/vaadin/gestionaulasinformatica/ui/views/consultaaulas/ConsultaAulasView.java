@@ -45,7 +45,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	 */
 	public ConsultaAulasView(ReservaService reservaService, PropietarioAulaService propietarioAulaService) {
 		Div contenido;
-		
+
 		try {
 			this.reservaService = reservaService;
 			this.propietarioAulaService = propietarioAulaService;
@@ -55,16 +55,18 @@ public class ConsultaAulasView extends VerticalLayout {
 			setSizeFull();
 
 			gridReservas = new Grid<>();
-			gridReservas.setVisible(false);
 			configurarGridReservas();
 
 			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll());
 
 			contenido = new Div(formulario, crearButtonLayout(), gridReservas);
-			contenido.addClassName("contenido");
+			contenido.addClassName("consulta-aulas-contenido");
 			contenido.setSizeFull();
 
 			add(contenido);
+
+			// Sólo se muestran los grids cuando se hacen las consultas (y son válidas)
+			ocultarGrids();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -80,7 +82,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		Button btnConsultarReservas;
 		Button btnConsultarDispAulas;
 		Button btnLimpiarFiltros;
-		
+
 		try {
 			btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
 			btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -89,12 +91,12 @@ public class ConsultaAulasView extends VerticalLayout {
 					event -> consultarDisponibilidadAulas());
 			btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> formulario.limpiarFiltros());
+			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> limpiarFiltros());
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			toolbar = new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
 			toolbar.addClassName("consulta-aulas-toolbar");
-			
+
 			return toolbar;
 		} catch (Exception e) {
 			throw e;
@@ -128,7 +130,7 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			gridReservas.addColumn(reserva -> {
 				Aula aula = reserva.getAula();
-				return aula == null ? "-" : aula.getCentro().getNombrePropietarioAula();
+				return aula == null ? "-" : aula.getNombreCentro();
 			}).setHeader("Centro").setKey("centro");
 
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
@@ -145,6 +147,29 @@ public class ConsultaAulasView extends VerticalLayout {
 	}
 
 	/**
+	 * Función que oculta los grids.
+	 */
+	private void ocultarGrids() {
+		try {
+			gridReservas.setVisible(false);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que limpia todos los filtros aplicados y oculta los grids.
+	 */
+	private void limpiarFiltros() {
+		try {
+			formulario.limpiarFiltros();
+			ocultarGrids();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función que comprueba si los filtros introducidos para consultar las reservas
 	 * son correctos.
 	 * 
@@ -154,7 +179,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		Boolean valido = true;
 		Notification notificacion;
 		String msgAlerta = "";
-		
+
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
 			if (formulario.responsable.getValue() == null) {
@@ -202,7 +227,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	 */
 	private void consultarReservas() {
 		try {
-			gridReservas.setVisible(false);
+			ocultarGrids();
 
 			if (validarFiltrosConsultaReservas()) {
 				gridReservas.setVisible(true);

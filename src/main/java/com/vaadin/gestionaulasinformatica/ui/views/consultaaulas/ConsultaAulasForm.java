@@ -89,7 +89,7 @@ public class ConsultaAulasForm extends FormLayout {
 			capacidad.setHasControls(true);
 			capacidad.setClearButtonVisible(true);
 
-			numOrdenadores = new NumberField("Nº ordenadores");
+			numOrdenadores = new NumberField("Número de ordenadores");
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
 
@@ -98,6 +98,7 @@ public class ConsultaAulasForm extends FormLayout {
 			responsable.setItems(lstPropietariosAulas);
 			responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
 			responsable.setRequiredIndicatorVisible(true); // Campo obligatorio
+			
 		} catch (Exception e) {
 			throw e;
 		}

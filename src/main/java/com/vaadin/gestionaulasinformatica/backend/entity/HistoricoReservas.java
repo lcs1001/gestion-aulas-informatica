@@ -24,6 +24,13 @@ public class HistoricoReservas implements Serializable {
 	@Column(name = "fecha_operacion")
 	private LocalDate fechaOperacion;
 
+	/**
+	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el
+	 * responsable de añadir, modificar o eliminar una reserva.
+	 * 
+	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
+	 * REFRESH, REMOVE)
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)

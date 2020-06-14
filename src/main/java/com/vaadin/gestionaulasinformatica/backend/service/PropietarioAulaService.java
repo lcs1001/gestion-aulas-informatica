@@ -1,13 +1,16 @@
 package com.vaadin.gestionaulasinformatica.backend.service;
 
-import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
-import com.vaadin.gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
-
+// Imports Java
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Imports SpringFramework
 import org.springframework.stereotype.Service;
+
+// Imports backend
+import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
+import com.vaadin.gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
 
 /**
  * Service para la entidad PropietarioAula.
@@ -26,16 +29,27 @@ public class PropietarioAulaService {
 
 	/**
 	 * Función que devuelve una lista con todos los propietarios de aulas que hay en
-	 * el repositorio.
+	 * la BD.
 	 * 
-	 * @return Lista con todos los propietarios de aulas que hay en el repositorio
+	 * @return Lista con todos los propietarios de aulas que hay en la BD
 	 */
 	public List<PropietarioAula> findAll() {
 		return propietarioAulaRepository.findAll();
 	}
-	
+
+	/**
+	 * Función que devuelve una lista con todos los propietarios de aulas cuyo
+	 * nombre contenga el filtro de texto, o todos los propietarios en caso de que
+	 * el filtro sea null, que hay en la BD.
+	 * 
+	 * @param filtroTexto Filtro que se quiere aplicar
+	 * 
+	 * @return Lista con todos los propietarios de aulas cuyo nombre contenga el
+	 *         filtro de texto, o todos los propietarios en caso de que el filtro
+	 *         sea null, que hay en la BD.
+	 */
 	public List<PropietarioAula> findAll(String filtroTexto) {
-		if(filtroTexto == null || filtroTexto.isEmpty()) {
+		if (filtroTexto == null || filtroTexto.isEmpty()) {
 			return propietarioAulaRepository.findAll();
 		} else {
 			return propietarioAulaRepository.search(filtroTexto);
@@ -43,18 +57,25 @@ public class PropietarioAulaService {
 	}
 
 	/**
-	 * Función que devuelve el número de propietarios de aulas que hay en el
-	 * repositorio.
+	 * Función que devuelve una lista con todos los centros que hay en la BD.
 	 * 
-	 * @return Número de propietarios de aulas que hay en el repositorio
+	 * @return Lista con todos los centros que hay en la BD
+	 */
+	public List<PropietarioAula> findAllCentros() {
+		return propietarioAulaRepository.findAllCentros();
+	}
+
+	/**
+	 * Función que devuelve el número de propietarios de aulas que hay en la BD.
+	 * 
+	 * @return Número de propietarios de aulas que hay en la BD
 	 */
 	public long count() {
 		return propietarioAulaRepository.count();
 	}
 
 	/**
-	 * Función que elimina el propietario de aula pasado por parámetro del
-	 * repositorio.
+	 * Función que elimina el propietario de aula pasado por parámetro de la BD.
 	 * 
 	 * @param propietario Propietario de aula que se quiere eliminar
 	 */
@@ -63,8 +84,8 @@ public class PropietarioAulaService {
 	}
 
 	/**
-	 * Función que guarda el propietario de aula pasado por parámetro en el
-	 * repositorio si no es null.
+	 * Función que guarda el propietario de aula pasado por parámetro en la BD si no
+	 * es null.
 	 * 
 	 * @param propietario Propietario de aula que se quier guardar
 	 */

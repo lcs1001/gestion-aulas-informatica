@@ -43,7 +43,6 @@ public class Departamento extends PropietarioAula implements Serializable {
 	public String toString() {
 		return "Departamento [ID - " + this.getIdPropietarioAula() + ", Nombre - " + this.getNombrePropietarioAula()
 				+ "]";
-//				+ ", Aulas bajo propiedad " + "[" + this.getAulasPropiedad() + "]";
 	}
 
 }

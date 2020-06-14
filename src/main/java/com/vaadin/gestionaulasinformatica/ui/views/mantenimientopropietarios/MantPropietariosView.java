@@ -155,7 +155,7 @@ public class MantPropietariosView extends VerticalLayout {
 				formulario.setPropietarioAula(propietario);
 				formulario.setVisible(true);
 
-				// No se pueden editar el ID del propietario ni el tipo (se ocultan)
+				// No se puede editar el ID del propietario ni el tipo (se ocultan)
 				if (editar) {
 					formulario.idPropAula.setVisible(false);
 				} else {

@@ -21,13 +21,8 @@ public class Centro extends PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Asociación bidireccional ManyToOne con Aula para indicar la ubicación del
-	 * centro en que se encuentra el aula.
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
+	 * Asociación bidireccional OneToMany con Aula para indicar las aulas ubicadas
+	 * en el centro.
 	 */
 	@OneToMany(mappedBy = "ubicacionCentro")
 	private Set<Aula> listaAulasUbicacionCentro;
@@ -52,7 +47,8 @@ public class Centro extends PropietarioAula implements Serializable {
 	 */
 	public Centro(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable) {
-		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable, TipoPropietarioAula.Centro);
+		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
+				TipoPropietarioAula.Centro);
 	}
 
 	/**
@@ -89,8 +85,6 @@ public class Centro extends PropietarioAula implements Serializable {
 	@Override
 	public String toString() {
 		return "Centro [ID - " + this.getIdPropietarioAula() + ", Nombre - " + this.getNombrePropietarioAula() + "]";
-//				+ ", Aulas ubicadas en el centro [" + this.getAulasUbicacionCentro() + "], Aulas bajo propiedad " + "["
-//				+ this.getAulasPropiedad() + "]";
 
 	}
 }

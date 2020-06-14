@@ -17,9 +17,11 @@ public class HistoricoReservasPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Reserva sobre la que se ha realizado la operación
+	 * Asociación bidireccional ManyToOne con Reserva para indicar la reserva sobre
+	 * la que se ha realizado la operación.
 	 * 
-	 * Asociación bidireccional ManyToOne con Reserva.
+	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
+	 * REFRESH, REMOVE)
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

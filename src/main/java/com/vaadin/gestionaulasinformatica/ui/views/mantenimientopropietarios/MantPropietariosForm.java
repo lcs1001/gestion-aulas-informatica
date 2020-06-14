@@ -1,7 +1,6 @@
 package com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios;
 
 // Imports Vaadin
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -28,10 +27,10 @@ import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 public class MantPropietariosForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
-	protected TextField idPropAula ;
-	protected TextField nombrePropAula ;
+	protected TextField idPropAula;
+	protected TextField nombrePropAula;
 	protected TextField nombreResponsable;
-	protected TextField apellidosResponsable ;
+	protected TextField apellidosResponsable;
 	protected EmailField correoResponsable;
 	protected TextField telefonoResponsable;
 
@@ -52,10 +51,10 @@ public class MantPropietariosForm extends FormLayout {
 
 			binder.bindInstanceFields(this);
 			binder.bind(idPropAula, "idPropietarioAula");
-			binder.bind(nombrePropAula, "nombrePropietarioAula");	
+			binder.bind(nombrePropAula, "nombrePropietarioAula");
 
 			add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable,
-					telefonoResponsable, crearButtonsLayout());
+					telefonoResponsable, crearBotonesMantenimiento());
 		} catch (Exception e) {
 			throw e;
 		}
@@ -66,28 +65,15 @@ public class MantPropietariosForm extends FormLayout {
 	 */
 	private void configurarCamposFormulario() {
 		try {
-			idPropAula= new TextField("ID del Centro/Departamento");
+			idPropAula = new TextField("ID del Centro/Departamento");
 			nombrePropAula = new TextField("Nombre del Centro/Departamento");
 			nombreResponsable = new TextField("Nombre del Responsable");
 			apellidosResponsable = new TextField("Apellidos del Responsable");
 			correoResponsable = new EmailField("Correo del Responsable");
-			
+
 			telefonoResponsable = new TextField("Teléfono del Responsable");
 			telefonoResponsable.setMinLength(9);
 			telefonoResponsable.setMaxLength(9);
-		}catch(Exception e) {
-			throw e;
-		}		
-	}
-
-	/**
-	 * Función que establece el propietario actual del binder.
-	 * 
-	 * @param propietario Propietario actual
-	 */
-	public void setPropietarioAula(PropietarioAula propietario) {
-		try {
-			binder.setBean(propietario);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -99,25 +85,42 @@ public class MantPropietariosForm extends FormLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private Component crearButtonsLayout() {
+	private HorizontalLayout crearBotonesMantenimiento() {
+		HorizontalLayout botonesMantenimiento;
+
 		try {
-			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-
-			// Se guarda al pulsar Enter en el teclado
-			btnGuardar.addClickShortcut(Key.ENTER);
-			// Se cierra al pulsar ESC en el teclado
-			btnCerrar.addClickShortcut(Key.ESCAPE);
-
 			btnGuardar.addClickListener(click -> validarGuardar());
+			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
+			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, binder.getBean())));
+			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
+
+			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
+			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-			return new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			botonesMantenimiento = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			botonesMantenimiento.addClassName("mant-propietarios-botones-form");
 
+			return botonesMantenimiento;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que establece el propietario actual del binder.
+	 * 
+	 * @param propietario Propietario actual
+	 */
+	public void setPropietarioAula(PropietarioAula propietario) {
+		try {
+			binder.setBean(propietario);
 		} catch (Exception e) {
 			throw e;
 		}
