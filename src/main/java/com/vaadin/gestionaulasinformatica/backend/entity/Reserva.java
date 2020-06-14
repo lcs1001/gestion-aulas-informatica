@@ -20,8 +20,7 @@ public class Reserva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "reserva_sequence", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reserva_sequence")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_reserva")
 	private Integer idReserva;
 
@@ -41,6 +40,12 @@ public class Reserva implements Serializable {
 	@Column(name = "hora_fin")
 	private LocalTime horaFin;
 
+	/**
+	 * Asociación bidireccional ManyToOne con aula para indicar el aula reservada.
+	 * 
+	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
+	 * REFRESH, REMOVE)
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula", insertable = false, updatable = false)
@@ -66,7 +71,13 @@ public class Reserva implements Serializable {
 	@Column(name = "a_cargo_de")
 	private String aCargoDe = "";
 
-	/** Centro o departamento responsable de hacer la reserva */
+	/**
+	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el centro
+	 * o departamento responsable de hacer la reserva.
+	 * 
+	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
+	 * REFRESH, REMOVE)
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
@@ -78,13 +89,8 @@ public class Reserva implements Serializable {
 	private Boolean reservaRango = false;
 
 	/**
-	 * Asociación bidireccional ManyToOne con HistoricoReservas para almacenar las
+	 * Asociación bidireccional OneToMany con HistoricoReservas para indicar las
 	 * operaciones realizadas sobre esta reserva.
-	 * 
-	 * Fetch LAZY: se traen los items asociados bajo petición.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
 	 */
 	@OneToMany(mappedBy = "idOperacionHR.reserva")
 	private Set<HistoricoReservas> listaOperacionesHR;
@@ -198,7 +204,7 @@ public class Reserva implements Serializable {
 	 * @return Centro en el que se encuentra el aula de la reserva
 	 */
 	public PropietarioAula getCentroAula() {
-		return this.getAula().getCentro();
+		return this.getAula().getUbicacionCentro();
 	}
 
 	/**
@@ -344,16 +350,14 @@ public class Reserva implements Serializable {
 		if (reservaRango) {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Fecha fin - " + this.getFechaFin() + ", Hora inicio - " + this.getHoraInicio()
-					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getAula().getNombreAula()
-					+ "-" + this.getAula().getCentro() + ", Dia semana - " + this.getDiaSemana()
-					+ ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe() + " ("
-					+ this.getResponsable() + ")]";
+					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
+					+ this.getCentroAula() + ", Dia semana - " + this.getDiaSemana() + ", Motivo - " + this.getMotivo()
+					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
 		} else {
 			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
 					+ ", Hora inicio - " + this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - "
-					+ this.getAula().getNombreAula() + "-" + this.getAula().getCentro()
-					+ ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe() + " ("
-					+ this.getResponsable() + ")]";
+					+ this.getNombreAula() + "-" + this.getCentroAula() + ", Motivo - " + this.getMotivo()
+					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
 		}
 
 	}
