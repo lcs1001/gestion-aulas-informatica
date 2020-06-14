@@ -17,3 +17,11 @@ a[highlight] {
 .consulta-aulas-toolbar{
 	margin-top: 15px;
 }
+
+/* Mantenimiento de Aulas */
+.mant-aulas-filtro-responsable{
+	width: 450px;
+}
+.mant-aulas-btn-anadir{
+	margin-top: 37px;
+}
