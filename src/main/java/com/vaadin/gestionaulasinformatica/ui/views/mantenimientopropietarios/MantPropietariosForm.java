@@ -7,6 +7,8 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -35,9 +37,9 @@ public class MantPropietariosForm extends FormLayout {
 	protected EmailField correoResponsable;
 	protected TextField telefonoResponsable;
 
-	private Button btnGuardar = new Button("Guardar");
-	private Button btnEliminar = new Button("Eliminar");
-	private Button btnCerrar = new Button("Cancelar");
+	private Button btnGuardar;
+	private Button btnEliminar;
+	private Button btnCerrar;
 
 	private Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
 	private PropietarioAula propietarioAula;
@@ -91,15 +93,18 @@ public class MantPropietariosForm extends FormLayout {
 		HorizontalLayout botonesMantenimiento;
 
 		try {
+			
+			btnGuardar = new Button("Guardar");
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+			btnEliminar = new Button("Eliminar");
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, propietarioAula)));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
+			btnCerrar = new Button("Cancelar");
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
-
 			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
 			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 

@@ -7,6 +7,8 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -111,6 +113,7 @@ public class MantAulasView extends VerticalLayout {
 			filtroPropietarioAula.addClassName("mant-aulas-filtro-responsable");
 
 			btnAnadir = new Button("Añadir aula", click -> anadirAula());
+			btnAnadir.setIcon(new Icon(VaadinIcon.PLUS));
 			btnAnadir.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			btnAnadir.addClassName("mant-aulas-btn-anadir");
 

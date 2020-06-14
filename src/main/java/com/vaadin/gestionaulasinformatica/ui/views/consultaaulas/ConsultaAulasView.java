@@ -85,14 +85,18 @@ public class ConsultaAulasView extends VerticalLayout {
 
 		try {
 			btnConsultarReservas = new Button("Consultar Reservas", event -> consultarReservas());
+			btnConsultarReservas.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnConsultarReservas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			btnConsultarDispAulas = new Button("Consultar Disponibilidad Aulas",
 					event -> consultarDisponibilidadAulas());
+			btnConsultarDispAulas.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnConsultarDispAulas.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> limpiarFiltros());
+			btnLimpiarFiltros = new Button("", event -> limpiarFiltros());
+			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
 			toolbar = new HorizontalLayout(btnConsultarReservas, btnConsultarDispAulas, btnLimpiarFiltros);
 			toolbar.addClassName("consulta-aulas-toolbar");

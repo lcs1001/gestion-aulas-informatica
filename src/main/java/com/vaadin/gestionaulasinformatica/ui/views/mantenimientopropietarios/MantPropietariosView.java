@@ -5,6 +5,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -118,9 +120,11 @@ public class MantPropietariosView extends VerticalLayout {
 			filtroTexto.addValueChangeListener(e -> actualizarPropietarios());
 
 			btnAnadirCentro = new Button("Añadir centro", click -> anadirCentro());
+			btnAnadirCentro.setIcon(new Icon(VaadinIcon.PLUS));
 			btnAnadirCentro.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			btnAnadirDepartamento = new Button("Añadir departamento", click -> anadirDepartamento());
+			btnAnadirDepartamento.setIcon(new Icon(VaadinIcon.PLUS));
 			btnAnadirDepartamento.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
