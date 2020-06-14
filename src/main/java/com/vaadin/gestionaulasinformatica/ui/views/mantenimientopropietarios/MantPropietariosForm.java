@@ -12,6 +12,7 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
 // Imports backend
@@ -39,6 +40,7 @@ public class MantPropietariosForm extends FormLayout {
 	private Button btnCerrar = new Button("Cancelar");
 
 	private Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
+	private PropietarioAula propietarioAula;
 
 	/**
 	 * Constructor de la clase.
@@ -120,22 +122,23 @@ public class MantPropietariosForm extends FormLayout {
 	 */
 	public void setPropietarioAula(PropietarioAula propietario) {
 		try {
-			binder.setBean(propietario);
+			this.propietarioAula = propietario;
+			binder.readBean(propietario);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * Función que valida el propietario y lo guarda (si es válido).
+	 * Función que valida el propietario y lo guarda.
 	 */
 	private void validarGuardar() {
 		try {
-			if (binder.isValid()) {
-				fireEvent(new SaveEvent(this, binder.getBean()));
-			}
-		} catch (Exception e) {
-			throw e;
+			binder.writeBean(propietarioAula);
+			fireEvent(new SaveEvent(this, propietarioAula));
+
+		} catch (ValidationException e) {
+			e.printStackTrace();
 		}
 	}
 

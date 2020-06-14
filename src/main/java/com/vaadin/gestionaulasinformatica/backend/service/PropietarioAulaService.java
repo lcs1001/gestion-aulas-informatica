@@ -66,15 +66,6 @@ public class PropietarioAulaService {
 	}
 
 	/**
-	 * Función que devuelve el número de propietarios de aulas que hay en la BD.
-	 * 
-	 * @return Número de propietarios de aulas que hay en la BD
-	 */
-	public long count() {
-		return propietarioAulaRepository.count();
-	}
-
-	/**
 	 * Función que elimina el propietario de aula pasado por parámetro de la BD.
 	 * 
 	 * @param propietario Propietario de aula que se quiere eliminar
