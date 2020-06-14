@@ -48,7 +48,7 @@ public class HistoricoReservasForm extends FormLayout {
 		try {
 			localeSpain = new Locale("es", "ES");
 
-			fechaDesde = new DatePicker("Fecha Desde");
+			fechaDesde = new DatePicker("Fecha desde");
 			fechaDesde.setValue(LocalDate.now().minusDays(7)); // Por defecto desde 7 días antes de la fecha actual
 			fechaDesde.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaDesde.setClearButtonVisible(true);
@@ -64,12 +64,12 @@ public class HistoricoReservasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que establece los valores por defecto de los filtros.
+	 * Función que limpia los valores de los filtros.
 	 */
 	protected void limpiarFiltros() {
 		try {
-			fechaDesde.setValue(LocalDate.now().minusDays(7));
-			fechaHasta.setValue(LocalDate.now().plusDays(7));
+			fechaDesde.clear();
+			fechaHasta.clear();
 		} catch (Exception e) {
 			throw e;
 		}

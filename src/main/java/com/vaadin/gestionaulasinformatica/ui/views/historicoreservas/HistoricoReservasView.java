@@ -77,10 +77,13 @@ public class HistoricoReservasView extends VerticalLayout {
 
 		try {
 			btnBuscar = new Button("Buscar", event -> actualizarHistorico());
+			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", new Icon(VaadinIcon.CLOSE), event -> formulario.limpiarFiltros());
+			btnLimpiarFiltros = new Button("", event -> formulario.limpiarFiltros());
+			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
 			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros);
 			toolbar.addClassName("historico-reservas-toolbar");
