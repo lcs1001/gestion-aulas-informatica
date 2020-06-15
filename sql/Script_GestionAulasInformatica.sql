@@ -18,8 +18,8 @@ DROP TABLE IF EXISTS public."aula" CASCADE;
 CREATE TABLE public."aula" (
 	id_aula SERIAL,
 	nombre_aula character varying(20),
-	ubicacion_centro character varying(20) NOT NULL,
-    propietario_aula character varying(20) NOT NULL,
+	ubicacion_centro character varying(30) NOT NULL,
+    propietario_aula character varying(30) NOT NULL,
     capacidad integer NOT NULL DEFAULT 0,
     num_ordenadores integer NOT NULL DEFAULT 0,
     CONSTRAINT "PK_Aula" PRIMARY KEY (id_aula),
@@ -48,7 +48,7 @@ CREATE TABLE public."reserva" (
     dia_semana character varying(10),
     motivo character varying(50) NOT NULL,
     a_cargo_de character varying(50) NOT NULL,
-    responsable character varying(20) NOT NULL,
+    responsable character varying(30) NOT NULL,
     reserva_rango boolean NOT NULL DEFAULT false,
     CONSTRAINT "PK_Reserva" PRIMARY KEY (id_reserva),
     CONSTRAINT "FK_Reserva_Aula_Aula" FOREIGN KEY (id_aula)
@@ -69,7 +69,7 @@ CREATE TABLE public."historico_reservas" (
     id_reserva integer NOT NULL,    
     tipo_operacion character varying(10) NOT NULL,
     fecha_operacion timestamp without time zone NOT NULL,
-    responsable_operacion character varying(20) NOT NULL,
+    responsable_operacion character varying(30) NOT NULL,
     CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_reserva, tipo_operacion),
     CONSTRAINT "FK_HistoricoReservas_Reserva" FOREIGN KEY (id_reserva)
         REFERENCES public."reserva" (id_reserva) 
