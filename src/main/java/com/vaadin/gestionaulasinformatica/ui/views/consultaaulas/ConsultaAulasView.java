@@ -214,7 +214,8 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			// Si no es válido se muestra la alerta
 			if (!valido) {
-				notificacion = new Notification(msgAlerta, 5000);
+				notificacion = new Notification(msgAlerta);
+				notificacion.setDuration(5000);
 				notificacion.addThemeVariants(NotificationVariant.LUMO_ERROR);
 				notificacion.setPosition(Position.MIDDLE);
 				notificacion.open();
