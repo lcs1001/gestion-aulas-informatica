@@ -117,11 +117,11 @@ public class MantAulasForm extends FormLayout {
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, aula)));
-			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
-			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+			btnCerrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 

@@ -20,6 +20,6 @@ import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
  */
 public interface IAulaRepository extends JpaRepository<Aula, Integer> {
 	@Query("SELECT a FROM Aula a "
-			+ "WHERE lower(a.propietarioAula) LIKE lower(concat('%', :filtroPropietarioAula, '%'))")
+			+ "WHERE lower(a.propietarioAula.idPropietarioAula) LIKE lower(:filtroPropietarioAula)")
 	List<Aula> search(@Param("filtroPropietarioAula") PropietarioAula filtroPropietarioAula);
 }

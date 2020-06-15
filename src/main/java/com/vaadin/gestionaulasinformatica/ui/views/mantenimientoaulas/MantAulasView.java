@@ -5,10 +5,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -52,7 +56,7 @@ public class MantAulasView extends VerticalLayout {
 			formulario = new MantAulasForm(this.propietarioAulaService.findAll(),
 					this.propietarioAulaService.findAllCentros());
 			formulario.addListener(MantAulasForm.SaveEvent.class, this::guardarAula);
-			formulario.addListener(MantAulasForm.DeleteEvent.class, this::eliminarAula);
+			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
 			formulario.addListener(MantAulasForm.CloseEvent.class, e -> cerrarEditor());
 
 			add(getToolbar(), formulario, gridAulas);
@@ -128,6 +132,28 @@ public class MantAulasView extends VerticalLayout {
 	}
 
 	/**
+	 * Función que muestra la notificación con el mensaje pasado por parámetro.
+	 * 
+	 * @param mensaje Mensaje de la notificación que se quiere mostrar.
+	 */
+	private void mostrarNotificacion(String mensaje) {
+		Label lblMensaje;
+		Notification notificacion;
+
+		try {
+			lblMensaje = new Label(mensaje);
+
+			notificacion = new Notification(lblMensaje);
+			notificacion.setDuration(3000);
+			notificacion.setPosition(Position.MIDDLE);
+			notificacion.open();
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función que oculta el grid.
 	 */
 	private void ocultarGrid() {
@@ -169,9 +195,9 @@ public class MantAulasView extends VerticalLayout {
 
 				// No se puede editar el centro en el que se encuentra el aula
 				if (editar) {
-					formulario.ubicacionCentro.setVisible(false);
+					formulario.ubicacionCentro.setReadOnly(true);
 				} else {
-					formulario.ubicacionCentro.setVisible(true);
+					formulario.ubicacionCentro.setReadOnly(false);
 				}
 			}
 		} catch (Exception e) {
@@ -211,13 +237,62 @@ public class MantAulasView extends VerticalLayout {
 	/**
 	 * Función que elimina el aula de la base de datos.
 	 * 
-	 * @param e Evento de eliminación
+	 * @param aula Aula que se quiere eliminar
 	 */
-	private void eliminarAula(MantAulasForm.DeleteEvent evt) {
+	private void eliminarAula(Aula aula) {
 		try {
-			aulaService.delete(evt.getAula());
+			aulaService.delete(aula);
 			actualizarAulas();
 			cerrarEditor();
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que muestra un mensaje de confirmación en un cuadro de diálogo cuando
+	 * se quiere eliminar un aula (botón Eliminar)
+	 * 
+	 * @param evt Evento de eliminación de aula
+	 */
+	private void confirmarEliminacionAula(MantAulasForm.DeleteEvent evt) {
+		Aula aula;
+		Dialog confirmacion;
+		String mensajeConfirmacion;
+		String mensajeEliminado;
+		Button btnConfirmar;
+		Button btnCancelar;
+
+		try {
+			aula = evt.getAula();
+
+			mensajeConfirmacion = "¿Desea eliminar " + aula.getNombreAula() + " de " + aula.getNombreCentro()
+					+ " definitivamente? Esta acción no se puede deshacer.";
+
+			confirmacion = new Dialog(new Label(mensajeConfirmacion));
+			confirmacion.setCloseOnEsc(false);
+			confirmacion.setCloseOnOutsideClick(false);
+
+			mensajeEliminado = "Se ha eliminado el aula " + aula.getNombreAula() + " correctamente";
+
+			btnConfirmar = new Button("Confirmar", event -> {
+				mostrarNotificacion(mensajeEliminado);
+				eliminarAula(aula);
+				confirmacion.close();
+			});
+			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnConfirmar.addClassName("margin-20");
+
+			btnCancelar = new Button("Cancelar", event -> {
+				cerrarEditor();
+				confirmacion.close();
+			});
+			btnCancelar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+
+			confirmacion.add(btnConfirmar, btnCancelar);
+
+			confirmacion.open();
 
 		} catch (Exception e) {
 			throw e;
