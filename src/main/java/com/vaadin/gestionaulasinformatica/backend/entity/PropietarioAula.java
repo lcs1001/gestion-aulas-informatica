@@ -67,7 +67,7 @@ public class PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas de las que
 	 * es responsable el centro o departamento.
 	 */
-	@OneToMany(mappedBy = "propietarioAula")
+	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER)
 	private Set<Aula> listaAulasPropiedad;
 
 	/**
@@ -244,6 +244,16 @@ public class PropietarioAula implements Serializable {
 	 */
 	public void setTipoPropietarioAula(TipoPropietarioAula tipo) {
 		this.tipoPropietarioAula = tipo;
+	}
+
+	/**
+	 * Función que devuelve si el propietario tiene aulas bajo su responsabilidad o
+	 * no.
+	 * 
+	 * @return Si tiene aulas bajo su responsabilidad o no
+	 */
+	public Boolean tieneAulasPropiedad() {
+		return getAulasPropiedad().isEmpty() ? false : true;
 	}
 
 	/**

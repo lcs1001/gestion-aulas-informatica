@@ -7,8 +7,6 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -101,12 +99,12 @@ public class MantPropietariosForm extends FormLayout {
 
 			btnEliminar = new Button("Eliminar");
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, propietarioAula)));
-			btnEliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
 			btnCerrar = new Button("Cancelar");
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
-			btnCerrar.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+			btnCerrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 

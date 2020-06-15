@@ -24,7 +24,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas ubicadas
 	 * en el centro.
 	 */
-	@OneToMany(mappedBy = "ubicacionCentro")
+	@OneToMany(mappedBy = "ubicacionCentro", fetch = FetchType.EAGER)
 	private Set<Aula> listaAulasUbicacionCentro;
 
 	/**
@@ -49,6 +49,15 @@ public class Centro extends PropietarioAula implements Serializable {
 			String correoResponsable, String telefonoResponsable) {
 		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
 				TipoPropietarioAula.Centro);
+	}
+	
+	/**
+	 * Función que devuelve si el centro tiene aulas ubicadas en él.
+	 * 
+	 * @return Si tiene aulas ubicadas en él
+	 */
+	public Boolean tieneAulasUbicacionCentro() {
+		return getAulasUbicacionCentro().isEmpty() ? false : true;
 	}
 
 	/**

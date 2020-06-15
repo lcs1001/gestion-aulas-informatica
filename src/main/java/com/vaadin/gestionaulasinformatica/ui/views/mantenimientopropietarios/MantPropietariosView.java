@@ -3,22 +3,28 @@ package com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios;
 // Imports Vaadin
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
-import com.vaadin.gestionaulasinformatica.backend.entity.Departamento;
+
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
+import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
+import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
+import com.vaadin.gestionaulasinformatica.backend.entity.Departamento;
 
 /**
  * Ventana Mantenimiento de Centros y Departamentos (CRUD de la entidad
@@ -53,14 +59,14 @@ public class MantPropietariosView extends VerticalLayout {
 
 			formulario = new MantPropietariosForm();
 			formulario.addListener(MantPropietariosForm.SaveEvent.class, this::guardarPropietario);
-			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::eliminarPropietario);
+			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::confirmarEliminacionPropietario);
 			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());
 
 			add(formulario, getToolbar(), gridPropietarios);
-			
+
 			actualizarPropietarios();
 			cerrarEditor();
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -71,21 +77,21 @@ public class MantPropietariosView extends VerticalLayout {
 	 */
 	private void configurarGridPropietarios() {
 		try {
-			gridPropietarios = new Grid<>();			
+			gridPropietarios = new Grid<>();
 			gridPropietarios.addClassName("grid-propietarios");
 			gridPropietarios.setSizeFull();
 
 			gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Propietario Aula")
 					.setKey("nombrePropietario");
-			
+
 			gridPropietarios
 					.addColumn(PropietarioAula -> PropietarioAula.getNombreResponsable() + " "
 							+ PropietarioAula.getApellidosResponsable())
 					.setHeader("Responsable").setKey("nombreApellidosResponsable");
-			
+
 			gridPropietarios.addColumn(PropietarioAula::getCorreoResponsable).setHeader("Correo")
 					.setKey("correoResponsable");
-			
+
 			gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
 					.setKey("telefonoResponsable");
 
@@ -137,6 +143,28 @@ public class MantPropietariosView extends VerticalLayout {
 	}
 
 	/**
+	 * Función que muestra la notificación con el mensaje pasado por parámetro.
+	 * 
+	 * @param mensaje Mensaje de la notificación que se quiere mostrar.
+	 */
+	private void mostrarNotificacion(String mensaje) {
+		Label lblMensaje;
+		Notification notificacion;
+
+		try {
+			lblMensaje = new Label(mensaje);
+
+			notificacion = new Notification(lblMensaje);
+			notificacion.setDuration(3000);
+			notificacion.setPosition(Position.MIDDLE);
+			notificacion.open();
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función para cerrar el formulario para añadir, modificar o eliminar
 	 * propietarios de aulas.
 	 */
@@ -144,7 +172,7 @@ public class MantPropietariosView extends VerticalLayout {
 		try {
 			formulario.setPropietarioAula(null); // Se limpian los valores antiguos
 			formulario.setVisible(false);
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -168,9 +196,9 @@ public class MantPropietariosView extends VerticalLayout {
 
 				// No se puede editar el ID del propietario
 				if (editar) {
-					formulario.idPropAula.setVisible(false);
+					formulario.idPropAula.setReadOnly(true);
 				} else {
-					formulario.idPropAula.setVisible(true);
+					formulario.idPropAula.setReadOnly(false);
 				}
 			}
 		} catch (Exception e) {
@@ -185,7 +213,7 @@ public class MantPropietariosView extends VerticalLayout {
 		try {
 			gridPropietarios.asSingleSelect().clear();
 			abrirEditor(new Centro(), false);
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -199,7 +227,7 @@ public class MantPropietariosView extends VerticalLayout {
 
 			gridPropietarios.asSingleSelect().clear();
 			abrirEditor(new Departamento(), false);
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -215,7 +243,7 @@ public class MantPropietariosView extends VerticalLayout {
 			propietarioAulaService.save(evt.getPropietarioAula());
 			actualizarPropietarios();
 			cerrarEditor();
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -226,12 +254,69 @@ public class MantPropietariosView extends VerticalLayout {
 	 * 
 	 * @param e Evento de eliminación
 	 */
-	private void eliminarPropietario(MantPropietariosForm.DeleteEvent evt) {
+	private void eliminarPropietario(PropietarioAula propietario) {
 		try {
-			propietarioAulaService.delete(evt.getPropietarioAula());
+			propietarioAulaService.delete(propietario);
 			actualizarPropietarios();
 			cerrarEditor();
-			
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que muestra un mensaje de confirmación en un cuadro de diálogo cuando
+	 * se quiere eliminar un propietario de aulas (botón Eliminar)
+	 * 
+	 * @param evt Evento de eliminación de propietario de aula
+	 */
+	private void confirmarEliminacionPropietario(MantPropietariosForm.DeleteEvent evt) {
+		PropietarioAula propietario;
+		Dialog confirmacion;
+		String mensajeConfirmacion;
+		String mensajeEliminado;
+		Button btnConfirmar;
+		Button btnCancelar;
+
+		try {
+			propietario = evt.getPropietarioAula();
+
+			// Si es propietario de aulas, o es un centro y tiene aulas ubicadas en él
+			if (propietario.tieneAulasPropiedad()
+					|| (propietario.getTipoPropietarioAula().equals(TipoPropietarioAula.Centro)
+							&& ((Centro) propietario).tieneAulasUbicacionCentro())) {
+				mensajeConfirmacion = propietario.getNombrePropietarioAula()
+						+ " tiene aulas asignadas, ¿desea eliminar definitivamente junto a todas sus aulas? Esta acción no se puede deshacer.";
+			} else {
+				mensajeConfirmacion = "¿Desea eliminar " + propietario.getNombrePropietarioAula()
+						+ " definitivamente? Esta acción no se puede deshacer.";
+			}
+
+			confirmacion = new Dialog(new Label(mensajeConfirmacion));
+			confirmacion.setCloseOnEsc(false);
+			confirmacion.setCloseOnOutsideClick(false);
+
+			mensajeEliminado = "Se ha eliminado " + propietario.getNombrePropietarioAula() + " correctamente";
+
+			btnConfirmar = new Button("Confirmar", event -> {
+				mostrarNotificacion(mensajeEliminado);
+				eliminarPropietario(propietario);
+				confirmacion.close();
+			});
+			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnConfirmar.addClassName("margin-20");
+
+			btnCancelar = new Button("Cancelar", event -> {
+				cerrarEditor();
+				confirmacion.close();
+			});
+			btnCancelar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+
+			confirmacion.add(btnConfirmar, btnCancelar);
+
+			confirmacion.open();
+
 		} catch (Exception e) {
 			throw e;
 		}
