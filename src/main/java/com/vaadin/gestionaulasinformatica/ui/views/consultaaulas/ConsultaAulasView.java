@@ -6,7 +6,6 @@ import com.vaadin.flow.component.grid.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.*;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
@@ -18,6 +17,9 @@ import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
 import com.vaadin.gestionaulasinformatica.backend.service.ReservaService;
+
+// Imports UI
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
@@ -32,6 +34,7 @@ public class ConsultaAulasView extends VerticalLayout {
 
 	private ReservaService reservaService;
 	private PropietarioAulaService propietarioAulaService;
+	private Comunes comunes;
 
 	private Grid<Reserva> gridReservas;
 	private ConsultaAulasForm formulario;
@@ -49,12 +52,11 @@ public class ConsultaAulasView extends VerticalLayout {
 		try {
 			this.reservaService = reservaService;
 			this.propietarioAulaService = propietarioAulaService;
+			this.comunes = new Comunes();
 
 			addClassName("consulta-view");
-
 			setSizeFull();
 
-			gridReservas = new Grid<>();
 			configurarGridReservas();
 
 			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll());
@@ -112,6 +114,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	 */
 	private void configurarGridReservas() {
 		try {
+			gridReservas = new Grid<>();
 			gridReservas.addClassName("reservas-grid");
 			gridReservas.setSizeFull();
 
@@ -181,7 +184,6 @@ public class ConsultaAulasView extends VerticalLayout {
 	 */
 	private Boolean validarFiltrosConsultaReservas() {
 		Boolean valido = true;
-		Notification notificacion;
 		String msgAlerta = "";
 
 		try {
@@ -214,11 +216,7 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			// Si no es válido se muestra la alerta
 			if (!valido) {
-				notificacion = new Notification(msgAlerta);
-				notificacion.setDuration(5000);
-				notificacion.addThemeVariants(NotificationVariant.LUMO_ERROR);
-				notificacion.setPosition(Position.MIDDLE);
-				notificacion.open();
+				comunes.mostrarNotificacion(msgAlerta, 5000, NotificationVariant.LUMO_ERROR);
 			}
 			return valido;
 

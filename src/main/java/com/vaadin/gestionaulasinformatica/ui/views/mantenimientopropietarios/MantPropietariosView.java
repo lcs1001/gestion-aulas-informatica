@@ -9,8 +9,6 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -22,9 +20,12 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
-import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
 import com.vaadin.gestionaulasinformatica.backend.entity.Departamento;
+
+// Imports UI
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
+import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 
 /**
  * Ventana Mantenimiento de Centros y Departamentos (CRUD de la entidad
@@ -37,6 +38,8 @@ public class MantPropietariosView extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	private PropietarioAulaService propietarioAulaService;
+
+	private Comunes comunes;
 
 	private final MantPropietariosForm formulario;
 	private Grid<PropietarioAula> gridPropietarios;
@@ -51,6 +54,7 @@ public class MantPropietariosView extends VerticalLayout {
 	public MantPropietariosView(PropietarioAulaService propietarioAulaService) {
 		try {
 			this.propietarioAulaService = propietarioAulaService;
+			this.comunes = new Comunes();
 
 			addClassName("mant-propietarios-view");
 			setSizeFull();
@@ -136,28 +140,6 @@ public class MantPropietariosView extends VerticalLayout {
 			toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
 			toolbar.addClassName("mant-propietarios-toolbar");
 			return toolbar;
-
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	/**
-	 * Función que muestra la notificación con el mensaje pasado por parámetro.
-	 * 
-	 * @param mensaje Mensaje de la notificación que se quiere mostrar.
-	 */
-	private void mostrarNotificacion(String mensaje) {
-		Label lblMensaje;
-		Notification notificacion;
-
-		try {
-			lblMensaje = new Label(mensaje);
-
-			notificacion = new Notification(lblMensaje);
-			notificacion.setDuration(3000);
-			notificacion.setPosition(Position.MIDDLE);
-			notificacion.open();
 
 		} catch (Exception e) {
 			throw e;
@@ -300,7 +282,7 @@ public class MantPropietariosView extends VerticalLayout {
 			mensajeEliminado = "Se ha eliminado " + propietario.getNombrePropietarioAula() + " correctamente";
 
 			btnConfirmar = new Button("Confirmar", event -> {
-				mostrarNotificacion(mensajeEliminado);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				eliminarPropietario(propietario);
 				confirmacion.close();
 			});

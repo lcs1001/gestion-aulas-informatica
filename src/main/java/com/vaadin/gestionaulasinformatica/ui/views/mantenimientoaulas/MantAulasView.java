@@ -11,8 +11,6 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -25,6 +23,7 @@ import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService
 
 // Imports UI
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
 
 /**
  * Ventana Mantenimiento Aulas (CRUD de la entidad Aula).
@@ -37,6 +36,7 @@ public class MantAulasView extends VerticalLayout {
 
 	private AulaService aulaService;
 	private PropietarioAulaService propietarioAulaService;
+	private Comunes comunes;
 
 	private MantAulasForm formulario;
 	private Grid<Aula> gridAulas;
@@ -47,6 +47,7 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			this.aulaService = aulaService;
 			this.propietarioAulaService = propietarioAulaService;
+			this.comunes = new Comunes();
 
 			addClassName("mant-aulas-view");
 			setSizeFull();
@@ -125,28 +126,6 @@ public class MantAulasView extends VerticalLayout {
 			toolbar.addClassName("mant-aulas-toolbar");
 
 			return toolbar;
-
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	/**
-	 * Función que muestra la notificación con el mensaje pasado por parámetro.
-	 * 
-	 * @param mensaje Mensaje de la notificación que se quiere mostrar.
-	 */
-	private void mostrarNotificacion(String mensaje) {
-		Label lblMensaje;
-		Notification notificacion;
-
-		try {
-			lblMensaje = new Label(mensaje);
-
-			notificacion = new Notification(lblMensaje);
-			notificacion.setDuration(3000);
-			notificacion.setPosition(Position.MIDDLE);
-			notificacion.open();
 
 		} catch (Exception e) {
 			throw e;
@@ -277,7 +256,7 @@ public class MantAulasView extends VerticalLayout {
 			mensajeEliminado = "Se ha eliminado el aula " + aula.getNombreAula() + " correctamente";
 
 			btnConfirmar = new Button("Confirmar", event -> {
-				mostrarNotificacion(mensajeEliminado);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				eliminarAula(aula);
 				confirmacion.close();
 			});
