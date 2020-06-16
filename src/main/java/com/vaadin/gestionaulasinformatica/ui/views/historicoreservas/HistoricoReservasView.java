@@ -27,7 +27,7 @@ import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
  * Ventana Histórico de Reservas, que muestra todas las operaciones realizadas
  * sobre una reserva (creación, modificación, borrado).
  */
-@Route(value = "HistoricoReservas", layout = MainLayout.class)
+@Route(value = "historicoReservas", layout = MainLayout.class)
 @PageTitle("Histórico de Reservas")
 public class HistoricoReservasView extends VerticalLayout {
 

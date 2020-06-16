@@ -28,7 +28,7 @@ import com.vaadin.gestionaulasinformatica.ui.Comunes;
 /**
  * Ventana Mantenimiento Aulas (CRUD de la entidad Aula).
  */
-@Route(value = "MantAula", layout = MainLayout.class)
+@Route(value = "mantenimientoAulas", layout = MainLayout.class)
 @PageTitle("Mantenimiento de Aulas")
 public class MantAulasView extends VerticalLayout {
 
