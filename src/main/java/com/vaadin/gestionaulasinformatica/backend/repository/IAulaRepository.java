@@ -5,6 +5,7 @@ import java.util.List;
 
 // Imports SpringFramework
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,7 +19,7 @@ import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
  * @author Lisa
  *
  */
-public interface IAulaRepository extends JpaRepository<Aula, Integer> {
+public interface IAulaRepository extends JpaRepository<Aula, Integer>, JpaSpecificationExecutor<Aula> {
 	@Query("SELECT a FROM Aula a "
 			+ "WHERE lower(a.propietarioAula.idPropietarioAula) LIKE lower(:filtroPropietarioAula)")
 	List<Aula> search(@Param("filtroPropietarioAula") PropietarioAula filtroPropietarioAula);

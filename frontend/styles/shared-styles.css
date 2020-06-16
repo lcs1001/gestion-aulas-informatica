@@ -18,8 +18,8 @@ a[highlight] {
     margin: var(--lumo-space-m);
 }
 
-/* Consulta de Reservas*/
-.consulta-reservas-toolbar{
+/* Consulta de Reservas y Disponibilidad de Aulas*/
+.consulta-toolbar{
 	margin-top: 15px;
 }
 

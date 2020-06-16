@@ -1,4 +1,4 @@
-package com.vaadin.gestionaulasinformatica.ui.views.consultareservas;
+package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 
 //Imports Java
 import java.time.LocalDate;
@@ -9,18 +9,20 @@ import java.util.Locale;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 
 //Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 
 /**
- * Clase que contiene el formulario para filtrar las reservas.
- * 
- * @author Lisa
- *
- */
-public class ConsultaReservasForm extends FormLayout {
+* Clase que contiene el formulario para filtrar la
+* disponibilidad de aulas.
+* 
+* @author Lisa
+*
+*/
+public class ConsultaAulasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
 	private List<PropietarioAula> lstPropietariosAulas;
@@ -29,7 +31,9 @@ public class ConsultaReservasForm extends FormLayout {
 	protected DatePicker fechaHasta;
 	protected TimePicker horaDesde;
 	protected TimePicker horaHasta;
-	protected ComboBox<PropietarioAula> responsable;
+	protected NumberField capacidad;
+	protected NumberField numOrdenadores;
+	protected ComboBox<PropietarioAula> propietario;
 
 	/**
 	 * Constructor de la clase
@@ -37,15 +41,20 @@ public class ConsultaReservasForm extends FormLayout {
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
 	 */
-	public ConsultaReservasForm(List<PropietarioAula> propietarios) {
+	public ConsultaAulasForm(List<PropietarioAula> propietarios) {
 		try {
-			addClassName("consulta-reservas-form");
+			addClassName("consulta-aulas-form");
 
 			this.lstPropietariosAulas = propietarios;
 
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
+					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4), new ResponsiveStep("25em", 5));
+
 			configurarFiltros();
 
-			add(fechaDesde, horaDesde, fechaHasta, horaHasta, responsable);
+			add(fechaDesde, horaDesde, capacidad);
+			add(propietario, 2);
+			add(fechaHasta, horaHasta, numOrdenadores);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -61,8 +70,8 @@ public class ConsultaReservasForm extends FormLayout {
 			localeSpain = new Locale("es", "ES");
 
 			fechaDesde = new DatePicker("Fecha desde");
-			fechaDesde.setValue(LocalDate.now()); // Por defecto la fecha actual
 			fechaDesde.setLocale(localeSpain); // Formato dd/M/yyyy
+			fechaDesde.setClearButtonVisible(true);
 
 			fechaHasta = new DatePicker("Fecha hasta");
 			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
@@ -75,11 +84,21 @@ public class ConsultaReservasForm extends FormLayout {
 			horaHasta = new TimePicker("Hora hasta");
 			horaHasta.setClearButtonVisible(true);
 
-			responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
-			responsable.setPlaceholder("Seleccione");
-			responsable.setItems(lstPropietariosAulas);
-			responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			responsable.setRequiredIndicatorVisible(true); // Campo obligatorio
+			capacidad = new NumberField("Capacidad");
+			capacidad.setMin(0);
+			capacidad.setValue((double) 0);
+			capacidad.setHasControls(true);
+
+			numOrdenadores = new NumberField("Número de ordenadores");
+			numOrdenadores.setMin(0);
+			numOrdenadores.setValue((double) 0);
+			numOrdenadores.setHasControls(true);
+
+			propietario = new ComboBox<PropietarioAula>("Centro/Departamento");
+			propietario.setPlaceholder("Seleccione");
+			propietario.setItems(lstPropietariosAulas);
+			propietario.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietario.setRequiredIndicatorVisible(true); // Campo obligatorio
 
 		} catch (Exception e) {
 			throw e;
@@ -96,7 +115,9 @@ public class ConsultaReservasForm extends FormLayout {
 			fechaHasta.clear();
 			horaDesde.clear();
 			horaHasta.clear();
-			responsable.clear();
+			capacidad.clear();
+			numOrdenadores.clear();
+			propietario.clear();
 		} catch (Exception e) {
 			throw e;
 		}

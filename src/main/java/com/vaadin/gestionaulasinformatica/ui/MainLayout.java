@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
 import com.vaadin.gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantenimientoaulas.MantAulasView;
@@ -51,7 +52,7 @@ public class MainLayout extends AppLayout {
 		try {
 			titulo = new H1("Gestión Aulas Informática");
 			titulo.addClassName("titulo");
-			
+
 			logout = new Anchor("logout", "Cerrar sesión");
 
 			cabecera = new HorizontalLayout(new DrawerToggle(), titulo, logout);
@@ -71,30 +72,36 @@ public class MainLayout extends AppLayout {
 	 * ventanas.
 	 */
 	private void crearMenuLateral() {
-		RouterLink consultaReservasLink;
-		RouterLink mantPropietariosLink;
 		RouterLink historicoReservasLink;
+		RouterLink mantPropietariosLink;
 		RouterLink mantAulasLink;
+		RouterLink consultaReservasLink;
+		RouterLink consultaAulasLink;
 
 		try {
-			// Link a la ventana Consulta de Reservas
-			consultaReservasLink = new RouterLink("Consulta de Reservas", ConsultaReservasView.class);
-			consultaReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
+			// Link a la ventana Histórico de Reservas
+			historicoReservasLink = new RouterLink("Histórico de Reservas", HistoricoReservasView.class);
+			historicoReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 			// Link a la ventana Mantenimiento de Centros y Departamentos
 			mantPropietariosLink = new RouterLink("Mantenimiento de Centros y Departamentos",
 					MantPropietariosView.class);
 			mantPropietariosLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			// Link a la ventana Histórico de Reservas
-			historicoReservasLink = new RouterLink("Histórico de Reservas", HistoricoReservasView.class);
-			historicoReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
-
 			// Link a la ventana Mantenimiento de Aulas
 			mantAulasLink = new RouterLink("Mantenimiento de Aulas", MantAulasView.class);
 			mantAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink ,consultaReservasLink));
+			// Link a la ventana Consulta de Reservas
+			consultaReservasLink = new RouterLink("Consulta de Reservas", ConsultaReservasView.class);
+			consultaReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+			// Link a la ventana Consulta de Disponibilidad de Aulas
+			consultaAulasLink = new RouterLink("Consulta de Disponibilidad de Aulas", ConsultaAulasView.class);
+			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink,
+					consultaReservasLink, consultaAulasLink));
 		} catch (Exception e) {
 			throw e;
 		}
