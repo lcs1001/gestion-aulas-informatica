@@ -68,14 +68,14 @@ public class PropietarioAula implements Serializable {
 	 * es responsable el centro o departamento.
 	 */
 	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER)
-	private Set<Aula> listaAulasPropiedad;
+	private Set<Aula> lstAulasPropiedad;
 
 	/**
 	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
 	 * ha realizado el responsable del centro o departamento.
 	 */
 	@OneToMany(mappedBy = "responsable")
-	private Set<Reserva> listaReservasPropietarioAula;
+	private Set<Reserva> lstReservasPropietarioAula;
 
 	/**
 	 * Asociación bidireccional OneToMany con HistoricoReservas para indicar las
@@ -84,7 +84,7 @@ public class PropietarioAula implements Serializable {
 	 * histórico de reservas.
 	 */
 	@OneToMany(mappedBy = "responsableOperacion")
-	private Set<HistoricoReservas> listaOperacionesHR;
+	private Set<HistoricoReservas> lstOperacionesHR;
 
 	/**
 	 * Constructor de la clase sin parámetros.
@@ -108,6 +108,8 @@ public class PropietarioAula implements Serializable {
 	 * @param apellidosResponsable Apellidos del responsable del centro/departamento
 	 * @param correoResponsable    Correo del responsable del centro/departamento
 	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
+	 * @param tipo                 Tipo de propietario de aula (centro o
+	 *                             departamento)
 	 */
 	public PropietarioAula(String id, String nombre, String nombreResponsable, String apellidosResponsable,
 			String correoResponsable, String telefonoResponsable, TipoPropietarioAula tipo) {
@@ -262,7 +264,7 @@ public class PropietarioAula implements Serializable {
 	 * @return Lista de aulas de las que es propietario
 	 */
 	public Set<Aula> getAulasPropiedad() {
-		return this.listaAulasPropiedad;
+		return this.lstAulasPropiedad;
 	}
 
 	/**
@@ -271,7 +273,7 @@ public class PropietarioAula implements Serializable {
 	 * @param aulasPertenecientes Lista de aulas de las que es propietario
 	 */
 	public void setAulasPropiedad(Set<Aula> aulasPropiedad) {
-		this.listaAulasPropiedad = aulasPropiedad;
+		this.lstAulasPropiedad = aulasPropiedad;
 	}
 
 	/**
@@ -294,7 +296,7 @@ public class PropietarioAula implements Serializable {
 	 * @return Lista de reservas de las que es responsable
 	 */
 	public Set<Reserva> getReservasPropietarioAula() {
-		return this.listaReservasPropietarioAula;
+		return this.lstReservasPropietarioAula;
 	}
 
 	/**
@@ -303,7 +305,7 @@ public class PropietarioAula implements Serializable {
 	 * @param reservas Lista de reservas de las que es responsable
 	 */
 	public void setReservasPropietarioAula(Set<Reserva> reservas) {
-		this.listaReservasPropietarioAula = reservas;
+		this.lstReservasPropietarioAula = reservas;
 	}
 
 	/**
@@ -344,7 +346,7 @@ public class PropietarioAula implements Serializable {
 	 *         reserva
 	 */
 	public Set<HistoricoReservas> getOperacionesHR() {
-		return this.listaOperacionesHR;
+		return this.lstOperacionesHR;
 	}
 
 	/**
@@ -354,7 +356,7 @@ public class PropietarioAula implements Serializable {
 	 * @param operacionesHR Lista de operaciones que ha realizado sobre una reserva
 	 */
 	public void setOperacionesHR(Set<HistoricoReservas> operacionesHR) {
-		this.listaOperacionesHR = operacionesHR;
+		this.lstOperacionesHR = operacionesHR;
 	}
 
 	/**

@@ -118,11 +118,8 @@ public class ConsultaAulasView extends VerticalLayout {
 			gridReservas.addClassName("reservas-grid");
 			gridReservas.setSizeFull();
 
-			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaInicio, "dd/MM/yyyy"))
+			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy"))
 					.setHeader("Fecha inicio").setKey("fechaInicio");
-
-			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFechaFin, "dd/MM/yyyy")).setHeader("Fecha fin")
-					.setKey("fechaFin");
 
 			gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
 

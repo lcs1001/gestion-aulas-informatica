@@ -66,7 +66,7 @@ public class Aula implements Serializable {
 	 * hechas sobre el aula.
 	 */
 	@OneToMany(mappedBy = "aula")
-	private Set<Reserva> listaReservas;
+	private Set<Reserva> lstReservas;
 
 	/**
 	 * Constructor vacío de la clase.
@@ -228,7 +228,7 @@ public class Aula implements Serializable {
 	 * @return Lista de reservas del aula
 	 */
 	public Set<Reserva> getReservasAula() {
-		return this.listaReservas;
+		return this.lstReservas;
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class Aula implements Serializable {
 	 * @param reservas Lista de reservas del aula
 	 */
 	public void setReservasAula(Set<Reserva> reservas) {
-		this.listaReservas = reservas;
+		this.lstReservas = reservas;
 	}
 
 	/**

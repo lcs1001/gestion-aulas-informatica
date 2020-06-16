@@ -116,13 +116,8 @@ public class HistoricoReservasView extends VerticalLayout {
 				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getNombreCentroAula();
 			}).setHeader("Lugar").setKey("lugarReserva");
 
-			gridHistorico
-					.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaInicioReservaOperacion, "dd/MM/yyyy"))
-					.setHeader("Fecha inicio").setKey("fechaInicioReserva");
-
-			gridHistorico
-					.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaFinReservaOperacion, "dd/MM/yyyy"))
-					.setHeader("Fecha fin").setKey("fechaFinReserva");
+			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaReservaOperacion, "dd/MM/yyyy"))
+					.setHeader("Fecha reserva").setKey("fechaReserva");
 
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();

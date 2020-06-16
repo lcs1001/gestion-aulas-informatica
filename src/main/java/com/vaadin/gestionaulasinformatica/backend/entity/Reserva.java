@@ -20,17 +20,13 @@ public class Reserva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_reserva")
 	private Integer idReserva;
 
 	@NotNull
-	@Column(name = "fecha_inicio")
-	private LocalDate fechaInicio;
-
-	/** Para reservas por rango de fechas */
-	@Column(name = "fecha_fin")
-	private LocalDate fechaFin;
+	@Column(name = "fecha")
+	private LocalDate fecha;
 
 	@NotNull
 	@Column(name = "hora_inicio")
@@ -83,17 +79,12 @@ public class Reserva implements Serializable {
 	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsable;
 
-	/** Booleano que indica si se trata de una reserva por rango de fechas */
-	@NotNull
-	@Column(name = "reserva_rango")
-	private Boolean reservaRango = false;
-
 	/**
 	 * Asociación bidireccional OneToMany con HistoricoReservas para indicar las
 	 * operaciones realizadas sobre esta reserva.
 	 */
 	@OneToMany(mappedBy = "idOperacionHR.reserva")
-	private Set<HistoricoReservas> listaOperacionesHR;
+	private Set<HistoricoReservas> lstOperacionesHR;
 
 	/**
 	 * Función que devuelve el id de la reserva.
@@ -105,43 +96,21 @@ public class Reserva implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve la fecha de inicio de la reserva.
+	 * Función que devuelve la fecha de la reserva.
 	 * 
-	 * @return Fecha de inicio de la reserva
+	 * @return Fecha de la reserva
 	 */
-	public LocalDate getFechaInicio() {
-		return this.fechaInicio;
+	public LocalDate getFecha() {
+		return this.fecha;
 	}
 
 	/**
-	 * Función que establece la fecha de inicio de la reserva.
+	 * Función que establece la fecha de la reserva.
 	 * 
-	 * @param fechaInicio Fecha de inicio de la reserva
+	 * @param fechaInicio Fecha de la reserva
 	 */
-	public void setFechaInicio(LocalDate fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	/**
-	 * Función que devuelve la fecha de fin de la reserva (para reservas por rango
-	 * de fechas).
-	 * 
-	 * @return Fecha de fin de la reserva
-	 */
-	public LocalDate getFechaFin() {
-		return this.fechaFin;
-	}
-
-	/**
-	 * Función que establece la fecha de fin de la reserva (para reservas por rango
-	 * de fechas).
-	 * 
-	 * @param fechaFin Fecha de fin de la reserva
-	 */
-	public void setFechaFin(LocalDate fechaFin) {
-		if (this.reservaRango) {
-			this.fechaFin = fechaFin;
-		}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
 	}
 
 	/**
@@ -233,9 +202,7 @@ public class Reserva implements Serializable {
 	 * @param diaSemana Dia de la semana de la reserva
 	 */
 	public void setDiaSemana(String diaSemana) {
-		if (this.reservaRango) {
-			this.diaSemana = diaSemana;
-		}
+		this.diaSemana = diaSemana;
 	}
 
 	/**
@@ -294,27 +261,6 @@ public class Reserva implements Serializable {
 		this.responsable = responsable;
 	}
 
-	/**
-	 * Función que devuelve un booleano indicando si se trata de una reserva por
-	 * rango de fechas o no.
-	 * 
-	 * @return Booleano indicando si se trata de una reserva por rango de fechas o
-	 *         no
-	 */
-	public Boolean getReservaRango() {
-		return this.reservaRango;
-	}
-
-	/**
-	 * Función que establece si se trata de una reserva por rango de fechas o no.
-	 * 
-	 * @param reservaRango Booleano indicando si se trata de una reserva por rango
-	 *                     de fechas o no
-	 */
-	public void setReservaRango(Boolean reservaRango) {
-		this.reservaRango = reservaRango;
-	}
-
 	public boolean isPersisted() {
 		return idReserva != null;
 	}
@@ -347,18 +293,10 @@ public class Reserva implements Serializable {
 
 	@Override
 	public String toString() {
-		if (reservaRango) {
-			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
-					+ ", Fecha fin - " + this.getFechaFin() + ", Hora inicio - " + this.getHoraInicio()
-					+ ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
-					+ this.getNombreCentroAula() + ", Dia semana - " + this.getDiaSemana() + ", Motivo - " + this.getMotivo()
-					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
-		} else {
-			return "Reserva [ID - " + this.getIdReserva() + ", Fecha inicio - " + this.getFechaInicio()
-					+ ", Hora inicio - " + this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - "
-					+ this.getNombreAula() + "-" + this.getNombreCentroAula() + ", Motivo - " + this.getMotivo()
-					+ ", A cargo de - " + this.getACargoDe() + " (" + this.getResponsable() + ")]";
-		}
+		return "Reserva [ID - " + this.getIdReserva() + ", Fecha - " + this.getFecha() + ", Hora inicio - "
+				+ this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
+				+ this.getNombreCentroAula() + ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe()
+				+ " (" + this.getResponsable() + ")]";
 
 	}
 }

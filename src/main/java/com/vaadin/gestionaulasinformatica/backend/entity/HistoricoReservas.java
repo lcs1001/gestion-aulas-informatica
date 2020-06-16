@@ -57,21 +57,12 @@ public class HistoricoReservas implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve la fecha de incio de la reserva asociada a la operación.
+	 * Función que devuelve la fecha de la reserva asociada a la operación.
 	 * 
-	 * @return Fecha de incio de la reserva asociada a la operación
+	 * @return Fecha de la reserva asociada a la operación
 	 */
-	public LocalDate getFechaInicioReservaOperacion() {
-		return this.idOperacionHR.getReserva().getFechaInicio();
-	}
-
-	/**
-	 * Función que devuelve la fecha de fin de la reserva asociada a la operación.
-	 * 
-	 * @return Fecha de fin de la reserva asociada a la operación
-	 */
-	public LocalDate getFechaFinReservaOperacion() {
-		return this.idOperacionHR.getReserva().getFechaFin();
+	public LocalDate getFechaReservaOperacion() {
+		return this.idOperacionHR.getReserva().getFecha();
 	}
 
 	/**

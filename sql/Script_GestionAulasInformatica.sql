@@ -40,8 +40,7 @@ DROP TABLE IF EXISTS public."reserva" CASCADE;
 
 CREATE TABLE public."reserva" (
 	id_reserva SERIAL,
-    fecha_inicio date NOT NULL,
-	fecha_fin date,
+    fecha date NOT NULL,
     hora_inicio time without time zone NOT NULL,
     hora_fin time without time zone NOT NULL,
     id_aula integer NOT NULL,
@@ -49,7 +48,6 @@ CREATE TABLE public."reserva" (
     motivo character varying(50) NOT NULL,
     a_cargo_de character varying(50) NOT NULL,
     responsable character varying(30) NOT NULL,
-    reserva_rango boolean NOT NULL DEFAULT false,
     CONSTRAINT "PK_Reserva" PRIMARY KEY (id_reserva),
     CONSTRAINT "FK_Reserva_Aula_Aula" FOREIGN KEY (id_aula)
         REFERENCES public."aula"
@@ -59,8 +57,7 @@ CREATE TABLE public."reserva" (
         REFERENCES public."propietario_aula" (id_propietario_aula)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT "CHK_Reserva_DiaSemana" CHECK(dia_semana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo')),
-    CONSTRAINT "CHK_Reserva_RangoFechas" CHECK((reserva_rango IS FALSE AND dia_semana IS NULL) OR (reserva_rango IS TRUE AND dia_semana IS NOT NULL))
+    CONSTRAINT "CHK_Reserva_DiaSemana" CHECK(dia_semana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo'))
 );
 
 DROP TABLE IF EXISTS public."historico_reservas" CASCADE;
