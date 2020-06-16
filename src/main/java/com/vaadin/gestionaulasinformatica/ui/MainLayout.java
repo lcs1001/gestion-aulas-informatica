@@ -4,15 +4,14 @@ package com.vaadin.gestionaulasinformatica.ui;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
-
-//Imports Views
-import com.vaadin.gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
+import com.vaadin.gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantenimientoaulas.MantAulasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios.MantPropietariosView;
@@ -47,13 +46,17 @@ public class MainLayout extends AppLayout {
 	private void crearCabecera() {
 		H1 titulo;
 		HorizontalLayout cabecera;
+		Anchor logout;
 
 		try {
 			titulo = new H1("Gestión Aulas Informática");
 			titulo.addClassName("titulo");
+			
+			logout = new Anchor("logout", "Cerrar sesión");
 
-			cabecera = new HorizontalLayout(new DrawerToggle(), titulo);
+			cabecera = new HorizontalLayout(new DrawerToggle(), titulo, logout);
 			cabecera.addClassName("cabecera");
+			cabecera.expand(titulo);
 			cabecera.setWidth("100%");
 			cabecera.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
 
@@ -68,15 +71,15 @@ public class MainLayout extends AppLayout {
 	 * ventanas.
 	 */
 	private void crearMenuLateral() {
-		RouterLink consultaAulasLink;
+		RouterLink consultaReservasLink;
 		RouterLink mantPropietariosLink;
 		RouterLink historicoReservasLink;
 		RouterLink mantAulasLink;
 
 		try {
-			// Link a la ventana Consulta de Reservas y Disponibilidad de Aulas
-			consultaAulasLink = new RouterLink("Consulta de Reservas y Aulas", ConsultaAulasView.class);
-			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
+			// Link a la ventana Consulta de Reservas
+			consultaReservasLink = new RouterLink("Consulta de Reservas", ConsultaReservasView.class);
+			consultaReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 			// Link a la ventana Mantenimiento de Centros y Departamentos
 			mantPropietariosLink = new RouterLink("Mantenimiento de Centros y Departamentos",
@@ -91,7 +94,7 @@ public class MainLayout extends AppLayout {
 			mantAulasLink = new RouterLink("Mantenimiento de Aulas", MantAulasView.class);
 			mantAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink ,consultaAulasLink));
+			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink ,consultaReservasLink));
 		} catch (Exception e) {
 			throw e;
 		}

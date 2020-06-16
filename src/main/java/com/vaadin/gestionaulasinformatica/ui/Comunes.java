@@ -1,5 +1,6 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -37,6 +38,17 @@ public class Comunes {
 
 			notificacion.open();
 
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Función que oculta el grid pasado.
+	 */
+	public void ocultarGrid(Grid grid) {
+		try {
+			grid.setVisible(false);
 		} catch (Exception e) {
 			throw e;
 		}
