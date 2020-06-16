@@ -40,15 +40,15 @@ public class ReservaSpecification {
 			public Predicate toPredicate(Root<Reserva> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				final List<Predicate> predicates = new ArrayList<>();
 
-				// Se obtienen las reservas realizadas desde una fecha (de incio) determinada
+				// Se obtienen las reservas realizadas desde una fecha determinada
 				if (!StringUtils.isEmpty(fechaDesde)) {
-					final Predicate fechaDesdePredicate = cb.greaterThanOrEqualTo(root.get("fechaInicio"), fechaDesde);
+					final Predicate fechaDesdePredicate = cb.greaterThanOrEqualTo(root.get("fecha"), fechaDesde);
 					predicates.add(fechaDesdePredicate);
 				}
 
-				// Se obtienen las reservas realizadas hasta una fecha (de inicio) determinada
+				// Se obtienen las reservas realizadas hasta una fecha determinada
 				if (!StringUtils.isEmpty(fechaHasta)) {
-					final Predicate fechaHastaPredicate = cb.lessThanOrEqualTo(root.get("fechaInicio"), fechaHasta);
+					final Predicate fechaHastaPredicate = cb.lessThanOrEqualTo(root.get("fecha"), fechaHasta);
 					predicates.add(fechaHastaPredicate);
 				}
 
