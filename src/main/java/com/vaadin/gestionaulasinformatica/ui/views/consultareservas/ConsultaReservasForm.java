@@ -70,9 +70,11 @@ public class ConsultaReservasForm extends FormLayout {
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
+			horaDesde.setLocale(localeSpain);
 			horaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker("Hora hasta");
+			horaHasta.setLocale(localeSpain);
 			horaHasta.setClearButtonVisible(true);
 
 			responsable = new ComboBox<PropietarioAula>("Centro/Departamento");

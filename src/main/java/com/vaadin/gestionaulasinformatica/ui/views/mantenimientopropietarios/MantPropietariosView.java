@@ -31,7 +31,7 @@ import com.vaadin.gestionaulasinformatica.ui.MainLayout;
  * Ventana Mantenimiento de Centros y Departamentos (CRUD de la entidad
  * PropietarioAula).
  */
-@Route(value = "MantPropietarioAula", layout = MainLayout.class)
+@Route(value = "mantenimientoPropietarios", layout = MainLayout.class)
 @PageTitle("Mantenimiento de Centros y Departamentos")
 public class MantPropietariosView extends VerticalLayout {
 

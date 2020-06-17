@@ -167,14 +167,14 @@ public class ConsultaReservasView extends VerticalLayout {
 
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
-			if (formulario.responsable.getValue() == null) {
+			if (formulario.responsable.isEmpty()) {
 				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
 				valido = false;
 			}
 
 			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
 			// se quiere filtrar
-			if (formulario.horaDesde.getValue() != null && formulario.horaHasta.getValue() != null) {
+			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
 				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
 					msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
 					valido = false;

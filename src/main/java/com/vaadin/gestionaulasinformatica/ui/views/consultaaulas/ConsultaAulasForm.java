@@ -1,7 +1,6 @@
 package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 
 //Imports Java
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,26 +78,29 @@ public class ConsultaAulasForm extends FormLayout {
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
+			horaDesde.setLocale(localeSpain);
 			horaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker("Hora hasta");
+			horaHasta.setLocale(localeSpain);
 			horaHasta.setClearButtonVisible(true);
 
 			capacidad = new NumberField("Capacidad");
 			capacidad.setMin(0);
-			capacidad.setValue((double) 0);
 			capacidad.setHasControls(true);
+			capacidad.setClearButtonVisible(true);
 
 			numOrdenadores = new NumberField("Número de ordenadores");
 			numOrdenadores.setMin(0);
-			numOrdenadores.setValue((double) 0);
 			numOrdenadores.setHasControls(true);
+			numOrdenadores.setClearButtonVisible(true);
 
 			propietario = new ComboBox<PropietarioAula>("Centro/Departamento");
 			propietario.setPlaceholder("Seleccione");
 			propietario.setItems(lstPropietariosAulas);
 			propietario.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			propietario.setRequiredIndicatorVisible(true); // Campo obligatorio
+			propietario.setRequired(true); // Campo obligatorio
+			propietario.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {
 			throw e;
@@ -111,7 +113,7 @@ public class ConsultaAulasForm extends FormLayout {
 	 */
 	protected void limpiarFiltros() {
 		try {
-			fechaDesde.setValue(LocalDate.now());
+			fechaDesde.clear();
 			fechaHasta.clear();
 			horaDesde.clear();
 			horaHasta.clear();

@@ -1,5 +1,8 @@
 package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 
+import java.time.LocalDate;
+import java.util.List;
+
 //Imports Vaadin
 import com.vaadin.flow.component.button.*;
 import com.vaadin.flow.component.grid.*;
@@ -110,11 +113,8 @@ public class ConsultaAulasView extends VerticalLayout {
 			gridAulas.setSizeFull();
 
 			gridAulas.addColumn(Aula::getNombreAula).setHeader("Aula").setKey("nombreAula");
-
 			gridAulas.addColumn(Aula::getNombreCentro).setHeader("Centro").setKey("centro");
-
 			gridAulas.addColumn(Aula::getCapacidadInt).setHeader("Capacidad").setKey("capacidad");
-
 			gridAulas.addColumn(Aula::getNumOrdenadoresInt).setHeader("Número de ordenadores").setKey("numOrdenadores");
 
 			gridAulas.getColumns().forEach(columna -> columna.setAutoWidth(true));
@@ -151,14 +151,28 @@ public class ConsultaAulasView extends VerticalLayout {
 
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
-			if (formulario.propietario.getValue() == null) {
+			if (formulario.propietario.isEmpty()) {
 				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
 				valido = false;
 			}
 
+			// Para filtrar por fecha y hora se deben rellenar los filtros "Fecha desde",
+			// "Hora desde" y "Hora hasta"
+			// Si no se rellena el de "Fecha hasta", se asume que es la misma que "Fecha
+			// desde"
+			if (!formulario.fechaDesde.isEmpty() || !formulario.fechaHasta.isEmpty() || !formulario.horaDesde.isEmpty()
+					|| !formulario.horaHasta.isEmpty()) {
+
+				if (formulario.fechaDesde.isEmpty() || formulario.horaDesde.isEmpty()
+						|| formulario.horaHasta.isEmpty()) {
+					msgAlerta += " " + Mensajes.MSG_CONSULTA_RESERVA_FECHA_HORA.getMensaje();
+					valido = false;
+				}
+			}
+
 			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
 			// se quiere filtrar
-			if (formulario.horaDesde.getValue() != null && formulario.horaHasta.getValue() != null) {
+			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
 				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
 					msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
 					valido = false;
@@ -181,16 +195,39 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * aplicados.
 	 */
 	private void consultarDisponibilidadAulas() {
+		LocalDate fechaDesde;
+		LocalDate fechaHasta;
+		Double capacidad;
+		Double numOrdenadores;
+		List<Aula> lstAulas;
+
 		try {
 			comunes.ocultarGrid(gridAulas);
 
 			if (validarFiltrosConsultaAulas()) {
-				gridAulas.setVisible(true);
+				fechaDesde = formulario.fechaDesde.getValue();
+				fechaHasta = formulario.fechaHasta.getValue();
+				capacidad = formulario.capacidad.getValue();
+				numOrdenadores = formulario.numOrdenadores.getValue();
 
-				gridAulas.setItems(aulaService.findAll(formulario.fechaDesde.getValue(),
-						formulario.fechaHasta.getValue(), formulario.horaDesde.getValue(),
-						formulario.horaHasta.getValue(), formulario.capacidad.getValue().intValue(),
-						formulario.numOrdenadores.getValue().intValue(), formulario.propietario.getValue()));
+				// Si no se ha indicado la fechaHasta, se pasa la misma que en fechaDesde
+				fechaHasta = fechaHasta == null ? fechaDesde : fechaHasta;
+
+				// Si no se ha indicado la capacidad o el número de ordenadores, se pasa un 0
+				capacidad = capacidad == null ? 0 : capacidad;
+				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
+
+				lstAulas = aulaService.findAll(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
+						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),
+						formulario.propietario.getValue());
+
+				if (!lstAulas.isEmpty()) {
+					gridAulas.setVisible(true);
+					gridAulas.setItems(lstAulas);
+				} else {
+					comunes.mostrarNotificacion(Mensajes.MSG_NO_CONSULTA_AULAS.getMensaje(), 3000, null);
+				}
+
 			}
 		} catch (Exception e) {
 			throw e;
