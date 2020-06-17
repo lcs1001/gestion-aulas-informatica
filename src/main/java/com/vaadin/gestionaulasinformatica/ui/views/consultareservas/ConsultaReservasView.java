@@ -27,7 +27,7 @@ import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 /**
  * Ventana Consulta de Reservas.
  */
-@Route(value = "consultaReservas", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Consulta de Reservas")
 public class ConsultaReservasView extends VerticalLayout {
 
