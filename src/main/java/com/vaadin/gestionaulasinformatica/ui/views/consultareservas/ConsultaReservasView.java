@@ -115,25 +115,18 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha inicio")
 					.setKey("fechaInicio");
-
 			gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
-
 			gridReservas.addColumn(Reserva::getHoraInicio).setHeader("Hora inicio").setKey("horaInicio");
-
 			gridReservas.addColumn(Reserva::getHoraFin).setHeader("Hora fin").setKey("horaFin");
-
 			gridReservas.addColumn(reserva -> {
 				Aula aula = reserva.getAula();
 				return aula == null ? "-" : aula.getNombreAula();
 			}).setHeader("Aula").setKey("aula");
-
 			gridReservas.addColumn(reserva -> {
 				Aula aula = reserva.getAula();
 				return aula == null ? "-" : aula.getNombreCentro();
 			}).setHeader("Centro").setKey("centro");
-
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
-
 			gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
 
 			gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
@@ -165,12 +158,12 @@ public class ConsultaReservasView extends VerticalLayout {
 	 */
 	private Boolean validarFiltrosConsultaReservas() {
 		Boolean valido = true;
-		String msgAlerta = "";
 
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
 			if (formulario.propietario.isEmpty()) {
-				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
+				comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje(), 5000,
+						NotificationVariant.LUMO_ERROR);
 				valido = false;
 			}
 
@@ -178,23 +171,20 @@ public class ConsultaReservasView extends VerticalLayout {
 			// se quiere filtrar
 			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
 				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
-					valido = false;
-				}
-			}
-			
-			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
-			// se quiere filtrar
-			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
-				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
 			}
 
-			// Si no es válido se muestra la alerta
-			if (!valido) {
-				comunes.mostrarNotificacion(msgAlerta, 5000, NotificationVariant.LUMO_ERROR);
+			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
+			// se quiere filtrar
+			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
+				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
+					valido = false;
+				}
 			}
 			return valido;
 

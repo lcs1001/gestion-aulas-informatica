@@ -115,30 +115,24 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaOperacion, "dd/MM/yyyy"))
 					.setHeader("Fecha").setKey("fechaOperacion");
-
 			gridHistorico.addColumn(operacion -> {
 				HistoricoReservasPK historicoPK = operacion.getIdOperacionHR();
 				return historicoPK == null ? "-" : historicoPK.getTipoOperacion();
 			}).setHeader("Operación").setKey("operacion");
-
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
 				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getNombreCentroAula();
 			}).setHeader("Lugar").setKey("lugarReserva");
-
 			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaReservaOperacion, "dd/MM/yyyy"))
 					.setHeader("Fecha reserva").setKey("fechaReserva");
-
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
 				return reserva == null ? "-" : (reserva.getHoraInicio() + " - " + reserva.getHoraFin());
 			}).setHeader("Hora").setKey("horaReserva");
-
 			gridHistorico.addColumn(operacion -> {
 				PropietarioAula responsable = operacion.getResponsableOperacion();
 				return responsable == null ? "-" : responsable.getNombrePropietarioAula();
 			}).setHeader("Registrada por").setKey("responsableOperacion");
-
 			gridHistorico.addColumn(operacion -> {
 				Reserva reserva = operacion.getIdOperacionHR().getReserva();
 				return reserva == null ? "-" : (reserva.getACargoDe());
@@ -152,7 +146,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * Función que limpia los filtros aplicados y actualiza el grid.
 	 */
@@ -174,21 +168,16 @@ public class HistoricoReservasView extends VerticalLayout {
 	 */
 	private Boolean validarFiltrosHR() {
 		Boolean valido = true;
-		String msgAlerta = "";
 
 		try {
 			// Si la fecha desde la que se quiere filtrar es mayor que la fecha hasta la que
 			// se quiere filtrar
 			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
 				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
-			}
-
-			// Si no es válido se muestra la alerta
-			if (!valido) {
-				comunes.mostrarNotificacion(msgAlerta, 5000, NotificationVariant.LUMO_ERROR);
 			}
 			return valido;
 

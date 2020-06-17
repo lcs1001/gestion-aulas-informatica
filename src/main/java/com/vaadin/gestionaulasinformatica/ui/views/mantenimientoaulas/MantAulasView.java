@@ -85,13 +85,10 @@ public class MantAulasView extends VerticalLayout {
 			gridAulas.setSizeFull();
 
 			gridAulas.addColumn(Aula::getNombreAula).setHeader("Aula").setKey("nombreAula");
-
 			gridAulas.addColumn(Aula::getNombreCentro).setHeader("Centro").setKey("centro");
-
 			gridAulas.addColumn(Aula::getCapacidadInt).setHeader("Capacidad").setKey("capacidad");
-
 			gridAulas.addColumn(Aula::getNumOrdenadoresInt).setHeader("Número de ordenadores").setKey("numOrdenadores");
-
+			
 			gridAulas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
 			gridAulas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,

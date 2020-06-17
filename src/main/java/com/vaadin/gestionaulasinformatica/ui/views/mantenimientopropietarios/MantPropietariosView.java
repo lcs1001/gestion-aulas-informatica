@@ -87,15 +87,12 @@ public class MantPropietariosView extends VerticalLayout {
 
 			gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Propietario Aula")
 					.setKey("nombrePropietario");
-
 			gridPropietarios
 					.addColumn(PropietarioAula -> PropietarioAula.getNombreResponsable() + " "
 							+ PropietarioAula.getApellidosResponsable())
 					.setHeader("Responsable").setKey("nombreApellidosResponsable");
-
 			gridPropietarios.addColumn(PropietarioAula::getCorreoResponsable).setHeader("Correo")
 					.setKey("correoResponsable");
-
 			gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
 					.setKey("telefonoResponsable");
 

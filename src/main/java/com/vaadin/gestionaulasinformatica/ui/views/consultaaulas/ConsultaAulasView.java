@@ -147,12 +147,12 @@ public class ConsultaAulasView extends VerticalLayout {
 	 */
 	private Boolean validarFiltrosConsultaAulas() {
 		Boolean valido = true;
-		String msgAlerta = "";
 
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
 			if (formulario.propietario.isEmpty()) {
-				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
+				comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje(), 5000,
+						NotificationVariant.LUMO_ERROR);
 				valido = false;
 			}
 
@@ -165,7 +165,8 @@ public class ConsultaAulasView extends VerticalLayout {
 
 				if (formulario.fechaDesde.isEmpty() || formulario.horaDesde.isEmpty()
 						|| formulario.horaHasta.isEmpty()) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_RESERVA_FECHA_HORA.getMensaje();
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESERVA_FECHA_HORA.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
 			}
@@ -174,7 +175,8 @@ public class ConsultaAulasView extends VerticalLayout {
 			// se quiere filtrar
 			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
 				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
 			}
@@ -183,14 +185,10 @@ public class ConsultaAulasView extends VerticalLayout {
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
 				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
-					msgAlerta += " " + Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje();
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
-			}
-
-			// Si no es válido se muestra la alerta
-			if (!valido) {
-				comunes.mostrarNotificacion(msgAlerta, 5000, NotificationVariant.LUMO_ERROR);
 			}
 			return valido;
 
