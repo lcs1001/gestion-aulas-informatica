@@ -36,6 +36,8 @@ public class ReservaSpecification {
 			LocalTime horaHasta, PropietarioAula responsable) {
 		return new Specification<Reserva>() {
 
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Predicate toPredicate(Root<Reserva> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				final List<Predicate> predicates = new ArrayList<>();

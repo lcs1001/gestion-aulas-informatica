@@ -29,7 +29,7 @@ public class ConsultaReservasForm extends FormLayout {
 	protected DatePicker fechaHasta;
 	protected TimePicker horaDesde;
 	protected TimePicker horaHasta;
-	protected ComboBox<PropietarioAula> responsable;
+	protected ComboBox<PropietarioAula> propietario;
 
 	/**
 	 * Constructor de la clase
@@ -42,10 +42,15 @@ public class ConsultaReservasForm extends FormLayout {
 			addClassName("consulta-reservas-form");
 
 			this.lstPropietariosAulas = propietarios;
+			
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
+					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			configurarFiltros();
 
-			add(fechaDesde, horaDesde, fechaHasta, horaHasta, responsable);
+			add(fechaDesde, horaDesde);
+			add(propietario, 2);
+			add(fechaHasta, horaHasta);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -66,22 +71,25 @@ public class ConsultaReservasForm extends FormLayout {
 
 			fechaHasta = new DatePicker("Fecha hasta");
 			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
+			fechaHasta.setPlaceholder("dd/MM/yyyy");
 			fechaHasta.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
+			horaDesde.setPlaceholder("hh:mm");
 			horaDesde.setLocale(localeSpain);
 			horaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker("Hora hasta");
+			horaHasta.setPlaceholder("hh:mm");
 			horaHasta.setLocale(localeSpain);
 			horaHasta.setClearButtonVisible(true);
 
-			responsable = new ComboBox<PropietarioAula>("Centro/Departamento");
-			responsable.setPlaceholder("Seleccione");
-			responsable.setItems(lstPropietariosAulas);
-			responsable.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			responsable.setRequiredIndicatorVisible(true); // Campo obligatorio
+			propietario = new ComboBox<PropietarioAula>("Centro/Departamento");
+			propietario.setPlaceholder("Seleccione");
+			propietario.setItems(lstPropietariosAulas);
+			propietario.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietario.setRequiredIndicatorVisible(true); // Campo obligatorio
 
 		} catch (Exception e) {
 			throw e;
@@ -98,7 +106,7 @@ public class ConsultaReservasForm extends FormLayout {
 			fechaHasta.clear();
 			horaDesde.clear();
 			horaHasta.clear();
-			responsable.clear();
+			propietario.clear();
 		} catch (Exception e) {
 			throw e;
 		}

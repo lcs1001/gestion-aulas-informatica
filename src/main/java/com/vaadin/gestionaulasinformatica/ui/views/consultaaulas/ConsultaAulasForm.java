@@ -69,29 +69,35 @@ public class ConsultaAulasForm extends FormLayout {
 			localeSpain = new Locale("es", "ES");
 
 			fechaDesde = new DatePicker("Fecha desde");
+			fechaDesde.setPlaceholder("dd/MM/yyyy");
 			fechaDesde.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaDesde.setClearButtonVisible(true);
 
 			fechaHasta = new DatePicker("Fecha hasta");
 			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
+			fechaHasta.setPlaceholder("dd/MM/yyyy");
 			fechaHasta.setLocale(localeSpain); // Formato dd/M/yyyy
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
+			horaDesde.setPlaceholder("hh:mm");
 			horaDesde.setLocale(localeSpain);
 			horaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker("Hora hasta");
+			horaHasta.setPlaceholder("hh:mm");
 			horaHasta.setLocale(localeSpain);
 			horaHasta.setClearButtonVisible(true);
 
 			capacidad = new NumberField("Capacidad");
 			capacidad.setMin(0);
+			capacidad.setPlaceholder("0");
 			capacidad.setHasControls(true);
 			capacidad.setClearButtonVisible(true);
 
 			numOrdenadores = new NumberField("Número de ordenadores");
 			numOrdenadores.setMin(0);
+			numOrdenadores.setPlaceholder("0");
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
 

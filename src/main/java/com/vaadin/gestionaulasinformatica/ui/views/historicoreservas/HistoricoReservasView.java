@@ -5,6 +5,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import java.util.List;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -12,9 +15,8 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-
-import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 
 //Imports backend
 import com.vaadin.gestionaulasinformatica.backend.service.HistoricoReservasService;
@@ -22,6 +24,11 @@ import com.vaadin.gestionaulasinformatica.backend.entity.HistoricoReservas;
 import com.vaadin.gestionaulasinformatica.backend.entity.HistoricoReservasPK;
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
+
+// Imports UI
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
+import com.vaadin.gestionaulasinformatica.ui.MainLayout;
+import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Ventana Histórico de Reservas, que muestra todas las operaciones realizadas
@@ -35,6 +42,8 @@ public class HistoricoReservasView extends VerticalLayout {
 
 	private HistoricoReservasService historicoReservasService;
 
+	private Comunes comunes;
+
 	private Grid<HistoricoReservas> gridHistorico;
 	private HistoricoReservasForm formulario;
 	private HorizontalLayout toolbar;
@@ -44,6 +53,7 @@ public class HistoricoReservasView extends VerticalLayout {
 
 		try {
 			this.historicoReservasService = historicoReservasService;
+			this.comunes = new Comunes();
 
 			addClassName("historico-reservas-view");
 
@@ -59,8 +69,8 @@ public class HistoricoReservasView extends VerticalLayout {
 			contenido.setSizeFull();
 
 			add(contenido);
+			actualizarHR();
 
-			actualizarHistorico();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -76,17 +86,17 @@ public class HistoricoReservasView extends VerticalLayout {
 		Button btnLimpiarFiltros;
 
 		try {
-			btnBuscar = new Button("Buscar", event -> actualizarHistorico());
+			btnBuscar = new Button("Buscar", event -> actualizarHR());
 			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", event -> formulario.limpiarFiltros());
+			btnLimpiarFiltros = new Button("", event -> limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
 			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros);
-			toolbar.addClassName("historico-reservas-toolbar");
+			toolbar.addClassName("toolbar");
 
 			return toolbar;
 		} catch (Exception e) {
@@ -142,15 +152,71 @@ public class HistoricoReservasView extends VerticalLayout {
 			throw e;
 		}
 	}
+	
+	/**
+	 * Función que limpia los filtros aplicados y actualiza el grid.
+	 */
+	private void limpiarFiltros() {
+		try {
+			formulario.limpiarFiltros();
+			actualizarHR();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que comprueba si los filtros introducidos para consultar el histórico
+	 * de reservas son correctos.
+	 * 
+	 * @return Si los filtros introducidos para consultar el histórico de reservas
+	 *         son correctos
+	 */
+	private Boolean validarFiltrosHR() {
+		Boolean valido = true;
+		String msgAlerta = "";
+
+		try {
+			// Si la fecha desde la que se quiere filtrar es mayor que la fecha hasta la que
+			// se quiere filtrar
+			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
+				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
+					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
+					valido = false;
+				}
+			}
+
+			// Si no es válido se muestra la alerta
+			if (!valido) {
+				comunes.mostrarNotificacion(msgAlerta, 5000, NotificationVariant.LUMO_ERROR);
+			}
+			return valido;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 	/**
 	 * Función que actualiza el grid que muestra las operaciones realizadas sobre
 	 * las reservas.
 	 */
-	private void actualizarHistorico() {
+	private void actualizarHR() {
+		List<HistoricoReservas> lstOperacionesHR;
 		try {
-			gridHistorico.setItems(historicoReservasService.findAll(formulario.fechaDesde.getValue(),
-					formulario.fechaHasta.getValue()));
+			gridHistorico.setVisible(false);
+
+			if (validarFiltrosHR()) {
+				lstOperacionesHR = historicoReservasService.findAll(formulario.fechaDesde.getValue(),
+						formulario.fechaHasta.getValue());
+
+				if (!lstOperacionesHR.isEmpty()) {
+					gridHistorico.setVisible(true);
+					gridHistorico.setItems(lstOperacionesHR);
+				} else {
+					comunes.mostrarNotificacion(Mensajes.MSG_NO_OPERACIONES_HR.getMensaje(), 3000, null);
+				}
+			}
 		} catch (Exception e) {
 			throw e;
 		}

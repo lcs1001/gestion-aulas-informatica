@@ -26,22 +26,24 @@ import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
  */
 public class AulaSpecification {
 	/**
-	 * Función que devuelve todas las reservas que cumplen con los filtros
-	 * aplicados.
+	 * Función que devuelve todas las aulas disponibles que hay en la BD que cumplen
+	 * con los filtros aplicados.
 	 * 
-	 * @param fechaDesde      Fecha (de inicio) desde la que obtener las reservas
-	 * @param fechaHasta      Fecha (de inicio) hasta la que obtener las reservas
-	 * @param horaDesde       Hora (de inicio) de la reserva desde la que obtener
-	 *                        las reservas
-	 * @param horaHasta       Hora (de inicio) de la reserva hasta la que obtener
-	 *                        las reservas
-	 * @param propietarioAula Propietario del aula de la reserva del que obtener las
-	 *                        reservas
-	 * @return Reservas que cumplen con los filtros aplicados
+	 * @param fechaDesde     Fecha desde la que debe estar disponible el aula
+	 * @param fechaHasta     Fecha hasta la que debe estar disponible el aula
+	 * @param horaDesde      Hora desde la que debe estar disponible el aula
+	 * @param horaHasta      Hora hasta la que debe estar disponible el aula
+	 * @param capacidad      Capacidad mínima del aula
+	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
+	 * @param propietario    Propietario del aula
+	 * 
+	 * @return Aulas disponibles que cumplen con los filtros aplicados
 	 */
 	public static Specification<Aula> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
 			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, PropietarioAula propietarioAula) {
 		return new Specification<Aula>() {
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<Aula> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -67,20 +69,20 @@ public class AulaSpecification {
 					// horaHasta BETWEEN reserva.horaInicio AND reserva.horaFin
 					Predicate horaHastaEntre = cb.between(cb.literal(horaHasta), subRoot.get("horaInicio"),
 							subRoot.get("horaFin"));
-					
+
 					// horaDesde <= reserva.horaInicio
 					Predicate horaDesdeMenor = cb.greaterThanOrEqualTo(subRoot.get("horaInicio"), horaDesde);
-					
+
 					// horaHasta >= reserva.horaFin
 					Predicate horaHastaMayor = cb.lessThanOrEqualTo(subRoot.get("horaFin"), horaHasta);
 
 					Predicate and1 = cb.and(horaDesdeMenor, horaHastaMayor);
-					Predicate or = cb.or(horaDesdeEntre, horaHastaEntre, and1);		
+					Predicate or = cb.or(horaDesdeEntre, horaHastaEntre, and1);
 					Predicate and2 = cb.and(fechaReservaEntre, or);
-					
+
 					predicatesSubconsulta.add(and2);
 					subquery.where(predicatesSubconsulta.toArray(new Predicate[0]));
-					
+
 					Predicate fechaHoraPredicate = cb.in(root.get("idAula")).value(subquery).not();
 
 					predicates.add(fechaHoraPredicate);

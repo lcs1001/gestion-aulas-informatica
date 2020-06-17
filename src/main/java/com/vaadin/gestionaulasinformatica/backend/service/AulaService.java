@@ -69,8 +69,8 @@ public class AulaService {
 	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
 	 * @param propietario    Propietario del aula
 	 * 
-	 * @return Lista con todas las reservas que hay en la BD que cumplen con los
-	 *         filtros aplicados
+	 * @return Lista con todas las aulas disponibles que hay en la BD que cumplen
+	 *         con los filtros aplicados
 	 */
 	public List<Aula> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
 			Integer capacidad, Integer numOrdenadores, PropietarioAula propietario) {

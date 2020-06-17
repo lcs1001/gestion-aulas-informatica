@@ -2,6 +2,9 @@ package com.vaadin.gestionaulasinformatica.ui.views.mantenimientoaulas;
 
 //Imports Vaadin
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import java.util.List;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -23,6 +26,7 @@ import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService
 
 // Imports UI
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
+import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 import com.vaadin.gestionaulasinformatica.ui.Comunes;
 
 /**
@@ -283,13 +287,18 @@ public class MantAulasView extends VerticalLayout {
 	 * seleccionado.
 	 */
 	private void actualizarAulas() {
-		PropietarioAula propietario;
+		List<Aula> lstAulas;
 
 		try {
-			propietario = filtroPropietarioAula.getValue();
-			if (propietario != null) {
-				gridAulas.setVisible(true);
-				gridAulas.setItems(aulaService.findAll(propietario));
+			if (!filtroPropietarioAula.isEmpty()) {
+				lstAulas = aulaService.findAll(filtroPropietarioAula.getValue());
+				
+				if(!lstAulas.isEmpty()) {
+					gridAulas.setVisible(true);
+					gridAulas.setItems(lstAulas);	
+				} else {
+					comunes.mostrarNotificacion(Mensajes.MSG_NO_AULAS.getMensaje(), 3000, null);
+				}
 			}
 		} catch (Exception e) {
 			throw e;

@@ -35,6 +35,8 @@ public class HistoricoReservasSpecification {
 	public static Specification<HistoricoReservas> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta) {
 		return new Specification<HistoricoReservas>() {
 
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Predicate toPredicate(Root<HistoricoReservas> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				final List<Predicate> predicates = new ArrayList<>();

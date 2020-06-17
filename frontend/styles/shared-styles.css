@@ -1,32 +1,32 @@
 /* General*/
-.margin-20{
+.margin-20 {
 	margin: 20px;
+}
+
+.toolbar {
+	margin-top: 15px;
 }
 
 /* Main Layout */
 a[highlight] {
-    font-weight: bold;
-    text-decoration: underline;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 .cabecera {
-    padding: 0 var(--lumo-space-m);
+	padding: 0 var(- -lumo-space-m);
 }
 
 .cabecera h1.titulo {
-    font-size: 1em;
-    margin: var(--lumo-space-m);
-}
-
-/* Consulta de Reservas y Disponibilidad de Aulas*/
-.consulta-toolbar{
-	margin-top: 15px;
+	font-size: 1em;
+	margin: var(- -lumo-space-m);
 }
 
 /* Mantenimiento de Aulas */
-.mant-aulas-filtro-responsable{
+.mant-aulas-filtro-responsable {
 	width: 450px;
 }
-.mant-aulas-btn-anadir{
+
+.mant-aulas-btn-anadir {
 	margin-top: 37px;
 }

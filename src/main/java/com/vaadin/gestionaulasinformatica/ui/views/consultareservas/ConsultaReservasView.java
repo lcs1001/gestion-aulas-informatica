@@ -1,5 +1,7 @@
 package com.vaadin.gestionaulasinformatica.ui.views.consultareservas;
 
+import java.util.List;
+
 // Imports Vaadin
 import com.vaadin.flow.component.button.*;
 import com.vaadin.flow.component.grid.*;
@@ -67,7 +69,7 @@ public class ConsultaReservasView extends VerticalLayout {
 			add(contenido);
 
 			// Sólo se muestra el grids cuando se hace una consulta válida
-			comunes.ocultarGrid(gridReservas);
+			gridReservas.setVisible(false);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -94,7 +96,7 @@ public class ConsultaReservasView extends VerticalLayout {
 			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
 			toolbar = new HorizontalLayout(btnConsultar, btnLimpiarFiltros);
-			toolbar.addClassName("consulta-toolbar");
+			toolbar.addClassName("toolbar");
 
 			return toolbar;
 		} catch (Exception e) {
@@ -144,12 +146,12 @@ public class ConsultaReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que limpia todos los filtros aplicados y oculta los grids.
+	 * Función que limpia todos los filtros aplicados y oculta el grid.
 	 */
 	private void limpiarFiltros() {
 		try {
 			formulario.limpiarFiltros();
-			comunes.ocultarGrid(gridReservas);
+			gridReservas.setVisible(false);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -167,11 +169,20 @@ public class ConsultaReservasView extends VerticalLayout {
 
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
-			if (formulario.responsable.isEmpty()) {
+			if (formulario.propietario.isEmpty()) {
 				msgAlerta += " " + Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje();
 				valido = false;
 			}
 
+			// Si la fecha desde la que se quiere filtrar es mayor que la fecha hasta la que
+			// se quiere filtrar
+			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
+				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
+					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
+					valido = false;
+				}
+			}
+			
 			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
@@ -196,15 +207,22 @@ public class ConsultaReservasView extends VerticalLayout {
 	 * Función que permite consultar las reservas con los filtros aplicados.
 	 */
 	private void consultarReservas() {
+		List<Reserva> lstReservas;
+
 		try {
-			comunes.ocultarGrid(gridReservas);
+			gridReservas.setVisible(false);
 
 			if (validarFiltrosConsultaReservas()) {
-				gridReservas.setVisible(true);
+				lstReservas = reservaService.findAll(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
+						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
+						formulario.propietario.getValue());
 
-				gridReservas.setItems(reservaService.findAll(formulario.fechaDesde.getValue(),
-						formulario.fechaHasta.getValue(), formulario.horaDesde.getValue(),
-						formulario.horaHasta.getValue(), formulario.responsable.getValue()));
+				if (!lstReservas.isEmpty()) {
+					gridReservas.setVisible(true);
+					gridReservas.setItems(lstReservas);
+				} else {
+					comunes.mostrarNotificacion(Mensajes.MSG_NO_CONSULTA_RESERVAS.getMensaje(), 3000, null);
+				}
 			}
 		} catch (Exception e) {
 			throw e;

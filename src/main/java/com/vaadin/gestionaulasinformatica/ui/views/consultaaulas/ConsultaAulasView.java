@@ -67,8 +67,8 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			add(contenido);
 
-			// Sólo se muestra el grids cuando se hace una consulta válida
-			comunes.ocultarGrid(gridAulas);
+			// Sólo se muestra el grid cuando se hace una consulta válida
+			gridAulas.setVisible(false);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -95,7 +95,7 @@ public class ConsultaAulasView extends VerticalLayout {
 			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
 			toolbar = new HorizontalLayout(btnConsultar, btnLimpiarFiltros);
-			toolbar.addClassName("consulta-toolbar");
+			toolbar.addClassName("toolbar");
 
 			return toolbar;
 		} catch (Exception e) {
@@ -132,7 +132,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	private void limpiarFiltros() {
 		try {
 			formulario.limpiarFiltros();
-			comunes.ocultarGrid(gridAulas);
+			gridAulas.setVisible(false);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -170,6 +170,15 @@ public class ConsultaAulasView extends VerticalLayout {
 				}
 			}
 
+			// Si la fecha desde la que se quiere filtrar es mayor que la fecha hasta la que
+			// se quiere filtrar
+			if (!formulario.fechaDesde.isEmpty() && !formulario.fechaHasta.isEmpty()) {
+				if (formulario.fechaDesde.getValue().compareTo(formulario.fechaHasta.getValue()) > 0) {
+					msgAlerta += " " + Mensajes.MSG_CONSULTA_FECHA_DESDE_MAYOR.getMensaje();
+					valido = false;
+				}
+			}
+
 			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
@@ -202,7 +211,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		List<Aula> lstAulas;
 
 		try {
-			comunes.ocultarGrid(gridAulas);
+			gridAulas.setVisible(false);
 
 			if (validarFiltrosConsultaAulas()) {
 				fechaDesde = formulario.fechaDesde.getValue();
