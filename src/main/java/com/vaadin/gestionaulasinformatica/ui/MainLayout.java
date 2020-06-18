@@ -17,6 +17,7 @@ import com.vaadin.gestionaulasinformatica.ui.views.consultareservas.ConsultaRese
 import com.vaadin.gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantenimientoaulas.MantAulasView;
 import com.vaadin.gestionaulasinformatica.ui.views.mantenimientopropietarios.MantPropietariosView;
+import com.vaadin.gestionaulasinformatica.ui.views.reservaaulas.ReservaAulasView;
 
 /**
  * Layout principal que define el formato de las ventanas.
@@ -73,6 +74,7 @@ public class MainLayout extends AppLayout {
 		RouterLink historicoReservasLink;
 		RouterLink mantPropietariosLink;
 		RouterLink mantAulasLink;
+		RouterLink reservaAulasLink;
 		RouterLink consultaReservasLink;
 		RouterLink consultaAulasLink;
 
@@ -90,6 +92,10 @@ public class MainLayout extends AppLayout {
 			mantAulasLink = new RouterLink("Mantenimiento de Aulas", MantAulasView.class);
 			mantAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
+			// Link a la ventana Reserva de Aulas
+			reservaAulasLink = new RouterLink("Reserva de Aulas", ReservaAulasView.class);
+			reservaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
+
 			// Link a la ventana Consulta de Reservas
 			consultaReservasLink = new RouterLink("Consulta de Reservas", ConsultaReservasView.class);
 			consultaReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
@@ -98,7 +104,7 @@ public class MainLayout extends AppLayout {
 			consultaAulasLink = new RouterLink("Consulta de Disponibilidad de Aulas", ConsultaAulasView.class);
 			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink,
+			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink, reservaAulasLink,
 					consultaReservasLink, consultaAulasLink));
 		} catch (Exception e) {
 			throw e;
