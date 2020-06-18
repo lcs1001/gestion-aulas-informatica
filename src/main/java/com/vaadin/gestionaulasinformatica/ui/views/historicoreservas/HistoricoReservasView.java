@@ -65,7 +65,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			formulario = new HistoricoReservasForm();
 
 			contenido = new Div(formulario, getToolbar(), gridHistorico);
-			contenido.addClassName("contenido");
+			contenido.addClassName("historico-reservas-contenido");
 			contenido.setSizeFull();
 
 			add(contenido);

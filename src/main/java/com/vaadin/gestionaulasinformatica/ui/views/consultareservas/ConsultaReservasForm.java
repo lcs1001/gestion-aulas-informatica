@@ -51,6 +51,7 @@ public class ConsultaReservasForm extends FormLayout {
 			add(fechaDesde, horaDesde);
 			add(propietario, 2);
 			add(fechaHasta, horaHasta);
+			
 		} catch (Exception e) {
 			throw e;
 		}

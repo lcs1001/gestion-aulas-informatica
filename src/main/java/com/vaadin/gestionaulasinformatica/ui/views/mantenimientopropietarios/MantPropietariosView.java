@@ -6,6 +6,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -52,6 +53,8 @@ public class MantPropietariosView extends VerticalLayout {
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 */
 	public MantPropietariosView(PropietarioAulaService propietarioAulaService) {
+		Div contenido;
+		
 		try {
 			this.propietarioAulaService = propietarioAulaService;
 			this.comunes = new Comunes();
@@ -65,8 +68,12 @@ public class MantPropietariosView extends VerticalLayout {
 			formulario.addListener(MantPropietariosForm.SaveEvent.class, this::guardarPropietario);
 			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::confirmarEliminacionPropietario);
 			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());
+			
+			contenido = new Div(formulario, getToolbar(), gridPropietarios);
+			contenido.addClassName("mant-propietarios-contenido");
+			contenido.setSizeFull();
 
-			add(formulario, getToolbar(), gridPropietarios);
+			add(contenido);
 
 			actualizarPropietarios();
 			cerrarEditor();

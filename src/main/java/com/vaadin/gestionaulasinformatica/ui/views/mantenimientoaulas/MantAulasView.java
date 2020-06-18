@@ -11,6 +11,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -48,6 +49,8 @@ public class MantAulasView extends VerticalLayout {
 	private HorizontalLayout toolbar;
 
 	public MantAulasView(AulaService aulaService, PropietarioAulaService propietarioAulaService) {
+		Div contenido;
+		
 		try {
 			this.aulaService = aulaService;
 			this.propietarioAulaService = propietarioAulaService;
@@ -63,8 +66,12 @@ public class MantAulasView extends VerticalLayout {
 			formulario.addListener(MantAulasForm.SaveEvent.class, this::guardarAula);
 			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
 			formulario.addListener(MantAulasForm.CloseEvent.class, e -> cerrarEditor());
+			
+			contenido = new Div(getToolbar(), formulario, gridAulas);
+			contenido.addClassName("mant-aulas-contenido");
+			contenido.setSizeFull();
 
-			add(getToolbar(), formulario, gridAulas);
+			add(contenido);
 
 			// Sólo se muestra el grid cuando se selecciona un centro o departamento
 			ocultarGrid();
