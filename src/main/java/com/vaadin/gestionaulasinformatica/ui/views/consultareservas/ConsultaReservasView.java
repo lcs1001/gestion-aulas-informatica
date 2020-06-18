@@ -62,7 +62,7 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			formulario = new ConsultaReservasForm(this.propietarioAulaService.findAll());
 
-			contenido = new Div(formulario, crearButtonLayout(), gridReservas);
+			contenido = new Div(formulario, getToolbar(), gridReservas);
 			contenido.addClassName("consulta-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -76,12 +76,11 @@ public class ConsultaReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que crea el layout de botones para consultar las reservas y limpiar
-	 * todos los filtros aplicados.
+	 * Función que crea el layout de botones para consultar las reservas.
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout crearButtonLayout() {
+	private HorizontalLayout getToolbar() {
 		Button btnConsultar;
 		Button btnLimpiarFiltros;
 
