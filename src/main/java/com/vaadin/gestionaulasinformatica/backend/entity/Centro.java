@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.vaadin.gestionaulasinformatica.backend.data.TipoPropietarioAula;
+
 /**
  * Clase concreta que define la entidad de un centro (PropietarioAula).
  * 

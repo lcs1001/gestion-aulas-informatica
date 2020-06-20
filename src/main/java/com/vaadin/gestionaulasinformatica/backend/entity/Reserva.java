@@ -47,10 +47,7 @@ public class Reserva implements Serializable {
 	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula", insertable = false, updatable = false)
 	private Aula aula;
 
-	/**
-	 * Para reservas por rango de fechas, indica el día de la semana que se va a
-	 * reservar
-	 */
+	@NotNull
 	@Column(name = "dia_semana")
 	private String diaSemana = "";
 

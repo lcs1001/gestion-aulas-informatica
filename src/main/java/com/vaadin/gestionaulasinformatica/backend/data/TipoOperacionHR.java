@@ -1,4 +1,4 @@
-package com.vaadin.gestionaulasinformatica.backend.entity;
+package com.vaadin.gestionaulasinformatica.backend.data;
 
 /**
  * Enumeración con los tipos de operaciones que se pueden realizar con las

@@ -3,6 +3,8 @@ package com.vaadin.gestionaulasinformatica.backend.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.vaadin.gestionaulasinformatica.backend.data.TipoPropietarioAula;
+
 /**
  * Clase concreta que define la entidad de un departamento (PropietarioAula).
  * 

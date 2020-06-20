@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.vaadin.gestionaulasinformatica.backend.data.TipoOperacionHR;
+
 /**
  * Clase para especificar la clave primaria de la tabla HistoricoReservas de la
  * base de datos.

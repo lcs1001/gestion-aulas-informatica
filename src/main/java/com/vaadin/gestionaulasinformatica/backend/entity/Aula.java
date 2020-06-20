@@ -120,51 +120,6 @@ public class Aula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el centro en el que se encuentra el aula.
-	 * 
-	 * @return Centro en el que se encuentra el aula
-	 */
-	public PropietarioAula getUbicacionCentro() {
-		return this.ubicacionCentro;
-	}
-
-	/**
-	 * Función que devuelve el nombre del centro en el que se encuentra el aula.
-	 * 
-	 * @return Centro en el que se encuentra el aula
-	 */
-	public String getNombreCentro() {
-		return this.ubicacionCentro.getNombrePropietarioAula();
-	}
-
-	/**
-	 * Función que establece el centro en el que se encuentra el aula.
-	 * 
-	 * @param centro Centro en el que se encuentra el aula
-	 */
-	public void setUbicacionCentro(PropietarioAula centro) {
-		this.ubicacionCentro = centro;
-	}
-
-	/**
-	 * Función que devuelve el centro/departamento propietario del aula.
-	 * 
-	 * @return Centro/departamento propietario del aula
-	 */
-	public PropietarioAula getPropietarioAula() {
-		return this.propietarioAula;
-	}
-
-	/**
-	 * Función que establece el centro/departamento propietario del aula.
-	 * 
-	 * @param propietarioAula Centro/departamento propietario del aula
-	 */
-	public void setPropietarioAula(PropietarioAula propietarioAula) {
-		this.propietarioAula = propietarioAula;
-	}
-
-	/**
 	 * Función que devuelve la capacidad del aula como Double para el Mantenimiento
 	 * de Aulas.
 	 * 
@@ -220,6 +175,51 @@ public class Aula implements Serializable {
 	 */
 	public void setNumOrdenadores(Double numOrdenadores) {
 		this.numOrdenadores = numOrdenadores.intValue();
+	}
+
+	/**
+	 * Función que devuelve el centro en el que se encuentra el aula.
+	 * 
+	 * @return Centro en el que se encuentra el aula
+	 */
+	public PropietarioAula getUbicacionCentro() {
+		return this.ubicacionCentro;
+	}
+
+	/**
+	 * Función que devuelve el nombre del centro en el que se encuentra el aula.
+	 * 
+	 * @return Centro en el que se encuentra el aula
+	 */
+	public String getNombreCentro() {
+		return this.ubicacionCentro.getNombrePropietarioAula();
+	}
+
+	/**
+	 * Función que establece el centro en el que se encuentra el aula.
+	 * 
+	 * @param centro Centro en el que se encuentra el aula
+	 */
+	public void setUbicacionCentro(PropietarioAula centro) {
+		this.ubicacionCentro = centro;
+	}
+
+	/**
+	 * Función que devuelve el centro/departamento propietario del aula.
+	 * 
+	 * @return Centro/departamento propietario del aula
+	 */
+	public PropietarioAula getPropietarioAula() {
+		return this.propietarioAula;
+	}
+
+	/**
+	 * Función que establece el centro/departamento propietario del aula.
+	 * 
+	 * @param propietarioAula Centro/departamento propietario del aula
+	 */
+	public void setPropietarioAula(PropietarioAula propietarioAula) {
+		this.propietarioAula = propietarioAula;
 	}
 
 	/**
@@ -302,5 +302,4 @@ public class Aula implements Serializable {
 				+ this.getUbicacionCentro().getNombrePropietarioAula() + ", Propietario - "
 				+ this.getPropietarioAula().getNombrePropietarioAula() + "]";
 	}
-
 }

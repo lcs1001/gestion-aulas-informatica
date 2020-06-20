@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.vaadin.gestionaulasinformatica.backend.data.TipoOperacionHR;
+
 /**
  * Entidad que identifica a la tabla HistoricoReserva de la base de datos.
  * 

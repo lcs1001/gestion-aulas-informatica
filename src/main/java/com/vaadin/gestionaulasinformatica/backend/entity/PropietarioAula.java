@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 
 import org.hibernate.annotations.Check;
 
+import com.vaadin.gestionaulasinformatica.backend.data.TipoPropietarioAula;
+
 /**
  * Clase abstracta que define la entidad que identifica a la tabla
  * PropietarioAula de la base de datos.
