@@ -3,7 +3,6 @@ package com.vaadin.gestionaulasinformatica.ui.views.consultareservas;
 //Imports Java
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 //Imports Vaadin
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -13,6 +12,7 @@ import com.vaadin.flow.component.timepicker.TimePicker;
 
 //Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
 
 /**
  * Clase que contiene el formulario para filtrar las reservas.
@@ -24,11 +24,13 @@ public class ConsultaReservasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
 	private List<PropietarioAula> lstPropietariosAulas;
+	private Comunes comunes;
 
 	protected DatePicker fechaDesde;
 	protected DatePicker fechaHasta;
 	protected TimePicker horaDesde;
 	protected TimePicker horaHasta;
+	protected ComboBox<String> diaSemana;
 	protected ComboBox<PropietarioAula> propietario;
 
 	/**
@@ -37,21 +39,23 @@ public class ConsultaReservasForm extends FormLayout {
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
 	 */
-	public ConsultaReservasForm(List<PropietarioAula> propietarios) {
+	public ConsultaReservasForm(List<PropietarioAula> propietarios, Comunes comunes) {
 		try {
 			addClassName("consulta-reservas-form");
 
 			this.lstPropietariosAulas = propietarios;
-			
+			this.comunes = comunes;
+
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			configurarFiltros();
 
 			add(fechaDesde, horaDesde);
-			add(propietario, 2);
+			add(diaSemana, 2);
 			add(fechaHasta, horaHasta);
-			
+			add(propietario, 2);
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -61,30 +65,32 @@ public class ConsultaReservasForm extends FormLayout {
 	 * Función que configura los campos de filtrado.
 	 */
 	private void configurarFiltros() {
-		Locale localeSpain;
-
 		try {
-			localeSpain = new Locale("es", "ES");
 
 			fechaDesde = new DatePicker("Fecha desde");
 			fechaDesde.setValue(LocalDate.now()); // Por defecto la fecha actual
-			fechaDesde.setLocale(localeSpain); // Formato dd/M/yyyy
+			fechaDesde.setLocale(comunes.getLocaleES()); // Formato dd/M/yyyy
 
 			fechaHasta = new DatePicker("Fecha hasta");
 			fechaHasta.setMin(fechaDesde.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
 			fechaHasta.setPlaceholder("dd/MM/yyyy");
-			fechaHasta.setLocale(localeSpain); // Formato dd/M/yyyy
+			fechaHasta.setLocale(comunes.getLocaleES()); // Formato dd/M/yyyy
 			fechaHasta.setClearButtonVisible(true);
 
 			horaDesde = new TimePicker("Hora desde");
 			horaDesde.setPlaceholder("hh:mm");
-			horaDesde.setLocale(localeSpain);
+			horaDesde.setLocale(comunes.getLocaleES());
 			horaDesde.setClearButtonVisible(true);
 
 			horaHasta = new TimePicker("Hora hasta");
 			horaHasta.setPlaceholder("hh:mm");
-			horaHasta.setLocale(localeSpain);
+			horaHasta.setLocale(comunes.getLocaleES());
 			horaHasta.setClearButtonVisible(true);
+
+			diaSemana = new ComboBox<String>("Día de la semana");
+			diaSemana.setPlaceholder("Seleccione");
+			diaSemana.setItems(comunes.getDiasSemana());
+			diaSemana.setClearButtonVisible(true);
 
 			propietario = new ComboBox<PropietarioAula>("Centro/Departamento");
 			propietario.setPlaceholder("Seleccione");
@@ -107,6 +113,7 @@ public class ConsultaReservasForm extends FormLayout {
 			fechaHasta.clear();
 			horaDesde.clear();
 			horaHasta.clear();
+			diaSemana.clear();
 			propietario.clear();
 		} catch (Exception e) {
 			throw e;

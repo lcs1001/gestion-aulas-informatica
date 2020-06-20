@@ -33,7 +33,7 @@ public class ReservaSpecification {
 	 * @return Reservas que cumplen con los filtros aplicados
 	 */
 	public static Specification<Reserva> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
-			LocalTime horaHasta, PropietarioAula responsable) {
+			LocalTime horaHasta, String diaSemana, PropietarioAula responsable) {
 		return new Specification<Reserva>() {
 
 			private static final long serialVersionUID = 1L;
@@ -64,6 +64,12 @@ public class ReservaSpecification {
 				if (!StringUtils.isEmpty(horaHasta)) {
 					final Predicate horaHastaPredicate = cb.lessThanOrEqualTo(root.get("horaInicio"), horaHasta);
 					predicates.add(horaHastaPredicate);
+				}
+				
+				// Se obtienen las reservas realizadas un determinado día de la semana
+				if (!StringUtils.isEmpty(diaSemana)) {
+					final Predicate diaSemanaPredicate = cb.equal(root.get("diaSemana"), diaSemana);
+					predicates.add(diaSemanaPredicate);
 				}
 
 				// Se obtienen las reservas realizadas de un determinado centro o departamento

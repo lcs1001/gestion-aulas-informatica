@@ -19,8 +19,8 @@ import com.vaadin.flow.router.Route;
 
 // Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
-import com.vaadin.gestionaulasinformatica.backend.entity.TipoPropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
+import com.vaadin.gestionaulasinformatica.backend.data.TipoPropietarioAula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Centro;
 import com.vaadin.gestionaulasinformatica.backend.entity.Departamento;
 

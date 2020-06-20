@@ -60,7 +60,7 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			configurarGrid();
 
-			formulario = new ConsultaReservasForm(this.propietarioAulaService.findAll());
+			formulario = new ConsultaReservasForm(this.propietarioAulaService.findAll(), comunes);
 
 			contenido = new Div(formulario, getToolbar(), gridReservas);
 			contenido.addClassName("consulta-reservas-contenido");
@@ -203,7 +203,7 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			if (validarFiltrosConsultaReservas()) {
 				lstReservas = reservaService.findAll(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
-						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
+						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), formulario.diaSemana.getValue(),
 						formulario.propietario.getValue());
 
 				if (!lstReservas.isEmpty()) {

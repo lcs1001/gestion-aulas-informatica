@@ -56,19 +56,10 @@ public class ReservaService {
 	 * @return Lista con todas las reservas que hay en la BD que cumplen con los
 	 *         filtros aplicados
 	 */
-	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
+	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta, String diaSemana,
 			PropietarioAula responsable) {
 		return reservaRepository
-				.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, responsable));
-	}
-
-	/**
-	 * Función que devuelve el número de reservas que hay en la BD.
-	 * 
-	 * @return Número de reservas que hay en la BD
-	 */
-	public long count() {
-		return reservaRepository.count();
+				.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, diaSemana,responsable));
 	}
 
 	/**
