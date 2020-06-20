@@ -1,5 +1,10 @@
 package com.vaadin.gestionaulasinformatica.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -40,5 +45,24 @@ public class Comunes {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	/**
+	 * Función que devuelve el locale de España.
+	 * 
+	 * @return Locale de España,
+	 */
+	public Locale getLocaleES() {
+		return new Locale("es", "ES");
+	}
+
+	/**
+	 * Función que devuelve una lista con todos los días de la semana.
+	 * 
+	 * @return Lista con todos los días de la semana
+	 */
+	public List<String> getDiasSemana() {
+		return new ArrayList<String>(
+				Arrays.asList("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"));
 	}
 }
