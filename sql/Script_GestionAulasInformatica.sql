@@ -44,7 +44,7 @@ CREATE TABLE public."reserva" (
     hora_inicio time without time zone NOT NULL,
     hora_fin time without time zone NOT NULL,
     id_aula integer NOT NULL,
-    dia_semana character varying(10),
+    dia_semana character varying(10) NOT NULL,
     motivo character varying(50) NOT NULL,
     a_cargo_de character varying(50) NOT NULL,
     responsable character varying(30) NOT NULL,
