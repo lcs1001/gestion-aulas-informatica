@@ -67,15 +67,16 @@ public class AulaService {
 	 * @param horaHasta      Hora hasta la que debe estar disponible el aula
 	 * @param capacidad      Capacidad mínima del aula
 	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
+	 * @param diaSemana      Día de la semana que debe estar disponible el aula
 	 * @param propietario    Propietario del aula
 	 * 
 	 * @return Lista con todas las aulas disponibles que hay en la BD que cumplen
 	 *         con los filtros aplicados
 	 */
 	public List<Aula> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
-			Integer capacidad, Integer numOrdenadores, PropietarioAula propietario) {
+			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario) {
 		return aulaRepository.findAll(AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta,
-				capacidad, numOrdenadores, propietario));
+				capacidad, numOrdenadores, diaSemana, propietario));
 	}
 
 	/**

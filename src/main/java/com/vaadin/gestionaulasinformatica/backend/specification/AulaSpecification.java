@@ -35,12 +35,13 @@ public class AulaSpecification {
 	 * @param horaHasta      Hora hasta la que debe estar disponible el aula
 	 * @param capacidad      Capacidad mínima del aula
 	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
+	 * @param diaSemana      Día de la semana que debe estar disponible el aula
 	 * @param propietario    Propietario del aula
 	 * 
 	 * @return Aulas disponibles que cumplen con los filtros aplicados
 	 */
 	public static Specification<Aula> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
-			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, PropietarioAula propietarioAula) {
+			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, String diaSemana,PropietarioAula propietarioAula) {
 		return new Specification<Aula>() {
 
 			private static final long serialVersionUID = 1L;
@@ -75,12 +76,16 @@ public class AulaSpecification {
 
 					// horaHasta >= reserva.horaFin
 					Predicate horaHastaMayor = cb.lessThanOrEqualTo(subRoot.get("horaFin"), horaHasta);
+					
+					// r.diaSemana = diaSemana
+					Predicate diaSemanaP = cb.equal(subRoot.get("diaSemana"), diaSemana);
 
 					Predicate and1 = cb.and(horaDesdeMenor, horaHastaMayor);
 					Predicate or = cb.or(horaDesdeEntre, horaHastaEntre, and1);
 					Predicate and2 = cb.and(fechaReservaEntre, or);
+					Predicate and3 = cb.and(and2, diaSemanaP);
 
-					predicatesSubconsulta.add(and2);
+					predicatesSubconsulta.add(and3);
 					subquery.where(predicatesSubconsulta.toArray(new Predicate[0]));
 
 					Predicate fechaHoraPredicate = cb.in(root.get("idAula")).value(subquery).not();

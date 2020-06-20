@@ -50,16 +50,17 @@ public class ReservaService {
 	 *                    reservas
 	 * @param horaHasta   Hora (de inicio) de la reserva hasta la que obtener las
 	 *                    reservas
+	 * @param diaSemana   Día de la semana del que obtener las reservas
 	 * @param responsable Responsable del aula de la reserva del que obtener las
 	 *                    reservas
 	 * 
 	 * @return Lista con todas las reservas que hay en la BD que cumplen con los
 	 *         filtros aplicados
 	 */
-	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta, String diaSemana,
-			PropietarioAula responsable) {
-		return reservaRepository
-				.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, diaSemana,responsable));
+	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
+			String diaSemana, PropietarioAula responsable) {
+		return reservaRepository.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde,
+				horaHasta, diaSemana, responsable));
 	}
 
 	/**

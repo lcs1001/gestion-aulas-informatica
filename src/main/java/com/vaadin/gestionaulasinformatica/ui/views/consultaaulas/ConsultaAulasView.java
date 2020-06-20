@@ -59,7 +59,7 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			configurarGrid();
 
-			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll());
+			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll(), comunes);
 
 			contenido = new Div(formulario, getToolbar(), gridAulas);
 			contenido.addClassName("consulta-aulas-contenido");
@@ -224,7 +224,7 @@ public class ConsultaAulasView extends VerticalLayout {
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
 
 				lstAulas = aulaService.findAll(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
-						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),
+						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(), formulario.diaSemana.getValue(),
 						formulario.propietario.getValue());
 
 				if (!lstAulas.isEmpty()) {

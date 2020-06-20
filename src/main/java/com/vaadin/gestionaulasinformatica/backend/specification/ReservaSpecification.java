@@ -28,6 +28,7 @@ public class ReservaSpecification {
 	 *                        las reservas
 	 * @param horaHasta       Hora (de inicio) de la reserva hasta la que obtener
 	 *                        las reservas
+	 * @param diaSemana       Día de la semana del que obtener las reservas
 	 * @param propietarioAula Propietario del aula de la reserva del que obtener las
 	 *                        reservas
 	 * @return Reservas que cumplen con los filtros aplicados
@@ -65,7 +66,7 @@ public class ReservaSpecification {
 					final Predicate horaHastaPredicate = cb.lessThanOrEqualTo(root.get("horaInicio"), horaHasta);
 					predicates.add(horaHastaPredicate);
 				}
-				
+
 				// Se obtienen las reservas realizadas un determinado día de la semana
 				if (!StringUtils.isEmpty(diaSemana)) {
 					final Predicate diaSemanaPredicate = cb.equal(root.get("diaSemana"), diaSemana);

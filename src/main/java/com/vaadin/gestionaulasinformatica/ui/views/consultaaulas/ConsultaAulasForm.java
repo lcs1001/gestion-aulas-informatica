@@ -13,6 +13,7 @@ import com.vaadin.flow.component.timepicker.TimePicker;
 
 //Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.PropietarioAula;
+import com.vaadin.gestionaulasinformatica.ui.Comunes;
 
 /**
 * Clase que contiene el formulario para filtrar la
@@ -25,6 +26,7 @@ public class ConsultaAulasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
 	private List<PropietarioAula> lstPropietariosAulas;
+	private Comunes comunes;
 
 	protected DatePicker fechaDesde;
 	protected DatePicker fechaHasta;
@@ -32,6 +34,7 @@ public class ConsultaAulasForm extends FormLayout {
 	protected TimePicker horaHasta;
 	protected NumberField capacidad;
 	protected NumberField numOrdenadores;
+	protected ComboBox<String> diaSemana;
 	protected ComboBox<PropietarioAula> propietario;
 
 	/**
@@ -40,11 +43,12 @@ public class ConsultaAulasForm extends FormLayout {
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
 	 */
-	public ConsultaAulasForm(List<PropietarioAula> propietarios) {
+	public ConsultaAulasForm(List<PropietarioAula> propietarios, Comunes comunes) {
 		try {
 			addClassName("consulta-aulas-form");
 
 			this.lstPropietariosAulas = propietarios;
+			this.comunes = comunes;
 
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4), new ResponsiveStep("25em", 5));
@@ -100,6 +104,11 @@ public class ConsultaAulasForm extends FormLayout {
 			numOrdenadores.setPlaceholder("0");
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
+			
+			diaSemana = new ComboBox<String>("Día de la semana");
+			diaSemana.setPlaceholder("Seleccione");
+			diaSemana.setItems(comunes.getDiasSemana());
+			diaSemana.setClearButtonVisible(true);
 
 			propietario = new ComboBox<PropietarioAula>("Centro/Departamento");
 			propietario.setPlaceholder("Seleccione");
@@ -125,6 +134,7 @@ public class ConsultaAulasForm extends FormLayout {
 			horaHasta.clear();
 			capacidad.clear();
 			numOrdenadores.clear();
+			diaSemana.clear();
 			propietario.clear();
 		} catch (Exception e) {
 			throw e;
