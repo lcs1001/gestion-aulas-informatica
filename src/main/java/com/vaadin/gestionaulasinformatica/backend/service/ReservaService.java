@@ -31,8 +31,7 @@ public class ReservaService {
 	}
 
 	/**
-	 * Función que devuelve una lista con todas las reservas que hay en el
-	 * repositorio.
+	 * Función que devuelve una lista con todas las reservas que hay en la BD.
 	 * 
 	 * @return Lista con todas las reservas que hay en la BD
 	 */
@@ -61,6 +60,17 @@ public class ReservaService {
 			String diaSemana, PropietarioAula responsable) {
 		return reservaRepository.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde,
 				horaHasta, diaSemana, responsable));
+	}
+
+	/**
+	 * Función que devuelve una lista con todas las reservas que hay en la BD cuya
+	 * fecha y hora de inicio sean mayores que la fecha y hora actual.
+	 * 
+	 * @return Lista con todas las reservas que hay en la BD cuya fecha y hora de
+	 *         inicio sean mayores que la fecha y hora actual
+	 */
+	public List<Reserva> findReservasAPartirMomentoActual() {
+		return reservaRepository.findReservasAPartirMomentoActual();
 	}
 
 	/**
