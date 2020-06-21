@@ -74,7 +74,7 @@ public class MantAulasView extends VerticalLayout {
 			add(contenido);
 
 			// Sólo se muestra el grid cuando se selecciona un centro o departamento
-			ocultarGrid();
+			gridAulas.setVisible(false);
 			cerrarEditor();
 
 		} catch (Exception e) {
@@ -131,7 +131,7 @@ public class MantAulasView extends VerticalLayout {
 			btnAnadir.addClassName("mant-aulas-btn-anadir");
 
 			toolbar = new HorizontalLayout(filtroPropietarioAula, btnAnadir);
-			toolbar.addClassName("mant-aulas-toolbar");
+			toolbar.addClassName("toolbar");
 
 			return toolbar;
 
@@ -141,18 +141,7 @@ public class MantAulasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que oculta el grid.
-	 */
-	private void ocultarGrid() {
-		try {
-			gridAulas.setVisible(false);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	/**
-	 * Función para cerrar el formulario para añadir, modificar o eliminar aulas.
+	 * Función que cierra el formulario para añadir, modificar o eliminar aulas.
 	 */
 	private void cerrarEditor() {
 		try {
@@ -239,7 +228,7 @@ public class MantAulasView extends VerticalLayout {
 
 	/**
 	 * Función que muestra un mensaje de confirmación en un cuadro de diálogo cuando
-	 * se quiere eliminar un aula (botón Eliminar)
+	 * se quiere eliminar un aula (botón Eliminar).
 	 * 
 	 * @param evt Evento de eliminación de aula
 	 */

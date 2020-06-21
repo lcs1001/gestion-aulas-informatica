@@ -36,6 +36,10 @@ public class Reserva implements Serializable {
 	@Column(name = "hora_fin")
 	private LocalTime horaFin;
 
+	@NotNull
+	@Column(name = "dia_semana")
+	private String diaSemana = "";
+
 	/**
 	 * Asociación bidireccional ManyToOne con aula para indicar el aula reservada.
 	 * 
@@ -46,10 +50,6 @@ public class Reserva implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula", insertable = false, updatable = false)
 	private Aula aula;
-
-	@NotNull
-	@Column(name = "dia_semana")
-	private String diaSemana = "";
 
 	/** Motivo de la reserva (examen, curso, reunión, etc) */
 	@NotNull

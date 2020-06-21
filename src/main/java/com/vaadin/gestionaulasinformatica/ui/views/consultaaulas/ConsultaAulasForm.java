@@ -56,8 +56,9 @@ public class ConsultaAulasForm extends FormLayout {
 			configurarFiltros();
 
 			add(fechaDesde, horaDesde, capacidad);
-			add(propietario, 2);
+			add(diaSemana, 2);
 			add(fechaHasta, horaHasta, numOrdenadores);
+			add(propietario, 2);
 		} catch (Exception e) {
 			throw e;
 		}

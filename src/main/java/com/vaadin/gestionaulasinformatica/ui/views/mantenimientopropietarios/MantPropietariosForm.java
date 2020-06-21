@@ -39,7 +39,7 @@ public class MantPropietariosForm extends FormLayout {
 	private Button btnEliminar;
 	private Button btnCerrar;
 
-	private Binder<PropietarioAula> binder = new BeanValidationBinder<>(PropietarioAula.class);
+	private Binder<PropietarioAula> binder;
 	private PropietarioAula propietarioAula;
 
 	/**
@@ -51,12 +51,13 @@ public class MantPropietariosForm extends FormLayout {
 
 			configurarCamposFormulario();
 
+			binder = new BeanValidationBinder<>(PropietarioAula.class);
 			binder.bindInstanceFields(this);
 			binder.bind(idPropAula, "idPropietarioAula");
 			binder.bind(nombrePropAula, "nombrePropietarioAula");
 
 			add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable,
-					telefonoResponsable, crearBotonesMantenimiento());
+					telefonoResponsable, getFormToolbar());
 		} catch (Exception e) {
 			throw e;
 		}
@@ -87,8 +88,8 @@ public class MantPropietariosForm extends FormLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout crearBotonesMantenimiento() {
-		HorizontalLayout botonesMantenimiento;
+	private HorizontalLayout getFormToolbar() {
+		HorizontalLayout formToolbar;
 
 		try {
 			
@@ -108,10 +109,10 @@ public class MantPropietariosForm extends FormLayout {
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-			botonesMantenimiento = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
-			botonesMantenimiento.addClassName("mant-propietarios-botones-form");
+			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			formToolbar.addClassName("toolbar");
 
-			return botonesMantenimiento;
+			return formToolbar;
 
 		} catch (Exception e) {
 			throw e;

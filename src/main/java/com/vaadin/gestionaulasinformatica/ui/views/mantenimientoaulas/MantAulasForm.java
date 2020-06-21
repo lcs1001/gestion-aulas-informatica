@@ -41,11 +41,11 @@ public class MantAulasForm extends FormLayout {
 	protected ComboBox<PropietarioAula> ubicacionCentro;
 	protected ComboBox<PropietarioAula> propietarioAula;
 
-	private Button btnGuardar = new Button("Guardar");
-	private Button btnEliminar = new Button("Eliminar");
-	private Button btnCerrar = new Button("Cancelar");
+	private Button btnGuardar;
+	private Button btnEliminar;
+	private Button btnCerrar;
 
-	private Binder<Aula> binder = new BeanValidationBinder<>(Aula.class);
+	private Binder<Aula> binder;
 	private Aula aula;
 
 	/**
@@ -63,9 +63,10 @@ public class MantAulasForm extends FormLayout {
 
 		configurarCamposFormulario();
 
+		binder = new BeanValidationBinder<>(Aula.class);
 		binder.bindInstanceFields(this);
 
-		add(nombreAula, capacidad, numOrdenadores, ubicacionCentro, propietarioAula, crearBotonesMantenimiento());
+		add(nombreAula, capacidad, numOrdenadores, ubicacionCentro, propietarioAula, getFormToolbar());
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class MantAulasForm extends FormLayout {
 			capacidad.setMin(0);
 			capacidad.setValue((double) 0);
 			capacidad.setHasControls(true);
-			
+
 			numOrdenadores = new NumberField("Número de Ordenadores");
 			numOrdenadores.setMin(0);
 			numOrdenadores.setValue((double) 0);
@@ -108,27 +109,30 @@ public class MantAulasForm extends FormLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout crearBotonesMantenimiento() {
-		HorizontalLayout botonesMantenimiento;
+	private HorizontalLayout getFormToolbar() {
+		HorizontalLayout formToolbar;
 
 		try {
+			btnGuardar = new Button("Guardar");
+
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+			btnEliminar = new Button("Eliminar");
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, aula)));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
+			btnCerrar = new Button("Cancelar");
 			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
 			btnCerrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-			botonesMantenimiento = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
-			botonesMantenimiento.addClassName("mant-aulas-botones-form");
+			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
 
-			return botonesMantenimiento;
+			return formToolbar;
 
 		} catch (Exception e) {
 			throw e;
@@ -144,7 +148,7 @@ public class MantAulasForm extends FormLayout {
 		try {
 			this.aula = aula;
 			binder.readBean(aula);
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -165,7 +169,7 @@ public class MantAulasForm extends FormLayout {
 
 	/**
 	 * Clase estática y abstracta para definir los eventos del formulario de
-	 * Mantenimiento de Centros y Departamentos.
+	 * Mantenimiento de Aulas.
 	 * 
 	 * @author Lisa
 	 *

@@ -142,7 +142,7 @@ public class MantPropietariosView extends VerticalLayout {
 			btnAnadirDepartamento.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			toolbar = new HorizontalLayout(filtroTexto, btnAnadirCentro, btnAnadirDepartamento);
-			toolbar.addClassName("mant-propietarios-toolbar");
+			toolbar.addClassName("toolbar");
 			return toolbar;
 
 		} catch (Exception e) {
