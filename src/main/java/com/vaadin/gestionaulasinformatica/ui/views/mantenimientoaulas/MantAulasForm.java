@@ -114,7 +114,6 @@ public class MantAulasForm extends FormLayout {
 
 		try {
 			btnGuardar = new Button("Guardar");
-
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

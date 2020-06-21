@@ -14,7 +14,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 // Imports backend
-import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
 import com.vaadin.gestionaulasinformatica.backend.entity.Reserva;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
 import com.vaadin.gestionaulasinformatica.backend.service.ReservaService;
@@ -112,19 +111,13 @@ public class ConsultaReservasView extends VerticalLayout {
 			gridReservas.addClassName("reservas-grid");
 			gridReservas.setSizeFull();
 
-			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha inicio")
-					.setKey("fechaInicio");
+			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha")
+					.setKey("fecha");
 			gridReservas.addColumn(Reserva::getDiaSemana).setHeader("Día semana").setKey("diaSemana");
 			gridReservas.addColumn(Reserva::getHoraInicio).setHeader("Hora inicio").setKey("horaInicio");
 			gridReservas.addColumn(Reserva::getHoraFin).setHeader("Hora fin").setKey("horaFin");
-			gridReservas.addColumn(reserva -> {
-				Aula aula = reserva.getAula();
-				return aula == null ? "-" : aula.getNombreAula();
-			}).setHeader("Aula").setKey("aula");
-			gridReservas.addColumn(reserva -> {
-				Aula aula = reserva.getAula();
-				return aula == null ? "-" : aula.getNombreCentro();
-			}).setHeader("Centro").setKey("centro");
+			gridReservas.addColumn(Reserva::getNombreAula).setHeader("Aula").setKey("aula");
+			gridReservas.addColumn(Reserva::getNombreCentroAula).setHeader("Centro").setKey("centro");
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
 			gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
 
