@@ -3,6 +3,9 @@ package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 //Imports Vaadin
 import com.vaadin.flow.component.button.*;
 import com.vaadin.flow.component.grid.*;
@@ -25,20 +28,26 @@ import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Ventana Consulta de Disponibilidad de Aulas.
+ * 
+ * La anotación de Spring @Component permite que sea posible usarla
+ * con @Autowire, y @Scope("prototype") garantiza que cada ejecución del test
+ * obtenga una nueva instancia.
  */
+@Component
+@Scope("prototype")
 @Route(value = "consultaAulas", layout = MainLayout.class)
 @PageTitle("Consulta de Disponibilidad de Aulas")
 public class ConsultaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
-	private AulaService aulaService;
-	private PropietarioAulaService propietarioAulaService;
+	protected  AulaService aulaService;
+	protected  PropietarioAulaService propietarioAulaService;
 	private Comunes comunes;
 
-	private Grid<Aula> gridAulas;
-	private ConsultaAulasForm formulario;
-	private HorizontalLayout toolbar;
+	protected  Grid<Aula> gridAulas;
+	protected  ConsultaAulasForm formulario;
+	protected  HorizontalLayout toolbar;
 
 	/**
 	 * Constructor de la clase.
@@ -75,7 +84,8 @@ public class ConsultaAulasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que crea el layout de botones para consultar la disponibilidad de aulas.
+	 * Función que crea el layout de botones para consultar la disponibilidad de
+	 * aulas.
 	 * 
 	 * @return Layout de botones
 	 */
@@ -224,8 +234,8 @@ public class ConsultaAulasView extends VerticalLayout {
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
 
 				lstAulas = aulaService.findAll(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
-						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(), formulario.diaSemana.getValue(),
-						formulario.propietario.getValue());
+						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),
+						formulario.diaSemana.getValue(), formulario.propietario.getValue());
 
 				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);
