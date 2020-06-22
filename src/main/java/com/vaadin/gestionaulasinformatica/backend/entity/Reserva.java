@@ -48,7 +48,7 @@ public class Reserva implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula")
 	private Aula aula;
 
 	/** Motivo de la reserva (examen, curso, reunión, etc) */
@@ -73,7 +73,7 @@ public class Reserva implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", updatable = false)
 	private PropietarioAula responsable;
 
 	/**
@@ -82,6 +82,36 @@ public class Reserva implements Serializable {
 	 */
 	@OneToMany(mappedBy = "idOperacionHR.reserva")
 	private Set<HistoricoReservas> lstOperacionesHR;
+
+	/**
+	 * Constructor de la clase sin parámetros.
+	 */
+	public Reserva() {
+	}
+
+	/**
+	 * Constructor de la clase con parámetros.
+	 * 
+	 * @param fecha       Fecha de la reserva
+	 * @param horaInicio  Hora de inicio de la reserva
+	 * @param horaFin     Hora de fin de la reserva
+	 * @param diaSemana   Día de la semana de la reserva
+	 * @param aula        Aula que se reserva
+	 * @param motivo      Motivo de la reserva
+	 * @param aCargoDe    Persona a cargo de la reserva
+	 * @param responsable Centro o departamento responsable de hacer la reserva
+	 */
+	public Reserva(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String diaSemana, Aula aula, String motivo,
+			String aCargoDe, PropietarioAula responsable) {
+		this.fecha = fecha;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.diaSemana = diaSemana;
+		this.aula = aula;
+		this.motivo = motivo;
+		this.aCargoDe = aCargoDe;
+		this.responsable = responsable;
+	}
 
 	/**
 	 * Función que devuelve el id de la reserva.
@@ -290,7 +320,7 @@ public class Reserva implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Reserva [ID - " + this.getIdReserva() + ", Fecha - " + this.getFecha() + ", Hora inicio - "
+		return "Reserva [Fecha - " + this.getFecha() + ", Hora inicio - "
 				+ this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
 				+ this.getNombreCentroAula() + ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe()
 				+ " (" + this.getResponsable() + ")]";
