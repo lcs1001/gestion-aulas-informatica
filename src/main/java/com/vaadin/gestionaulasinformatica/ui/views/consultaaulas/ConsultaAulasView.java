@@ -3,51 +3,41 @@ package com.vaadin.gestionaulasinformatica.ui.views.consultaaulas;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-//Imports Vaadin
-import com.vaadin.flow.component.button.*;
-import com.vaadin.flow.component.grid.*;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.icon.*;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.*;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-//Imports backend
 import com.vaadin.gestionaulasinformatica.backend.entity.Aula;
 import com.vaadin.gestionaulasinformatica.backend.service.AulaService;
 import com.vaadin.gestionaulasinformatica.backend.service.PropietarioAulaService;
-
-//Imports UI
 import com.vaadin.gestionaulasinformatica.ui.Comunes;
 import com.vaadin.gestionaulasinformatica.ui.MainLayout;
 import com.vaadin.gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Ventana Consulta de Disponibilidad de Aulas.
- * 
- * La anotación de Spring @Component permite que sea posible usarla
- * con @Autowire, y @Scope("prototype") garantiza que cada ejecución del test
- * obtenga una nueva instancia.
  */
-@Component
-@Scope("prototype")
 @Route(value = "consultaAulas", layout = MainLayout.class)
 @PageTitle("Consulta de Disponibilidad de Aulas")
 public class ConsultaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
-	protected  AulaService aulaService;
-	protected  PropietarioAulaService propietarioAulaService;
+	protected AulaService aulaService;
+	protected PropietarioAulaService propietarioAulaService;
 	private Comunes comunes;
 
-	protected  Grid<Aula> gridAulas;
-	protected  ConsultaAulasForm formulario;
-	protected  HorizontalLayout toolbar;
+	protected Grid<Aula> gridAulas;
+	protected ConsultaAulasForm formulario;
+	protected HorizontalLayout toolbar;
 
 	/**
 	 * Constructor de la clase.
@@ -190,10 +180,11 @@ public class ConsultaAulasView extends VerticalLayout {
 				}
 			}
 
-			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
+			// Si la hora desde la que se quiere filtrar es mayor o igual que la hora hasta la que
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
-				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
+				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0
+						|| formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) == 0) {
 					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje(), 5000,
 							NotificationVariant.LUMO_ERROR);
 					valido = false;

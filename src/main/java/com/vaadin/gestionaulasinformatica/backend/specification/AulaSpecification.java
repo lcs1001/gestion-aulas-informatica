@@ -41,7 +41,8 @@ public class AulaSpecification {
 	 * @return Aulas disponibles que cumplen con los filtros aplicados
 	 */
 	public static Specification<Aula> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
-			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, String diaSemana,PropietarioAula propietarioAula) {
+			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, String diaSemana,
+			PropietarioAula propietarioAula) {
 		return new Specification<Aula>() {
 
 			private static final long serialVersionUID = 1L;
@@ -53,17 +54,16 @@ public class AulaSpecification {
 
 				// Se obtienen las aulas que no están presentes en reservas entre fechaDesde y
 				// fechaHasta y entre horaDesde y horaHasta
-				
+
 				// SELECT a.*
 				// FROM aula a
 				// WHERE id_aula NOT IN (
-				//		SELECT id_aula
-				//		FROM reserva r
-				//		WHERE a.id_aula = r.id_aula AND 
-				//			r.fecha BETWEEN fechaDesde AND fechaHasta AND
-				//			(horaHasta > r.hora_inicio AND horaDesde < r.hora_fin) AND 
-				//			r.dia_semana = diaSemana
-				// )				
+				// SELECT id_aula
+				// FROM reserva r
+				// WHERE a.id_aula = r.id_aula AND
+				// r.fecha BETWEEN fechaDesde AND fechaHasta AND
+				// (horaHasta > r.hora_inicio AND horaDesde < r.hora_fin)
+				// )
 				if (!StringUtils.isEmpty(fechaDesde) && !StringUtils.isEmpty(horaDesde)
 						&& !StringUtils.isEmpty(horaHasta)) {
 
@@ -73,20 +73,26 @@ public class AulaSpecification {
 
 					// reserva.fecha BETWEEN fechaDesde AND fechaHasta
 					Predicate fechaReservaEntre = cb.between(subRoot.get("fecha"), fechaDesde, fechaHasta);
-					
+
 					// horaHasta > reserva.horaInicio AND horaDesde < reserva.horaFin
 					Predicate horaHastaMayorInicio = cb.lessThan(subRoot.get("horaInicio"), horaHasta);
 					Predicate horaDesdeMenorFin = cb.greaterThan(subRoot.get("horaFin"), horaDesde);
-					
-					Predicate andHoras = cb.and(horaHastaMayorInicio, horaDesdeMenorFin);					
+
+					Predicate andHoras = cb.and(horaHastaMayorInicio, horaDesdeMenorFin);
 					Predicate andFechaHoras = cb.and(fechaReservaEntre, andHoras);
 					
-					// r.diaSemana = diaSemana
-					Predicate diaSemanaP = cb.equal(subRoot.get("diaSemana"), diaSemana);					
-					
-					Predicate andFechaHorasDia = cb.and(andFechaHoras, diaSemanaP);
+					// Si se ha filtrado por día de la semana, se añade el AND a la subconsulta
+					if(!StringUtils.isEmpty(diaSemana)) {
+						// r.diaSemana = diaSemana
+						Predicate diaSemanaP = cb.equal(subRoot.get("diaSemana"), diaSemana);
 
-					predicatesSubconsulta.add(andFechaHorasDia);
+						Predicate andFechaHorasDia = cb.and(andFechaHoras, diaSemanaP);
+
+						predicatesSubconsulta.add(andFechaHorasDia);
+					} else {
+						predicatesSubconsulta.add(andFechaHoras);
+					}
+					
 					subquery.where(predicatesSubconsulta.toArray(new Predicate[0]));
 
 					Predicate fechaHoraPredicate = cb.in(root.get("idAula")).value(subquery).not();

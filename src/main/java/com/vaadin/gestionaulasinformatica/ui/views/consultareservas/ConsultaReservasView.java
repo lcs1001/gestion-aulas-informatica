@@ -169,10 +169,11 @@ public class ConsultaReservasView extends VerticalLayout {
 				}
 			}
 
-			// Si la hora desde la que se quiere filtrar es mayor que la hora hasta la que
+			// Si la hora desde la que se quiere filtrar es mayor o igual que la hora hasta la que
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
-				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0) {
+				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0
+						|| formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) == 0) {
 					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_HORA_DESDE_MAYOR.getMensaje(), 5000,
 							NotificationVariant.LUMO_ERROR);
 					valido = false;
@@ -196,8 +197,8 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			if (validarFiltrosConsultaReservas()) {
 				lstReservas = reservaService.findAll(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
-						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), formulario.diaSemana.getValue(),
-						formulario.propietario.getValue());
+						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
+						formulario.diaSemana.getValue(), formulario.propietario.getValue());
 
 				if (!lstReservas.isEmpty()) {
 					gridReservas.setVisible(true);
