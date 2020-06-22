@@ -90,8 +90,8 @@ public class ConsultaAulasTest {
 			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
 					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
 			
-			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30");
-			System.out.println("Aulas disponibles: " + lstAulasDisponibles+ "\n\n");
+			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30:");
+			System.out.println("\tAulas disponibles: " + lstAulasDisponibles+ "\n\n");
 			
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
@@ -111,8 +111,29 @@ public class ConsultaAulasTest {
 			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
 					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null));
 			
-			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (día semana = \"Martes\")");
-			System.out.println("Aulas disponibles: " + lstAulasDisponibles + "\n\n");
+			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
+			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			
+			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Test que comprueba que el aula 1 no está disponible del día 21-07-2020 al 23-07-2020 de
+	 * 10:30 a 11:30.
+	 */
+	@Test
+	public void aula1NoDisponibleRangoFechasHoras() {
+		try {
+			establecerDatos();
+			
+			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 23),
+					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
+			
+			System.out.println("\n\nTest Aula 1 no disponible del 21-07-2020 al 23-07-2020 de 10:30 a 11:30:");
+			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
 			
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
