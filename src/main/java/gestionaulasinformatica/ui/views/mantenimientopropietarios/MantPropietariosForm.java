@@ -35,7 +35,7 @@ public class MantPropietariosForm extends FormLayout {
 
 	private Button btnGuardar;
 	private Button btnEliminar;
-	private Button btnCerrar;
+	private Button btnCancelar;
 
 	private Binder<PropietarioAula> binder;
 	private PropietarioAula propietarioAula;
@@ -100,14 +100,14 @@ public class MantPropietariosForm extends FormLayout {
 			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, propietarioAula)));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
-			btnCerrar = new Button("Cancelar");
-			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
-			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
-			btnCerrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+			btnCancelar = new Button("Cancelar");
+			btnCancelar.addClickListener(click -> fireEvent(new CloseEvent(this)));
+			btnCancelar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
+			btnCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
-			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCancelar);
 			formToolbar.addClassName("toolbar");
 
 			return formToolbar;

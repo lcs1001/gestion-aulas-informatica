@@ -31,7 +31,7 @@ public class ConsultaReservasForm extends FormLayout {
 	protected ComboBox<PropietarioAula> propietario;
 
 	/**
-	 * Constructor de la clase
+	 * Constructor de la clase.
 	 * 
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
