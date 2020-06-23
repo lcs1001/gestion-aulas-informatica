@@ -9,9 +9,12 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
@@ -49,20 +52,23 @@ public class ReservaAulasForm extends FormLayout {
 	protected ComboBox<String> diaSemana;
 	protected TextField motivo;
 	protected TextField aCargoDe;
-	
-	protected HorizontalLayout formToolbar;
-	private Button btnGuardar;
-	private Button btnEliminar;
-	private Button btnCerrar;
+
+	protected HorizontalLayout toolbar;
+	private Button btnReservar;
+	private Button btnLimpiarCampos;
+	private Checkbox chkReservaRango;
 
 	private Binder<Reserva> binder;
 	private Reserva reserva;
 
 	/**
-	 * Constructor de la clase
+	 * Constructor de la clase.
 	 * 
-	 * @param propietarios Lista de centros que se muestra en el desplegable de
-	 *                     centros
+	 * @param aulaService Service de JPA de la entidad Aula
+	 * @param centros     Lista de centros que se muestra en el desplegable de
+	 *                    centros
+	 * @param comunes     Objeto de la clase Comunes para acceder a las funciones
+	 *                    comunes
 	 */
 	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> centros, Comunes comunes) {
 		try {
@@ -76,6 +82,7 @@ public class ReservaAulasForm extends FormLayout {
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			configurarCamposFormulario();
+			configurarToolbar();
 
 			binder = new BeanValidationBinder<>(Reserva.class);
 			binder.bindInstanceFields(this);
@@ -87,10 +94,12 @@ public class ReservaAulasForm extends FormLayout {
 			add(diaSemana, 2);
 			add(motivo, 2);
 			add(aCargoDe, 2);
-			add(getFormToolbar(), 4);
-			
-			// Sólo se muestra cuando se pulse en "Gestionar Reservas"
-			formToolbar.setVisible(false);
+			add(toolbar, 4);
+
+			// Se deshabilitan los campos "Fecha fin" y "Día de la semana" hasta que se
+			// marca la reserva por rango de fechas
+			fechaFin.setEnabled(false);
+			diaSemana.setEnabled(false);
 
 		} catch (Exception e) {
 			throw e;
@@ -156,32 +165,28 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que crea el layout de botones para las reservas.
+	 * Función que configura el toolbar que contiene: un botón para generar la reserva,
+	 * un botón para limpiar todos los campos y un checkbox para indicar si se trata
+	 * de una reserva por rango de fechas.
 	 * 
-	 * @return Layout de botones
+	 * @return Toolbar
 	 */
-	private HorizontalLayout getFormToolbar() {
+	private void configurarToolbar() {
 		try {
-			btnGuardar = new Button("Guardar");
-			btnGuardar.addClickListener(click -> validarGuardar());
-			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
-			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnReservar = new Button("Reservar", click -> validarGuardar());
+			btnReservar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
+			btnReservar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnEliminar = new Button("Eliminar");
-			btnEliminar.addClickListener(click -> fireEvent(new DeleteEvent(this, reserva)));
-			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
-			
-			btnCerrar = new Button("Cerrar");
-			btnCerrar.addClickListener(click -> fireEvent(new CloseEvent(this)));
-			btnCerrar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
-			btnCerrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-			
-			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
+			btnLimpiarCampos = new Button("", click -> limpiarCampos());
+			btnLimpiarCampos.setIcon(new Icon(VaadinIcon.CLOSE));
+			btnLimpiarCampos.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnLimpiarCampos.getElement().setProperty("title", "Limpiar campos");
 
-			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
-			formToolbar.addClassName("toolbar");
+			chkReservaRango = new Checkbox("Reserva por Rango de Fechas");
+			chkReservaRango.addClickListener(e -> reservaRango());
 
-			return formToolbar;
+			toolbar = new HorizontalLayout(btnReservar, chkReservaRango);
+			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
 			throw e;
@@ -198,6 +203,46 @@ public class ReservaAulasForm extends FormLayout {
 				lstAulas = aulaService.findAll(centro.getValue());
 				aula.setItems(lstAulas);
 			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que muestra u oculta los campos de las reservas de rango (fecha fin y
+	 * día de la semana) dependiendo de si se ha seleccionado el checkbox o no.
+	 */
+	private void reservaRango() {
+		try {
+			// Si no está seleccionado
+			if (chkReservaRango.isEmpty()) {
+				fechaInicio.setLabel("Fecha");
+				fechaFin.setEnabled(false);
+				diaSemana.setEnabled(false);
+			} else {
+				fechaInicio.setLabel("Fecha inicio");
+				fechaFin.setEnabled(true);
+				diaSemana.setEnabled(true);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que limpia todos los campos.
+	 */
+	protected void limpiarCampos() {
+		try {
+			fechaInicio.clear();
+			fechaFin.clear();
+			horaInicio.clear();
+			horaFin.clear();
+			centro.clear();
+			aula.clear();
+			diaSemana.clear();
+			motivo.clear();
+			aCargoDe.clear();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -232,8 +277,8 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Clase estática y abstracta para definir los eventos del formulario de Reserva
-	 * de Aulas.
+	 * Clase estática y abstracta para definir los eventos del formulario de Gestión
+	 * de Reservas.
 	 * 
 	 * @author Lisa
 	 *
@@ -264,7 +309,7 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Clase estática para definir el evento "Guardar" del formulario de Reserva de
+	 * Clase estática para definir el evento "Reservar" del formulario de Reserva de
 	 * Aulas.
 	 * 
 	 * @author Lisa
@@ -278,39 +323,8 @@ public class ReservaAulasForm extends FormLayout {
 		}
 	}
 
-	/**
-	 * Clase estática para definir el evento "Eliminar" del formulario de Reserva de
-	 * Aulas.
-	 * 
-	 * @author Lisa
-	 *
-	 */
-	public static class DeleteEvent extends ReservaAulasFormEvent {
-		private static final long serialVersionUID = 1L;
-
-		DeleteEvent(ReservaAulasForm source, Reserva reserva) {
-			super(source, reserva);
-		}
-	}
-
-	/**
-	 * Clase estática para definir el evento "Cerrar" del formulario de Reserva de
-	 * Aulas.
-	 * 
-	 * @author Lisa
-	 *
-	 */
-	public static class CloseEvent extends ReservaAulasFormEvent {
-		private static final long serialVersionUID = 1L;
-
-		CloseEvent(ReservaAulasForm source) {
-			super(source, null);
-		}
-	}
-
 	public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
 			ComponentEventListener<T> listener) {
 		return getEventBus().addListener(eventType, listener);
 	}
-
 }
