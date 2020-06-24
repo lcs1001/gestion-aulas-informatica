@@ -88,6 +88,7 @@ public class ReservaAulasForm extends FormLayout {
 
 			binder = new BeanValidationBinder<>(Reserva.class);
 			binder.bindInstanceFields(this);
+			binder.bind(fechaInicio, "fecha");
 
 			add(fechaInicio, horaInicio);
 			add(centro, 2);
@@ -117,7 +118,9 @@ public class ReservaAulasForm extends FormLayout {
 			fechaInicio.setMin(LocalDate.now()); // Como mínimo debe ser la fecha actual
 			fechaInicio.setPlaceholder("dd/MM/yyyy");
 			fechaInicio.setLocale(comunes.getLocaleES()); // Formato dd/M/yyyy
+			fechaInicio.setRequiredIndicatorVisible(true);
 			fechaInicio.setClearButtonVisible(true);
+			fechaInicio.addValueChangeListener(e -> comprobarFechaActual());
 
 			fechaFin = new DatePicker("Fecha fin");
 			fechaFin.setMin(fechaInicio.getValue()); // Como mínimo debe ser la fecha desde la que se ha filtrado
@@ -126,10 +129,10 @@ public class ReservaAulasForm extends FormLayout {
 			fechaFin.setClearButtonVisible(true);
 
 			horaInicio = new TimePicker("Hora inicio");
-			horaInicio.setMinTime(LocalTime.now());
 			horaInicio.setPlaceholder("hh:mm");
 			horaInicio.setLocale(comunes.getLocaleES());
 			horaInicio.setClearButtonVisible(true);
+			horaInicio.addValueChangeListener(e -> establecerMinHoraFin());
 
 			horaFin = new TimePicker("Hora fin");
 			horaFin.setPlaceholder("hh:mm");
@@ -141,6 +144,7 @@ public class ReservaAulasForm extends FormLayout {
 			centro.setItems(lstCentros);
 			centro.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
 			centro.addValueChangeListener(e -> cargarAulasCentro());
+			centro.setRequiredIndicatorVisible(true);
 
 			aula = new ComboBox<Aula>("Aula");
 			aula.setPlaceholder("Seleccione");
@@ -154,11 +158,13 @@ public class ReservaAulasForm extends FormLayout {
 			motivo.setPlaceholder("Motivo de la reserva");
 			motivo.setMaxLength(50);
 			motivo.setClearButtonVisible(true);
+			motivo.setRequiredIndicatorVisible(true);
 
 			aCargoDe = new TextField("A cargo de");
 			aCargoDe.setPlaceholder("Persona a cargo de la reserva");
 			aCargoDe.setMaxLength(50);
 			aCargoDe.setClearButtonVisible(true);
+			aCargoDe.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {
 			throw e;
@@ -186,7 +192,7 @@ public class ReservaAulasForm extends FormLayout {
 			chkReservaRango = new Checkbox("Reserva por Rango de Fechas");
 			chkReservaRango.addClickListener(e -> reservaRango());
 
-			toolbar = new HorizontalLayout(btnReservar, chkReservaRango);
+			toolbar = new HorizontalLayout(btnReservar, btnLimpiarCampos, chkReservaRango);
 			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
@@ -210,6 +216,36 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
+	 * Función que comprueba si la fecha escogida es la fecha actual para establecer
+	 * la hora de inicio mínima (hora actual). Si no, no hay hora mínima.
+	 */
+	private void comprobarFechaActual() {
+		try {
+			if (fechaInicio.getValue().equals(LocalDate.now())) {
+				horaInicio.setMinTime(LocalTime.now());
+
+			} else {
+				horaInicio.setMinTime(null);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que establece como hora de fin mínima la hora de inicio elegida.
+	 */
+	private void establecerMinHoraFin() {
+		try {
+			if (!horaInicio.isEmpty()) {
+				horaFin.setMinTime(horaInicio.getValue());
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función que muestra u oculta los campos de las reservas de rango (fecha fin y
 	 * día de la semana) dependiendo de si se ha seleccionado el checkbox o no.
 	 */
@@ -219,11 +255,15 @@ public class ReservaAulasForm extends FormLayout {
 			if (chkReservaRango.isEmpty()) {
 				fechaInicio.setLabel("Fecha");
 				fechaFin.setEnabled(false);
+				fechaFin.setRequiredIndicatorVisible(false);
 				diaSemana.setEnabled(false);
+				diaSemana.setRequiredIndicatorVisible(false);
 			} else {
 				fechaInicio.setLabel("Fecha inicio");
 				fechaFin.setEnabled(true);
+				fechaFin.setRequiredIndicatorVisible(true);
 				diaSemana.setEnabled(true);
+				diaSemana.setRequiredIndicatorVisible(true);
 			}
 		} catch (Exception e) {
 			throw e;
@@ -273,7 +313,18 @@ public class ReservaAulasForm extends FormLayout {
 		Boolean valido = true;
 
 		try {
-			// Si la hora inicio es mayor o igual que la hora fin
+			// Si la fecha de inicio es mayor o igual que la fecha de fin en una reserva de
+			// rango de fechas
+			if (!fechaInicio.isEmpty() && !fechaFin.isEmpty()) {
+				if (fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0
+						|| fechaInicio.getValue().compareTo(fechaFin.getValue()) == 0) {
+					comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_FECHA_INICIO_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
+					valido = false;
+				}
+			}
+
+			// Si la hora de inicio es mayor o igual que la hora de fin
 			if (!horaInicio.isEmpty() && !horaFin.isEmpty()) {
 				if (horaInicio.getValue().compareTo(horaFin.getValue()) > 0
 						|| horaInicio.getValue().compareTo(horaFin.getValue()) == 0) {
@@ -282,6 +333,16 @@ public class ReservaAulasForm extends FormLayout {
 					valido = false;
 				}
 			}
+
+			// Si se ha dejado algún campo vacío
+			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || centro.isEmpty() || aula.isEmpty()
+					|| motivo.isEmpty() || aCargoDe.isEmpty()
+					|| (!chkReservaRango.isEmpty() && (fechaFin.isEmpty() || diaSemana.isEmpty()))) {
+				comunes.mostrarNotificacion(Mensajes.MSG_TODOS_CAMPOS_OBLIGATORIOS.getMensaje(), 5000,
+						NotificationVariant.LUMO_ERROR);
+				valido = false;
+			}
+
 			return valido;
 
 		} catch (Exception e) {

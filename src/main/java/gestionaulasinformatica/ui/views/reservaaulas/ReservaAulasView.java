@@ -10,6 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
@@ -97,10 +98,14 @@ public class ReservaAulasView extends VerticalLayout {
 	 * Función que permite reservar un aula.
 	 */
 	private void anadirReserva() {
+		Reserva reserva;
 		try {
 			formulario.setVisible(true);
 			toolbar.setVisible(false);
-			formulario.setReserva(new Reserva());
+			reserva = new Reserva();
+			// TODO: establecer como responsable el que ha accedido a la app
+			//	reserva.setResponsable();
+			formulario.setReserva(reserva);
 		} catch (Exception e) {
 			throw e;
 		}
