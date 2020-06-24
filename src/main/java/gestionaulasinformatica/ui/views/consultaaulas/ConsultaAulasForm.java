@@ -85,6 +85,7 @@ public class ConsultaAulasForm extends FormLayout {
 			horaDesde.setPlaceholder("hh:mm");
 			horaDesde.setLocale(localeSpain);
 			horaDesde.setClearButtonVisible(true);
+			horaDesde.addValueChangeListener(e -> establecerMinHoraHasta());
 
 			horaHasta = new TimePicker("Hora hasta");
 			horaHasta.setPlaceholder("hh:mm");
@@ -115,6 +116,19 @@ public class ConsultaAulasForm extends FormLayout {
 			propietario.setRequired(true); // Campo obligatorio
 			propietario.setRequiredIndicatorVisible(true);
 
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Función que establece como "hora hasta" mínima la "hora desde" elegida.
+	 */
+	private void establecerMinHoraHasta() {
+		try {
+			if (!horaDesde.isEmpty()) {
+				horaHasta.setMinTime(horaDesde.getValue());
+			}
 		} catch (Exception e) {
 			throw e;
 		}

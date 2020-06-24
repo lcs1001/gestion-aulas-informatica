@@ -79,6 +79,7 @@ public class ConsultaReservasForm extends FormLayout {
 			horaDesde.setPlaceholder("hh:mm");
 			horaDesde.setLocale(comunes.getLocaleES());
 			horaDesde.setClearButtonVisible(true);
+			horaDesde.addValueChangeListener(e -> establecerMinHoraHasta());
 
 			horaHasta = new TimePicker("Hora hasta");
 			horaHasta.setPlaceholder("hh:mm");
@@ -96,6 +97,19 @@ public class ConsultaReservasForm extends FormLayout {
 			propietario.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
 			propietario.setRequiredIndicatorVisible(true); // Campo obligatorio
 
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que establece como "hora hasta" mínima la "hora desde" elegida.
+	 */
+	private void establecerMinHoraHasta() {
+		try {
+			if (!horaDesde.isEmpty()) {
+				horaHasta.setMinTime(horaDesde.getValue());
+			}
 		} catch (Exception e) {
 			throw e;
 		}

@@ -114,6 +114,7 @@ public class GestionReservasForm extends FormLayout {
 			horaInicio.setPlaceholder("hh:mm");
 			horaInicio.setLocale(comunes.getLocaleES());
 			horaInicio.setClearButtonVisible(true);
+			horaInicio.addValueChangeListener(e -> establecerMinHoraFin());
 
 			horaFin = new TimePicker("Hora fin");
 			horaFin.setPlaceholder("hh:mm");
@@ -171,6 +172,19 @@ public class GestionReservasForm extends FormLayout {
 			toolbar = new HorizontalLayout(btnGuardar, btnCancelar);
 			toolbar.addClassName("toolbar");
 
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Función que establece como hora de fin mínima la hora de inicio elegida.
+	 */
+	private void establecerMinHoraFin() {
+		try {
+			if (!horaInicio.isEmpty()) {
+				horaFin.setMinTime(horaInicio.getValue());
+			}
 		} catch (Exception e) {
 			throw e;
 		}
