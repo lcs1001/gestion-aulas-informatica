@@ -151,7 +151,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		try {
 			// Si no se ha introducido el filtro de Centro/Departamento
 			if (formulario.propietario.isEmpty()) {
-				comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESPONSABLE.getMensaje(), 5000,
+				comunes.mostrarNotificacion(Mensajes.MSG_CENTRO_DPTO_OBLIGATORIO.getMensaje(), 5000,
 						NotificationVariant.LUMO_ERROR);
 				valido = false;
 			}
@@ -165,7 +165,7 @@ public class ConsultaAulasView extends VerticalLayout {
 
 				if (formulario.fechaDesde.isEmpty() || formulario.horaDesde.isEmpty()
 						|| formulario.horaHasta.isEmpty()) {
-					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESERVA_FECHA_HORA.getMensaje(), 5000,
+					comunes.mostrarNotificacion(Mensajes.MSG_CONSULTA_RESERVA_FECHA_HORA_OBLIGATORIO.getMensaje(), 5000,
 							NotificationVariant.LUMO_ERROR);
 					valido = false;
 				}
