@@ -81,7 +81,7 @@ public class ReservaAulasForm extends FormLayout {
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
-			configurarCamposFormulario();
+			configurarCampos();
 			configurarToolbar();
 
 			binder = new BeanValidationBinder<>(Reserva.class);
@@ -107,11 +107,10 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que configura los campos de filtrado.
+	 * Función que configura los campos del formulario.
 	 */
-	private void configurarCamposFormulario() {
+	private void configurarCampos() {
 		try {
-
 			fechaInicio = new DatePicker("Fecha");
 			fechaInicio.setMin(LocalDate.now()); // Como mínimo debe ser la fecha actual
 			fechaInicio.setPlaceholder("dd/MM/yyyy");

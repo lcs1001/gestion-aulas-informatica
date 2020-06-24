@@ -13,12 +13,11 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.ui.Comunes;
 
 /**
-* Clase que contiene el formulario para filtrar la
-* disponibilidad de aulas.
-* 
-* @author Lisa
-*
-*/
+ * Clase que contiene el formulario para filtrar la disponibilidad de aulas.
+ * 
+ * @author Lisa
+ *
+ */
 public class ConsultaAulasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +38,7 @@ public class ConsultaAulasForm extends FormLayout {
 	 * 
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
+	 * @param comunes      Objeto Comunes para tener acceso a las funciones comunes
 	 */
 	public ConsultaAulasForm(List<PropietarioAula> propietarios, Comunes comunes) {
 		try {
@@ -102,7 +102,7 @@ public class ConsultaAulasForm extends FormLayout {
 			numOrdenadores.setPlaceholder("0");
 			numOrdenadores.setHasControls(true);
 			numOrdenadores.setClearButtonVisible(true);
-			
+
 			diaSemana = new ComboBox<String>("Día de la semana");
 			diaSemana.setPlaceholder("Seleccione");
 			diaSemana.setItems(comunes.getDiasSemana());

@@ -35,6 +35,7 @@ public class ConsultaReservasForm extends FormLayout {
 	 * 
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
+	 * @param comunes      Objeto Comunes para tener acceso a las funciones comunes
 	 */
 	public ConsultaReservasForm(List<PropietarioAula> propietarios, Comunes comunes) {
 		try {
