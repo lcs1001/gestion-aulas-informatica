@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.PropietarioAula;
@@ -58,7 +59,7 @@ public class ReservaService {
 	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
 			String diaSemana, PropietarioAula responsable) {
 		return reservaRepository.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde,
-				horaHasta, diaSemana, responsable));
+				horaHasta, diaSemana, responsable), Sort.by(Sort.Direction.ASC, "fecha"));
 	}
 
 	/**

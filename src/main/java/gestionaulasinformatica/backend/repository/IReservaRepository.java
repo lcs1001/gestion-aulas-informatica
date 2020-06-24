@@ -16,7 +16,7 @@ import gestionaulasinformatica.backend.entity.Reserva;
  */
 public interface IReservaRepository extends JpaRepository<Reserva, Integer>, JpaSpecificationExecutor<Reserva> {
 
-	@Query("SELECT r FROM Reserva r WHERE (r.fecha + r.horaInicio) > CURRENT_TIMESTAMP")
+	@Query("SELECT r FROM Reserva r WHERE (r.fecha + r.horaInicio) > CURRENT_TIMESTAMP ORDER BY fecha ASC")
 	List<Reserva> findReservasAPartirMomentoActual();
 
 }
