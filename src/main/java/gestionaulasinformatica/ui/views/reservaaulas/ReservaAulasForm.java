@@ -15,6 +15,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
@@ -28,6 +29,7 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.ui.Comunes;
+import gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Clase que contiene el formulario para reservar aulas.
@@ -107,7 +109,7 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que configura los campos del formulario.
+	 * Función que configura los campos del
 	 */
 	private void configurarCampos() {
 		try {
@@ -164,9 +166,9 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que configura el toolbar que contiene: un botón para generar la reserva,
-	 * un botón para limpiar todos los campos y un checkbox para indicar si se trata
-	 * de una reserva por rango de fechas.
+	 * Función que configura el toolbar que contiene: un botón para generar la
+	 * reserva, un botón para limpiar todos los campos y un checkbox para indicar si
+	 * se trata de una reserva por rango de fechas.
 	 * 
 	 * @return Toolbar
 	 */
@@ -263,13 +265,39 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
+	 * Función que comprueba si los campos de la reserva son correctos.
+	 * 
+	 * @return Si los filtros introducidos para consultar las reservas son correctos
+	 */
+	private Boolean validarReserva() {
+		Boolean valido = true;
+
+		try {
+			// Si la hora inicio es mayor o igual que la hora fin
+			if (!horaInicio.isEmpty() && !horaFin.isEmpty()) {
+				if (horaInicio.getValue().compareTo(horaFin.getValue()) > 0
+						|| horaInicio.getValue().compareTo(horaFin.getValue()) == 0) {
+					comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_HORA_INICIO_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
+					valido = false;
+				}
+			}
+			return valido;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función que valida la reserva y la guarda (si es válido).
 	 */
 	private void validarGuardar() {
 		try {
-			binder.writeBean(reserva);
-			fireEvent(new SaveEvent(this, reserva));
-
+			if (validarReserva()) {
+				binder.writeBean(reserva);
+				fireEvent(new SaveEvent(this, reserva));
+			}
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		}

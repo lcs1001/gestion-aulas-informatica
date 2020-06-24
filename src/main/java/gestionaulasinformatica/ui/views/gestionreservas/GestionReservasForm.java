@@ -13,6 +13,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
@@ -26,6 +27,7 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.ui.Comunes;
+import gestionaulasinformatica.ui.Mensajes;
 
 public class GestionReservasForm extends FormLayout {
 
@@ -34,7 +36,7 @@ public class GestionReservasForm extends FormLayout {
 	private AulaService aulaService;
 	private PropietarioAula responsable;
 	private Comunes comunes;
-	
+
 	private List<PropietarioAula> lstCentrosResponsable;
 	private List<Aula> lstAulasResponsable;
 
@@ -174,19 +176,21 @@ public class GestionReservasForm extends FormLayout {
 		}
 	}
 
-	/** 
-	 * Se obtienen las aulas del responsable que ha accedido a la app, y de esas aulas se obtienen los centros.
+	/**
+	 * Se obtienen las aulas del responsable que ha accedido a la app, y de esas
+	 * aulas se obtienen los centros.
 	 */
 	private void getCentrosAulasResponsable(PropietarioAula responsable) {
 		PropietarioAula centroAula;
 		try {
 			lstCentrosResponsable = new ArrayList<PropietarioAula>();
-		
+
 			lstAulasResponsable = aulaService.findAll(responsable);
-			
-			for(Aula aula : lstAulasResponsable) {
+
+			for (Aula aula : lstAulasResponsable) {
 				centroAula = aula.getUbicacionCentro();
-				if(!lstCentrosResponsable.contains(centroAula)) lstCentrosResponsable.add(aula.getUbicacionCentro());
+				if (!lstCentrosResponsable.contains(centroAula))
+					lstCentrosResponsable.add(aula.getUbicacionCentro());
 			}
 		} catch (Exception e) {
 			throw e;
@@ -200,10 +204,11 @@ public class GestionReservasForm extends FormLayout {
 		List<Aula> lstAulas;
 		try {
 			lstAulas = new ArrayList<Aula>();
-			
+
 			if (!centro.isEmpty()) {
-				for(Aula aula: lstAulasResponsable){
-					if(aula.getUbicacionCentro().equals(centro.getValue())) lstAulas.add(aula);
+				for (Aula aula : lstAulasResponsable) {
+					if (aula.getUbicacionCentro().equals(centro.getValue()))
+						lstAulas.add(aula);
 				}
 
 				aula.setItems(lstAulas);
@@ -212,14 +217,16 @@ public class GestionReservasForm extends FormLayout {
 			throw e;
 		}
 	}
-	
+
 	/**
-	 * Cambia el día de la semana según la fecha seleccionada que se muestra en para almacenarlo.
+	 * Cambia el día de la semana según la fecha seleccionada que se muestra en para
+	 * almacenarlo.
 	 */
 	private void cambiarDiaSemana() {
 		try {
-			if(!fecha.isEmpty()) diaSemana.setValue(comunes.getDiaSemana(fecha.getValue().getDayOfWeek().getValue()));
-		}catch(Exception e) {
+			if (!fecha.isEmpty())
+				diaSemana.setValue(comunes.getDiaSemana(fecha.getValue().getDayOfWeek().getValue()));
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -240,13 +247,39 @@ public class GestionReservasForm extends FormLayout {
 	}
 
 	/**
+	 * Función que comprueba si los campos de la reserva son correctos.
+	 * 
+	 * @return Si los filtros introducidos para consultar las reservas son correctos
+	 */
+	private Boolean validarReserva() {
+		Boolean valido = true;
+
+		try {
+			// Si la hora inicio es mayor o igual que la hora fin
+			if (!horaInicio.isEmpty() && !horaFin.isEmpty()) {
+				if (horaInicio.getValue().compareTo(horaFin.getValue()) > 0
+						|| horaInicio.getValue().compareTo(horaFin.getValue()) == 0) {
+					comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_HORA_INICIO_MAYOR.getMensaje(), 5000,
+							NotificationVariant.LUMO_ERROR);
+					valido = false;
+				}
+			}
+			return valido;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
 	 * Función que valida la reserva y la guarda (si es válido).
 	 */
 	private void validarGuardar() {
 		try {
-			binder.writeBean(reserva);
-			fireEvent(new SaveEvent(this, reserva));
-
+			if (validarReserva()) {
+				binder.writeBean(reserva);
+				fireEvent(new SaveEvent(this, reserva));
+			}
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		}
