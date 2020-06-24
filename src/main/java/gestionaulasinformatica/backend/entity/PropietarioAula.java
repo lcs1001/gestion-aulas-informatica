@@ -3,6 +3,7 @@ package gestionaulasinformatica.backend.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -81,14 +82,14 @@ public class PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas de las que
 	 * es responsable el centro o departamento.
 	 */
-	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Aula> lstAulasPropiedad;
 
 	/**
 	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
 	 * ha realizado el responsable del centro o departamento.
 	 */
-	@OneToMany(mappedBy = "responsable")
+	@OneToMany(mappedBy = "responsable", cascade = CascadeType.ALL)
 	private Set<Reserva> lstReservasPropietarioAula;
 
 	/**

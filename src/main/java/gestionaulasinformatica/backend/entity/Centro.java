@@ -3,6 +3,7 @@ package gestionaulasinformatica.backend.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas ubicadas
 	 * en el centro.
 	 */
-	@OneToMany(mappedBy = "ubicacionCentro", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ubicacionCentro", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Aula> listaAulasUbicacionCentro;
 
 	/**

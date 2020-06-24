@@ -3,9 +3,9 @@ package gestionaulasinformatica.backend.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +56,7 @@ public class Aula implements Serializable {
 	 * REFRESH, REMOVE)
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "ubicacion_centro", referencedColumnName = "id_propietario_aula", updatable = false)
 	private PropietarioAula ubicacionCentro;
 
@@ -68,7 +68,7 @@ public class Aula implements Serializable {
 	 * REFRESH, REMOVE)
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "propietario_aula", referencedColumnName = "id_propietario_aula")
 	private PropietarioAula propietarioAula;
 
@@ -76,7 +76,7 @@ public class Aula implements Serializable {
 	 * Asociación bidireccional OneToMany con Reserva para indicar las reservas
 	 * hechas sobre el aula.
 	 */
-	@OneToMany(mappedBy = "aula")
+	@OneToMany(mappedBy = "aula", cascade = CascadeType.ALL)
 	private Set<Reserva> lstReservas;
 
 	/**

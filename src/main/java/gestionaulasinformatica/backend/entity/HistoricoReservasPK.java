@@ -2,12 +2,10 @@ package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -33,7 +31,7 @@ public class HistoricoReservasPK implements Serializable {
 	 * REFRESH, REMOVE)
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_reserva", referencedColumnName = "id_reserva", insertable = false, updatable = false)
 	private Reserva reserva;
 

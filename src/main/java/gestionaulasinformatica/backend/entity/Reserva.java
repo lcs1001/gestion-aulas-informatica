@@ -5,10 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,7 +56,7 @@ public class Reserva implements Serializable {
 	 * REFRESH, REMOVE)
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_aula", referencedColumnName = "id_aula")
 	private Aula aula;
 
@@ -83,7 +81,7 @@ public class Reserva implements Serializable {
 	 * REFRESH, REMOVE)
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", updatable = false)
 	private PropietarioAula responsable;
 
