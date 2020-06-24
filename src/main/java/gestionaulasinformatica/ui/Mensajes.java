@@ -8,10 +8,10 @@ package gestionaulasinformatica.ui;
  */
 public enum Mensajes {
 	MSG_CONSULTA_HORA_DESDE_MAYOR(
-			"La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar."),
+			"La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar"),
 
 	MSG_CONSULTA_FECHA_DESDE_MAYOR(
-			"La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar."),
+			"La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar"),
 
 	MSG_NO_CONSULTA_RESERVAS("No hay reservas que concuerden con los filtros aplicados"),
 
@@ -27,13 +27,15 @@ public enum Mensajes {
 
 	MSG_MODIFICAR_SOLO_UNA_RESERVA("Solo se puede modificar una reserva"),
 
-	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin."),
+	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin"),
+	
+	MSG_RESERVA_FECHA_INICIO_MAYOR("LA fecha de inicio de la reserva debe ser menor que la fecha de fin"),
 
 	// Campos obligatorios
-	MSG_CENTRO_DPTO_OBLIGATORIO("El Centro/Departamento es un campo obligatorio."),
+	MSG_CENTRO_DPTO_OBLIGATORIO("El Centro/Departamento es un campo obligatorio"),
 
 	MSG_CONSULTA_RESERVA_FECHA_HORA_OBLIGATORIO(
-			"Para filtrar por fecha y hora, \"Fecha desde\", \"Hora desde\" y \"Hora hasta\" son campos obligatorios."),
+			"Para filtrar por fecha y hora, \"Fecha desde\", \"Hora desde\" y \"Hora hasta\" son campos obligatorios"),
 	
 	MSG_TODOS_CAMPOS_OBLIGATORIOS("Todos los campos son obligatorios");
 
