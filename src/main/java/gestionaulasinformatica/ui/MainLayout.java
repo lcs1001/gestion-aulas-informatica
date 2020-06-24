@@ -12,6 +12,7 @@ import com.vaadin.flow.router.RouterLink;
 
 import gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
 import gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
+import gestionaulasinformatica.ui.views.gestionreservas.GestionReservasView;
 import gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
 import gestionaulasinformatica.ui.views.mantenimientoaulas.MantAulasView;
 import gestionaulasinformatica.ui.views.mantenimientopropietarios.MantPropietariosView;
@@ -73,6 +74,7 @@ public class MainLayout extends AppLayout {
 		RouterLink mantPropietariosLink;
 		RouterLink mantAulasLink;
 		RouterLink reservaAulasLink;
+		RouterLink gestionReservasLink;
 		RouterLink consultaReservasLink;
 		RouterLink consultaAulasLink;
 
@@ -94,6 +96,10 @@ public class MainLayout extends AppLayout {
 			reservaAulasLink = new RouterLink("Reserva de Aulas", ReservaAulasView.class);
 			reservaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
+			// Link a la ventana Gestión de Reservas
+			gestionReservasLink = new RouterLink("Gestión  de Reservas", GestionReservasView.class);
+			gestionReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
+
 			// Link a la ventana Consulta de Reservas
 			consultaReservasLink = new RouterLink("Consulta de Reservas", ConsultaReservasView.class);
 			consultaReservasLink.setHighlightCondition(HighlightConditions.sameLocation());
@@ -103,7 +109,7 @@ public class MainLayout extends AppLayout {
 			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 			addToDrawer(new VerticalLayout(historicoReservasLink, mantPropietariosLink, mantAulasLink, reservaAulasLink,
-					consultaReservasLink, consultaAulasLink));
+					gestionReservasLink, consultaReservasLink, consultaAulasLink));
 		} catch (Exception e) {
 			throw e;
 		}
