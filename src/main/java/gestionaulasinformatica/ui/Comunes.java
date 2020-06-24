@@ -65,4 +65,22 @@ public class Comunes {
 		return new ArrayList<String>(
 				Arrays.asList("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"));
 	}
+
+	/**
+	 * Función que devuelve el día de la semana que se corresponde al número pasado.
+	 * 
+	 * @return Lista con todos los días de la semana
+	 */
+	public String getDiaSemana(Integer numDia) {
+		switch (numDia) {
+			case 1: return "Lunes";
+			case 2: return "Martes";
+			case 3: return "Miércoles";
+			case 4: return "Jueves";
+			case 5: return "Viernes";
+			case 6: return "Sábado";
+			case 7: return "Domingo";
+			default: return "";
+		}
+	}
 }
