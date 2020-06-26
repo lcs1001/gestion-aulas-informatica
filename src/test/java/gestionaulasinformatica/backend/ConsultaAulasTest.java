@@ -1,4 +1,4 @@
-package gestionaulasinformatica.backend.service;
+package gestionaulasinformatica.backend;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
