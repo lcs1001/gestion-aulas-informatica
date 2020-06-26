@@ -40,7 +40,7 @@ public class HistoricoReservasPK implements Serializable {
 	private TipoOperacionHR tipoOperacion;
 
 	/**
-	 * Constructor vacío de la clase.
+	 * Constructor de la clase sin parámetros.
 	 */
 	public HistoricoReservasPK() {
 	}

@@ -1,6 +1,7 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class HistoricoReservas implements Serializable {
 
 	@NotNull
 	@Column(name = "fecha_operacion")
-	private LocalDate fechaOperacion;
+	private Timestamp fechaHoraOperacion;
 
 	/**
 	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el
@@ -42,6 +43,25 @@ public class HistoricoReservas implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
 	private PropietarioAula responsableOperacion;
+
+	/**
+	 * Constructor de la clase sin parámetros.
+	 */
+	public HistoricoReservas() {
+	}
+
+	/**
+	 * Constructor de la clase con parámetros.
+	 * 
+	 * @param id          Id de la operación (id reserva + tipo operación)
+	 * @param fecha       Fecha y hora de la operación
+	 * @param responsable Responsable de realizar la operación
+	 */
+	public HistoricoReservas(HistoricoReservasPK id, Timestamp fecha, PropietarioAula responsable) {
+		this.idOperacionHR = id;
+		this.fechaHoraOperacion = fecha;
+		this.responsableOperacion = responsable;
+	}
 
 	/**
 	 * Función que devuelve el id de la operación del histórico de reservas.
@@ -73,21 +93,30 @@ public class HistoricoReservas implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve la fecha y hora en que se ha realizado la operación.
+	 * 
+	 * @return Fecha y hora en que se ha realizado la operación
+	 */
+	public Timestamp getFechaHoraOperacion() {
+		return this.fechaHoraOperacion;
+	}
+
+	/**
 	 * Función que devuelve la fecha en que se ha realizado la operación.
 	 * 
 	 * @return Fecha en que se ha realizado la operación
 	 */
 	public LocalDate getFechaOperacion() {
-		return this.fechaOperacion;
+		return this.fechaHoraOperacion.toLocalDateTime().toLocalDate();
 	}
 
 	/**
-	 * Función que establece la fecha en que se ha realizado la operación.
+	 * Función que establece la fecha y hora en que se ha realizado la operación.
 	 * 
-	 * @param fecha Fecha en que se ha realizado la operación
+	 * @param fecha Fecha y hora en que se ha realizado la operación
 	 */
-	public void setFechaOperacion(LocalDate fecha) {
-		this.fechaOperacion = fecha;
+	public void setFechaHoraOperacion(Timestamp fechaHora) {
+		this.fechaHoraOperacion = fechaHora;
 	}
 
 	/**
