@@ -39,7 +39,7 @@ public class MantAulasForm extends FormLayout {
 	protected ComboBox<PropietarioAula> propietarioAula;
 
 	private Button btnGuardar;
-	private Button btnEliminar;
+	protected Button btnEliminar;
 	private Button btnCerrar;
 
 	private Binder<Aula> binder;
@@ -58,12 +58,19 @@ public class MantAulasForm extends FormLayout {
 		this.lstPropietarios = propietarios;
 		this.lstCentros = centros;
 
+		setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2), new ResponsiveStep("25em", 3),
+				new ResponsiveStep("25em", 4));
+
 		configurarCamposFormulario();
 
 		binder = new BeanValidationBinder<>(Aula.class);
 		binder.bindInstanceFields(this);
 
-		add(nombreAula, capacidad, numOrdenadores, ubicacionCentro, propietarioAula, getFormToolbar());
+		add(nombreAula, 2);
+		add(capacidad, numOrdenadores);
+		add(ubicacionCentro,2);
+		add(propietarioAula, 2);
+		add(getFormToolbar(), 4);
 	}
 
 	/**
@@ -71,16 +78,16 @@ public class MantAulasForm extends FormLayout {
 	 */
 	private void configurarCamposFormulario() {
 		try {
-			nombreAula = new TextField("Nombre del Aula");
+			nombreAula = new TextField("Nombre del aula");
+			nombreAula.setPlaceholder("Nombre del aula");
+			nombreAula.setClearButtonVisible(true);
 
 			capacidad = new NumberField("Capacidad");
 			capacidad.setMin(0);
-			capacidad.setValue((double) 0);
 			capacidad.setHasControls(true);
 
-			numOrdenadores = new NumberField("Número de Ordenadores");
+			numOrdenadores = new NumberField("Número de ordenadores");
 			numOrdenadores.setMin(0);
-			numOrdenadores.setValue((double) 0);
 			numOrdenadores.setHasControls(true);
 
 			ubicacionCentro = new ComboBox<>("Centro");
@@ -89,7 +96,7 @@ public class MantAulasForm extends FormLayout {
 			ubicacionCentro.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
 			ubicacionCentro.setRequiredIndicatorVisible(true);
 
-			propietarioAula = new ComboBox<>("Propietario del Aula");
+			propietarioAula = new ComboBox<>("Propietario del aula");
 			propietarioAula.setPlaceholder("Seleccione");
 			propietarioAula.setItems(lstPropietarios);
 			propietarioAula.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
@@ -127,6 +134,7 @@ public class MantAulasForm extends FormLayout {
 			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
 
 			formToolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCerrar);
+			formToolbar.addClassName("toolbar");
 
 			return formToolbar;
 

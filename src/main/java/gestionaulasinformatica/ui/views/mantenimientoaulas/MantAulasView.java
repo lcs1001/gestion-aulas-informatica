@@ -54,6 +54,7 @@ public class MantAulasView extends VerticalLayout {
 			addClassName("mant-aulas-view");
 			setSizeFull();
 
+			configuarToolbar();
 			configurarGridAulas();
 
 			formulario = new MantAulasForm(this.propietarioAulaService.findAll(),
@@ -62,7 +63,7 @@ public class MantAulasView extends VerticalLayout {
 			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
 			formulario.addListener(MantAulasForm.CloseEvent.class, e -> cerrarEditor());
 
-			contenido = new Div(comunes.getTituloVentana("Mantenimiento de aulas"), getToolbar(), formulario,
+			contenido = new Div(comunes.getTituloVentana("Mantenimiento de aulas"), toolbar, formulario,
 					gridAulas);
 			contenido.addClassName("mant-aulas-contenido");
 			contenido.setSizeFull();
@@ -110,7 +111,7 @@ public class MantAulasView extends VerticalLayout {
 	 * 
 	 * @return Toolbar
 	 */
-	private HorizontalLayout getToolbar() {
+	private HorizontalLayout configuarToolbar() {
 		Button btnAnadir;
 
 		try {
@@ -143,6 +144,7 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			formulario.setAula(null); // Se limpian los valores antiguos
 			formulario.setVisible(false);
+			toolbar.setVisible(true);
 
 		} catch (Exception e) {
 			throw e;
@@ -162,14 +164,18 @@ public class MantAulasView extends VerticalLayout {
 			if (aula == null) {
 				cerrarEditor();
 			} else {
+				toolbar.setVisible(false);
 				formulario.setAula(aula);
 				formulario.setVisible(true);
 
 				// No se puede editar el centro en el que se encuentra el aula
+				// Se oculta el botón "Eliminar" al añadir un aula
 				if (editar) {
 					formulario.ubicacionCentro.setReadOnly(true);
+					formulario.btnEliminar.setVisible(true);
 				} else {
 					formulario.ubicacionCentro.setReadOnly(false);
+					formulario.btnEliminar.setVisible(false);
 				}
 			}
 		} catch (Exception e) {
