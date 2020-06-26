@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS public."historico_reservas" CASCADE;
 
 CREATE TABLE public."historico_reservas" (
     id_reserva integer NOT NULL,    
-    tipo_operacion character varying(10) NOT NULL,
+    tipo_operacion character varying(15) NOT NULL,
     fecha_operacion timestamp without time zone NOT NULL,
     responsable_operacion character varying(30) NOT NULL,
     CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_reserva, tipo_operacion),
