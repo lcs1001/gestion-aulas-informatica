@@ -1,6 +1,7 @@
 package gestionaulasinformatica.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +61,17 @@ public class PropietarioAulaService {
 	 */
 	public List<PropietarioAula> findAllCentros() {
 		return propietarioAulaRepository.findAllCentros();
+	}
+
+	/**
+	 * Función que devuelve el propietario que tiene el id pasado por parámetro.
+	 * 
+	 * @param id Id del propietario que se quiere obtener
+	 * 
+	 * @return Propietario que tiene el id pasado por parámetro
+	 */
+	public Optional<PropietarioAula> findById(String id) {
+		return propietarioAulaRepository.findById(id);
 	}
 
 	/**
