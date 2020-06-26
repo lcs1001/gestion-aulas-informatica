@@ -145,6 +145,7 @@ public class MantAulasView extends VerticalLayout {
 			formulario.setAula(null); // Se limpian los valores antiguos
 			formulario.setVisible(false);
 			toolbar.setVisible(true);
+			gridAulas.setVisible(true);
 
 		} catch (Exception e) {
 			throw e;
@@ -165,6 +166,7 @@ public class MantAulasView extends VerticalLayout {
 				cerrarEditor();
 			} else {
 				toolbar.setVisible(false);
+				gridAulas.setVisible(false);
 				formulario.setAula(aula);
 				formulario.setVisible(true);
 
