@@ -1,8 +1,8 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,7 +30,7 @@ public class HistoricoReservas implements Serializable {
 
 	@NotNull
 	@Column(name = "fecha_operacion")
-	private Timestamp fechaHoraOperacion;
+	private LocalDateTime fechaHoraOperacion;
 
 	/**
 	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el
@@ -57,7 +57,7 @@ public class HistoricoReservas implements Serializable {
 	 * @param fecha       Fecha y hora de la operación
 	 * @param responsable Responsable de realizar la operación
 	 */
-	public HistoricoReservas(HistoricoReservasPK id, Timestamp fecha, PropietarioAula responsable) {
+	public HistoricoReservas(HistoricoReservasPK id, LocalDateTime fecha, PropietarioAula responsable) {
 		this.idOperacionHR = id;
 		this.fechaHoraOperacion = fecha;
 		this.responsableOperacion = responsable;
@@ -97,17 +97,17 @@ public class HistoricoReservas implements Serializable {
 	 * 
 	 * @return Fecha y hora en que se ha realizado la operación
 	 */
-	public Timestamp getFechaHoraOperacion() {
+	public LocalDateTime getFechaHoraOperacion() {
 		return this.fechaHoraOperacion;
 	}
-
+	
 	/**
 	 * Función que devuelve la fecha en que se ha realizado la operación.
 	 * 
 	 * @return Fecha en que se ha realizado la operación
 	 */
 	public LocalDate getFechaOperacion() {
-		return this.fechaHoraOperacion.toLocalDateTime().toLocalDate();
+		return this.fechaHoraOperacion.toLocalDate();
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class HistoricoReservas implements Serializable {
 	 * 
 	 * @param fecha Fecha y hora en que se ha realizado la operación
 	 */
-	public void setFechaHoraOperacion(Timestamp fechaHora) {
+	public void setFechaHoraOperacion(LocalDateTime fechaHora) {
 		this.fechaHoraOperacion = fechaHora;
 	}
 

@@ -1,6 +1,8 @@
 package gestionaulasinformatica.backend.specification;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +45,15 @@ public class HistoricoReservasSpecification {
 
 				// Se obtienen las operaciones realizadas desde una fecha determinada
 				if (!StringUtils.isEmpty(fechaDesde)) {
-					final Predicate fechaDesdePredicate = cb.greaterThanOrEqualTo(root.get("fechaOperacion"), fechaDesde);
+					LocalDateTime fechaDesdeLCT = LocalDateTime.of(fechaDesde, LocalTime.of(00, 00));
+					final Predicate fechaDesdePredicate = cb.greaterThanOrEqualTo(root.get("fechaHoraOperacion"), fechaDesdeLCT);
 					predicates.add(fechaDesdePredicate);
 				}
 
 				// Se obtienen las operaciones realizadas hasta una fecha determinada
 				if (!StringUtils.isEmpty(fechaHasta)) {
-					final Predicate fechaHastaPredicate = cb.lessThanOrEqualTo(root.get("fechaOperacion"), fechaHasta);
+					LocalDateTime fechaHastaLCT = LocalDateTime.of(fechaHasta, LocalTime.of(23, 59));
+					final Predicate fechaHastaPredicate = cb.lessThanOrEqualTo(root.get("fechaHoraOperacion"), fechaHastaLCT);
 					predicates.add(fechaHastaPredicate);
 				}
 
