@@ -51,7 +51,6 @@ public class HistoricoReservasView extends VerticalLayout {
 			this.comunes = new Comunes();
 
 			addClassName("historico-reservas-view");
-
 			setSizeFull();
 
 			gridHistorico = new Grid<>();
@@ -59,7 +58,8 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			formulario = new HistoricoReservasForm();
 
-			contenido = new Div(formulario, getToolbar(), gridHistorico);
+			contenido = new Div(comunes.getTituloVentana("Histórico de reservas"), formulario, getToolbar(),
+					gridHistorico);
 			contenido.addClassName("historico-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -198,7 +198,7 @@ public class HistoricoReservasView extends VerticalLayout {
 					gridHistorico.setVisible(true);
 					gridHistorico.setItems(lstOperacionesHR);
 				} else {
-					comunes.mostrarNotificacion(Mensajes.MSG_NO_OPERACIONES_HR.getMensaje(), 3000, null);
+					comunes.mostrarNotificacion(Mensajes.MSG_NO_OPERACIONES_HR.getMensaje(), 5000, null);
 				}
 			}
 		} catch (Exception e) {

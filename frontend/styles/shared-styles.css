@@ -7,6 +7,12 @@
 	margin-top: 15px;
 }
 
+.titulo-pagina{
+	color: blue;
+	font-size: 25px; 
+	font-weight: bold;
+}
+
 /* Main Layout */
 a[highlight] {
 	font-weight: bold;

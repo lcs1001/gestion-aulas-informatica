@@ -61,7 +61,8 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			formulario = new ConsultaReservasForm(this.propietarioAulaService.findAll(), comunes);
 
-			contenido = new Div(formulario, getToolbar(), gridReservas);
+			contenido = new Div(comunes.getTituloVentana("Consulta de reservas"), formulario, getToolbar(),
+					gridReservas);
 			contenido.addClassName("consulta-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -80,20 +81,21 @@ public class ConsultaReservasView extends VerticalLayout {
 	 * @return Layout de botones
 	 */
 	private HorizontalLayout getToolbar() {
-		Button btnConsultar;
+		Button btnBuscar;
 		Button btnLimpiarFiltros;
 
 		try {
-			btnConsultar = new Button("Consultar Reservas", event -> consultarReservas());
-			btnConsultar.setIcon(new Icon(VaadinIcon.SEARCH));
-			btnConsultar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnBuscar = new Button("Buscar", event -> consultarReservas());
+			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
+			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnBuscar.getElement().setProperty("title", "Consultar reservas");
 
 			btnLimpiarFiltros = new Button("", event -> limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
-			toolbar = new HorizontalLayout(btnConsultar, btnLimpiarFiltros);
+			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros);
 			toolbar.addClassName("toolbar");
 
 			return toolbar;
@@ -169,7 +171,8 @@ public class ConsultaReservasView extends VerticalLayout {
 				}
 			}
 
-			// Si la hora desde la que se quiere filtrar es mayor o igual que la hora hasta la que
+			// Si la hora desde la que se quiere filtrar es mayor o igual que la hora hasta
+			// la que
 			// se quiere filtrar
 			if (!formulario.horaDesde.isEmpty() && !formulario.horaHasta.isEmpty()) {
 				if (formulario.horaDesde.getValue().compareTo(formulario.horaHasta.getValue()) > 0

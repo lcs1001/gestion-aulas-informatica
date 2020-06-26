@@ -1,4 +1,5 @@
 package gestionaulasinformatica.ui.views.mantenimientopropietarios;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -49,7 +50,7 @@ public class MantPropietariosView extends VerticalLayout {
 	 */
 	public MantPropietariosView(PropietarioAulaService propietarioAulaService) {
 		Div contenido;
-		
+
 		try {
 			this.propietarioAulaService = propietarioAulaService;
 			this.comunes = new Comunes();
@@ -63,8 +64,9 @@ public class MantPropietariosView extends VerticalLayout {
 			formulario.addListener(MantPropietariosForm.SaveEvent.class, this::guardarPropietario);
 			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::confirmarEliminacionPropietario);
 			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());
-			
-			contenido = new Div(formulario, getToolbar(), gridPropietarios);
+
+			contenido = new Div(comunes.getTituloVentana("Mantenimiento de centros y departamentos"), formulario,
+					getToolbar(), gridPropietarios);
 			contenido.addClassName("mant-propietarios-contenido");
 			contenido.setSizeFull();
 

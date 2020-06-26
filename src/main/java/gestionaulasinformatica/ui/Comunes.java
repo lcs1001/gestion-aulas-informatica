@@ -83,4 +83,11 @@ public class Comunes {
 			default: return "";
 		}
 	}
+	
+	public Label getTituloVentana(String nombre) {
+		Label titulo = new Label(nombre);
+		titulo.addClassName("titulo-pagina");
+		
+		return titulo;
+	}
 }

@@ -61,7 +61,8 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll(), comunes);
 
-			contenido = new Div(formulario, getToolbar(), gridAulas);
+			contenido = new Div(comunes.getTituloVentana("Consulta de disponibilidad de aulas"), formulario,
+					getToolbar(), gridAulas);
 			contenido.addClassName("consulta-aulas-contenido");
 			contenido.setSizeFull();
 
@@ -81,20 +82,21 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * @return Layout de botones
 	 */
 	private HorizontalLayout getToolbar() {
-		Button btnConsultar;
+		Button btnBuscar;
 		Button btnLimpiarFiltros;
 
 		try {
-			btnConsultar = new Button("Consultar Disponibilidad Aulas", event -> consultarDisponibilidadAulas());
-			btnConsultar.setIcon(new Icon(VaadinIcon.SEARCH));
-			btnConsultar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnBuscar = new Button("Buscar", event -> consultarDisponibilidadAulas());
+			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
+			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnBuscar.getElement().setProperty("title", "Consultar disponibilidad de aulas");
 
 			btnLimpiarFiltros = new Button("", event -> limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
 
-			toolbar = new HorizontalLayout(btnConsultar, btnLimpiarFiltros);
+			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros);
 			toolbar.addClassName("toolbar");
 
 			return toolbar;

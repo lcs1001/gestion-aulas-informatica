@@ -45,7 +45,7 @@ public class MantAulasView extends VerticalLayout {
 
 	public MantAulasView(AulaService aulaService, PropietarioAulaService propietarioAulaService) {
 		Div contenido;
-		
+
 		try {
 			this.aulaService = aulaService;
 			this.propietarioAulaService = propietarioAulaService;
@@ -61,8 +61,9 @@ public class MantAulasView extends VerticalLayout {
 			formulario.addListener(MantAulasForm.SaveEvent.class, this::guardarAula);
 			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
 			formulario.addListener(MantAulasForm.CloseEvent.class, e -> cerrarEditor());
-			
-			contenido = new Div(getToolbar(), formulario, gridAulas);
+
+			contenido = new Div(comunes.getTituloVentana("Mantenimiento de aulas"), getToolbar(), formulario,
+					gridAulas);
 			contenido.addClassName("mant-aulas-contenido");
 			contenido.setSizeFull();
 
@@ -90,7 +91,7 @@ public class MantAulasView extends VerticalLayout {
 			gridAulas.addColumn(Aula::getNombreCentro).setHeader("Centro").setKey("centro");
 			gridAulas.addColumn(Aula::getCapacidadInt).setHeader("Capacidad").setKey("capacidad");
 			gridAulas.addColumn(Aula::getNumOrdenadoresInt).setHeader("Número de ordenadores").setKey("numOrdenadores");
-			
+
 			gridAulas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
 			gridAulas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
@@ -280,10 +281,10 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			if (!filtroPropietarioAula.isEmpty()) {
 				lstAulas = aulaService.findAll(filtroPropietarioAula.getValue());
-				
-				if(!lstAulas.isEmpty()) {
+
+				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);
-					gridAulas.setItems(lstAulas);	
+					gridAulas.setItems(lstAulas);
 				} else {
 					comunes.mostrarNotificacion(Mensajes.MSG_NO_AULAS.getMensaje(), 3000, null);
 				}
