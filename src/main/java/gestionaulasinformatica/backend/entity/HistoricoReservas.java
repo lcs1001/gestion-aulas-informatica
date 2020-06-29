@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import gestionaulasinformatica.backend.data.TipoOperacionHR;
-
 /**
  * Entidad que identifica a la tabla HistoricoReserva de la base de datos.
  * 
@@ -41,7 +39,7 @@ public class HistoricoReservas implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", insertable = false, updatable = false)
+	@JoinColumn(name = "responsable_operacion", referencedColumnName = "id_propietario_aula", updatable = false)
 	private PropietarioAula responsableOperacion;
 
 	/**
@@ -75,12 +73,10 @@ public class HistoricoReservas implements Serializable {
 	/**
 	 * Función que establece el id de la operación del histórico de reservas.
 	 * 
-	 * @param reserva       Reserva sobre la que se ha realizado la operación
-	 * @param tipoOperacion Tipo de operación que se ha realizado
+	 * @param id Id de la operación
 	 */
-	public void setIdOperacionHR(Reserva reserva, TipoOperacionHR tipoOperacion) {
-		this.idOperacionHR.setReserva(reserva);
-		this.idOperacionHR.setTipoOperacion(tipoOperacion);
+	public void setIdOperacionHR(HistoricoReservasPK id) {
+		this.idOperacionHR = id;
 	}
 
 	/**
@@ -100,7 +96,7 @@ public class HistoricoReservas implements Serializable {
 	public LocalDateTime getFechaHoraOperacion() {
 		return this.fechaHoraOperacion;
 	}
-	
+
 	/**
 	 * Función que devuelve la fecha en que se ha realizado la operación.
 	 * 
