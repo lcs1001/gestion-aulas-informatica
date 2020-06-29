@@ -292,6 +292,7 @@ public class GestionReservasView extends VerticalLayout {
 						NotificationVariant.LUMO_ERROR);
 			}
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			throw e;
 		}
 	}
@@ -320,6 +321,7 @@ public class GestionReservasView extends VerticalLayout {
 			actualizarReservas();
 			cerrarEditor();
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			throw e;
 		}
 	}
@@ -352,8 +354,8 @@ public class GestionReservasView extends VerticalLayout {
 				mensajeEliminado = "Se ha/n eliminado la/s reserva/s seleccionada/s correctamente";
 
 				btnConfirmar = new Button("Confirmar", event -> {
-					comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 					eliminarReservas(reservas);
+					comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 					confirmacion.close();
 				});
 				btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -399,6 +401,7 @@ public class GestionReservasView extends VerticalLayout {
 			}
 			actualizarReservas();
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			throw e;
 		}
 	}

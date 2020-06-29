@@ -2,6 +2,7 @@ package gestionaulasinformatica.ui.views.reservaaulas;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import com.vaadin.flow.component.button.Button;
@@ -9,6 +10,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -25,6 +27,7 @@ import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
+import gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Ventana Reserva de Aulas.
@@ -73,8 +76,9 @@ public class ReservaAulasView extends VerticalLayout {
 			addClassName("reserva-aulas-view");
 			setSizeFull();
 
-			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllCentros(), comunes);
+			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllCentros(), comunes, responsableLogeado);
 			formulario.addListener(ReservaAulasForm.SaveEvent.class, this::guardarReserva);
+			formulario.addListener(ReservaAulasForm.SaveRangeEvent.class, this::guardarReservaRango);
 
 			configurarToolbar();
 
@@ -125,16 +129,17 @@ public class ReservaAulasView extends VerticalLayout {
 			reserva.setResponsable(responsableLogeado);
 			reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
 			formulario.setReserva(reserva);
+			
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * Función que guarda la reserva, y la operación de creación en el histórico de
-	 * reservas, en la base de datos.
+	 * Función que guarda la reserva (de un solo día), y la operación de creación en
+	 * el histórico de reservas, en la base de datos.
 	 * 
-	 * @param e Evento de guardado
+	 * @param evt Evento de guardado
 	 */
 	private void guardarReserva(ReservaAulasForm.SaveEvent evt) {
 		Reserva reserva;
@@ -155,6 +160,40 @@ public class ReservaAulasView extends VerticalLayout {
 			toolbar.setVisible(true);
 
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			throw e;
+		}
+	}
+
+	/**
+	 * Función que guarda las reservas de rango, y la operación de creación en el
+	 * histórico de reservas, en la base de datos.
+	 * 
+	 * @param evt Evento de guardado
+	 */
+	private void guardarReservaRango(ReservaAulasForm.SaveRangeEvent evt) {
+		List<Reserva> lstReservas;
+		HistoricoReservasPK idOperacionReserva;
+		HistoricoReservas operacionReserva;
+		try {
+			// TODO: Validar reserva
+			lstReservas = evt.getReservas();
+
+			for (Reserva reserva : lstReservas) {
+				reservaService.save(reserva);
+
+				// TODO: guardar como responsable de la operación el que ha accedido a la app
+				idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.CREACIÓN);
+				operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+				historicoReservasService.save(operacionReserva);
+			}
+
+			formulario.setReserva(null);
+			formulario.setVisible(false);
+			toolbar.setVisible(true);
+
+		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			throw e;
 		}
 	}

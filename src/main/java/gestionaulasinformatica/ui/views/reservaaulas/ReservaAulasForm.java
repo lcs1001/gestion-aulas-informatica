@@ -2,6 +2,8 @@ package gestionaulasinformatica.ui.views.reservaaulas;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.ComponentEvent;
@@ -44,6 +46,7 @@ public class ReservaAulasForm extends FormLayout {
 	private AulaService aulaService;
 	private List<PropietarioAula> lstCentros;
 	private Comunes comunes;
+	private PropietarioAula responsableLogeado;
 
 	protected DatePicker fechaInicio;
 	protected DatePicker fechaFin;
@@ -66,19 +69,22 @@ public class ReservaAulasForm extends FormLayout {
 	/**
 	 * Constructor de la clase.
 	 * 
-	 * @param aulaService Service de JPA de la entidad Aula
-	 * @param centros     Lista de centros que se muestra en el desplegable de
-	 *                    centros
-	 * @param comunes     Objeto de la clase Comunes para acceder a las funciones
-	 *                    comunes
+	 * @param aulaService        Service de JPA de la entidad Aula
+	 * @param centros            Lista de centros que se muestra en el desplegable
+	 *                           de centros
+	 * @param comunes            Objeto de la clase Comunes para acceder a las
+	 *                           funciones comunes
+	 * @param responsableLogeado Responsable logeado en la app
 	 */
-	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> centros, Comunes comunes) {
+	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> centros, Comunes comunes,
+			PropietarioAula responsableLogeado) {
 		try {
 			addClassName("reserva-aulas-form");
 
 			this.aulaService = aulaService;
 			this.lstCentros = centros;
 			this.comunes = comunes;
+			this.responsableLogeado = responsableLogeado;
 
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
@@ -113,6 +119,7 @@ public class ReservaAulasForm extends FormLayout {
 	 * Función que configura los campos del
 	 */
 	private void configurarCampos() {
+		List<String> diasCombo;
 		try {
 			fechaInicio = new DatePicker("Fecha");
 			fechaInicio.setMin(LocalDate.now()); // Como mínimo debe ser la fecha actual
@@ -150,9 +157,11 @@ public class ReservaAulasForm extends FormLayout {
 			aula.setPlaceholder("Seleccione");
 			aula.setItemLabelGenerator(Aula::getNombreAula);
 
+			diasCombo = new ArrayList<String>();
+			diasCombo.add("Seleccione");
+			diasCombo.addAll(comunes.getDiasSemana());
 			diaSemana = new ComboBox<String>("Día de la semana");
-			diaSemana.setPlaceholder("Seleccione");
-			diaSemana.setItems(comunes.getDiasSemana());
+			diaSemana.setItems(diasCombo);
 
 			motivo = new TextField("Motivo");
 			motivo.setPlaceholder("Motivo de la reserva");
@@ -262,8 +271,10 @@ public class ReservaAulasForm extends FormLayout {
 			} else {
 				fechaInicio.setLabel("Fecha inicio");
 				fechaFin.setEnabled(true);
+				fechaFin.setMin(fechaInicio.getValue());
 				fechaFin.setRequiredIndicatorVisible(true);
 				diaSemana.setEnabled(true);
+				diaSemana.setValue("Seleccione");
 			}
 		} catch (Exception e) {
 			throw e;
@@ -281,7 +292,7 @@ public class ReservaAulasForm extends FormLayout {
 			horaFin.clear();
 			centro.clear();
 			aula.clear();
-			diaSemana.clear();
+			diaSemana.setValue("Seleccione");
 			motivo.clear();
 			aCargoDe.clear();
 		} catch (Exception e) {
@@ -336,8 +347,7 @@ public class ReservaAulasForm extends FormLayout {
 
 			// Si se ha dejado algún campo vacío
 			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || centro.isEmpty() || aula.isEmpty()
-					|| motivo.isEmpty() || aCargoDe.isEmpty()
-					|| (!chkReservaRango.isEmpty() && (fechaFin.isEmpty() || diaSemana.isEmpty()))) {
+					|| motivo.isEmpty() || aCargoDe.isEmpty() || (!chkReservaRango.isEmpty() && (fechaFin.isEmpty()))) {
 				comunes.mostrarNotificacion(Mensajes.MSG_TODOS_CAMPOS_OBLIGATORIOS.getMensaje(), 5000,
 						NotificationVariant.LUMO_ERROR);
 				valido = false;
@@ -351,18 +361,60 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que valida la reserva y la guarda (si es válido).
+	 * Función que valida la reserva y la guarda.
+	 * 
+	 * Si es una reserva por rango de fechas:
+	 * 
+	 * 1. Se crea una lista de reservas (una por cada día del rango o por cada día
+	 * de la semana elegido de ese rango).
+	 * 
+	 * 2. Se lanza el evento de guardado de rango (SaveRangeEvent).
 	 */
 	private void validarGuardar() {
+		List<Reserva> lstReservasGuardar;
+		long diasReserva;
+		Reserva reservaG;
+		LocalDate fecha;
+		String diaSemanaG = "";
 		try {
 			if (validarReserva()) {
 				// TODO: guardar reserva por rango de fechas
-				
+
 				// Si es una reserva de un solo día
-				if(chkReservaRango.isEmpty()) {
+				if (chkReservaRango.isEmpty()) {
 					reserva.setDiaSemana(comunes.getDiaSemana(fechaInicio.getValue().getDayOfWeek().getValue()));
 					binder.writeBean(reserva);
 					fireEvent(new SaveEvent(this, reserva));
+
+				} else {
+					lstReservasGuardar = new ArrayList<Reserva>();
+					diasReserva = ChronoUnit.DAYS.between(fechaInicio.getValue(), fechaFin.getValue()) + 1;
+					fecha = fechaInicio.getValue();
+
+					// Si se ha seleccionado un dia de la semana para reservar
+					if (!diaSemana.getValue().equalsIgnoreCase("Seleccione")) {
+						diaSemanaG = diaSemana.getValue();
+					}
+
+					for (int i = 1; i <= diasReserva; i++) {
+						// Si se ha seleccionado un dia de la semana para reservar
+						if (!diaSemanaG.isEmpty()) {
+							if (comunes.getDiaSemana(fecha.getDayOfWeek().getValue()).equals(diaSemanaG)) {
+								reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(), diaSemanaG,
+										aula.getValue(), motivo.getValue(), aCargoDe.getValue(), responsableLogeado);
+								lstReservasGuardar.add(reservaG);
+							}
+						} else {
+							reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(),
+									comunes.getDiaSemana(fecha.getDayOfWeek().getValue()), aula.getValue(),
+									motivo.getValue(), aCargoDe.getValue(), responsableLogeado);
+
+							lstReservasGuardar.add(reservaG);
+						}
+						fecha = fecha.plusDays(1);
+					}
+
+					fireEvent(new SaveRangeEvent(this, lstReservasGuardar));
 				}
 			}
 		} catch (ValidationException e) {
@@ -380,6 +432,7 @@ public class ReservaAulasForm extends FormLayout {
 	public static abstract class ReservaAulasFormEvent extends ComponentEvent<ReservaAulasForm> {
 		private static final long serialVersionUID = 1L;
 		private Reserva reserva;
+		private List<Reserva> lstReservas;
 
 		/**
 		 * Constructor de la clase.
@@ -393,6 +446,17 @@ public class ReservaAulasForm extends FormLayout {
 		}
 
 		/**
+		 * Constructor de la clase.
+		 * 
+		 * @param source   Origen
+		 * @param reservas Lista de reservas
+		 */
+		protected ReservaAulasFormEvent(ReservaAulasForm source, List<Reserva> reservas) {
+			super(source, false);
+			this.lstReservas = reservas;
+		}
+
+		/**
 		 * Función que devuelve la reserva asociada a la clase.
 		 * 
 		 * @return Reserva asociada a la clase
@@ -400,11 +464,20 @@ public class ReservaAulasForm extends FormLayout {
 		public Reserva getReserva() {
 			return reserva;
 		}
+
+		/**
+		 * Función que devuelve la lista de reservas asociada a la clase.
+		 * 
+		 * @return Lista de reservas asociada a la clase
+		 */
+		public List<Reserva> getReservas() {
+			return lstReservas;
+		}
 	}
 
 	/**
-	 * Clase estática para definir el evento "Reservar" del formulario de Reserva de
-	 * Aulas.
+	 * Clase estática para definir el evento "Reservar" (un solo día) del formulario
+	 * de Reserva de Aulas.
 	 * 
 	 * @author Lisa
 	 *
@@ -414,6 +487,21 @@ public class ReservaAulasForm extends FormLayout {
 
 		SaveEvent(ReservaAulasForm source, Reserva reserva) {
 			super(source, reserva);
+		}
+	}
+
+	/**
+	 * Clase estática para definir el evento "Reservar" (un rango de fechas) del
+	 * formulario de Reserva de Aulas.
+	 * 
+	 * @author Lisa
+	 *
+	 */
+	public static class SaveRangeEvent extends ReservaAulasFormEvent {
+		private static final long serialVersionUID = 1L;
+
+		SaveRangeEvent(ReservaAulasForm source, List<Reserva> reservas) {
+			super(source, reservas);
 		}
 	}
 
