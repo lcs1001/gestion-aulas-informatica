@@ -56,25 +56,21 @@ CREATE TABLE public."reserva" (
     CONSTRAINT "FK_Reserva_PropietarioAula_Responsable" FOREIGN KEY (responsable)
         REFERENCES public."propietario_aula" (id_propietario_aula)
         ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT "CHK_Reserva_DiaSemana" CHECK(dia_semana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo'))
+        ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS public."historico_reservas" CASCADE;
 
 CREATE TABLE public."historico_reservas" (
-    id_reserva integer NOT NULL,    
-    tipo_operacion character varying(15) NOT NULL,
+	id_operacion SERIAL,
     fecha_operacion timestamp without time zone NOT NULL,
+	tipo_operacion character varying(15) NOT NULL,
+    fecha_reserva date NOT NULL,
+    hora_inicio_reserva time without time zone NOT NULL,
+    hora_fin_reserva time without time zone NOT NULL,
+    lugar_reserva character varying(100) NOT NULL,
+    a_cargo_de_reserva character varying(50) NOT NULL,
     responsable_operacion character varying(30) NOT NULL,
-    CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_reserva, tipo_operacion),
-    CONSTRAINT "FK_HistoricoReservas_Reserva" FOREIGN KEY (id_reserva)
-        REFERENCES public."reserva" (id_reserva) 
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT "FK_HistoricoReservas_PropietarioAula_Responsable" FOREIGN KEY (responsable_operacion)
-        REFERENCES public."propietario_aula" (id_propietario_aula)
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_reserva, tipo_operacion, fecha_operacion, responsable_operacion)    
+    CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_operacion),
+    CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_operacion, fecha_operacion, tipo_operacion, fecha_reserva, hora_inicio_reserva, hora_fin_reserva, lugar_reserva, a_cargo_de_reserva, responsable_operacion)    
 );
