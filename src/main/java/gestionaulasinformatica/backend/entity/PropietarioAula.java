@@ -93,15 +93,6 @@ public class PropietarioAula implements Serializable {
 	private Set<Reserva> lstReservasPropietarioAula;
 
 	/**
-	 * Asociación bidireccional OneToMany con HistoricoReservas para indicar las
-	 * operaciones sobre las reservas (añadir, modificar o eliminar) que ha
-	 * realizado el responsable del centro o departamento, que se almacenan en el
-	 * histórico de reservas.
-	 */
-	@OneToMany(mappedBy = "responsableOperacion")
-	private Set<HistoricoReservas> lstOperacionesHR;
-
-	/**
 	 * Constructor de la clase sin parámetros.
 	 */
 	public PropietarioAula() {
@@ -351,42 +342,6 @@ public class PropietarioAula implements Serializable {
 		getReservasPropietarioAula().remove(reserva);
 
 		return reserva;
-	}
-
-	/**
-	 * Función que devuelve una lista de operaciones que ha realizado sobre una
-	 * reserva.
-	 * 
-	 * @return Lista de reservas de las operaciones que ha realizado sobre una
-	 *         reserva
-	 */
-	public Set<HistoricoReservas> getOperacionesHR() {
-		return this.lstOperacionesHR;
-	}
-
-	/**
-	 * Función que establece la lista de operaciones que ha realizado sobre una
-	 * reserva.
-	 * 
-	 * @param operacionesHR Lista de operaciones que ha realizado sobre una reserva
-	 */
-	public void setOperacionesHR(Set<HistoricoReservas> operacionesHR) {
-		this.lstOperacionesHR = operacionesHR;
-	}
-
-	/**
-	 * Función que añade la operación pasada a la lista de operaciones que ha
-	 * realizado sobre una reserva.
-	 * 
-	 * @param operacionHR Operación del histórico de reservas que añadir a la lista
-	 *                    de operaciones que ha realizado sobre una reserva
-	 * 
-	 * @return Operación del histórico de reservas añadida
-	 */
-	public HistoricoReservas addOperacionHR(HistoricoReservas operacionHR) {
-		this.getOperacionesHR().add(operacionHR);
-
-		return operacionHR;
 	}
 
 	public boolean isPersisted() {
