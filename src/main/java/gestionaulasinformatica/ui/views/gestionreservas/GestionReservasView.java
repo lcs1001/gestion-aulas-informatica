@@ -1,6 +1,8 @@
 package gestionaulasinformatica.ui.views.gestionreservas;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.vaadin.flow.component.button.Button;
@@ -20,8 +22,14 @@ import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.backend.data.TipoOperacionHR;
+import gestionaulasinformatica.backend.entity.HistoricoReservas;
+import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
+import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
+import gestionaulasinformatica.backend.service.HistoricoReservasService;
+import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
@@ -38,6 +46,8 @@ public class GestionReservasView extends VerticalLayout {
 
 	private ReservaService reservaService;
 	private AulaService aulaService;
+	private PropietarioAulaService propietarioAulaService;
+	private HistoricoReservasService historicoReservasService;
 	private Comunes comunes;
 
 	private GestionReservasBusquedaForm formularioBusqueda;
@@ -45,13 +55,24 @@ public class GestionReservasView extends VerticalLayout {
 	private HorizontalLayout toolbar;
 	private Grid<Reserva> gridReservas;
 
-	public GestionReservasView(ReservaService reservaService, AulaService aulaService) {
+	private PropietarioAula responsableLogeado;
+
+	public GestionReservasView(ReservaService reservaService, AulaService aulaService,
+			PropietarioAulaService propietarioAulaService, HistoricoReservasService historicoReservasService) {
 		Div contenido;
 
 		try {
 			this.reservaService = reservaService;
 			this.aulaService = aulaService;
+			this.propietarioAulaService = propietarioAulaService;
+			this.historicoReservasService = historicoReservasService;
 			comunes = new Comunes();
+
+			// TODO: coger el responsable que ha accedido a la app
+			Optional<PropietarioAula> resp = this.propietarioAulaService.findById("EPS");
+			if (resp.isPresent()) {
+				responsableLogeado = resp.get();
+			}
 
 			addClassName("gestion-reservas-view");
 			setSizeFull();
@@ -65,7 +86,8 @@ public class GestionReservasView extends VerticalLayout {
 			formularioEdicion.addListener(GestionReservasForm.SaveEvent.class, this::guardarReserva);
 			formularioEdicion.addListener(GestionReservasForm.CloseEvent.class, e -> cerrarEditor());
 
-			contenido = new Div(formularioBusqueda, formularioEdicion, toolbar, gridReservas);
+			contenido = new Div(comunes.getTituloVentana("Gestión de reservas"), formularioBusqueda, formularioEdicion,
+					toolbar, gridReservas);
 			contenido.addClassName("gestion-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -85,8 +107,7 @@ public class GestionReservasView extends VerticalLayout {
 	private void configurarGridReservas() {
 		try {
 			gridReservas = new Grid<>();
-			gridReservas.addClassName("reserva-aulas-grid");
-			gridReservas.setSizeFull();
+			gridReservas.addClassName("gestion-reservas-grid");
 
 			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha")
 					.setKey("fecha");
@@ -276,17 +297,28 @@ public class GestionReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que guarda la reserva en la base de datos.
+	 * Función que guarda la reserva, y la operación de modificación en el histórico
+	 * de reservas, en la base de datos.
 	 * 
 	 * @param e Evento de guardado
 	 */
 	private void guardarReserva(GestionReservasForm.SaveEvent evt) {
+		Reserva reserva;
+		HistoricoReservasPK idOperacionReserva;
+		HistoricoReservas operacionReserva;
+
 		try {
 			// TODO Validar reserva
-			reservaService.save(evt.getReserva());
+			reserva = evt.getReserva();
+			reservaService.save(reserva);
+
+			// TODO: guardar como responsable de la operación el que ha accedido a la app
+			idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.MODIFICACIÓN);
+			operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+			historicoReservasService.save(operacionReserva);
+
 			actualizarReservas();
 			cerrarEditor();
-
 		} catch (Exception e) {
 			throw e;
 		}
@@ -347,15 +379,23 @@ public class GestionReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que elimina las reservas pasadas por parámetro de la base de datos y
-	 * actualiza el listado.
+	 * Función que elimina las reservas pasadas por parámetro de la base de datos,
+	 * guarda la operación de eliminación en el histórico de reservas en la base de
+	 * datos, y actualiza el listado.
 	 * 
 	 * @param reservas Reservas que eliminar
 	 */
 	private void eliminarReservas(Set<Reserva> reservas) {
+		HistoricoReservasPK idOperacionReserva;
+		HistoricoReservas operacionReserva;
 		try {
 			for (Reserva reserva : reservas) {
 				reservaService.delete(reserva);
+
+				// TODO: guardar como responsable de la operación el que ha accedido a la app
+				idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.ELIMINACIÓN);
+				operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+				historicoReservasService.save(operacionReserva);
 			}
 			actualizarReservas();
 		} catch (Exception e) {

@@ -58,7 +58,7 @@ public class ReservaAulasForm extends FormLayout {
 	protected HorizontalLayout toolbar;
 	private Button btnReservar;
 	private Button btnLimpiarCampos;
-	private Checkbox chkReservaRango;
+	protected Checkbox chkReservaRango;
 
 	private Binder<Reserva> binder;
 	private Reserva reserva;
@@ -221,11 +221,13 @@ public class ReservaAulasForm extends FormLayout {
 	 */
 	private void comprobarFechaActual() {
 		try {
-			if (fechaInicio.getValue().equals(LocalDate.now())) {
-				horaInicio.setMinTime(LocalTime.now());
+			if (!fechaInicio.isEmpty()) {
+				if (fechaInicio.getValue().equals(LocalDate.now())) {
+					horaInicio.setMinTime(LocalTime.now());
 
-			} else {
-				horaInicio.setMinTime(null);
+				} else {
+					horaInicio.setMinTime(null);
+				}
 			}
 		} catch (Exception e) {
 			throw e;
@@ -257,13 +259,11 @@ public class ReservaAulasForm extends FormLayout {
 				fechaFin.setEnabled(false);
 				fechaFin.setRequiredIndicatorVisible(false);
 				diaSemana.setEnabled(false);
-				diaSemana.setRequiredIndicatorVisible(false);
 			} else {
 				fechaInicio.setLabel("Fecha inicio");
 				fechaFin.setEnabled(true);
 				fechaFin.setRequiredIndicatorVisible(true);
 				diaSemana.setEnabled(true);
-				diaSemana.setRequiredIndicatorVisible(true);
 			}
 		} catch (Exception e) {
 			throw e;
@@ -307,7 +307,7 @@ public class ReservaAulasForm extends FormLayout {
 	/**
 	 * Función que comprueba si los campos de la reserva son correctos.
 	 * 
-	 * @return Si los filtros introducidos para consultar las reservas son correctos
+	 * @return Si los campos introducidos para reservar un aula son correctos
 	 */
 	private Boolean validarReserva() {
 		Boolean valido = true;
@@ -356,8 +356,14 @@ public class ReservaAulasForm extends FormLayout {
 	private void validarGuardar() {
 		try {
 			if (validarReserva()) {
-				binder.writeBean(reserva);
-				fireEvent(new SaveEvent(this, reserva));
+				// TODO: guardar reserva por rango de fechas
+				
+				// Si es una reserva de un solo día
+				if(chkReservaRango.isEmpty()) {
+					reserva.setDiaSemana(comunes.getDiaSemana(fechaInicio.getValue().getDayOfWeek().getValue()));
+					binder.writeBean(reserva);
+					fireEvent(new SaveEvent(this, reserva));
+				}
 			}
 		} catch (ValidationException e) {
 			e.printStackTrace();
