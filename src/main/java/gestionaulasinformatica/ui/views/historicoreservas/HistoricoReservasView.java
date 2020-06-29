@@ -17,9 +17,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
-import gestionaulasinformatica.backend.entity.PropietarioAula;
-import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.HistoricoReservasService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
@@ -54,12 +51,11 @@ public class HistoricoReservasView extends VerticalLayout {
 			setSizeFull();
 
 			formulario = new HistoricoReservasForm();
-			
+
 			configurarToolbar();
 			configurarGridHistorico();
 
-			contenido = new Div(comunes.getTituloVentana("Histórico de reservas"), formulario, toolbar,
-					gridHistorico);
+			contenido = new Div(comunes.getTituloVentana("Histórico de reservas"), formulario, toolbar, gridHistorico);
 			contenido.addClassName("historico-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -110,28 +106,18 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaOperacion, "dd/MM/yyyy"))
 					.setHeader("Fecha").setKey("fechaOperacion");
-			gridHistorico.addColumn(operacion -> {
-				HistoricoReservasPK historicoPK = operacion.getIdOperacionHR();
-				return historicoPK == null ? "-" : historicoPK.getTipoOperacion();
-			}).setHeader("Operación").setKey("operacion");
-			gridHistorico.addColumn(operacion -> {
-				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-" : reserva.getNombreAula() + " - " + reserva.getNombreCentroAula();
-			}).setHeader("Lugar").setKey("lugarReserva");
-			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaReservaOperacion, "dd/MM/yyyy"))
+			gridHistorico.addColumn(HistoricoReservas::getTipoOperacion).setHeader("Operación").setKey("tipoOperacion");
+			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaReserva, "dd/MM/yyyy"))
 					.setHeader("Fecha reserva").setKey("fechaReserva");
-			gridHistorico.addColumn(operacion -> {
-				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-" : (reserva.getHoraInicio() + " - " + reserva.getHoraFin());
-			}).setHeader("Hora").setKey("horaReserva");
-			gridHistorico.addColumn(operacion -> {
-				PropietarioAula responsable = operacion.getResponsableOperacion();
-				return responsable == null ? "-" : responsable.getNombrePropietarioAula();
-			}).setHeader("Registrada por").setKey("responsableOperacion");
-			gridHistorico.addColumn(operacion -> {
-				Reserva reserva = operacion.getIdOperacionHR().getReserva();
-				return reserva == null ? "-" : (reserva.getACargoDe());
-			}).setHeader("A cargo de").setKey("aCargoDeReserva");
+			gridHistorico.addColumn(HistoricoReservas::getHoraInicioReserva).setHeader("Hora inicio")
+					.setKey("horaInicioReserva");
+			gridHistorico.addColumn(HistoricoReservas::getHoraFinReserva).setHeader("Hora fin")
+					.setKey("horaFinReserva");
+			gridHistorico.addColumn(HistoricoReservas::getLugarReserva).setHeader("Lugar").setKey("lugarReserva");
+			gridHistorico.addColumn(HistoricoReservas::getACargoDeReserva).setHeader("A cargo de")
+					.setKey("aCargoDeReserva");
+			gridHistorico.addColumn(HistoricoReservas::getResponsableOperacion).setHeader("Registrada por")
+					.setKey("responsableOperacion");
 
 			gridHistorico.getColumns().forEach(columna -> columna.setAutoWidth(true));
 

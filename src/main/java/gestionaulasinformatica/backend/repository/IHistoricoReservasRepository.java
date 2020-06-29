@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
 
 /**
  * Repositorio para la entidad HistoricoReservas con clave primaria de tipo
@@ -14,5 +13,5 @@ import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
  *
  */
 public interface IHistoricoReservasRepository
-		extends JpaRepository<HistoricoReservas, HistoricoReservasPK>, JpaSpecificationExecutor<HistoricoReservas> {
+		extends JpaRepository<HistoricoReservas, Integer>, JpaSpecificationExecutor<HistoricoReservas> {
 }

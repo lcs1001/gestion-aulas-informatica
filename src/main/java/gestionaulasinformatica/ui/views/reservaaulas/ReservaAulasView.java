@@ -18,7 +18,6 @@ import com.vaadin.flow.router.Route;
 
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
@@ -76,7 +75,8 @@ public class ReservaAulasView extends VerticalLayout {
 			addClassName("reserva-aulas-view");
 			setSizeFull();
 
-			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllCentros(), comunes, responsableLogeado);
+			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllCentros(), comunes,
+					responsableLogeado);
 			formulario.addListener(ReservaAulasForm.SaveEvent.class, this::guardarReserva);
 			formulario.addListener(ReservaAulasForm.SaveRangeEvent.class, this::guardarReservaRango);
 
@@ -129,7 +129,7 @@ public class ReservaAulasView extends VerticalLayout {
 			reserva.setResponsable(responsableLogeado);
 			reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
 			formulario.setReserva(reserva);
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -143,7 +143,7 @@ public class ReservaAulasView extends VerticalLayout {
 	 */
 	private void guardarReserva(ReservaAulasForm.SaveEvent evt) {
 		Reserva reserva;
-		HistoricoReservasPK idOperacionReserva;
+		String lugarReserva;
 		HistoricoReservas operacionReserva;
 		try {
 			// TODO: Validar reserva
@@ -151,8 +151,11 @@ public class ReservaAulasView extends VerticalLayout {
 			reservaService.save(reserva);
 
 			// TODO: guardar como responsable de la operación el que ha accedido a la app
-			idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.CREACIÓN);
-			operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+			lugarReserva = reserva.getAula().getNombreAula() + " - "
+					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
+			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.CREACIÓN, reserva.getFecha(),
+					reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva, reserva.getACargoDe(),
+					responsableLogeado.getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
 			formulario.setReserva(null);
@@ -173,7 +176,7 @@ public class ReservaAulasView extends VerticalLayout {
 	 */
 	private void guardarReservaRango(ReservaAulasForm.SaveRangeEvent evt) {
 		List<Reserva> lstReservas;
-		HistoricoReservasPK idOperacionReserva;
+		String lugarReserva;
 		HistoricoReservas operacionReserva;
 		try {
 			// TODO: Validar reserva
@@ -183,8 +186,11 @@ public class ReservaAulasView extends VerticalLayout {
 				reservaService.save(reserva);
 
 				// TODO: guardar como responsable de la operación el que ha accedido a la app
-				idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.CREACIÓN);
-				operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+				lugarReserva = reserva.getAula().getNombreAula() + " - "
+						+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
+				operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.CREACIÓN,
+						reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
+						reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
 

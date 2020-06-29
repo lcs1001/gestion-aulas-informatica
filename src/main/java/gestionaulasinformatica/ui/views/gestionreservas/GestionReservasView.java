@@ -24,7 +24,6 @@ import com.vaadin.flow.router.Route;
 
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.HistoricoReservasPK;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.AulaService;
@@ -305,7 +304,7 @@ public class GestionReservasView extends VerticalLayout {
 	 */
 	private void guardarReserva(GestionReservasForm.SaveEvent evt) {
 		Reserva reserva;
-		HistoricoReservasPK idOperacionReserva;
+		String lugarReserva;
 		HistoricoReservas operacionReserva;
 
 		try {
@@ -314,8 +313,21 @@ public class GestionReservasView extends VerticalLayout {
 			reservaService.save(reserva);
 
 			// TODO: guardar como responsable de la operación el que ha accedido a la app
-			idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.MODIFICACIÓN);
-			operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+			lugarReserva = reserva.getAula().getNombreAula() + " - "
+					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
+//			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.MODIFICACIÓN,
+//					reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
+//					reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+			operacionReserva = new HistoricoReservas();
+			operacionReserva.setFechaHoraOperacion(LocalDateTime.now());
+			operacionReserva.setTipoOperacion(TipoOperacionHR.MODIFICACIÓN);
+			operacionReserva.setFechaReserva(reserva.getFecha());
+			operacionReserva.setHoraInicioReserva(reserva.getHoraInicio());
+			operacionReserva.setHoraFinReserva(reserva.getHoraFin());
+			operacionReserva.setLugarReserva(lugarReserva);
+			operacionReserva.setACargoDeReserva(reserva.getACargoDe());
+			operacionReserva.setResponsableOperacion(responsableLogeado.getIdPropietarioAula());
+			System.out.println("Operacion: " + operacionReserva);
 			historicoReservasService.save(operacionReserva);
 
 			actualizarReservas();
@@ -388,15 +400,18 @@ public class GestionReservasView extends VerticalLayout {
 	 * @param reservas Reservas que eliminar
 	 */
 	private void eliminarReservas(Set<Reserva> reservas) {
-		HistoricoReservasPK idOperacionReserva;
+		String lugarReserva;
 		HistoricoReservas operacionReserva;
 		try {
 			for (Reserva reserva : reservas) {
 				reservaService.delete(reserva);
 
 				// TODO: guardar como responsable de la operación el que ha accedido a la app
-				idOperacionReserva = new HistoricoReservasPK(reserva, TipoOperacionHR.ELIMINACIÓN);
-				operacionReserva = new HistoricoReservas(idOperacionReserva, LocalDateTime.now(), responsableLogeado);
+				lugarReserva = reserva.getAula().getNombreAula() + " - "
+						+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
+				operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.ELIMINACIÓN,
+						reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
+						reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
 			actualizarReservas();
