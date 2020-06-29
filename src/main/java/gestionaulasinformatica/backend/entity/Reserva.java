@@ -329,10 +329,10 @@ public class Reserva implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Reserva [Fecha - " + this.getFecha() + ", Hora inicio - "
-				+ this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", Aula - " + this.getNombreAula() + "-"
+		return "Reserva [Fecha - " + this.getFecha() + ", Dia semana - " + this.getDiaSemana() + ", Hora inicio - "
+				+ this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", " + this.getNombreAula() + "-"
 				+ this.getNombreCentroAula() + ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe()
-				+ " (" + this.getResponsable() + ")]";
+				+ " (" + this.getResponsable().getNombrePropietarioAula() + ")]";
 
 	}
 }

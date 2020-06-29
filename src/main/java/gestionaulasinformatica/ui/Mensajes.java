@@ -37,7 +37,10 @@ public enum Mensajes {
 	MSG_CONSULTA_RESERVA_FECHA_HORA_OBLIGATORIO(
 			"Para filtrar por fecha y hora, \"Fecha desde\", \"Hora desde\" y \"Hora hasta\" son campos obligatorios"),
 	
-	MSG_TODOS_CAMPOS_OBLIGATORIOS("Todos los campos son obligatorios");
+	MSG_TODOS_CAMPOS_OBLIGATORIOS("Todos los campos son obligatorios"), 
+	
+	// Errores
+	MSG_ERROR_ACCION("Se ha producido un error, la acción no se puede llevar a cabo");
 
 	private final String mensaje;
 
