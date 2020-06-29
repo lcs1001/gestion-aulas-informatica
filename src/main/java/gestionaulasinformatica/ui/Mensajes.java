@@ -29,7 +29,7 @@ public enum Mensajes {
 
 	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin"),
 	
-	MSG_RESERVA_FECHA_INICIO_MAYOR("LA fecha de inicio de la reserva debe ser menor que la fecha de fin"),
+	MSG_RESERVA_FECHA_INICIO_MAYOR("La fecha de inicio de la reserva debe ser menor que la fecha de fin"),
 
 	// Campos obligatorios
 	MSG_CENTRO_DPTO_OBLIGATORIO("El Centro/Departamento es un campo obligatorio"),
