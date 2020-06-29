@@ -53,12 +53,12 @@ public class HistoricoReservasView extends VerticalLayout {
 			addClassName("historico-reservas-view");
 			setSizeFull();
 
-			gridHistorico = new Grid<>();
+			formulario = new HistoricoReservasForm();
+			
+			configurarToolbar();
 			configurarGridHistorico();
 
-			formulario = new HistoricoReservasForm();
-
-			contenido = new Div(comunes.getTituloVentana("Histórico de reservas"), formulario, getToolbar(),
+			contenido = new Div(comunes.getTituloVentana("Histórico de reservas"), formulario, toolbar,
 					gridHistorico);
 			contenido.addClassName("historico-reservas-contenido");
 			contenido.setSizeFull();
@@ -72,11 +72,11 @@ public class HistoricoReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que crea el layout de botones para filtrar el histórico.
+	 * Función que configura el layout de botones para filtrar el histórico.
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout getToolbar() {
+	private HorizontalLayout configurarToolbar() {
 		Button btnBuscar;
 		Button btnLimpiarFiltros;
 
@@ -105,8 +105,8 @@ public class HistoricoReservasView extends VerticalLayout {
 	 */
 	private void configurarGridHistorico() {
 		try {
-			gridHistorico.addClassName("grid-historico-reservas");
-			gridHistorico.setSizeFull();
+			gridHistorico = new Grid<>();
+			gridHistorico.addClassName("historico-reservas-grid");
 
 			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaOperacion, "dd/MM/yyyy"))
 					.setHeader("Fecha").setKey("fechaOperacion");

@@ -110,8 +110,7 @@ public class ConsultaReservasView extends VerticalLayout {
 	private void configurarGrid() {
 		try {
 			gridReservas = new Grid<>();
-			gridReservas.addClassName("reservas-grid");
-			gridReservas.setSizeFull();
+			gridReservas.addClassName("consulta-reservas-grid");
 
 			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha")
 					.setKey("fecha");

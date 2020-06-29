@@ -34,7 +34,7 @@ public class MantPropietariosForm extends FormLayout {
 	protected TextField telefonoResponsable;
 
 	private Button btnGuardar;
-	private Button btnEliminar;
+	protected Button btnEliminar;
 	private Button btnCancelar;
 
 	private Binder<PropietarioAula> binder;
@@ -66,13 +66,13 @@ public class MantPropietariosForm extends FormLayout {
 	 */
 	private void configurarCamposFormulario() {
 		try {
-			idPropAula = new TextField("ID del Centro/Departamento");
-			nombrePropAula = new TextField("Nombre del Centro/Departamento");
-			nombreResponsable = new TextField("Nombre del Responsable");
-			apellidosResponsable = new TextField("Apellidos del Responsable");
-			correoResponsable = new EmailField("Correo del Responsable");
+			idPropAula = new TextField("ID del centro/departamento");
+			nombrePropAula = new TextField("Nombre del centro/departamento");
+			nombreResponsable = new TextField("Nombre del responsable");
+			apellidosResponsable = new TextField("Apellidos del responsable");
+			correoResponsable = new EmailField("Correo del responsable");
 
-			telefonoResponsable = new TextField("Teléfono del Responsable");
+			telefonoResponsable = new TextField("Teléfono del responsable");
 			telefonoResponsable.setMinLength(9);
 			telefonoResponsable.setMaxLength(9);
 		} catch (Exception e) {
