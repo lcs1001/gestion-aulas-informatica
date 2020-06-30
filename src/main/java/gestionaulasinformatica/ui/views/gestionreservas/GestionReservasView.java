@@ -316,8 +316,8 @@ public class GestionReservasView extends VerticalLayout {
 			lugarReserva = reserva.getAula().getNombreAula() + " - "
 					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.MODIFICACIÓN,
-					reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
-					reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+					reserva.getMotivo(), reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(),
+					lugarReserva, reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
 			actualizarReservas();
@@ -400,8 +400,8 @@ public class GestionReservasView extends VerticalLayout {
 				lugarReserva = reserva.getAula().getNombreAula() + " - "
 						+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 				operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.ELIMINACIÓN,
-						reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
-						reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+						reserva.getMotivo(), reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(),
+						lugarReserva, reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
 			actualizarReservas();

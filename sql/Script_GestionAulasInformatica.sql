@@ -65,6 +65,7 @@ CREATE TABLE public."historico_reservas" (
 	id_operacion SERIAL,
     fecha_operacion timestamp without time zone NOT NULL,
 	tipo_operacion character varying(15) NOT NULL,
+	motivo_reserva character varying(50) NOT NULL,
     fecha_reserva date NOT NULL,
     hora_inicio_reserva time without time zone NOT NULL,
     hora_fin_reserva time without time zone NOT NULL,

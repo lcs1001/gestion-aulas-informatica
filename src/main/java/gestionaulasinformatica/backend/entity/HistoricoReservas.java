@@ -43,6 +43,10 @@ public class HistoricoReservas implements Serializable {
 	private TipoOperacionHR tipoOperacion;
 
 	@NotNull
+	@Column(name = "motivo_reserva")
+	private String motivoReserva;
+
+	@NotNull
 	@Column(name = "fecha_reserva")
 	private LocalDate fechaReserva;
 
@@ -79,6 +83,8 @@ public class HistoricoReservas implements Serializable {
 	 * @param fechaOperacion       Fecha y hora de la operación
 	 * @param tipoOperacion        Tipo de operación realizada (creación,
 	 *                             modificación, eliminación)
+	 * @param motivo               Motivo de la reserva a la que hace referencia la
+	 *                             operación
 	 * @param fechaReserva         Fecha de la reserva a la que hace referencia la
 	 *                             operación
 	 * @param horaInicioReserva    Hora de inicio de la reserva a la que hace
@@ -92,11 +98,12 @@ public class HistoricoReservas implements Serializable {
 	 * @param responsableOperacion Responsable (ID propietario aula) de realizar la
 	 *                             operación
 	 */
-	public HistoricoReservas(LocalDateTime fechaOperacion, TipoOperacionHR tipoOperacion, LocalDate fechaReserva,
-			LocalTime horaInicioReserva, LocalTime horaFinReserva, String lugarReserva, String aCargoDeReserva,
-			String responsableOperacion) {
+	public HistoricoReservas(LocalDateTime fechaOperacion, TipoOperacionHR tipoOperacion, String motivo,
+			LocalDate fechaReserva, LocalTime horaInicioReserva, LocalTime horaFinReserva, String lugarReserva,
+			String aCargoDeReserva, String responsableOperacion) {
 		this.fechaHoraOperacion = fechaOperacion;
 		this.tipoOperacion = tipoOperacion;
+		this.motivoReserva = motivo;
 		this.fechaReserva = fechaReserva;
 		this.horaInicioReserva = horaInicioReserva;
 		this.horaFinReserva = horaFinReserva;
@@ -157,6 +164,26 @@ public class HistoricoReservas implements Serializable {
 	 */
 	public void setTipoOperacion(TipoOperacionHR tipoOperacion) {
 		this.tipoOperacion = tipoOperacion;
+	}
+
+	/**
+	 * Función que devuelve el motivo de la reserva a la que hace referencia la
+	 * operación.
+	 * 
+	 * @return Motivo de la reserva a la que hace referencia la operación
+	 */
+	public String getMotivoReserva() {
+		return this.motivoReserva;
+	}
+
+	/**
+	 * Función que establece el motivo de la reserva a la que hace referencia la
+	 * operación.
+	 * 
+	 * @param motivo Motivo de la reserva a la que hace referencia la operación
+	 */
+	public void setMotivoReserva(String motivo) {
+		this.motivoReserva = motivo;
 	}
 
 	/**
