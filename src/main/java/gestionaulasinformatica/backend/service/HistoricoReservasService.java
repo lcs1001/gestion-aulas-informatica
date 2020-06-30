@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
@@ -48,8 +49,8 @@ public class HistoricoReservasService {
 	 *         en la BD que cumplen con los filtros aplicados
 	 */
 	public List<HistoricoReservas> findAll(LocalDate fechaDesde, LocalDate fechaHasta) {
-		return historicoReservasRepository
-				.findAll(HistoricoReservasSpecification.findByFilters(fechaDesde, fechaHasta));
+		return historicoReservasRepository.findAll(HistoricoReservasSpecification.findByFilters(fechaDesde, fechaHasta),
+				Sort.by(Sort.Direction.DESC, "fechaHoraOperacion"));
 	}
 
 	/**
