@@ -209,6 +209,7 @@ public class MantAulasView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
 			throw e;
 		}
 	}
@@ -225,6 +226,7 @@ public class MantAulasView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
 			throw e;
 		}
 	}
@@ -256,8 +258,8 @@ public class MantAulasView extends VerticalLayout {
 			mensajeEliminado = "Se ha eliminado el aula " + aula.getNombreAula() + " correctamente";
 
 			btnConfirmar = new Button("Confirmar", event -> {
-				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				eliminarAula(aula);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				confirmacion.close();
 			});
 			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

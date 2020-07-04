@@ -3,6 +3,7 @@ package gestionaulasinformatica.ui;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -47,13 +48,16 @@ public class MainLayout extends AppLayout {
 	 */
 	private void crearCabecera() {
 		H1 titulo;
+		Anchor logout;
 		HorizontalLayout cabecera;
 
 		try {
 			titulo = new H1("Gestión Aulas Informática");
 			titulo.addClassName("titulo");
+			
+			logout = new Anchor("logout", "Cerrar sesión");
 
-			cabecera = new HorizontalLayout(new DrawerToggle(), titulo);
+			cabecera = new HorizontalLayout(new DrawerToggle(), titulo, logout);
 			cabecera.addClassName("cabecera");
 			cabecera.expand(titulo);
 			cabecera.setWidth("100%");

@@ -40,7 +40,10 @@ public enum Mensajes {
 	MSG_TODOS_CAMPOS_OBLIGATORIOS("Todos los campos son obligatorios"), 
 	
 	// Errores
-	MSG_ERROR_ACCION("Se ha producido un error, la acción no se puede llevar a cabo");
+	MSG_ERROR_ACCION("Se ha producido un error, la acción no se puede llevar a cabo"),
+	
+	MSG_ERROR_GUARDAR("Se ha producido un error al guardar, revise los campos");
+	
 
 	private final String mensaje;
 

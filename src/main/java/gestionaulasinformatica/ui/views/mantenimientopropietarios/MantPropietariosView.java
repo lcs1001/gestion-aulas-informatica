@@ -23,6 +23,7 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
+import gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Ventana Mantenimiento de Centros y Departamentos (CRUD de la entidad
@@ -214,7 +215,6 @@ public class MantPropietariosView extends VerticalLayout {
 	 */
 	private void anadirDepartamento() {
 		try {
-
 			gridPropietarios.asSingleSelect().clear();
 			abrirEditor(new Departamento(), false);
 
@@ -235,6 +235,7 @@ public class MantPropietariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
 			throw e;
 		}
 	}
@@ -251,6 +252,7 @@ public class MantPropietariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
 			throw e;
 		}
 	}
@@ -290,8 +292,8 @@ public class MantPropietariosView extends VerticalLayout {
 			mensajeEliminado = "Se ha eliminado " + propietario.getNombrePropietarioAula() + " correctamente";
 
 			btnConfirmar = new Button("Confirmar", event -> {
-				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				eliminarPropietario(propietario);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
 				confirmacion.close();
 			});
 			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
