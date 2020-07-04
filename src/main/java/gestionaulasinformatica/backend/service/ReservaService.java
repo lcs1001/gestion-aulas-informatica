@@ -92,6 +92,6 @@ public class ReservaService {
 			LOGGER.log(Level.SEVERE, "La reserva que se quiere guardar es nula.");
 			return;
 		}
-		reservaRepository.save(reserva);
+		reservaRepository.saveAndFlush(reserva);
 	}
 }

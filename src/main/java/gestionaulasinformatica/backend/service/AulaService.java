@@ -95,7 +95,7 @@ public class AulaService {
 			LOGGER.log(Level.SEVERE, "El aula que se quiere guardar es nulo.");
 			return;
 		}
-		aulaRepository.save(aula);
+		aulaRepository.saveAndFlush(aula);
 	}
 
 }

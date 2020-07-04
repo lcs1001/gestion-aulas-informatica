@@ -94,6 +94,6 @@ public class PropietarioAulaService {
 			LOGGER.log(Level.SEVERE, "El propietario del aula que se quiere guardar es nulo.");
 			return;
 		}
-		propietarioAulaRepository.save(propietario);
+		propietarioAulaRepository.saveAndFlush(propietario);
 	}
 }

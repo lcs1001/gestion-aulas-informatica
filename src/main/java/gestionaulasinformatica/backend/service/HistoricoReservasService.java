@@ -74,6 +74,6 @@ public class HistoricoReservasService {
 			LOGGER.log(Level.SEVERE, "La operación sobre una reserva que se quiere guardar es nula.");
 			return;
 		}
-		historicoReservasRepository.save(operacion);
+		historicoReservasRepository.saveAndFlush(operacion);
 	}
 }
