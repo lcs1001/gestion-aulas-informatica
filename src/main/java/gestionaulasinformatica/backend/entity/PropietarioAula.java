@@ -13,9 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -53,25 +54,9 @@ public class PropietarioAula implements Serializable {
 	private String nombrePropietarioAula = "";
 
 	@NotNull
-	@NotEmpty
-	@Column(name = "nombre_responsable")
-	private String nombreResponsable = "";
-
-	@NotNull
-	@NotEmpty
-	@Column(name = "apellidos_responsable")
-	private String apellidosResponsable = "";
-
-	@NotNull
-	@NotEmpty
-	@Email
-	@Column(name = "correo_responsable")
-	private String correoResponsable = "";
-
-	@NotNull
-	@NotEmpty
-	@Column(name = "telefono_responsable")
-	private String telefonoResponsable = "";
+	@OneToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuarioResponsable;
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -108,23 +93,15 @@ public class PropietarioAula implements Serializable {
 	/**
 	 * Constructor de la clase con parámetros.
 	 * 
-	 * @param id                   ID del propietario (centro/departamento)
-	 * @param nombre               Nombre del propietario (centro/departamento)
-	 * @param nombreResponsable    Nombre del responsable del centro/departamento
-	 * @param apellidosResponsable Apellidos del responsable del centro/departamento
-	 * @param correoResponsable    Correo del responsable del centro/departamento
-	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
-	 * @param tipo                 Tipo de propietario de aula (centro o
-	 *                             departamento)
+	 * @param id          ID del propietario (centro/departamento)
+	 * @param nombre      Nombre del propietario (centro/departamento)
+	 * @param responsable Responsable del centro/departamento
+	 * @param tipo        Tipo de propietario de aula (centro o departamento)
 	 */
-	public PropietarioAula(String id, String nombre, String nombreResponsable, String apellidosResponsable,
-			String correoResponsable, String telefonoResponsable, TipoPropietarioAula tipo) {
+	public PropietarioAula(String id, String nombre, Usuario responsable, TipoPropietarioAula tipo) {
 		this.idPropietarioAula = id;
 		this.nombrePropietarioAula = nombre;
-		this.nombreResponsable = nombreResponsable;
-		this.apellidosResponsable = apellidosResponsable;
-		this.correoResponsable = correoResponsable;
-		this.telefonoResponsable = telefonoResponsable;
+		this.usuarioResponsable = responsable;
 		this.tipoPropietarioAula = tipo;
 	}
 
@@ -165,75 +142,21 @@ public class PropietarioAula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el nombre del responsable del centro/departamento;
+	 * Función que devuelve el usuario responsable del centro/departamento.
 	 * 
-	 * @return Nombre del responsable del centro/departamento
+	 * @return Usuario responsable del centro/departamento
 	 */
-	public String getNombreResponsable() {
-		return this.nombreResponsable;
+	public Usuario getUsuarioResponsable() {
+		return this.usuarioResponsable;
 	}
 
 	/**
-	 * Función que devuelve los apellidos del responsable del centro/departamento.
+	 * Función que establece el usuario responsable del centro/departamento.
 	 * 
-	 * @return Apellidos del responsable del centro/departamento
+	 * @param usuario Usuario responsable del centro/departamento
 	 */
-	public String getApellidosResponsable() {
-		return this.apellidosResponsable;
-	}
-
-	/**
-	 * Función que establece el nombre del responsable del centro/departamento.
-	 * 
-	 * @param nombre Nombre del responsable del centro/departamento
-	 */
-	public void setNombreResponsable(String nombre) {
-		this.nombreResponsable = nombre;
-	}
-
-	/**
-	 * Función que establece los apellidos del responsable del centro/departamento.
-	 * 
-	 * @param apellidos Apellidos del responsable del centro/departamento
-	 */
-	public void setApellidosResponsable(String apellidos) {
-		this.apellidosResponsable = apellidos;
-	}
-
-	/**
-	 * Función que devuelve el correo del responsable del centro/departamento.
-	 * 
-	 * @return Correo del responsable del centro/departamento
-	 */
-	public String getCorreoResponsable() {
-		return this.correoResponsable;
-	}
-
-	/**
-	 * Función que establece el correo del responsable del centro/departamento.
-	 * 
-	 * @param correo Correo del responsable del centro/departamento
-	 */
-	public void setCorreoResponsable(String correo) {
-		this.correoResponsable = correo;
-	}
-
-	/**
-	 * Función que devuelve el teléfono del responsable del centro/departamento.
-	 * 
-	 * @return Teléfono del responsable del centro/departamento
-	 */
-	public String getTelefonoResponsable() {
-		return this.telefonoResponsable;
-	}
-
-	/**
-	 * Función que establece el teléfono del responsable del centro/departamento.
-	 * 
-	 * @param telefono Teléfono del responsable del centro/departamento
-	 */
-	public void setTelefonoResponsable(String telefono) {
-		this.telefonoResponsable = telefono;
+	public void setUsuarioResponsable(Usuario usuario) {
+		this.usuarioResponsable = usuario;
 	}
 
 	/**

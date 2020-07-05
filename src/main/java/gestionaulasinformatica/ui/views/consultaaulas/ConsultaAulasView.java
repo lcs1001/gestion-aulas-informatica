@@ -226,6 +226,12 @@ public class ConsultaAulasView extends VerticalLayout {
 				// Si no se ha indicado la capacidad o el número de ordenadores, se pasa un 0
 				capacidad = capacidad == null ? 0 : capacidad;
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
+				
+				System.out.println("\n FEcha desde: " + fechaDesde);
+				System.out.println("FEcha hasta: " + fechaHasta);
+				System.out.println("Hora desde: " + formulario.horaDesde.getValue());
+				System.out.println("Hora hasta: " + formulario.horaHasta.getValue());
+				System.out.println("Centro/Depto: " + formulario.propietario.getValue());
 
 				lstAulas = aulaService.findAll(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
 						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),

@@ -1,10 +1,11 @@
-package gestionaulasinformatica.security;
+package gestionaulasinformatica.app.security;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 
+import gestionaulasinformatica.exceptions.AccesoDenegadoException;
 import gestionaulasinformatica.ui.views.login.LoginView;
 
 import org.springframework.stereotype.Component;
@@ -32,19 +33,24 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
 	public void serviceInit(ServiceInitEvent event) {
 		event.getSource().addUIInitListener(uiEvent -> {
 			final UI ui = uiEvent.getUI();
-			ui.addBeforeEnterListener(this::authenticateNavigation);
+			ui.addBeforeEnterListener(this::beforeEnter);
 		});
 	}
 
-	/**
-	 * Función que redirige todas las solicitudes al inicio de sesión, si el usuario
-	 * no se ha logeado.
-	 * 
+	/** 
+	 * Redirige al usuario si no tiene acceso permitido a la ventana.
+	 *
 	 * @param event
+	 *            before navigation event with event details
 	 */
-	private void authenticateNavigation(BeforeEnterEvent event) {
-		if (!LoginView.class.equals(event.getNavigationTarget()) && !SecurityUtils.isUserLoggedIn()) {
-			event.rerouteTo(LoginView.class);
+	private void beforeEnter(BeforeEnterEvent event) {
+		final boolean accessGranted = SecurityUtils.isAccessGranted(event.getNavigationTarget());
+		if (!accessGranted) {
+			if (SecurityUtils.isUserLoggedIn()) {
+				event.rerouteToError(AccesoDenegadoException.class);
+			} else {
+				event.rerouteTo(LoginView.class);
+			}
 		}
 	}
 }

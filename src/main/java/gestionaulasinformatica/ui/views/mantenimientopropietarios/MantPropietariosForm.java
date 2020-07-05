@@ -7,7 +7,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
@@ -28,10 +27,6 @@ public class MantPropietariosForm extends FormLayout {
 
 	protected TextField idPropAula;
 	protected TextField nombrePropAula;
-	protected TextField nombreResponsable;
-	protected TextField apellidosResponsable;
-	protected EmailField correoResponsable;
-	protected TextField telefonoResponsable;
 
 	private Button btnGuardar;
 	protected Button btnEliminar;
@@ -54,8 +49,7 @@ public class MantPropietariosForm extends FormLayout {
 			binder.bind(idPropAula, "idPropietarioAula");
 			binder.bind(nombrePropAula, "nombrePropietarioAula");
 
-			add(idPropAula, nombrePropAula, nombreResponsable, apellidosResponsable, correoResponsable,
-					telefonoResponsable, getFormToolbar());
+			add(idPropAula, nombrePropAula, getFormToolbar());
 		} catch (Exception e) {
 			throw e;
 		}
@@ -68,13 +62,7 @@ public class MantPropietariosForm extends FormLayout {
 		try {
 			idPropAula = new TextField("ID del centro/departamento");
 			nombrePropAula = new TextField("Nombre del centro/departamento");
-			nombreResponsable = new TextField("Nombre del responsable");
-			apellidosResponsable = new TextField("Apellidos del responsable");
-			correoResponsable = new EmailField("Correo del responsable");
-
-			telefonoResponsable = new TextField("Teléfono del responsable");
-			telefonoResponsable.setMinLength(9);
-			telefonoResponsable.setMaxLength(9);
+			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -90,7 +78,7 @@ public class MantPropietariosForm extends FormLayout {
 		HorizontalLayout formToolbar;
 
 		try {
-			
+
 			btnGuardar = new Button("Guardar");
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado

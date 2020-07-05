@@ -160,6 +160,15 @@ public class Aula implements Serializable {
 	}
 
 	/**
+	 * Función que establece la capacidad del aula pasada como Integer.
+	 * 
+	 * @param capacidad Capacidad del aula
+	 */
+	public void setCapacidadInt(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	/**
 	 * Función que devuelve el número de ordenadores del aula como Double para el
 	 * Mantenimiento de Aulas.
 	 * 
@@ -186,6 +195,15 @@ public class Aula implements Serializable {
 	 */
 	public void setNumOrdenadores(Double numOrdenadores) {
 		this.numOrdenadores = numOrdenadores.intValue();
+	}
+
+	/**
+	 * Función que establece el número de ordenadores del aula pasado como Integer .
+	 * 
+	 * @param numOrdenadores Número de ordenadores del aula
+	 */
+	public void setNumOrdenadoresInt(Integer numOrdenadores) {
+		this.numOrdenadores = numOrdenadores;
 	}
 
 	/**

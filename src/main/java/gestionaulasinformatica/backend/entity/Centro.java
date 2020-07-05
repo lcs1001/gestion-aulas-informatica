@@ -44,19 +44,14 @@ public class Centro extends PropietarioAula implements Serializable {
 	/**
 	 * Constructor de la clase con parámetros.
 	 * 
-	 * @param id                   ID del propietario (centro/departamento)
-	 * @param nombre               Nombre del propietario (centro/departamento)
-	 * @param nombreResponsable    Nombre del responsable del centro/departamento
-	 * @param apellidosResponsable Apellidos del responsable del centro/departamento
-	 * @param correoResponsable    Correo del responsable del centro/departamento
-	 * @param telefonoResponsable  Teléfono del responsable del centro/departamento
+	 * @param id          ID del centro
+	 * @param nombre      Nombre del centro
+	 * @param responsable Responsable del centro
 	 */
-	public Centro(String id, String nombre, String nombreResponsable, String apellidosResponsable,
-			String correoResponsable, String telefonoResponsable) {
-		super(id, nombre, nombreResponsable, apellidosResponsable, correoResponsable, telefonoResponsable,
-				TipoPropietarioAula.Centro);
+	public Centro(String id, String nombre, Usuario responsable) {
+		super(id, nombre, responsable, TipoPropietarioAula.Centro);
 	}
-	
+
 	/**
 	 * Función que devuelve si el centro tiene aulas ubicadas en él.
 	 * 

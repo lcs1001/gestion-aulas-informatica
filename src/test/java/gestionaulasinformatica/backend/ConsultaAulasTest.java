@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import gestionaulasinformatica.backend.data.TipoUsuario;
 import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.repository.IAulaRepository;
 import gestionaulasinformatica.backend.specification.AulaSpecification;
 
@@ -33,6 +35,8 @@ public class ConsultaAulasTest {
 	@Autowired
 	private IAulaRepository aulaRepository;
 
+	private Usuario responsableCentro;
+	private Usuario responsableDpto;
 	private PropietarioAula centro1;
 	private PropietarioAula dpto1;
 	private Aula aula1;
@@ -48,10 +52,16 @@ public class ConsultaAulasTest {
 	 */
 	public void establecerDatos() {
 		try {
-			centro1 = new Centro("Centro 1", "Centro 1", "Responsable", "Centro 1", "rspCentro1@gmail.com",
-					"547854126");
-			dpto1 = new Departamento("DPTO 1", "Departamento 1", "Responsable", "Departamento 1", "rspDpto1@gmail.com",
-					"247863221");
+			responsableCentro = new Usuario("rspCentro1@gmail.com", "1234", "Responsable", "Centro 1", "547854126",
+					TipoUsuario.RESPONSABLE);
+			responsableCentro = new Usuario("rspDpto1@gmail.com", "1234", "Responsable", "Departamento 1", "247863221",
+					TipoUsuario.RESPONSABLE);
+
+			entityManager.persist(responsableCentro);
+			entityManager.persist(responsableDpto);
+
+			centro1 = new Centro("Centro 1", "Centro 1", responsableCentro);
+			dpto1 = new Departamento("DPTO 1", "Departamento 1", responsableDpto);
 
 			entityManager.persist(centro1);
 			entityManager.persist(dpto1);
@@ -86,19 +96,19 @@ public class ConsultaAulasTest {
 	public void aula1NoDisponibleFechaHoras() {
 		try {
 			establecerDatos();
-			
-			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
-					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
-			
+
+			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21),
+					LocalDate.of(2020, 07, 21), LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
+
 			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30:");
-			System.out.println("\tAulas disponibles: " + lstAulasDisponibles+ "\n\n");
-			
+			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Test que comprueba que el aula 1 no está disponible el día 21-07-2020 de
 	 * 10:30 a 11:30, añadiendo el filtro de diaSemana = "Martes".
@@ -107,34 +117,36 @@ public class ConsultaAulasTest {
 	public void aula1NoDisponibleFechaHorasDiaSemana() {
 		try {
 			establecerDatos();
-			
-			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
-					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null));
-			
-			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
+
+			lstAulasDisponibles = aulaRepository
+					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
+							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null));
+
+			System.out.println(
+					"\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
 			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
-			
+
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Test que comprueba que el aula 1 no está disponible del día 21-07-2020 al 23-07-2020 de
-	 * 10:30 a 11:30.
+	 * Test que comprueba que el aula 1 no está disponible del día 21-07-2020 al
+	 * 23-07-2020 de 10:30 a 11:30.
 	 */
 	@Test
 	public void aula1NoDisponibleRangoFechasHoras() {
 		try {
 			establecerDatos();
-			
-			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 23),
-					LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
-			
+
+			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21),
+					LocalDate.of(2020, 07, 23), LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
+
 			System.out.println("\n\nTest Aula 1 no disponible del 21-07-2020 al 23-07-2020 de 10:30 a 11:30:");
 			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
-			
+
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
 			e.printStackTrace();

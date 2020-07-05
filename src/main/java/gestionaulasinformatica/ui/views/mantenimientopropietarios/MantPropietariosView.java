@@ -20,6 +20,7 @@ import gestionaulasinformatica.backend.data.TipoPropietarioAula;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
@@ -67,8 +68,8 @@ public class MantPropietariosView extends VerticalLayout {
 			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::confirmarEliminacionPropietario);
 			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());
 
-			contenido = new Div(comunes.getTituloVentana("Mantenimiento de centros y departamentos"), toolbar, formulario,
-					gridPropietarios);
+			contenido = new Div(comunes.getTituloVentana("Mantenimiento de centros y departamentos"), toolbar,
+					formulario, gridPropietarios);
 			contenido.addClassName("mant-propietarios-contenido");
 			contenido.setSizeFull();
 
@@ -92,14 +93,21 @@ public class MantPropietariosView extends VerticalLayout {
 
 			gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Centro/Departamento")
 					.setKey("nombrePropietario");
-			gridPropietarios
-					.addColumn(PropietarioAula -> PropietarioAula.getNombreResponsable() + " "
-							+ PropietarioAula.getApellidosResponsable())
-					.setHeader("Responsable").setKey("nombreApellidosResponsable");
-			gridPropietarios.addColumn(PropietarioAula::getCorreoResponsable).setHeader("Correo")
-					.setKey("correoResponsable");
-			gridPropietarios.addColumn(PropietarioAula::getTelefonoResponsable).setHeader("Teléfono")
-					.setKey("telefonoResponsable");
+			gridPropietarios.addColumn(propietario -> {
+				Usuario responsable = propietario.getUsuarioResponsable();
+				return responsable == null ? "-"
+						: responsable.getNombreUsuario() + " " + responsable.getApellidosUsuario();
+			}).setHeader("Responsable").setKey("nombreApellidosResponsable");
+
+			gridPropietarios.addColumn(propietario -> {
+				Usuario responsable = propietario.getUsuarioResponsable();
+				return responsable == null ? "-" : responsable.getCorreoUsuario();
+			}).setHeader("Correo").setKey("correoResponsable");
+
+			gridPropietarios.addColumn(propietario -> {
+				Usuario responsable = propietario.getUsuarioResponsable();
+				return responsable == null ? "-" : responsable.getTelefonoUsuario();
+			}).setHeader("Telefono").setKey("telefonoResponsable");
 
 			gridPropietarios.getColumns().forEach(columna -> columna.setAutoWidth(true));
 

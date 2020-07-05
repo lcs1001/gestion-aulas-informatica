@@ -1,4 +1,4 @@
-package gestionaulasinformatica.security;
+package gestionaulasinformatica.app.security;
 
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
