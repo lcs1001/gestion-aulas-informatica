@@ -55,7 +55,7 @@ public class PropietarioAula implements Serializable {
 
 	@NotNull
 	@OneToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="id_responsable")
 	private Usuario usuarioResponsable;
 
 	@Enumerated(EnumType.STRING)
