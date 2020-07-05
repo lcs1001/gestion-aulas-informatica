@@ -24,7 +24,6 @@ import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
@@ -42,7 +41,7 @@ import gestionaulasinformatica.ui.Mensajes;
  */
 @Route(value = "gestionReservas", layout = MainLayout.class)
 @PageTitle("Gestión de Reservas")
-@Secured(Rol.RESPONSABLE)
+@Secured("RESPONSABLE")
 public class GestionReservasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;

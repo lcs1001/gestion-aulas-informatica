@@ -81,6 +81,7 @@ public final class SecurityUtils {
 
 		// Allow if no roles are required.
 		Secured secured = AnnotationUtils.findAnnotation(securedClass, Secured.class);
+		
 		if (secured == null) {
 			return true;
 		}

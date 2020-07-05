@@ -19,7 +19,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.service.AulaService;
@@ -33,7 +32,7 @@ import gestionaulasinformatica.ui.Mensajes;
  */
 @Route(value = "mantenimientoAulas", layout = MainLayout.class)
 @PageTitle("Mantenimiento de Aulas")
-@Secured(Rol.ADMIN)
+@Secured("ADMIN")
 public class MantAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;

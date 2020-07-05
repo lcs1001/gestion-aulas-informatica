@@ -86,8 +86,7 @@ public class Usuario implements Serializable {
 	 * @param telefono   Teléfono del usuario
 	 * @param rol        Rol del usuario
 	 */
-	public Usuario(String correo, String contrasena, String nombre, String apellidos, String telefono,
-			String rol) {
+	public Usuario(String correo, String contrasena, String nombre, String apellidos, String telefono, String rol) {
 		this.correoUsuario = correo;
 		this.contrasenaHash = contrasena;
 		this.nombreUsuario = nombre;
@@ -259,5 +258,12 @@ public class Usuario implements Serializable {
 			return false;
 		}
 		return getIdUsuario().equals(other.getIdUsuario());
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [Nombre - " + this.getNombreUsuario() + " " + this.getApellidosUsuario() + ", Correo - "
+				+ this.getCorreoUsuario() + ", Telefono - " + this.getTelefonoUsuario() + ", Rol - "
+				+ this.getRolUsuario() + "]";
 	}
 }

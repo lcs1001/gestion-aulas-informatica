@@ -18,7 +18,6 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.data.TipoPropietarioAula;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
@@ -35,7 +34,7 @@ import gestionaulasinformatica.ui.Mensajes;
  */
 @Route(value = "mantenimientoPropietarios", layout = MainLayout.class)
 @PageTitle("Mantenimiento de Centros y Departamentos")
-@Secured(Rol.ADMIN)
+@Secured("ADMIN")
 public class MantPropietariosView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
