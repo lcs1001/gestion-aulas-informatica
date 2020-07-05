@@ -1,3 +1,19 @@
+DROP TABLE IF EXISTS public."usuario" CASCADE;
+
+CREATE TABLE public."usuario" (
+	id_usuario SERIAL,
+	correo character varying(255) NOT NULL,
+	contrasena character varying(255) NOT NULL,
+	nombre character varying(50) NOT NULL,
+	apellidos character varying(50) NOT NULL,
+	rol character varying(20) NOT NULL,
+	bloqueado boolean,
+	telefono character varying(9) NOT NULL,
+	CONSTRAINT "PK_Usuario" PRIMARY KEY (id_usuario),	
+    CONSTRAINT "UNQ_Usuario_Correo" UNIQUE (correo),
+    CONSTRAINT "UNQ_Usuario_NombreApellidos" UNIQUE (nombre, apellidos)
+);
+
 DROP TABLE IF EXISTS public."propietario_aula" CASCADE;
 
 CREATE TABLE public."propietario_aula" (
@@ -75,20 +91,4 @@ CREATE TABLE public."historico_reservas" (
     responsable_operacion character varying(30) NOT NULL,
     CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_operacion),
     CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_operacion, fecha_operacion, tipo_operacion, fecha_reserva, hora_inicio_reserva, hora_fin_reserva, lugar_reserva, a_cargo_de_reserva, responsable_operacion)    
-);
-
-DROP TABLE IF EXISTS public."usuario" CASCADE;
-
-CREATE TABLE public."usuario" (
-	id_usuario SERIAL,
-	correo character varying(255) NOT NULL,
-	contrasena character varying(255) NOT NULL,
-	nombre character varying(50) NOT NULL,
-	apellidos character varying(50) NOT NULL,
-	rol character varying(20) NOT NULL,
-	bloqueado boolean,
-	telefono character varying(9) NOT NULL,
-	CONSTRAINT "PK_Usuario" PRIMARY KEY (id_usuario),	
-    CONSTRAINT "UNQ_Usuario_Correo" UNIQUE (correo),
-    CONSTRAINT "UNQ_Usuario_NombreApellidos" UNIQUE (nombre, apellidos)
 );
