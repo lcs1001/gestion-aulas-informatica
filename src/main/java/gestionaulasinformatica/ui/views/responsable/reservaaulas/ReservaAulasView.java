@@ -1,9 +1,11 @@
-package gestionaulasinformatica.ui.views.reservaaulas;
+package gestionaulasinformatica.ui.views.responsable.reservaaulas;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.security.access.annotation.Secured;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -16,6 +18,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
@@ -33,6 +36,7 @@ import gestionaulasinformatica.ui.Mensajes;
  */
 @Route(value = "reservaAulas", layout = MainLayout.class)
 @PageTitle("Reserva de Aulas")
+@Secured(Rol.RESPONSABLE)
 public class ReservaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;

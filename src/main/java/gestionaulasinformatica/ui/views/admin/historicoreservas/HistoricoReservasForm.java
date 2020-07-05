@@ -1,4 +1,4 @@
-package gestionaulasinformatica.ui.views.historicoreservas;
+package gestionaulasinformatica.ui.views.admin.historicoreservas;
 
 import java.time.LocalDate;
 import java.util.Locale;

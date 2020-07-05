@@ -11,14 +11,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 
+import gestionaulasinformatica.ui.views.admin.historicoreservas.HistoricoReservasView;
+import gestionaulasinformatica.ui.views.admin.mantenimientoaulas.MantAulasView;
+import gestionaulasinformatica.ui.views.admin.mantenimientopropietarios.MantPropietariosView;
 import gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
 import gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
-import gestionaulasinformatica.ui.views.gestionreservas.GestionReservasView;
-import gestionaulasinformatica.ui.views.historicoreservas.HistoricoReservasView;
-import gestionaulasinformatica.ui.views.mantenimientoaulas.MantAulasView;
-import gestionaulasinformatica.ui.views.mantenimientopropietarios.MantPropietariosView;
-import gestionaulasinformatica.ui.views.reservaaulas.ReservaAulasView;
-
+import gestionaulasinformatica.ui.views.responsable.gestionreservas.GestionReservasView;
+import gestionaulasinformatica.ui.views.responsable.reservaaulas.ReservaAulasView;
 /**
  * Layout principal que define el formato de las ventanas.
  * 

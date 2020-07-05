@@ -1,4 +1,4 @@
-package gestionaulasinformatica.ui.views.mantenimientoaulas;
+package gestionaulasinformatica.ui.views.admin.mantenimientoaulas;
 
 import java.util.List;
 

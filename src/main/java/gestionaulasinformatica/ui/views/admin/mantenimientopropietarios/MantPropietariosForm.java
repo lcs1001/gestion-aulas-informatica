@@ -1,4 +1,4 @@
-package gestionaulasinformatica.ui.views.mantenimientopropietarios;
+package gestionaulasinformatica.ui.views.admin.mantenimientopropietarios;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;

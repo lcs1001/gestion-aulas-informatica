@@ -1,4 +1,4 @@
-package gestionaulasinformatica.ui.views.reservaaulas;
+package gestionaulasinformatica.ui.views.responsable.reservaaulas;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

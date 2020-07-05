@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import gestionaulasinformatica.backend.data.TipoUsuario;
+import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
@@ -53,9 +53,9 @@ public class ConsultaAulasTest {
 	public void establecerDatos() {
 		try {
 			responsableCentro = new Usuario("rspCentro1@gmail.com", "1234", "Responsable", "Centro 1", "547854126",
-					TipoUsuario.RESPONSABLE);
+					Rol.RESPONSABLE);
 			responsableCentro = new Usuario("rspDpto1@gmail.com", "1234", "Responsable", "Departamento 1", "247863221",
-					TipoUsuario.RESPONSABLE);
+					Rol.RESPONSABLE);
 
 			entityManager.persist(responsableCentro);
 			entityManager.persist(responsableDpto);
