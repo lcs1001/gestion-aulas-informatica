@@ -44,7 +44,7 @@ public class AulaService {
 	public List<Aula> findAll() {
 		return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
-
+	
 	/**
 	 * Función que devuelve una lista con todas las aulas de las que es propietario
 	 * el centro o departamento seleccionado.
@@ -54,11 +54,11 @@ public class AulaService {
 	 * @return Lista con todas las aulas de las que es propietario el centro o
 	 *         departamento seleccionado
 	 */
-	public List<Aula> findAll(PropietarioAula filtroPropietarioAula) {
+	public List<Aula> findAllAulasPropietario(PropietarioAula filtroPropietarioAula) {
 		if (filtroPropietarioAula == null) {
 			return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 		} else {
-			return aulaRepository.search(filtroPropietarioAula);
+			return aulaRepository.buscarAulasPropietario(filtroPropietarioAula);
 		}
 	}
 

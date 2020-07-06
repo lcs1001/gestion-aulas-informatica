@@ -66,8 +66,7 @@ public class MantAulasView extends VerticalLayout {
 			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
 			formulario.addListener(MantAulasForm.CloseEvent.class, e -> cerrarEditor());
 
-			contenido = new Div(comunes.getTituloVentana("Mantenimiento de aulas"), toolbar, formulario,
-					gridAulas);
+			contenido = new Div(comunes.getTituloVentana("Mantenimiento de aulas"), toolbar, formulario, gridAulas);
 			contenido.addClassName("mant-aulas-contenido");
 			contenido.setSizeFull();
 
@@ -292,7 +291,7 @@ public class MantAulasView extends VerticalLayout {
 
 		try {
 			if (!filtroPropietarioAula.isEmpty()) {
-				lstAulas = aulaService.findAll(filtroPropietarioAula.getValue());
+				lstAulas = aulaService.findAllAulasPropietario(filtroPropietarioAula.getValue());
 
 				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);

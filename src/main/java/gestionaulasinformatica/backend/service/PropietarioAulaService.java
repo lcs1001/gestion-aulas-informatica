@@ -52,7 +52,7 @@ public class PropietarioAulaService {
 	 * 
 	 * @return Lista con todos los propietarios de aulas cuyo nombre contenga el
 	 *         filtro de texto, o todos los propietarios en caso de que el filtro
-	 *         sea null, que hay en la BD.
+	 *         sea null, que hay en la BD
 	 */
 	public List<PropietarioAula> findAll(String filtroTexto) {
 		if (filtroTexto == null || filtroTexto.isEmpty()) {

@@ -216,7 +216,7 @@ public class ReservaAulasForm extends FormLayout {
 		List<Aula> lstAulas;
 		try {
 			if (!centro.isEmpty()) {
-				lstAulas = aulaService.findAll(centro.getValue());
+				lstAulas = aulaService.findAllAulasPropietario(centro.getValue());
 				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {

@@ -199,7 +199,7 @@ public class GestionReservasForm extends FormLayout {
 		try {
 			lstCentrosResponsable = new ArrayList<PropietarioAula>();
 
-			lstAulasResponsable = aulaService.findAll(responsable);
+			lstAulasResponsable = aulaService.findAllAulasPropietario(responsable);
 
 			for (Aula aula : lstAulasResponsable) {
 				centroAula = aula.getUbicacionCentro();
