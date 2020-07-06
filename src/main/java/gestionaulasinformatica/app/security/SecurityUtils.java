@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.vaadin.flow.server.HandlerHelper;
 import com.vaadin.flow.shared.ApplicationConstants;
 
+import gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
+import gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
 import gestionaulasinformatica.ui.views.errors.AccesoDenegadoView;
 import gestionaulasinformatica.ui.views.errors.RutaPersonalizadaNoEncontradaError;
 import gestionaulasinformatica.ui.views.login.LoginView;
@@ -64,7 +66,8 @@ public final class SecurityUtils {
 	 */
 	public static boolean isAccessGranted(Class<?> securedClass) {
 		final boolean publicView = LoginView.class.equals(securedClass) || AccesoDenegadoView.class.equals(securedClass)
-				|| RutaPersonalizadaNoEncontradaError.class.equals(securedClass);
+				|| RutaPersonalizadaNoEncontradaError.class.equals(securedClass)
+				|| ConsultaReservasView.class.equals(securedClass) || ConsultaAulasView.class.equals(securedClass);
 
 		// Siempre se permite acceso a ventanas públicas
 		if (publicView) {
@@ -73,7 +76,6 @@ public final class SecurityUtils {
 
 		Authentication userAuthentication = SecurityContextHolder.getContext().getAuthentication();
 
-		// All other views require authentication
 		// Las demás ventanas requieren autenticación
 		if (!isUserLoggedIn(userAuthentication)) {
 			return false;
@@ -81,7 +83,7 @@ public final class SecurityUtils {
 
 		// Allow if no roles are required.
 		Secured secured = AnnotationUtils.findAnnotation(securedClass, Secured.class);
-		
+
 		if (secured == null) {
 			return true;
 		}
@@ -90,7 +92,7 @@ public final class SecurityUtils {
 		return userAuthentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.anyMatch(allowedRoles::contains);
 	}
-	
+
 	/**
 	 * Función que comprueba si el usuario está logeado.
 	 *
@@ -108,10 +110,9 @@ public final class SecurityUtils {
 	 * @return Si el usuario está logeado o no
 	 */
 	private static boolean isUserLoggedIn(Authentication authentication) {
-		return authentication != null
-			&& !(authentication instanceof AnonymousAuthenticationToken);
+		return authentication != null && !(authentication instanceof AnonymousAuthenticationToken);
 	}
-	
+
 	/**
 	 * Función que comprueba si la solicitud es de marco interno. Verifica si el
 	 * parámetro de solicitud está presente y si su valor es consistente con alguno

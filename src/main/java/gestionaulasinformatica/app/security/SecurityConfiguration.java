@@ -83,13 +83,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// de inicio de sesión
 		http.csrf().disable()
 
-				// Registra el CustomRequestCache, que gaurda los intentos de acceso no
+				// Registra el CustomRequestCache, que guarda los intentos de acceso no
 				// autorizados para redirigir al usuario después de iniciar sesión
 				.requestCache().requestCache(new CustomRequestCache())
 
 				// Restringe el acceso a la aplicación
 				.and().authorizeRequests()
-
+				
 				// Permite todas las solicitudes internas de Vaadin
 				.requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
 

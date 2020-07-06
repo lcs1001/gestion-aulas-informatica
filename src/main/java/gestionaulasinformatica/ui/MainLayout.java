@@ -58,6 +58,7 @@ public class MainLayout extends AppLayout {
 	private void crearCabecera() {
 		H1 titulo;
 		Anchor logout;
+		Anchor login;
 		HorizontalLayout cabecera;
 
 		try {
@@ -67,8 +68,20 @@ public class MainLayout extends AppLayout {
 			logout = new Anchor("logout", "Cerrar sesión    ");
 			logout.add(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT_O));
 			logout.getElement().setAttribute("router-ignore", true);
+			
+			login = new Anchor("login", "Iniciar sesión    ");
+			login.add(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT_O));
 
-			cabecera = new HorizontalLayout(new DrawerToggle(), titulo, logout);
+			// Si se ha iniciado sesión se muestra "Cerrar sesión", si no "Iniciar sesión"
+			if (SecurityUtils.getUsername() != null) {
+				logout.setVisible(true);
+				login.setVisible(false);
+			} else {
+				logout.setVisible(false);
+				login.setVisible(true);
+			}
+
+			cabecera = new HorizontalLayout(new DrawerToggle(), titulo, logout, login);
 			cabecera.addClassName("cabecera");
 			cabecera.expand(titulo);
 			cabecera.setWidth("100%");

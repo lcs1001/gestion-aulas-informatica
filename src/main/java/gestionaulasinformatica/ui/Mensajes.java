@@ -7,12 +7,21 @@ package gestionaulasinformatica.ui;
  *
  */
 public enum Mensajes {
+	
+	// Campos incorrectos
 	MSG_CONSULTA_HORA_DESDE_MAYOR(
 			"La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar"),
 
 	MSG_CONSULTA_FECHA_DESDE_MAYOR(
 			"La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar"),
+	
+	MSG_MODIFICAR_SOLO_UNA_RESERVA("Solo se puede modificar una reserva"),
 
+	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin"),
+	
+	MSG_RESERVA_FECHA_INICIO_MAYOR("La fecha de inicio de la reserva debe ser menor que la fecha de fin"),
+
+	// No hay datos / No hay datos que concuerdan	
 	MSG_NO_CONSULTA_RESERVAS("No hay reservas que concuerden con los filtros aplicados"),
 
 	MSG_NO_CONSULTA_AULAS("No hay aulas que concuerden con los filtros aplicados"),
@@ -23,13 +32,7 @@ public enum Mensajes {
 
 	MSG_NO_RESERVAS("No hay reservas realizadas a partir de la fecha actual"),
 
-	MSG_NO_RESERVAS_SELECCIONADAS("No se ha seleccionado ninguna reserva"),
-
-	MSG_MODIFICAR_SOLO_UNA_RESERVA("Solo se puede modificar una reserva"),
-
-	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin"),
-	
-	MSG_RESERVA_FECHA_INICIO_MAYOR("La fecha de inicio de la reserva debe ser menor que la fecha de fin"),
+	MSG_NO_RESERVAS_SELECCIONADAS("No se ha seleccionado ninguna reserva"),	
 
 	// Campos obligatorios
 	MSG_CENTRO_DPTO_OBLIGATORIO("El Centro/Departamento es un campo obligatorio"),
@@ -42,8 +45,10 @@ public enum Mensajes {
 	// Errores
 	MSG_ERROR_ACCION("Se ha producido un error, la acción no se puede llevar a cabo"),
 	
-	MSG_ERROR_GUARDAR("Se ha producido un error al guardar, revise los campos");
+	MSG_ERROR_GUARDAR("Se ha producido un error al guardar, revise los campos"),
 	
+	// Varios
+	MSG_CONTACTAR_ADMIN("Póngase en contacto con el administrador");	
 
 	private final String mensaje;
 

@@ -2,6 +2,7 @@ package gestionaulasinformatica.ui.views.login;
 
 import java.util.Collections;
 
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -10,21 +11,29 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.ui.Comunes;
+import gestionaulasinformatica.ui.Mensajes;
+
 @Route("login")
 @PageTitle("Login")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 	private static final long serialVersionUID = 1L;
-	LoginForm login;
+	
+	private Comunes comunes;
+	private LoginForm login;
 
 	/**
 	 * Constructor de la clase.
 	 */
 	public LoginView() {
+		Anchor consultaReservas;
 
 		try {
 			addClassName("login-view");
 			setSizeFull();
+			
+			comunes = new Comunes();
 
 			// Contenido centrado en la ventana
 			setJustifyContentMode(JustifyContentMode.CENTER);
@@ -34,8 +43,12 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 			// Se pasa el inicio de sesión a Spring Security
 			login.setAction("login");
-
-			add(new H1("Gestión de Aulas"), login);
+			
+			login.addForgotPasswordListener(e -> comunes.mostrarNotificacion(Mensajes.MSG_CONTACTAR_ADMIN.getMensaje(), 3000, null));
+			
+			consultaReservas = new Anchor("", "Acceso Consulta");
+			
+			add(new H1("Gestión de Aulas"), login, consultaReservas);
 
 		} catch (Exception e) {
 			throw e;
