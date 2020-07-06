@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Entidad que identifica a la tabla Aula de la base de datos.
@@ -35,6 +36,7 @@ public class Aula implements Serializable {
 
 	@NotNull
 	@NotEmpty
+	@Size(max = 20)
 	@Column(name = "nombre_aula")
 	private String nombreAula = "";
 

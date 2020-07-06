@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 
@@ -38,11 +39,13 @@ public class HistoricoReservas implements Serializable {
 	private LocalDateTime fechaHoraOperacion;
 
 	@NotNull
+	@Size(max = 15)
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_operacion")
 	private TipoOperacionHR tipoOperacion;
 
 	@NotNull
+	@Size(max = 50)
 	@Column(name = "motivo_reserva")
 	private String motivoReserva;
 
@@ -59,10 +62,12 @@ public class HistoricoReservas implements Serializable {
 	private LocalTime horaFinReserva;
 
 	@NotNull
+	@Size(max = 100)
 	@Column(name = "lugar_reserva")
 	private String lugarReserva;
 
 	@NotNull
+	@Size(max = 50)
 	@Column(name = "a_cargo_de_reserva")
 	private String aCargoDeReserva;
 

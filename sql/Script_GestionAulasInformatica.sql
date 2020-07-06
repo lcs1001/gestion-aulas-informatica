@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS public."usuario" CASCADE;
 
 CREATE TABLE public."usuario" (
 	id_usuario SERIAL,
-	correo character varying(255) NOT NULL,
-	contrasena character varying(255) NOT NULL,
+	correo character varying(100) NOT NULL,
+	contrasena character varying(100) NOT NULL,
 	nombre character varying(50) NOT NULL,
 	apellidos character varying(50) NOT NULL,
 	rol character varying(20) NOT NULL,
@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS public."aula" CASCADE;
 
 CREATE TABLE public."aula" (
 	id_aula SERIAL,
-	nombre_aula character varying(20),
+	nombre_aula character varying(20) NOT NULL,
 	ubicacion_centro character varying(30) NOT NULL,
     propietario_aula character varying(30) NOT NULL,
     capacidad integer NOT NULL DEFAULT 0,

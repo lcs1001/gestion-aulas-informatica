@@ -28,12 +28,12 @@ public class Usuario implements Serializable {
 
 	@NotEmpty
 	@Email
-	@Size(max = 255)
+	@Size(max = 100)
 	@Column(name = "correo", unique = true)
 	private String correoUsuario;
 
 	@NotNull
-	@Size(min = 3, max = 255)
+	@Size(min = 3, max = 100)
 	@Column(name = "contrasena")
 	private String contrasenaHash;
 

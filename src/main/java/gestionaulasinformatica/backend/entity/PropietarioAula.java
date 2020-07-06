@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Check;
 
@@ -45,11 +46,13 @@ public class PropietarioAula implements Serializable {
 
 	@Id
 	@NotEmpty
+	@Size(max = 30)
 	@Column(name = "id_propietario_aula")
 	private String idPropietarioAula = "";
 
 	@NotNull
 	@NotEmpty
+	@Size(max = 100)
 	@Column(name = "nombre_propietario_aula", unique = true)
 	private String nombrePropietarioAula = "";
 
@@ -60,6 +63,7 @@ public class PropietarioAula implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
+	@Size(max = 15)
 	@Column(name = "tipo", insertable = false, updatable = false)
 	private TipoPropietarioAula tipoPropietarioAula;
 
