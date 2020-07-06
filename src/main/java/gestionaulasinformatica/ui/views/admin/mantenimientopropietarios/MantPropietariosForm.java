@@ -1,10 +1,13 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientopropietarios;
 
+import java.util.List;
+
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -14,6 +17,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.entity.Usuario;
 
 /**
  * Clase que contiene el formulario del Mantenimiento de Centros y
@@ -25,8 +29,11 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 public class MantPropietariosForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
+	private List<Usuario> lstResponsables;
+
 	protected TextField idPropAula;
 	protected TextField nombrePropAula;
+	protected ComboBox<Usuario> responsable;
 
 	private Button btnGuardar;
 	protected Button btnEliminar;
@@ -38,18 +45,20 @@ public class MantPropietariosForm extends FormLayout {
 	/**
 	 * Constructor de la clase.
 	 */
-	public MantPropietariosForm() {
+	public MantPropietariosForm(List<Usuario> responsables) {
 		try {
 			addClassName("mant-propietarios-form");
+
+			this.lstResponsables = responsables;
 
 			configurarCamposFormulario();
 
 			binder = new BeanValidationBinder<>(PropietarioAula.class);
-			binder.bindInstanceFields(this);
 			binder.bind(idPropAula, "idPropietarioAula");
 			binder.bind(nombrePropAula, "nombrePropietarioAula");
+			binder.bind(responsable, "usuarioResponsable");
 
-			add(idPropAula, nombrePropAula, getFormToolbar());
+			add(idPropAula, nombrePropAula, responsable, getFormToolbar());
 		} catch (Exception e) {
 			throw e;
 		}
@@ -62,7 +71,13 @@ public class MantPropietariosForm extends FormLayout {
 		try {
 			idPropAula = new TextField("ID del centro/departamento");
 			nombrePropAula = new TextField("Nombre del centro/departamento");
-			
+
+			responsable = new ComboBox<>("Responsable");
+			responsable.setPlaceholder("Seleccione");
+			responsable.setItems(lstResponsables);
+			responsable.setItemLabelGenerator(Usuario::getNombreApellidosUsuario);
+			responsable.setRequiredIndicatorVisible(true);
+
 		} catch (Exception e) {
 			throw e;
 		}

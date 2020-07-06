@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity(name = "UserInfo")
+@Entity
 @Table(name = "usuario", schema = "public")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -174,6 +174,15 @@ public class Usuario implements Serializable {
 	 */
 	public void setApellidosUsuario(String apellidos) {
 		this.apellidosUsuario = apellidos;
+	}
+
+	/**
+	 * Función que devuelve el nombre y los apellidos del usuario.
+	 * 
+	 * @return Nombre y apellidos del usuario
+	 */
+	public String getNombreApellidosUsuario() {
+		return this.nombreUsuario + " " + this.apellidosUsuario;
 	}
 
 	/**

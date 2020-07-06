@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,13 @@ public class HistoricoReservasService {
 	private static final Logger LOGGER = Logger.getLogger(HistoricoReservasService.class.getName());
 	private IHistoricoReservasRepository historicoReservasRepository;
 
+	/**
+	 * Constructor del service
+	 * 
+	 * @param historicoReservasRepository Repositorio de la entidad
+	 *                                    HistoricoReservas
+	 */
+	@Autowired
 	public HistoricoReservasService(IHistoricoReservasRepository historicoReservasRepository) {
 		this.historicoReservasRepository = historicoReservasRepository;
 	}

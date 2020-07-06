@@ -63,7 +63,6 @@ public class PropietarioAula implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	@Size(max = 15)
 	@Column(name = "tipo", insertable = false, updatable = false)
 	private TipoPropietarioAula tipoPropietarioAula;
 

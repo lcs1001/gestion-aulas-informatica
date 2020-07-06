@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.PropietarioAula;
@@ -21,6 +23,12 @@ public class PropietarioAulaService {
 	private static final Logger LOGGER = Logger.getLogger(PropietarioAula.class.getName());
 	private IPropietarioAulaRepository propietarioAulaRepository;
 
+	/**
+	 * Constructor del service.
+	 * 
+	 * @param propietarioAulaRepository Repositorio de la entidad Aula
+	 */
+	@Autowired
 	public PropietarioAulaService(IPropietarioAulaRepository propietarioAulaRepository) {
 		this.propietarioAulaRepository = propietarioAulaRepository;
 	}
@@ -32,7 +40,7 @@ public class PropietarioAulaService {
 	 * @return Lista con todos los propietarios de aulas que hay en la BD
 	 */
 	public List<PropietarioAula> findAll() {
-		return propietarioAulaRepository.findAll();
+		return propietarioAulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombrePropietarioAula"));
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class PropietarioAulaService {
 	 */
 	public List<PropietarioAula> findAll(String filtroTexto) {
 		if (filtroTexto == null || filtroTexto.isEmpty()) {
-			return propietarioAulaRepository.findAll();
+			return propietarioAulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombrePropietarioAula"));
 		} else {
 			return propietarioAulaRepository.search(filtroTexto);
 		}

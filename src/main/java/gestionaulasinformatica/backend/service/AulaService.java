@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.Aula;
@@ -24,6 +26,12 @@ public class AulaService {
 	private static final Logger LOGGER = Logger.getLogger(AulaService.class.getName());
 	private IAulaRepository aulaRepository;
 
+	/**
+	 * Constructor del service.
+	 * 
+	 * @param aulaRepository Repositorio de la entidad Aula
+	 */
+	@Autowired
 	public AulaService(IAulaRepository aulaRepository) {
 		this.aulaRepository = aulaRepository;
 	}
@@ -34,7 +42,7 @@ public class AulaService {
 	 * @return Lista con todas las aulas que hay en la BD
 	 */
 	public List<Aula> findAll() {
-		return aulaRepository.findAll();
+		return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class AulaService {
 	 */
 	public List<Aula> findAll(PropietarioAula filtroPropietarioAula) {
 		if (filtroPropietarioAula == null) {
-			return aulaRepository.findAll();
+			return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 		} else {
 			return aulaRepository.search(filtroPropietarioAula);
 		}
@@ -73,7 +81,7 @@ public class AulaService {
 	public List<Aula> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
 			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario) {
 		return aulaRepository.findAll(AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta,
-				capacidad, numOrdenadores, diaSemana, propietario));
+				capacidad, numOrdenadores, diaSemana, propietario), Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
 
 	/**

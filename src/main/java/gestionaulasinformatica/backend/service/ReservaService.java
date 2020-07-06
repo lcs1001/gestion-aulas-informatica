@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,12 @@ public class ReservaService {
 
 	private IReservaRepository reservaRepository;
 
+	/**
+	 * Constructor del service.
+	 * 
+	 * @param reservaRepository Repositorio de la entidad Reserva
+	 */
+	@Autowired
 	public ReservaService(IReservaRepository reservaRepository) {
 		this.reservaRepository = reservaRepository;
 	}
@@ -85,7 +92,7 @@ public class ReservaService {
 	/**
 	 * Función que guarda la reserva pasada por parámetro en la BD si no es null.
 	 * 
-	 * @param reserva Reserva que se quier guardar
+	 * @param reserva Reserva que se quiere guardar
 	 */
 	public void save(Reserva reserva) {
 		if (reserva == null) {
