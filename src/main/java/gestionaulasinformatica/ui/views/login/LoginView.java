@@ -46,7 +46,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 			
 			login.addForgotPasswordListener(e -> comunes.mostrarNotificacion(Mensajes.MSG_CONTACTAR_ADMIN.getMensaje(), 3000, null));
 			
-			consultaReservas = new Anchor("", "Acceso Consulta");
+			consultaReservas = new Anchor("", "Acceso consulta de reservas y disponibilidad de aulas");
 			
 			add(new H1("Gestión de Aulas"), login, consultaReservas);
 

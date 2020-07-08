@@ -6,7 +6,6 @@ import java.util.Locale;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 
-
 /**
  * Clase que contiene el formulario para filtrar el histórico de reservas por
  * fechas.
@@ -27,11 +26,13 @@ public class HistoricoReservasForm extends FormLayout {
 		try {
 			addClassName("historico-reservas-form");
 
-			// Se configuran los campos de filtrado
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
+					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
+
 			configurarFiltros();
 
-			// Se añaden los campos al formulario
-			add(fechaDesde, fechaHasta);
+			add(fechaDesde, 1);
+			add(fechaHasta, 1);
 		} catch (Exception e) {
 			throw e;
 		}

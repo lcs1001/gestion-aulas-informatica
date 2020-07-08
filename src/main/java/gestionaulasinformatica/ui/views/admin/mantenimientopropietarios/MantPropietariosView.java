@@ -53,6 +53,7 @@ public class MantPropietariosView extends VerticalLayout {
 	 * Constructorde la clase.
 	 * 
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
+	 * @param usuarioService         Service de JPA de la entidad Usuario
 	 */
 	public MantPropietariosView(PropietarioAulaService propietarioAulaService, UsuarioService usuarioService) {
 		Div contenido;
@@ -256,7 +257,7 @@ public class MantPropietariosView extends VerticalLayout {
 	/**
 	 * Función que elimina el propietario de la base de datos.
 	 * 
-	 * @param e Evento de eliminación
+	 * @param propietario Propietario que se quiere eliminar
 	 */
 	private void eliminarPropietario(PropietarioAula propietario) {
 		try {

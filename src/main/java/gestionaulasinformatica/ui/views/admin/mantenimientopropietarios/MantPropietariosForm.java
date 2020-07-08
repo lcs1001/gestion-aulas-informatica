@@ -51,6 +51,8 @@ public class MantPropietariosForm extends FormLayout {
 
 			this.lstResponsables = responsables;
 
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2));
+
 			configurarCamposFormulario();
 
 			binder = new BeanValidationBinder<>(PropietarioAula.class);
@@ -58,7 +60,9 @@ public class MantPropietariosForm extends FormLayout {
 			binder.bind(nombrePropAula, "nombrePropietarioAula");
 			binder.bind(responsable, "usuarioResponsable");
 
-			add(idPropAula, nombrePropAula, responsable, getFormToolbar());
+			add(idPropAula, nombrePropAula);
+			add(responsable);
+			add(getFormToolbar(), 2);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -70,7 +74,10 @@ public class MantPropietariosForm extends FormLayout {
 	private void configurarCamposFormulario() {
 		try {
 			idPropAula = new TextField("ID del centro/departamento");
+			idPropAula.setPlaceholder("ID del centro/departamento");
+
 			nombrePropAula = new TextField("Nombre del centro/departamento");
+			nombrePropAula.setPlaceholder("Nombre del centro/departamento");
 
 			responsable = new ComboBox<>("Responsable");
 			responsable.setPlaceholder("Seleccione");
