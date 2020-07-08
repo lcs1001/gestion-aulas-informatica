@@ -66,7 +66,7 @@ public class UsuarioTest {
 							+ usuario.getNombreUsuario() + " " + usuario.getApellidosUsuario() + ".");
 				}
 			} else {
-				System.out.println("\tNo se ha encontrado el propietario de aula.");
+				System.out.println("\tNo se ha encontrado el usuario.");
 			}
 
 			Assert.assertEquals(usuarioRecuperado.get(), usuario);
