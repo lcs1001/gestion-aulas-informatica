@@ -82,7 +82,7 @@ public class ReservaSpecification {
 				// Se obtienen las reservas realizadas de un determinado centro o departamento
 				// (propietario del aula de la reserva)
 				if (!StringUtils.isEmpty(responsable)) {
-					final Predicate responsablePredicate = cb.equal(root.get("responsable"), responsable);
+					final Predicate responsablePredicate = cb.equal(root.get("propietarioResponsable"), responsable);
 					predicates.add(responsablePredicate);
 				}
 

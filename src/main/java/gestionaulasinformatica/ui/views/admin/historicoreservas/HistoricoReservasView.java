@@ -120,7 +120,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			gridHistorico.addColumn(HistoricoReservas::getLugarReserva).setHeader("Lugar").setKey("lugarReserva");
 			gridHistorico.addColumn(HistoricoReservas::getACargoDeReserva).setHeader("A cargo de")
 					.setKey("aCargoDeReserva");
-			gridHistorico.addColumn(HistoricoReservas::getResponsableOperacion).setHeader("Registrada por")
+			gridHistorico.addColumn(HistoricoReservas::getRegistradaPor).setHeader("Registrada por")
 					.setKey("responsableOperacion");
 
 			gridHistorico.getColumns().forEach(columna -> columna.setAutoWidth(true));

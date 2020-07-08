@@ -338,6 +338,17 @@ public class HistoricoReservas implements Serializable {
 		this.propietarioResponsableOperacion = propietarioResponsable;
 	}
 
+	/**
+	 * Función que devuelve el usuario que ha realizado la operación y el centro o
+	 * departamento en nombre del que ha realizado la operación.
+	 * 
+	 * @return Usuario que ha realizado la operación y el centro o departamento en
+	 *         nombre del que ha realizado la operación
+	 */
+	public String getRegistradaPor() {
+		return this.usuarioResponsableOperacion + " - " + this.propietarioResponsableOperacion;
+	}
+
 	public boolean isPersisted() {
 		return idOperacion != null;
 	}

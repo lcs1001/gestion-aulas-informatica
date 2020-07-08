@@ -54,7 +54,7 @@ public class ConsultaAulasTest {
 		try {
 			responsableCentro = new Usuario("rspCentro1@gmail.com", "1234", "Responsable", "Centro 1", "547854126",
 					Rol.RESPONSABLE);
-			responsableCentro = new Usuario("rspDpto1@gmail.com", "1234", "Responsable", "Departamento 1", "247863221",
+			responsableDpto = new Usuario("rspDpto1@gmail.com", "1234", "Responsable", "Departamento 1", "247863221",
 					Rol.RESPONSABLE);
 
 			entityManager.persist(responsableCentro);
@@ -73,11 +73,11 @@ public class ConsultaAulasTest {
 			entityManager.persist(aula2);
 
 			reserva1 = new Reserva(LocalDate.of(2020, 07, 20), LocalTime.of(11, 00), LocalTime.of(12, 00), "Lunes",
-					aula1, "Examen 1", "Persona 1", dpto1);
+					aula1, "Examen 1", "Persona 1", responsableDpto.getNombreApellidosUsuario(), dpto1);
 			reserva2 = new Reserva(LocalDate.of(2020, 07, 21), LocalTime.of(11, 00), LocalTime.of(12, 00), "Martes",
-					aula1, "Examen 2", "Persona 2", dpto1);
+					aula1, "Examen 2", "Persona 2", responsableDpto.getNombreApellidosUsuario(), dpto1);
 			reserva3 = new Reserva(LocalDate.of(2020, 07, 22), LocalTime.of(11, 00), LocalTime.of(12, 00), "Miércoles",
-					aula1, "Examen 3", "Persona 3", dpto1);
+					aula1, "Examen 3", "Persona 3", responsableDpto.getNombreApellidosUsuario(), dpto1);
 
 			entityManager.persist(reserva1);
 			entityManager.persist(reserva2);
