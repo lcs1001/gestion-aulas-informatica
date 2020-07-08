@@ -54,7 +54,7 @@ public enum Mensajes {
 	
 	ELIMINAR_USUARIO_BLOQUEADO_NO_PERMITIDO("El usuario se ha bloqueado y no se puede modificar ni eliminar"), 
 	
-	ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO("No puedes eliminar tu propio usuario");	
+	ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO("No puede eliminar su propio usuario");	
 
 	private final String mensaje;
 
