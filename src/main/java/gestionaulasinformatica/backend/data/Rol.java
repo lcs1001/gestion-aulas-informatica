@@ -1,8 +1,8 @@
 package gestionaulasinformatica.backend.data;
 
 public class Rol {
-	public static final String ADMIN = "admin";
-	public static final String RESPONSABLE = "responsable";
+	public static final String ADMIN = "ADMIN";
+	public static final String RESPONSABLE = "RESPONSABLE";
 
 	/**
 	 * Constructor de la clase.

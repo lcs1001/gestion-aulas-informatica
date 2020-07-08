@@ -121,7 +121,8 @@ public class MantUsuariosView extends VerticalLayout {
 
 	/**
 	 * Función que configura el toolbar que contiene: un filtro de texto que permite
-	 * filtrar los usuarios por su nombre, un botón para añadir usuarios.
+	 * filtrar los usuarios por su nombre o apellidos, un botón para añadir
+	 * usuarios.
 	 * 
 	 * @return Toolbar
 	 */
@@ -130,10 +131,11 @@ public class MantUsuariosView extends VerticalLayout {
 
 		try {
 			filtroTexto = new TextField();
-			filtroTexto.setPlaceholder("Buscar por nombre...");
+			filtroTexto.setPlaceholder("Buscar por nombre o apellidos...");
 			filtroTexto.setClearButtonVisible(true);
 			filtroTexto.setValueChangeMode(ValueChangeMode.LAZY);
 			filtroTexto.addValueChangeListener(e -> actualizarUsuarios());
+			filtroTexto.setWidth("300px");
 
 			btnAnadirUsuario = new Button("Añadir usuario", click -> anadirUsuario());
 			btnAnadirUsuario.setIcon(new Icon(VaadinIcon.PLUS));
@@ -175,7 +177,7 @@ public class MantUsuariosView extends VerticalLayout {
 		try {
 			if (usuario == null) {
 				cerrarEditor();
-			
+
 			} else {
 				toolbar.setVisible(false);
 				gridUsuarios.setVisible(false);
@@ -276,9 +278,7 @@ public class MantUsuariosView extends VerticalLayout {
 				// informa
 				if (usuario.tienePropietarioResponsabilidad()) {
 					mensajeConfirmacion = "El usuario " + usuario.getNombreApellidosUsuario()
-							+ " tiene asociado el centro/departamento "
-							+ usuario.getPropietarioResponsabilidad().getNombrePropietarioAula()
-							+ ", reasígnele otro responsable primero.";
+							+ " tiene bajo su responsabilidad algún centro o departamento, reasígneles otro responsable primero";
 					comunes.mostrarNotificacion(mensajeConfirmacion, 5000, NotificationVariant.LUMO_ERROR);
 
 				} else { // Si no tiene un centro o departamento bajo su responsabilidad se elimina

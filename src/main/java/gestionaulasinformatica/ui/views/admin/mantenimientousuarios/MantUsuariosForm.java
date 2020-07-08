@@ -58,7 +58,6 @@ public class MantUsuariosForm extends FormLayout {
 
 			binder = new BeanValidationBinder<>(Usuario.class);
 			binder.bindInstanceFields(this);
-			binder.bind(chkBloqueado, "bloqueado");
 			binder.forField(contrasena)
 					.withValidator(cont -> cont.matches("^(|(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,})$"),
 							"Debe contener 6 o más caracteres, incluyendo dígitos, letras minúsculas y mayúsculas")
@@ -125,7 +124,6 @@ public class MantUsuariosForm extends FormLayout {
 		HorizontalLayout formToolbar;
 
 		try {
-
 			btnGuardar = new Button("Guardar");
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
@@ -183,7 +181,7 @@ public class MantUsuariosForm extends FormLayout {
 			btnConfirmar.addClassName("margin-20");
 
 			btnCancelar = new Button("Cancelar", event -> {
-				//TODO : qué hacer si se cancela la opció
+				chkBloqueado.setValue(usuario.isBloqueado());
 				confirmacion.close();
 			});
 			btnCancelar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
@@ -205,7 +203,10 @@ public class MantUsuariosForm extends FormLayout {
 		try {
 			this.usuario = usuario;
 			binder.readBean(usuario);
-
+			
+			if(usuario != null) {
+				if(usuario.isBloqueado()) chkBloqueado.setValue(true);
+			}			
 		} catch (Exception e) {
 			throw e;
 		}
