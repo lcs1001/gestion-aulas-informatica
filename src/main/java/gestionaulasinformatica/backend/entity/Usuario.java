@@ -1,13 +1,15 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -62,8 +64,8 @@ public class Usuario implements Serializable {
 	@Column(name = "bloqueado")
 	private Boolean bloqueado = false;
 
-	@OneToOne(mappedBy = "usuarioResponsable")
-	private PropietarioAula propietarioResponsabilidad;
+	@OneToMany(mappedBy = "usuarioResponsable", fetch = FetchType.EAGER)
+	private Set<PropietarioAula> lstPropietariosResponsabilidad;
 
 	/**
 	 * Función que prepara los datos del correo antes de guardarlos.
@@ -244,34 +246,51 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el centro o departamento del cual es responasble el
-	 * usuario.
-	 * 
-	 * @return Centro o departamento del cual es responasble el usuario
-	 */
-	public PropietarioAula getPropietarioResponsabilidad() {
-		return this.propietarioResponsabilidad;
-	}
-
-	/**
-	 * Función que establece el centro o departamento del cual es responasble el
-	 * usuario.
-	 * 
-	 * @param propietario Centro o departamento del cual es responasble el usuario
-	 */
-	public void setPropietarioResponsabilidad(PropietarioAula propietario) {
-		this.propietarioResponsabilidad = propietario;
-	}
-
-	/**
-	 * Función que devuelve si el usuario tiene un centro o departamento bajo su
+	 * Función que devuelve si el usuario tiene centros o departamentos bajo su
 	 * responsabilidad o no.
 	 * 
-	 * @return Si el usuario tiene un centro o departamento bajo su responsabilidad
-	 *         o no
+	 * @return Si el usuario tiene centros o departamentos bajo su responsabilidad o
+	 *         no
 	 */
-	public Boolean tienePropietarioResponsabilidad() {
-		return getPropietarioResponsabilidad() == null ? false : true;
+	public Boolean tienePropietariosResponsabilidad() {
+		return getPropietariosResponsabilidad().isEmpty() ? false : true;
+	}
+
+	/**
+	 * Función que devuelve una lista con los centros o departamentos de los que es
+	 * responasble el usuario.
+	 * 
+	 * @return Lista con los centros o departamentos de los que es responasble el
+	 *         usuario
+	 */
+	public Set<PropietarioAula> getPropietariosResponsabilidad() {
+		return this.lstPropietariosResponsabilidad;
+	}
+
+	/**
+	 * Función que establece los centros o departamentos de los que es responasble
+	 * el usuario.
+	 * 
+	 * @param propietarios Centros o departamentos de los que es responasble el
+	 *                     usuario
+	 */
+	public void setPropietariosResponsabilidad(Set<PropietarioAula> propietarios) {
+		this.lstPropietariosResponsabilidad = propietarios;
+	}
+
+	/**
+	 * Función que añade el centro o departamento pasado a la lista de propietarios
+	 * de los que es responsable.
+	 * 
+	 * @param propietario Centro o departamento que añadir a la lista de
+	 *                    propietarios de los que es responsable
+	 * 
+	 * @return Centro o departamento añadido
+	 */
+	public PropietarioAula addAulaResponsable(PropietarioAula propietario) {
+		this.getPropietariosResponsabilidad().add(propietario);
+
+		return propietario;
 	}
 
 	public boolean isPersisted() {

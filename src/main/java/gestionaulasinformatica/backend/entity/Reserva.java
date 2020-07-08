@@ -75,6 +75,11 @@ public class Reserva implements Serializable {
 	@Column(name = "a_cargo_de")
 	private String aCargoDe = "";
 
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "usuario_responsable")
+	private String usuarioResponsable;
+
 	/**
 	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el centro
 	 * o departamento responsable de hacer la reserva.
@@ -84,8 +89,8 @@ public class Reserva implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "responsable", referencedColumnName = "id_propietario_aula", updatable = false)
-	private PropietarioAula responsable;
+	@JoinColumn(name = "propietario_responsable", referencedColumnName = "id_propietario_aula", updatable = false)
+	private PropietarioAula propietarioResponsable;
 
 	/**
 	 * Constructor de la clase sin parámetros.
@@ -96,17 +101,19 @@ public class Reserva implements Serializable {
 	/**
 	 * Constructor de la clase con parámetros.
 	 * 
-	 * @param fecha       Fecha de la reserva
-	 * @param horaInicio  Hora de inicio de la reserva
-	 * @param horaFin     Hora de fin de la reserva
-	 * @param diaSemana   Día de la semana de la reserva
-	 * @param aula        Aula que se reserva
-	 * @param motivo      Motivo de la reserva
-	 * @param aCargoDe    Persona a cargo de la reserva
-	 * @param responsable Centro o departamento responsable de hacer la reserva
+	 * @param fecha                  Fecha de la reserva
+	 * @param horaInicio             Hora de inicio de la reserva
+	 * @param horaFin                Hora de fin de la reserva
+	 * @param diaSemana              Día de la semana de la reserva
+	 * @param aula                   Aula que se reserva
+	 * @param motivo                 Motivo de la reserva
+	 * @param aCargoDe               Persona a cargo de la reserva
+	 * @param usuarioResponsable     Usuario responsable de hacer la reserva
+	 * @param propietarioResponsable Centro o departamento responsable de hacer la
+	 *                               reserva
 	 */
 	public Reserva(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String diaSemana, Aula aula, String motivo,
-			String aCargoDe, PropietarioAula responsable) {
+			String aCargoDe, String usuarioResponsable, PropietarioAula propietarioResponsable) {
 		this.fecha = fecha;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
@@ -114,7 +121,8 @@ public class Reserva implements Serializable {
 		this.aula = aula;
 		this.motivo = motivo;
 		this.aCargoDe = aCargoDe;
-		this.responsable = responsable;
+		this.usuarioResponsable = usuarioResponsable;
+		this.propietarioResponsable = propietarioResponsable;
 	}
 
 	/**
@@ -273,13 +281,31 @@ public class Reserva implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve el usuario responsable de hacer la reserva.
+	 * 
+	 * @return Usuario responsable de hacer la reserva
+	 */
+	public String getUsuarioResponsable() {
+		return this.usuarioResponsable;
+	}
+
+	/**
+	 * Función que establece el usuario responsable de hacer la reserva.
+	 * 
+	 * @param usuario Usuario responsable de hacer la reserva
+	 */
+	public void setUsuarioResponsable(String usuario) {
+		this.usuarioResponsable = usuario;
+	}
+
+	/**
 	 * Función que devuelve el centro o departamento responsable de hacer la
 	 * reserva.
 	 * 
 	 * @return Centro o departamento responsable de hacer la reserva
 	 */
-	public PropietarioAula getResponsable() {
-		return this.responsable;
+	public PropietarioAula getPropietarioResponsable() {
+		return this.propietarioResponsable;
 	}
 
 	/**
@@ -288,8 +314,8 @@ public class Reserva implements Serializable {
 	 * 
 	 * @param responsable Centro o departamento responsable de hacer la reserva
 	 */
-	public void setResponsable(PropietarioAula responsable) {
-		this.responsable = responsable;
+	public void setPropietarioResponsable(PropietarioAula responsable) {
+		this.propietarioResponsable = responsable;
 	}
 
 	public boolean isPersisted() {
@@ -327,7 +353,8 @@ public class Reserva implements Serializable {
 		return "Reserva [Fecha - " + this.getFecha() + ", Dia semana - " + this.getDiaSemana() + ", Hora inicio - "
 				+ this.getHoraInicio() + ", Hora fin - " + this.getHoraFin() + ", " + this.getNombreAula() + "-"
 				+ this.getNombreCentroAula() + ", Motivo - " + this.getMotivo() + ", A cargo de - " + this.getACargoDe()
-				+ " (" + this.getResponsable().getNombrePropietarioAula() + ")]";
+				+ " (" + this.getUsuarioResponsable() + " - "
+				+ this.getPropietarioResponsable().getNombrePropietarioAula() + ")]";
 
 	}
 }

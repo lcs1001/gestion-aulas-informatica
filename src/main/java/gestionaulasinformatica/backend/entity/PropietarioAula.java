@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -57,8 +57,8 @@ public class PropietarioAula implements Serializable {
 	private String nombrePropietarioAula = "";
 
 	@NotNull
-	@OneToOne
-	@JoinColumn(name="id_responsable")
+	@ManyToOne
+	@JoinColumn(name = "id_responsable", referencedColumnName = "id_usuario")
 	private Usuario usuarioResponsable;
 
 	@Enumerated(EnumType.STRING)
@@ -77,7 +77,7 @@ public class PropietarioAula implements Serializable {
 	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
 	 * ha realizado el responsable del centro o departamento.
 	 */
-	@OneToMany(mappedBy = "responsable", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "propietarioResponsable", cascade = CascadeType.ALL)
 	private Set<Reserva> lstReservasPropietarioAula;
 
 	/**

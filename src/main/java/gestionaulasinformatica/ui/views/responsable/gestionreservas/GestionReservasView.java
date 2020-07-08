@@ -2,7 +2,6 @@ package gestionaulasinformatica.ui.views.responsable.gestionreservas;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.access.annotation.Secured;
@@ -24,14 +23,15 @@ import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.app.security.SecurityUtils;
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.HistoricoReservasService;
-import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
+import gestionaulasinformatica.backend.service.UsuarioService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
 import gestionaulasinformatica.ui.Mensajes;
@@ -48,8 +48,8 @@ public class GestionReservasView extends VerticalLayout {
 
 	private ReservaService reservaService;
 	private AulaService aulaService;
-	private PropietarioAulaService propietarioAulaService;
 	private HistoricoReservasService historicoReservasService;
+	private UsuarioService usuarioService;
 	private Comunes comunes;
 
 	private GestionReservasBusquedaForm formularioBusqueda;
@@ -57,24 +57,20 @@ public class GestionReservasView extends VerticalLayout {
 	private HorizontalLayout toolbar;
 	private Grid<Reserva> gridReservas;
 
-	private PropietarioAula responsableLogeado;
+	private Usuario responsableLogeado;
 
 	public GestionReservasView(ReservaService reservaService, AulaService aulaService,
-			PropietarioAulaService propietarioAulaService, HistoricoReservasService historicoReservasService) {
+			HistoricoReservasService historicoReservasService, UsuarioService usuarioService) {
 		Div contenido;
 
 		try {
 			this.reservaService = reservaService;
 			this.aulaService = aulaService;
-			this.propietarioAulaService = propietarioAulaService;
 			this.historicoReservasService = historicoReservasService;
+			this.usuarioService = usuarioService;
 			comunes = new Comunes();
 
-			// TODO: coger el responsable que ha accedido a la app
-			Optional<PropietarioAula> resp = this.propietarioAulaService.findById("EPS");
-			if (resp.isPresent()) {
-				responsableLogeado = resp.get();
-			}
+			responsableLogeado = this.usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
 
 			addClassName("gestion-reservas-view");
 			setSizeFull();
@@ -315,12 +311,12 @@ public class GestionReservasView extends VerticalLayout {
 			reserva = evt.getReserva();
 			reservaService.save(reserva);
 
-			// TODO: guardar como responsable de la operación el que ha accedido a la app
 			lugarReserva = reserva.getAula().getNombreAula() + " - "
 					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.MODIFICACIÓN,
 					reserva.getMotivo(), reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(),
-					lugarReserva, reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+					lugarReserva, reserva.getACargoDe(), responsableLogeado.getNombreApellidosUsuario(),
+					reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
 			actualizarReservas();
@@ -399,12 +395,12 @@ public class GestionReservasView extends VerticalLayout {
 			for (Reserva reserva : reservas) {
 				reservaService.delete(reserva);
 
-				// TODO: guardar como responsable de la operación el que ha accedido a la app
 				lugarReserva = reserva.getAula().getNombreAula() + " - "
 						+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 				operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.ELIMINACIÓN,
 						reserva.getMotivo(), reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(),
-						lugarReserva, reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+						lugarReserva, reserva.getACargoDe(), responsableLogeado.getNombreApellidosUsuario(),
+						reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
 			actualizarReservas();

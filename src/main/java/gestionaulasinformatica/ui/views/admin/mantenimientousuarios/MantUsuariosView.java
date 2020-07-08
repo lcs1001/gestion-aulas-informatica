@@ -276,7 +276,7 @@ public class MantUsuariosView extends VerticalLayout {
 
 				// Si el usuario tiene un centro o departamento bajo su responsabilidad se
 				// informa
-				if (usuario.tienePropietarioResponsabilidad()) {
+				if (usuario.tienePropietariosResponsabilidad()) {
 					mensajeConfirmacion = "El usuario " + usuario.getNombreApellidosUsuario()
 							+ " tiene bajo su responsabilidad algún centro o departamento, reasígneles otro responsable primero";
 					comunes.mostrarNotificacion(mensajeConfirmacion, 5000, NotificationVariant.LUMO_ERROR);

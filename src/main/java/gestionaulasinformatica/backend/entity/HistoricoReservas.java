@@ -71,10 +71,13 @@ public class HistoricoReservas implements Serializable {
 	@Column(name = "a_cargo_de_reserva")
 	private String aCargoDeReserva;
 
-	/* ID del propietario de aula (responsable logeado en la app) */
 	@NotNull
-	@Column(name = "responsable_operacion")
-	private String responsableOperacion;
+	@Column(name = "usuario_responsable_operacion")
+	private String usuarioResponsableOperacion;
+
+	@NotNull
+	@Column(name = "propietario_responsable_operacion")
+	private String propietarioResponsableOperacion;
 
 	/**
 	 * Constructor de la clase sin parámetros.
@@ -85,27 +88,29 @@ public class HistoricoReservas implements Serializable {
 	/**
 	 * Constructor de la clase con parámetros.
 	 * 
-	 * @param fechaOperacion       Fecha y hora de la operación
-	 * @param tipoOperacion        Tipo de operación realizada (creación,
-	 *                             modificación, eliminación)
-	 * @param motivo               Motivo de la reserva a la que hace referencia la
-	 *                             operación
-	 * @param fechaReserva         Fecha de la reserva a la que hace referencia la
-	 *                             operación
-	 * @param horaInicioReserva    Hora de inicio de la reserva a la que hace
-	 *                             referencia la operación
-	 * @param horaFinReserva       Hora de fin de la reserva a la que hace
-	 *                             referencia la operación
-	 * @param lugarReserva         Lugar de la reserva a la que hace referencia la
-	 *                             operación
-	 * @param aCargoDeReserva      Persona a cargo de la reserva a la que hace
-	 *                             referencia la operación
-	 * @param responsableOperacion Responsable (ID propietario aula) de realizar la
-	 *                             operación
+	 * @param fechaOperacion                  Fecha y hora de la operación
+	 * @param tipoOperacion                   Tipo de operación realizada (creación,
+	 *                                        modificación, eliminación)
+	 * @param motivo                          Motivo de la reserva a la que hace
+	 *                                        referencia la operación
+	 * @param fechaReserva                    Fecha de la reserva a la que hace
+	 *                                        referencia la operación
+	 * @param horaInicioReserva               Hora de inicio de la reserva a la que
+	 *                                        hace referencia la operación
+	 * @param horaFinReserva                  Hora de fin de la reserva a la que
+	 *                                        hace referencia la operación
+	 * @param lugarReserva                    Lugar de la reserva a la que hace
+	 *                                        referencia la operación
+	 * @param aCargoDeReserva                 Persona a cargo de la reserva a la que
+	 *                                        hace referencia la operación
+	 * @param usuarioResponsableOperacion     Usuario responsable de realizar la
+	 *                                        operación
+	 * @param propietarioResponsableOperacion Centro o departamento responsable de
+	 *                                        realizar la operación
 	 */
 	public HistoricoReservas(LocalDateTime fechaOperacion, TipoOperacionHR tipoOperacion, String motivo,
 			LocalDate fechaReserva, LocalTime horaInicioReserva, LocalTime horaFinReserva, String lugarReserva,
-			String aCargoDeReserva, String responsableOperacion) {
+			String aCargoDeReserva, String usuarioResponsableOperacion, String propietarioResponsableOperacion) {
 		this.fechaHoraOperacion = fechaOperacion;
 		this.tipoOperacion = tipoOperacion;
 		this.motivoReserva = motivo;
@@ -114,7 +119,8 @@ public class HistoricoReservas implements Serializable {
 		this.horaFinReserva = horaFinReserva;
 		this.lugarReserva = lugarReserva;
 		this.aCargoDeReserva = aCargoDeReserva;
-		this.responsableOperacion = responsableOperacion;
+		this.usuarioResponsableOperacion = usuarioResponsableOperacion;
+		this.propietarioResponsableOperacion = propietarioResponsableOperacion;
 	}
 
 	/**
@@ -295,21 +301,41 @@ public class HistoricoReservas implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve el responsable de realizar la operación.
+	 * Función que devuelve el usuario responsable de realizar la operación.
 	 * 
-	 * @return Responsable de realizar la operación
+	 * @return Usuario responsable de realizar la operación
 	 */
-	public String getResponsableOperacion() {
-		return this.responsableOperacion;
+	public String getUsuarioResponsableOperacion() {
+		return this.usuarioResponsableOperacion;
 	}
 
 	/**
-	 * Función que establece el responsable de realizar la operación.
+	 * Función que establece el usuario responsable de realizar la operación.
 	 * 
-	 * @param responsable Responsable de realizar la operación
+	 * @param usuarioResponsable Usuario responsable de realizar la operación
 	 */
-	public void setResponsableOperacion(String responsable) {
-		this.responsableOperacion = responsable;
+	public void setUsuarioResponsableOperacion(String usuarioResponsable) {
+		this.usuarioResponsableOperacion = usuarioResponsable;
+	}
+
+	/**
+	 * Función que devuelve el centro o departamento responsable de realizar la
+	 * operación.
+	 * 
+	 * @return Centro o departamento responsable de realizar la operación
+	 */
+	public String getPropietarioResponsableOperacion() {
+		return this.propietarioResponsableOperacion;
+	}
+
+	/**
+	 * Función que establece el centro o departamento responsable de realizar la
+	 * operación.
+	 * 
+	 * @param responsable Centro o departamento responsable de realizar la operación
+	 */
+	public void setPropietarioResponsableOperacion(String propietarioResponsable) {
+		this.propietarioResponsableOperacion = propietarioResponsable;
 	}
 
 	public boolean isPersisted() {
@@ -348,7 +374,8 @@ public class HistoricoReservas implements Serializable {
 				+ this.getTipoOperacion() + ", Fecha reserva - " + this.getFechaReserva() + ", Hora reserva"
 				+ this.getHoraInicioReserva() + "-" + this.getHoraFinReserva() + ", Lugar reserva - "
 				+ this.getLugarReserva() + ", A cargo de reserva- " + this.getACargoDeReserva()
-				+ ", Responsable operación -" + this.getResponsableOperacion() + "]";
+				+ ", Responsable operación - " + this.getUsuarioResponsableOperacion() + " - "
+				+ this.getPropietarioResponsableOperacion() + "]";
 
 	}
 }

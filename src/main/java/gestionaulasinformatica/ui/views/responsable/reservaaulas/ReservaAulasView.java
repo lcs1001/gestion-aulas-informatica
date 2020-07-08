@@ -1,9 +1,7 @@
 package gestionaulasinformatica.ui.views.responsable.reservaaulas;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.access.annotation.Secured;
 
@@ -18,14 +16,16 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.app.security.SecurityUtils;
 import gestionaulasinformatica.backend.data.TipoOperacionHR;
 import gestionaulasinformatica.backend.entity.HistoricoReservas;
-import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.HistoricoReservasService;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
+import gestionaulasinformatica.backend.service.UsuarioService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
 import gestionaulasinformatica.ui.Mensajes;
@@ -44,12 +44,13 @@ public class ReservaAulasView extends VerticalLayout {
 	private PropietarioAulaService propietarioAulaService;
 	private AulaService aulaService;
 	private HistoricoReservasService historicoReservasService;
+	private UsuarioService usuarioService;
 	private Comunes comunes;
 
 	private ReservaAulasForm formulario;
 	private HorizontalLayout toolbar;
 
-	private PropietarioAula responsableLogeado;
+	private Usuario responsableLogeado;
 
 	/**
 	 * Constructor de la clase.
@@ -59,7 +60,7 @@ public class ReservaAulasView extends VerticalLayout {
 	 * @param aulaService            Service de JPA de la entidad Aula
 	 */
 	public ReservaAulasView(ReservaService reservaService, PropietarioAulaService propietarioAulaService,
-			AulaService aulaService, HistoricoReservasService historicoReservasService) {
+			AulaService aulaService, HistoricoReservasService historicoReservasService, UsuarioService usuarioService) {
 		Div contenido;
 
 		try {
@@ -67,13 +68,10 @@ public class ReservaAulasView extends VerticalLayout {
 			this.propietarioAulaService = propietarioAulaService;
 			this.aulaService = aulaService;
 			this.historicoReservasService = historicoReservasService;
+			this.usuarioService = usuarioService;
 			this.comunes = new Comunes();
 
-			// TODO: coger el responsable que ha accedido a la app
-			Optional<PropietarioAula> resp = this.propietarioAulaService.findById("EPS");
-			if (resp.isPresent()) {
-				responsableLogeado = resp.get();
-			}
+			responsableLogeado = this.usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
 
 			addClassName("reserva-aulas-view");
 			setSizeFull();
@@ -128,10 +126,7 @@ public class ReservaAulasView extends VerticalLayout {
 			formulario.setVisible(true);
 			toolbar.setVisible(false);
 			reserva = new Reserva();
-			// TODO: establecer como responsable el que ha accedido a la app
-			reserva.setResponsable(responsableLogeado);
-			reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
-			formulario.setReserva(reserva);
+			formulario.setReserva(reserva, true);
 
 		} catch (Exception e) {
 			throw e;
@@ -158,10 +153,11 @@ public class ReservaAulasView extends VerticalLayout {
 					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.CREACIÓN, reserva.getMotivo(),
 					reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(), lugarReserva,
-					reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+					reserva.getACargoDe(), responsableLogeado.getNombreApellidosUsuario(),
+					reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
-			formulario.setReserva(null);
+			formulario.setReserva(null, false);
 			formulario.setVisible(false);
 			toolbar.setVisible(true);
 
@@ -188,16 +184,16 @@ public class ReservaAulasView extends VerticalLayout {
 			for (Reserva reserva : lstReservas) {
 				reservaService.save(reserva);
 
-				// TODO: guardar como responsable de la operación el que ha accedido a la app
 				lugarReserva = reserva.getAula().getNombreAula() + " - "
 						+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 				operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.CREACIÓN,
 						reserva.getMotivo(), reserva.getFecha(), reserva.getHoraInicio(), reserva.getHoraFin(),
-						lugarReserva, reserva.getACargoDe(), responsableLogeado.getIdPropietarioAula());
+						lugarReserva, reserva.getACargoDe(), responsableLogeado.getNombreApellidosUsuario(),
+						reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
 
-			formulario.setReserva(null);
+			formulario.setReserva(null, false);
 			formulario.setVisible(false);
 			toolbar.setVisible(true);
 

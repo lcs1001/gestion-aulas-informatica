@@ -29,6 +29,7 @@ import com.vaadin.flow.shared.Registration;
 import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.Mensajes;
@@ -46,7 +47,7 @@ public class ReservaAulasForm extends FormLayout {
 	private AulaService aulaService;
 	private List<PropietarioAula> lstCentros;
 	private Comunes comunes;
-	private PropietarioAula responsableLogeado;
+	private Usuario responsableLogeado;
 
 	protected DatePicker fechaInicio;
 	protected DatePicker fechaFin;
@@ -77,7 +78,7 @@ public class ReservaAulasForm extends FormLayout {
 	 * @param responsableLogeado Responsable logeado en la app
 	 */
 	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> centros, Comunes comunes,
-			PropietarioAula responsableLogeado) {
+			Usuario responsableLogeado) {
 		try {
 			addClassName("reserva-aulas-form");
 
@@ -304,11 +305,14 @@ public class ReservaAulasForm extends FormLayout {
 	 * Función que establece la reserva actual del binder.
 	 * 
 	 * @param reserva Reserva actual
+	 * @param nueva Si se trata de una nueva reserva o de una modificación
 	 */
-	public void setReserva(Reserva reserva) {
+	public void setReserva(Reserva reserva, Boolean nueva) {
 		try {
 			this.reserva = reserva;
 			binder.readBean(reserva);
+			
+			if(nueva) reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
 
 		} catch (Exception e) {
 			throw e;
@@ -378,7 +382,6 @@ public class ReservaAulasForm extends FormLayout {
 		String diaSemanaG = "";
 		try {
 			if (validarReserva()) {
-				// TODO: guardar reserva por rango de fechas
 
 				// Si es una reserva de un solo día
 				if (chkReservaRango.isEmpty()) {
@@ -401,13 +404,17 @@ public class ReservaAulasForm extends FormLayout {
 						if (!diaSemanaG.isEmpty()) {
 							if (comunes.getDiaSemana(fecha.getDayOfWeek().getValue()).equals(diaSemanaG)) {
 								reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(), diaSemanaG,
-										aula.getValue(), motivo.getValue(), aCargoDe.getValue(), responsableLogeado);
+										aula.getValue(), motivo.getValue(), aCargoDe.getValue(),
+										responsableLogeado.getNombreApellidosUsuario(),
+										aula.getValue().getPropietarioAula());
 								lstReservasGuardar.add(reservaG);
 							}
 						} else {
 							reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(),
 									comunes.getDiaSemana(fecha.getDayOfWeek().getValue()), aula.getValue(),
-									motivo.getValue(), aCargoDe.getValue(), responsableLogeado);
+									motivo.getValue(), aCargoDe.getValue(),
+									responsableLogeado.getNombreApellidosUsuario(),
+									aula.getValue().getPropietarioAula());
 
 							lstReservasGuardar.add(reservaG);
 						}
