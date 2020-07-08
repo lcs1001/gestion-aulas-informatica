@@ -6,14 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import gestionaulasinformatica.backend.entity.Usuario;
 
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	Usuario findByCorreoUsuarioIgnoreCase(String correoUsuario);
-
-	Page<Usuario> findBy(Pageable pageable);
 
 	Page<Usuario> findByCorreoUsuarioLikeIgnoreCaseOrNombreUsuarioLikeIgnoreCaseOrApellidosUsuarioLikeIgnoreCaseOrRolUsuarioLikeIgnoreCase(
 			String correoUsuarioLike, String nombreUsuarioLike, String apellidosUsuarioLike, String rolUsuarioLike,
@@ -24,4 +23,10 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	@Query("SELECT u FROM Usuario u WHERE rolUsuario LIKE 'RESPONSABLE' ORDER BY nombreUsuario ASC")
 	List<Usuario> findAllResponsables();
+
+	@Query("SELECT u FROM Usuario u "
+			+ "WHERE lower(u.nombreUsuario) LIKE lower(concat('%', :filtroTexto, '%'))"
+			+ "OR lower(u.apellidosUsuario) like lower(concat('%', :filtroTexto, '%'))"
+			+ "ORDER BY nombreUsuario ASC")
+	List<Usuario> buscarUsuario(@Param("filtroTexto") String filtroTexto);
 }

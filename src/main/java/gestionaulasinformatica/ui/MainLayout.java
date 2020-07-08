@@ -21,6 +21,7 @@ import gestionaulasinformatica.app.security.SecurityUtils;
 import gestionaulasinformatica.ui.views.admin.historicoreservas.HistoricoReservasView;
 import gestionaulasinformatica.ui.views.admin.mantenimientoaulas.MantAulasView;
 import gestionaulasinformatica.ui.views.admin.mantenimientopropietarios.MantPropietariosView;
+import gestionaulasinformatica.ui.views.admin.mantenimientousuarios.MantUsuariosView;
 import gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
 import gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
 import gestionaulasinformatica.ui.views.responsable.gestionreservas.GestionReservasView;
@@ -68,7 +69,7 @@ public class MainLayout extends AppLayout {
 			logout = new Anchor("logout", "Cerrar sesión    ");
 			logout.add(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT_O));
 			logout.getElement().setAttribute("router-ignore", true);
-			
+
 			login = new Anchor("login", "Iniciar sesión    ");
 			login.add(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT_O));
 
@@ -118,6 +119,7 @@ public class MainLayout extends AppLayout {
 		RouterLink historicoReservasLink;
 		RouterLink mantPropietariosLink;
 		RouterLink mantAulasLink;
+		RouterLink mantUsuariosLink;
 		RouterLink reservaAulasLink;
 		RouterLink gestionReservasLink;
 		RouterLink consultaReservasLink;
@@ -147,6 +149,14 @@ public class MainLayout extends AppLayout {
 				mantAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 				ventanas.add(mantAulasLink);
+			}
+
+			// Link a la ventana Mantenimiento de Usuarios
+			if (SecurityUtils.isAccessGranted(MantUsuariosView.class)) {
+				mantUsuariosLink = new RouterLink("Mantenimiento de Usuarios", MantUsuariosView.class);
+				mantUsuariosLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+				ventanas.add(mantUsuariosLink);
 			}
 
 			// Link a la ventana Reserva de Aulas

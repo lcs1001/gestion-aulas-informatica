@@ -5,11 +5,13 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.repository.IUsuarioRepository;
 import gestionaulasinformatica.exceptions.UserFriendlyDataException;
+import gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Service para la entidad Usuario.
@@ -20,8 +22,6 @@ import gestionaulasinformatica.exceptions.UserFriendlyDataException;
 @Service
 public class UsuarioService {
 
-	public static final String MODIFY_LOCKED_USER_NOT_PERMITTED = "El usuario se ha bloqueado y no se puede modificar ni eliminar";
-	private static final String DELETING_SELF_NOT_PERMITTED = "No puedes eliminar tu propio usuario";
 	private final IUsuarioRepository usuarioRepository;
 
 	/**
@@ -33,7 +33,26 @@ public class UsuarioService {
 	public UsuarioService(IUsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
-	
+
+	/**
+	 * Función que devuelve una lista con todos los usuarios cuyo nombre o apellidos
+	 * contengan el filtro de texto, o todos los usuarios en caso de que el filtro
+	 * sea null, que hay en la BD.
+	 * 
+	 * @param filtroTexto Filtro que se quiere aplicar
+	 * 
+	 * @return Lista con todos los usuarios cuyo nombre o apellidos contengan el
+	 *         filtro de texto, o todos los usuarios en caso de que el filtro sea
+	 *         null, que hay en la BD
+	 */
+	public List<Usuario> findAll(String filtroTexto) {
+		if (filtroTexto == null || filtroTexto.isEmpty()) {
+			return usuarioRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreUsuario"));
+		} else {
+			return usuarioRepository.buscarUsuario(filtroTexto);
+		}
+	}
+
 	/**
 	 * Función que devuelve una lista con todos los responsables que hay en la BD.
 	 * 
@@ -41,6 +60,16 @@ public class UsuarioService {
 	 */
 	public List<Usuario> findAllResponsables() {
 		return usuarioRepository.findAllResponsables();
+	}
+
+	/**
+	 * Función que devuelve el usuario asociado al correo pasado por parámetro.
+	 * 
+	 * @param correoUsuario Correo del usuario que que quiere obtener
+	 * @return Usuario asociado al correo pasado por parámetro
+	 */
+	public Usuario findByCorreoUsuarioIgnoreCase(String correoUsuario) {
+		return usuarioRepository.findByCorreoUsuarioIgnoreCase(correoUsuario);
 	}
 
 	/**
@@ -82,7 +111,7 @@ public class UsuarioService {
 	 */
 	private void throwIfDeletingSelf(Usuario currentUser, Usuario user) {
 		if (currentUser.equals(user)) {
-			throw new UserFriendlyDataException(DELETING_SELF_NOT_PERMITTED);
+			throw new UserFriendlyDataException(Mensajes.ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO.getMensaje());
 		}
 	}
 
@@ -93,7 +122,7 @@ public class UsuarioService {
 	 */
 	private void throwIfUserLocked(Usuario usuario) {
 		if (usuario != null && usuario.isBloqueado()) {
-			throw new UserFriendlyDataException(MODIFY_LOCKED_USER_NOT_PERMITTED);
+			throw new UserFriendlyDataException(Mensajes.ELIMINAR_USUARIO_BLOQUEADO_NO_PERMITIDO.getMensaje());
 		}
 	}
 }

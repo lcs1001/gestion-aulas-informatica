@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -60,6 +61,9 @@ public class Usuario implements Serializable {
 
 	@Column(name = "bloqueado")
 	private Boolean bloqueado = false;
+
+	@OneToOne(mappedBy = "usuarioResponsable")
+	private PropietarioAula propietarioResponsabilidad;
 
 	/**
 	 * Función que prepara los datos del correo antes de guardarlos.
@@ -237,6 +241,37 @@ public class Usuario implements Serializable {
 	 */
 	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
+	}
+
+	/**
+	 * Función que devuelve el centro o departamento del cual es responasble el
+	 * usuario.
+	 * 
+	 * @return Centro o departamento del cual es responasble el usuario
+	 */
+	public PropietarioAula getPropietarioResponsabilidad() {
+		return this.propietarioResponsabilidad;
+	}
+
+	/**
+	 * Función que establece el centro o departamento del cual es responasble el
+	 * usuario.
+	 * 
+	 * @param propietario Centro o departamento del cual es responasble el usuario
+	 */
+	public void setPropietarioResponsabilidad(PropietarioAula propietario) {
+		this.propietarioResponsabilidad = propietario;
+	}
+
+	/**
+	 * Función que devuelve si el usuario tiene un centro o departamento bajo su
+	 * responsabilidad o no.
+	 * 
+	 * @return Si el usuario tiene un centro o departamento bajo su responsabilidad
+	 *         o no
+	 */
+	public Boolean tienePropietarioResponsabilidad() {
+		return getPropietarioResponsabilidad() == null ? false : true;
 	}
 
 	public boolean isPersisted() {

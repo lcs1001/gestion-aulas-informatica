@@ -84,6 +84,11 @@ public class Comunes {
 		}
 	}
 	
+	/**
+	 * Función que devuelve un label con el título de la ventana pasado por parámetro.
+	 * @param nombre Título de la ventana
+	 * @return Label con el título de la ventana pasado por parámetro
+	 */
 	public Label getTituloVentana(String nombre) {
 		Label titulo = new Label(nombre);
 		titulo.addClassName("titulo-pagina");

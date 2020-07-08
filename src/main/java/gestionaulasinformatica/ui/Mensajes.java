@@ -47,8 +47,14 @@ public enum Mensajes {
 	
 	MSG_ERROR_GUARDAR("Se ha producido un error al guardar, revise los campos"),
 	
+	MSG_LOGIN_INCORRECTO("El correo o la contraseña introducidos son incorrectos"),
+	
 	// Varios
-	MSG_CONTACTAR_ADMIN("Póngase en contacto con el administrador");	
+	MSG_CONTACTAR_ADMIN("Póngase en contacto con el administrador"), 
+	
+	ELIMINAR_USUARIO_BLOQUEADO_NO_PERMITIDO("El usuario se ha bloqueado y no se puede modificar ni eliminar"), 
+	
+	ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO("No puedes eliminar tu propio usuario");	
 
 	private final String mensaje;
 
