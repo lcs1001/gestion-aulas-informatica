@@ -64,13 +64,14 @@ CREATE TABLE public."reserva" (
     dia_semana character varying(10) NOT NULL,
     motivo character varying(50) NOT NULL,
     a_cargo_de character varying(50) NOT NULL,
-    responsable character varying(30) NOT NULL,
+    usuario_responsable character varying(50) NOT NULL,
+    propietario_responsable character varying(30) NOT NULL,
     CONSTRAINT "PK_Reserva" PRIMARY KEY (id_reserva),
     CONSTRAINT "FK_Reserva_Aula_Aula" FOREIGN KEY (id_aula)
         REFERENCES public."aula" (id_aula)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT "FK_Reserva_PropietarioAula_Responsable" FOREIGN KEY (responsable)
+    CONSTRAINT "FK_Reserva_PropietarioAula_Responsable" FOREIGN KEY (propietario_responsable)
         REFERENCES public."propietario_aula" (id_propietario_aula)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -88,7 +89,8 @@ CREATE TABLE public."historico_reservas" (
     hora_fin_reserva time without time zone NOT NULL,
     lugar_reserva character varying(100) NOT NULL,
     a_cargo_de_reserva character varying(50) NOT NULL,
-    responsable_operacion character varying(30) NOT NULL,
+    usuario_responsable_operacion character varying(100) NOT NULL
+    propietario_responsable_operacion character varying(30) NOT NULL,
     CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_operacion),
-    CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_operacion, fecha_operacion, tipo_operacion, fecha_reserva, hora_inicio_reserva, hora_fin_reserva, lugar_reserva, a_cargo_de_reserva, responsable_operacion)    
+    CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_operacion, fecha_operacion, tipo_operacion, fecha_reserva, hora_inicio_reserva, hora_fin_reserva, lugar_reserva, a_cargo_de_reserva)    
 );
