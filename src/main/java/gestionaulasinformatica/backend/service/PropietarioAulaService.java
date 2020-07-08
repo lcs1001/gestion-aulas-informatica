@@ -74,8 +74,6 @@ public class PropietarioAulaService {
 	 *         pasado por parámetro
 	 */
 	public List<PropietarioAula> findAllPropietariosResponsable(Usuario usuarioLogeado) {
-		
-		System.out.println(usuarioLogeado);
 		return propietarioAulaRepository.findAllPropietariosResponsable(usuarioLogeado);
 	}
 
