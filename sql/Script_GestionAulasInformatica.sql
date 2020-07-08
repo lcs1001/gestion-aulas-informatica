@@ -89,7 +89,7 @@ CREATE TABLE public."historico_reservas" (
     hora_fin_reserva time without time zone NOT NULL,
     lugar_reserva character varying(100) NOT NULL,
     a_cargo_de_reserva character varying(50) NOT NULL,
-    usuario_responsable_operacion character varying(100) NOT NULL
+    usuario_responsable_operacion character varying(100) NOT NULL,
     propietario_responsable_operacion character varying(30) NOT NULL,
     CONSTRAINT "PK_HistoricoReservas" PRIMARY KEY (id_operacion),
     CONSTRAINT "UNQ_HistoricoReservas" UNIQUE (id_operacion, fecha_operacion, tipo_operacion, fecha_reserva, hora_inicio_reserva, hora_fin_reserva, lugar_reserva, a_cargo_de_reserva)    
