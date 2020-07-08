@@ -2,7 +2,6 @@ package gestionaulasinformatica.ui.views.responsable.gestionreservas;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.ComponentEvent;
@@ -34,16 +33,13 @@ public class GestionReservasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
 	private AulaService aulaService;
-	private PropietarioAula responsable;
+	private List<PropietarioAula> lstPropietarios;
 	private Comunes comunes;
-
-	private List<PropietarioAula> lstCentrosResponsable;
-	private List<Aula> lstAulasResponsable;
 
 	protected DatePicker fecha;
 	protected TimePicker horaInicio;
 	protected TimePicker horaFin;
-	protected ComboBox<PropietarioAula> centro;
+	protected ComboBox<PropietarioAula> propietarioAula;
 	protected ComboBox<Aula> aula;
 	protected TextField diaSemana;
 	protected TextField motivo;
@@ -60,32 +56,31 @@ public class GestionReservasForm extends FormLayout {
 	 * Constructor de la clase.
 	 * 
 	 * @param aulaService Service de JPA de la entidad Aula
-	 * @param responsable Responsable que ha accedido a la aplicación
+	 * @param responsable Usuario que ha accedido a la aplicación
 	 * @param comunes     Objeto Comunes para tener acceso a las funciones comunes
 	 */
-	public GestionReservasForm(AulaService aulaService, PropietarioAula responsable, Comunes comunes) {
+	public GestionReservasForm(AulaService aulaService, List<PropietarioAula> propietarios, Comunes comunes) {
 		try {
 			addClassName("gestion-reservas-form");
 
 			this.aulaService = aulaService;
-			this.responsable = responsable;
+			this.lstPropietarios = propietarios;
 			this.comunes = comunes;
 
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			binder = new BeanValidationBinder<>(Reserva.class);
-
-			getCentrosAulasResponsable(this.responsable);
+			
 			configurarCampos();
 			configurarToolbar();
 
 			binder.bindInstanceFields(this);
-			binder.bind(centro, "aula.ubicacionCentro");
+			binder.bind(propietarioAula, "aula.propietarioAula");
 			binder.bind(aula, "aula");
 
 			add(fecha, horaInicio);
-			add(centro, 2);
+			add(propietarioAula, 2);
 			add(diaSemana, horaFin);
 			add(aula, 2);
 			add(motivo, 2);
@@ -121,15 +116,14 @@ public class GestionReservasForm extends FormLayout {
 			horaFin.setLocale(comunes.getLocaleES());
 			horaFin.setClearButtonVisible(true);
 
-			centro = new ComboBox<PropietarioAula>("Centro");
-			centro.setPlaceholder("Seleccione");
-			centro.setItems(lstCentrosResponsable);
-			centro.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			centro.addValueChangeListener(e -> cargarAulasCentro());
+			propietarioAula = new ComboBox<PropietarioAula>("Centro/Departamento");
+			propietarioAula.setPlaceholder("Seleccione");
+			propietarioAula.setItems(lstPropietarios);
+			propietarioAula.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietarioAula.addValueChangeListener(e -> cargarAulasPropietario());
 
 			aula = new ComboBox<Aula>("Aula");
 			aula.setPlaceholder("Seleccione");
-			aula.setItems(lstAulasResponsable);
 			aula.setItemLabelGenerator(Aula::getNombreAula);
 
 			diaSemana = new TextField("Día de la semana");
@@ -191,40 +185,13 @@ public class GestionReservasForm extends FormLayout {
 	}
 
 	/**
-	 * Se obtienen las aulas del responsable que ha accedido a la app, y de esas
-	 * aulas se obtienen los centros.
+	 * Carga las aulas del propietario seleccionado en el desplegable de propietarios.
 	 */
-	private void getCentrosAulasResponsable(PropietarioAula responsable) {
-		PropietarioAula centroAula;
-		try {
-			lstCentrosResponsable = new ArrayList<PropietarioAula>();
-
-			lstAulasResponsable = aulaService.findAllAulasPropietario(responsable);
-
-			for (Aula aula : lstAulasResponsable) {
-				centroAula = aula.getUbicacionCentro();
-				if (!lstCentrosResponsable.contains(centroAula))
-					lstCentrosResponsable.add(aula.getUbicacionCentro());
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	/**
-	 * Carga las aulas del centro seleccionado en el desplegable de aulas.
-	 */
-	private void cargarAulasCentro() {
+	private void cargarAulasPropietario() {
 		List<Aula> lstAulas;
 		try {
-			lstAulas = new ArrayList<Aula>();
-
-			if (!centro.isEmpty()) {
-				for (Aula aula : lstAulasResponsable) {
-					if (aula.getUbicacionCentro().equals(centro.getValue()))
-						lstAulas.add(aula);
-				}
-
+			if (!propietarioAula.isEmpty()) {
+				lstAulas = aulaService.findAllAulasPropietario(propietarioAula.getValue());
 				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {

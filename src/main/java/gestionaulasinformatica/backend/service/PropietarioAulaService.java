@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
 
 /**
@@ -58,8 +59,24 @@ public class PropietarioAulaService {
 		if (filtroTexto == null || filtroTexto.isEmpty()) {
 			return propietarioAulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombrePropietarioAula"));
 		} else {
-			return propietarioAulaRepository.search(filtroTexto);
+			return propietarioAulaRepository.buscarPropietario(filtroTexto);
 		}
+	}
+
+	/**
+	 * Función que devuelve una lista con todos los propietarios de aulas cuyo
+	 * responsable sea el pasado por parámetro.
+	 * 
+	 * @param usuarioLogeado Usuario del que se quieren obtener los propietarios de
+	 *                       aulas
+	 *                       
+	 * @return Lista con todos los propietarios de aulas cuyo responsable sea el
+	 *         pasado por parámetro
+	 */
+	public List<PropietarioAula> findAllPropietariosResponsable(Usuario usuarioLogeado) {
+		
+		System.out.println(usuarioLogeado);
+		return propietarioAulaRepository.findAllPropietariosResponsable(usuarioLogeado);
 	}
 
 	/**

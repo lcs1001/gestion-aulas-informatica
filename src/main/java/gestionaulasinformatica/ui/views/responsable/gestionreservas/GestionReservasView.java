@@ -30,6 +30,7 @@ import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.entity.Usuario;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.HistoricoReservasService;
+import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
 import gestionaulasinformatica.backend.service.UsuarioService;
 import gestionaulasinformatica.ui.Comunes;
@@ -50,6 +51,7 @@ public class GestionReservasView extends VerticalLayout {
 	private AulaService aulaService;
 	private HistoricoReservasService historicoReservasService;
 	private UsuarioService usuarioService;
+	private PropietarioAulaService propietarioAulaService;
 	private Comunes comunes;
 
 	private GestionReservasBusquedaForm formularioBusqueda;
@@ -60,7 +62,8 @@ public class GestionReservasView extends VerticalLayout {
 	private Usuario responsableLogeado;
 
 	public GestionReservasView(ReservaService reservaService, AulaService aulaService,
-			HistoricoReservasService historicoReservasService, UsuarioService usuarioService) {
+			HistoricoReservasService historicoReservasService, UsuarioService usuarioService,
+			PropietarioAulaService propietarioAulaService) {
 		Div contenido;
 
 		try {
@@ -68,6 +71,7 @@ public class GestionReservasView extends VerticalLayout {
 			this.aulaService = aulaService;
 			this.historicoReservasService = historicoReservasService;
 			this.usuarioService = usuarioService;
+			this.propietarioAulaService = propietarioAulaService;
 			comunes = new Comunes();
 
 			responsableLogeado = this.usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
@@ -79,8 +83,9 @@ public class GestionReservasView extends VerticalLayout {
 			configurarGridReservas();
 
 			formularioBusqueda = new GestionReservasBusquedaForm(comunes);
-			// TODO: pasar el responsable que ha accedido a la app
-			formularioEdicion = new GestionReservasForm(this.aulaService, null, comunes);
+
+			formularioEdicion = new GestionReservasForm(this.aulaService,
+					this.propietarioAulaService.findAllPropietariosResponsable(responsableLogeado), comunes);
 			formularioEdicion.addListener(GestionReservasForm.SaveEvent.class, this::guardarReserva);
 			formularioEdicion.addListener(GestionReservasForm.CloseEvent.class, e -> cerrarEditor());
 

@@ -39,7 +39,6 @@ public class HistoricoReservas implements Serializable {
 	private LocalDateTime fechaHoraOperacion;
 
 	@NotNull
-	@Size(max = 15)
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_operacion")
 	private TipoOperacionHR tipoOperacion;

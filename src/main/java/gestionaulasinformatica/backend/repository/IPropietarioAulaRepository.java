@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.entity.Usuario;
 
 /**
  * Repositorio para la entidad PropietarioAula con clave primaria de tipo
@@ -19,9 +20,13 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
  */
 public interface IPropietarioAulaRepository extends JpaRepository<PropietarioAula, String> {
 	@Query("SELECT p FROM PropietarioAula p "
-			+ "WHERE lower(p.nombrePropietarioAula) LIKE lower(concat('%', :filtroTexto, '%')) ORDER BY nombrePropietarioAula ASC")
-	List<PropietarioAula> search(@Param("filtroTexto") String filtroTexto);
+			+ "WHERE lower(p.nombrePropietarioAula) LIKE lower(concat('%', :filtroTexto, '%')) "
+			+ "ORDER BY nombrePropietarioAula ASC")
+	List<PropietarioAula> buscarPropietario(@Param("filtroTexto") String filtroTexto);
 
 	@Query("SELECT c FROM Centro c ORDER BY nombrePropietarioAula ASC")
 	List<PropietarioAula> findAllCentros();
+
+	@Query("SELECT p FROM PropietarioAula p " + "WHERE p.usuarioResponsable = :usuarioLogeado " + "ORDER BY nombrePropietarioAula ASC")
+	List<PropietarioAula> findAllPropietariosResponsable(@Param("usuarioLogeado") Usuario usuarioLogeado);
 }

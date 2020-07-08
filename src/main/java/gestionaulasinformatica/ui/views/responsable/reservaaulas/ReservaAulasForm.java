@@ -45,7 +45,7 @@ public class ReservaAulasForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 
 	private AulaService aulaService;
-	private List<PropietarioAula> lstCentros;
+	private List<PropietarioAula> lstPropietarios;
 	private Comunes comunes;
 	private Usuario responsableLogeado;
 
@@ -53,7 +53,7 @@ public class ReservaAulasForm extends FormLayout {
 	protected DatePicker fechaFin;
 	protected TimePicker horaInicio;
 	protected TimePicker horaFin;
-	protected ComboBox<PropietarioAula> centro;
+	protected ComboBox<PropietarioAula> propietarioAula;
 	protected ComboBox<Aula> aula;
 	protected ComboBox<String> diaSemana;
 	protected TextField motivo;
@@ -71,19 +71,20 @@ public class ReservaAulasForm extends FormLayout {
 	 * Constructor de la clase.
 	 * 
 	 * @param aulaService        Service de JPA de la entidad Aula
-	 * @param centros            Lista de centros que se muestra en el desplegable
-	 *                           de centros
+	 * @param propietarios       Lista de propietarios de aulas bajo la
+	 *                           responsabilidad del usuario logeado que se muestra
+	 *                           en el desplegable de centros
 	 * @param comunes            Objeto de la clase Comunes para acceder a las
 	 *                           funciones comunes
 	 * @param responsableLogeado Responsable logeado en la app
 	 */
-	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> centros, Comunes comunes,
+	public ReservaAulasForm(AulaService aulaService, List<PropietarioAula> propietarios, Comunes comunes,
 			Usuario responsableLogeado) {
 		try {
 			addClassName("reserva-aulas-form");
 
 			this.aulaService = aulaService;
-			this.lstCentros = centros;
+			this.lstPropietarios = propietarios;
 			this.comunes = comunes;
 			this.responsableLogeado = responsableLogeado;
 
@@ -98,7 +99,7 @@ public class ReservaAulasForm extends FormLayout {
 			binder.bind(fechaInicio, "fecha");
 
 			add(fechaInicio, horaInicio);
-			add(centro, 2);
+			add(propietarioAula, 2);
 			add(fechaFin, horaFin);
 			add(aula, 2);
 			add(diaSemana, 2);
@@ -147,12 +148,12 @@ public class ReservaAulasForm extends FormLayout {
 			horaFin.setLocale(comunes.getLocaleES());
 			horaFin.setClearButtonVisible(true);
 
-			centro = new ComboBox<PropietarioAula>("Centro");
-			centro.setPlaceholder("Seleccione");
-			centro.setItems(lstCentros);
-			centro.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
-			centro.addValueChangeListener(e -> cargarAulasCentro());
-			centro.setRequiredIndicatorVisible(true);
+			propietarioAula = new ComboBox<PropietarioAula>("Centro/Departamento");
+			propietarioAula.setPlaceholder("Seleccione");
+			propietarioAula.setItems(lstPropietarios);
+			propietarioAula.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietarioAula.addValueChangeListener(e -> cargarAulasPropietario());
+			propietarioAula.setRequiredIndicatorVisible(true);
 
 			aula = new ComboBox<Aula>("Aula");
 			aula.setPlaceholder("Seleccione");
@@ -211,13 +212,13 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Carga las aulas del centro seleccionado en el desplegable de aulas.
+	 * Carga las aulas del propietario seleccionado en el desplegable de propietarios.
 	 */
-	private void cargarAulasCentro() {
+	private void cargarAulasPropietario() {
 		List<Aula> lstAulas;
 		try {
-			if (!centro.isEmpty()) {
-				lstAulas = aulaService.findAllAulasPropietario(centro.getValue());
+			if (!propietarioAula.isEmpty()) {
+				lstAulas = aulaService.findAllAulasPropietario(propietarioAula.getValue());
 				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {
@@ -291,7 +292,7 @@ public class ReservaAulasForm extends FormLayout {
 			fechaFin.clear();
 			horaInicio.clear();
 			horaFin.clear();
-			centro.clear();
+			propietarioAula.clear();
 			aula.clear();
 			diaSemana.setValue("Seleccione");
 			motivo.clear();
@@ -305,14 +306,15 @@ public class ReservaAulasForm extends FormLayout {
 	 * Función que establece la reserva actual del binder.
 	 * 
 	 * @param reserva Reserva actual
-	 * @param nueva Si se trata de una nueva reserva o de una modificación
+	 * @param nueva   Si se trata de una nueva reserva o de una modificación
 	 */
 	public void setReserva(Reserva reserva, Boolean nueva) {
 		try {
 			this.reserva = reserva;
 			binder.readBean(reserva);
-			
-			if(nueva) reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
+
+			if (nueva)
+				reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
 
 		} catch (Exception e) {
 			throw e;
@@ -350,7 +352,7 @@ public class ReservaAulasForm extends FormLayout {
 			}
 
 			// Si se ha dejado algún campo vacío
-			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || centro.isEmpty() || aula.isEmpty()
+			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || propietarioAula.isEmpty() || aula.isEmpty()
 					|| motivo.isEmpty() || aCargoDe.isEmpty() || (!chkReservaRango.isEmpty() && (fechaFin.isEmpty()))) {
 				comunes.mostrarNotificacion(Mensajes.MSG_TODOS_CAMPOS_OBLIGATORIOS.getMensaje(), 5000,
 						NotificationVariant.LUMO_ERROR);
@@ -394,13 +396,13 @@ public class ReservaAulasForm extends FormLayout {
 					diasReserva = ChronoUnit.DAYS.between(fechaInicio.getValue(), fechaFin.getValue()) + 1;
 					fecha = fechaInicio.getValue();
 
-					// Si se ha seleccionado un dia de la semana para reservar
+					// Si se ha seleccionado un día de la semana para reservar
 					if (!diaSemana.getValue().equalsIgnoreCase("Seleccione")) {
 						diaSemanaG = diaSemana.getValue();
 					}
 
 					for (int i = 1; i <= diasReserva; i++) {
-						// Si se ha seleccionado un dia de la semana para reservar
+						// Si se ha seleccionado un día de la semana para reservar
 						if (!diaSemanaG.isEmpty()) {
 							if (comunes.getDiaSemana(fecha.getDayOfWeek().getValue()).equals(diaSemanaG)) {
 								reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(), diaSemanaG,

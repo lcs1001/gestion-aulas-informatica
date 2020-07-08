@@ -76,7 +76,7 @@ public class ReservaAulasView extends VerticalLayout {
 			addClassName("reserva-aulas-view");
 			setSizeFull();
 
-			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllCentros(), comunes,
+			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllPropietariosResponsable(responsableLogeado), comunes,
 					responsableLogeado);
 			formulario.addListener(ReservaAulasForm.SaveEvent.class, this::guardarReserva);
 			formulario.addListener(ReservaAulasForm.SaveRangeEvent.class, this::guardarReservaRango);
@@ -148,7 +148,6 @@ public class ReservaAulasView extends VerticalLayout {
 			reserva = evt.getReserva();
 			reservaService.save(reserva);
 
-			// TODO: guardar como responsable de la operación el que ha accedido a la app
 			lugarReserva = reserva.getAula().getNombreAula() + " - "
 					+ reserva.getAula().getUbicacionCentro().getNombrePropietarioAula();
 			operacionReserva = new HistoricoReservas(LocalDateTime.now(), TipoOperacionHR.CREACIÓN, reserva.getMotivo(),
