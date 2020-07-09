@@ -192,7 +192,7 @@ public class ReservaAulasForm extends FormLayout {
 	private void configurarToolbar() {
 		try {
 			btnReservar = new Button("Reservar", click -> validarGuardar());
-			btnReservar.setIcon(new Icon(VaadinIcon.CHECK_CIRCLE_O));
+			btnReservar.setIcon(new Icon(VaadinIcon.CHECK));
 			btnReservar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnReservar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
@@ -212,7 +212,8 @@ public class ReservaAulasForm extends FormLayout {
 	}
 
 	/**
-	 * Carga las aulas del propietario seleccionado en el desplegable de propietarios.
+	 * Carga las aulas del propietario seleccionado en el desplegable de
+	 * propietarios.
 	 */
 	private void cargarAulasPropietario() {
 		List<Aula> lstAulas;
@@ -326,7 +327,7 @@ public class ReservaAulasForm extends FormLayout {
 	 * 
 	 * @return Si los campos introducidos para reservar un aula son correctos
 	 */
-	private Boolean validarReserva() {
+	private Boolean validarCamposReserva() {
 		Boolean valido = true;
 
 		try {
@@ -352,8 +353,9 @@ public class ReservaAulasForm extends FormLayout {
 			}
 
 			// Si se ha dejado algún campo vacío
-			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || propietarioAula.isEmpty() || aula.isEmpty()
-					|| motivo.isEmpty() || aCargoDe.isEmpty() || (!chkReservaRango.isEmpty() && (fechaFin.isEmpty()))) {
+			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || propietarioAula.isEmpty()
+					|| aula.isEmpty() || motivo.isEmpty() || aCargoDe.isEmpty()
+					|| (!chkReservaRango.isEmpty() && (fechaFin.isEmpty()))) {
 				comunes.mostrarNotificacion(Mensajes.MSG_TODOS_CAMPOS_OBLIGATORIOS.getMensaje(), 5000,
 						NotificationVariant.LUMO_ERROR);
 				valido = false;
@@ -364,6 +366,53 @@ public class ReservaAulasForm extends FormLayout {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	/**
+	 * Función que comprueba si una reserva es válida, es decir, si el aula que se
+	 * quiere reservar está disponible en esa/s fecha/s y horas.
+	 * 
+	 * @param reserva Reserva que se quiere validar
+	 * 
+	 * @return Si la reserva es válida o no
+	 */
+	private Boolean validarReserva() {
+		List<Aula> aulaConsulta;
+		Aula aulaReserva;
+		Boolean valida = false;
+
+		try {
+
+			aulaReserva = aula.getValue();
+
+			// Si es una reserva de un solo día
+			if (chkReservaRango.isEmpty()) {
+				aulaConsulta = aulaService.findAll(fechaInicio.getValue(), fechaInicio.getValue(),
+						horaInicio.getValue(), horaFin.getValue(), aulaReserva.getCapacidadInt(),
+						aulaReserva.getNumOrdenadoresInt(), null, null, aulaReserva.getIdAula());
+
+				if (aulaConsulta.contains(aulaReserva))
+					valida = true;
+
+			} else {
+				aulaConsulta = aulaService.findAll(fechaInicio.getValue(), fechaFin.getValue(), horaInicio.getValue(),
+						horaFin.getValue(), aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(),
+						diaSemana.getValue(), null, aulaReserva.getIdAula());
+
+				if (aulaConsulta.contains(aulaReserva))
+					valida = true;
+			}
+
+			// Si el aula no está disponible se muestra un notificación de error
+			if (!valida)
+				comunes.mostrarNotificacion(Mensajes.MSG_AULA_NO_DISPONIBLE.getMensaje(), 3000,
+						NotificationVariant.LUMO_ERROR);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return valida;
 	}
 
 	/**
@@ -383,7 +432,7 @@ public class ReservaAulasForm extends FormLayout {
 		LocalDate fecha;
 		String diaSemanaG = "";
 		try {
-			if (validarReserva()) {
+			if (validarCamposReserva() & validarReserva()) {
 
 				// Si es una reserva de un solo día
 				if (chkReservaRango.isEmpty()) {

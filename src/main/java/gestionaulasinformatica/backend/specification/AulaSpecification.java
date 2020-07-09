@@ -37,12 +37,13 @@ public class AulaSpecification {
 	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
 	 * @param diaSemana      Día de la semana que debe estar disponible el aula
 	 * @param propietario    Propietario del aula
+	 * @param idAula         ID del aula
 	 * 
 	 * @return Aulas disponibles que cumplen con los filtros aplicados
 	 */
 	public static Specification<Aula> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
 			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, String diaSemana,
-			PropietarioAula propietarioAula) {
+			PropietarioAula propietarioAula, Integer idAula) {
 		return new Specification<Aula>() {
 
 			private static final long serialVersionUID = 1L;
@@ -80,9 +81,9 @@ public class AulaSpecification {
 
 					Predicate andHoras = cb.and(horaHastaMayorInicio, horaDesdeMenorFin);
 					Predicate andFechaHoras = cb.and(fechaReservaEntre, andHoras);
-					
+
 					// Si se ha filtrado por día de la semana, se añade el AND a la subconsulta
-					if(!StringUtils.isEmpty(diaSemana)) {
+					if (!StringUtils.isEmpty(diaSemana)) {
 						// r.diaSemana = diaSemana
 						Predicate diaSemanaP = cb.equal(subRoot.get("diaSemana"), diaSemana);
 
@@ -92,7 +93,7 @@ public class AulaSpecification {
 					} else {
 						predicatesSubconsulta.add(andFechaHoras);
 					}
-					
+
 					subquery.where(predicatesSubconsulta.toArray(new Predicate[0]));
 
 					Predicate fechaHoraPredicate = cb.in(root.get("idAula")).value(subquery).not();
@@ -118,6 +119,12 @@ public class AulaSpecification {
 				if (!StringUtils.isEmpty(propietarioAula)) {
 					final Predicate propietarioAulaPredicate = cb.equal(root.get("propietarioAula"), propietarioAula);
 					predicates.add(propietarioAulaPredicate);
+				}
+
+				// Se obtiene el aula con el ID pasado
+				if (!StringUtils.isEmpty(idAula)) {
+					final Predicate idAulaPredicate = cb.equal(root.get("idAula"), idAula);
+					predicates.add(idAulaPredicate);
 				}
 
 				return cb.and(predicates.toArray(new Predicate[predicates.size()]));

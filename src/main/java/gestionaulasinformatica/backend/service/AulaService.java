@@ -79,9 +79,9 @@ public class AulaService {
 	 *         con los filtros aplicados
 	 */
 	public List<Aula> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
-			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario) {
+			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario, Integer idAula) {
 		return aulaRepository.findAll(AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta,
-				capacidad, numOrdenadores, diaSemana, propietario), Sort.by(Sort.Direction.ASC, "nombreAula"));
+				capacidad, numOrdenadores, diaSemana, propietario, idAula), Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
 
 	/**

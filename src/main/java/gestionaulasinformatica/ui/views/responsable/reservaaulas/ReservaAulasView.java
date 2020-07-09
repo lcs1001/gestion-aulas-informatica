@@ -144,7 +144,6 @@ public class ReservaAulasView extends VerticalLayout {
 		String lugarReserva;
 		HistoricoReservas operacionReserva;
 		try {
-			// TODO: Validar reserva
 			reserva = evt.getReserva();
 			reservaService.save(reserva);
 
@@ -177,7 +176,6 @@ public class ReservaAulasView extends VerticalLayout {
 		String lugarReserva;
 		HistoricoReservas operacionReserva;
 		try {
-			// TODO: Validar reserva
 			lstReservas = evt.getReservas();
 
 			for (Reserva reserva : lstReservas) {

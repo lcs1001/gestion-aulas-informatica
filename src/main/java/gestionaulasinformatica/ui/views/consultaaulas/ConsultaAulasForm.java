@@ -9,7 +9,9 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 
+import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.ui.Comunes;
 
 /**
@@ -23,6 +25,7 @@ public class ConsultaAulasForm extends FormLayout {
 
 	private List<PropietarioAula> lstPropietariosAulas;
 	private Comunes comunes;
+	private AulaService aulaService;
 
 	protected DatePicker fechaDesde;
 	protected DatePicker fechaHasta;
@@ -32,6 +35,7 @@ public class ConsultaAulasForm extends FormLayout {
 	protected NumberField numOrdenadores;
 	protected ComboBox<String> diaSemana;
 	protected ComboBox<PropietarioAula> propietario;
+	protected ComboBox<Aula> aula;
 
 	/**
 	 * Constructor de la clase
@@ -39,13 +43,15 @@ public class ConsultaAulasForm extends FormLayout {
 	 * @param propietarios Lista de responsables (PropietarioAula) que se muestra en
 	 *                     el desplegable de responsables
 	 * @param comunes      Objeto Comunes para tener acceso a las funciones comunes
+	 * @param aulaService  Service de JPA de la entidad Aula
 	 */
-	public ConsultaAulasForm(List<PropietarioAula> propietarios, Comunes comunes) {
+	public ConsultaAulasForm(List<PropietarioAula> propietarios, Comunes comunes, AulaService aulaService) {
 		try {
 			addClassName("consulta-aulas-form");
 
 			this.lstPropietariosAulas = propietarios;
 			this.comunes = comunes;
+			this.aulaService = aulaService;
 
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4), new ResponsiveStep("25em", 5));
@@ -53,9 +59,10 @@ public class ConsultaAulasForm extends FormLayout {
 			configurarFiltros();
 
 			add(fechaDesde, horaDesde, capacidad);
-			add(diaSemana, 2);
-			add(fechaHasta, horaHasta, numOrdenadores);
 			add(propietario, 2);
+			add(fechaHasta, horaHasta, numOrdenadores);
+			add(aula, 2);
+			add(diaSemana, 1);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -113,14 +120,19 @@ public class ConsultaAulasForm extends FormLayout {
 			propietario.setPlaceholder("Seleccione");
 			propietario.setItems(lstPropietariosAulas);
 			propietario.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietario.addValueChangeListener(e -> cargarAulasPropietario());
 			propietario.setRequired(true); // Campo obligatorio
 			propietario.setRequiredIndicatorVisible(true);
+
+			aula = new ComboBox<Aula>("Aula");
+			aula.setPlaceholder("Seleccione");
+			aula.setItemLabelGenerator(Aula::getNombreAula);
 
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * Función que establece como "hora hasta" mínima la "hora desde" elegida.
 	 */
@@ -128,6 +140,22 @@ public class ConsultaAulasForm extends FormLayout {
 		try {
 			if (!horaDesde.isEmpty()) {
 				horaHasta.setMinTime(horaDesde.getValue());
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * Carga las aulas del propietario seleccionado en el desplegable de
+	 * propietarios.
+	 */
+	private void cargarAulasPropietario() {
+		List<Aula> lstAulas;
+		try {
+			if (!propietario.isEmpty()) {
+				lstAulas = aulaService.findAllAulasPropietario(propietario.getValue());
+				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {
 			throw e;

@@ -127,7 +127,7 @@ public class MantUsuariosForm extends FormLayout {
 
 		try {
 			btnGuardar = new Button("Guardar");
-			btnGuardar.setIcon(new Icon(VaadinIcon.CHECK_CIRCLE_O));
+			btnGuardar.setIcon(new Icon(VaadinIcon.CHECK));
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
