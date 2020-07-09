@@ -1,6 +1,7 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -71,14 +72,14 @@ public class PropietarioAula implements Serializable {
 	 * es responsable el centro o departamento.
 	 */
 	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Aula> lstAulasPropiedad;
+	private Set<Aula> lstAulasPropiedad = new HashSet<>();
 
 	/**
 	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
 	 * ha realizado el responsable del centro o departamento.
 	 */
-	@OneToMany(mappedBy = "propietarioResponsable", cascade = CascadeType.ALL)
-	private Set<Reserva> lstReservasPropietarioAula;
+	@OneToMany(mappedBy = "propietarioResponsable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Reserva> lstReservasPropietarioAula = new HashSet<>();
 
 	/**
 	 * Constructor de la clase sin parámetros.
@@ -221,6 +222,20 @@ public class PropietarioAula implements Serializable {
 
 		return aula;
 	}
+	
+	/**
+	 * Función que elimina el aula pasada de la lista de aulas de las que es
+	 * propietario
+	 * 
+	 * @param aula Aula que eliminar la lista de aulas de las que es propietario
+	 * 
+	 * @return Aula eliminada
+	 */
+	public Aula removeAulaResponsable(Aula aula) {
+		this.getAulasPropiedad().remove(aula);
+
+		return aula;
+	}
 
 	/**
 	 * Función que devuelve una lista de reservas de las que es responsable.
@@ -251,21 +266,6 @@ public class PropietarioAula implements Serializable {
 	 */
 	public Reserva addReservaPropietarioAula(Reserva reserva) {
 		this.getReservasPropietarioAula().add(reserva);
-
-		return reserva;
-	}
-
-	/**
-	 * Función que elimina la reserva pasada de la lista de reservas de las que es
-	 * responsable.
-	 * 
-	 * @param reserva Reserva que eliminar de la lista de reservas de las que es
-	 *                responsable
-	 * 
-	 * @return Reserva eliminada
-	 */
-	public Reserva removeReservaPropietarioAula(Reserva reserva) {
-		getReservasPropietarioAula().remove(reserva);
 
 		return reserva;
 	}

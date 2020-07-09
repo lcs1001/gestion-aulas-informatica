@@ -152,15 +152,16 @@ public class GestionReservasView extends VerticalLayout {
 			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", event -> formularioBusqueda.limpiarFiltros());
+			btnLimpiarFiltros = new Button("Limpiar filtros", event -> formularioBusqueda.limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
-			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
+			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_ICON);
 
 			btnModificar = new Button("Modificar", click -> modificarReserva(gridReservas.getSelectedItems()));
+			btnModificar.setIcon(new Icon(VaadinIcon.EDIT));
 			btnModificar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			btnEliminar = new Button("Eliminar");
+			btnEliminar.setIcon(new Icon(VaadinIcon.TRASH));
 			btnEliminar.addClickListener(click -> confirmarEliminacionReservas(gridReservas.getSelectedItems()));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 

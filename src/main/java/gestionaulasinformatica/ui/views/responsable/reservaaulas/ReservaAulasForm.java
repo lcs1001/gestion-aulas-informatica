@@ -192,13 +192,13 @@ public class ReservaAulasForm extends FormLayout {
 	private void configurarToolbar() {
 		try {
 			btnReservar = new Button("Reservar", click -> validarGuardar());
+			btnReservar.setIcon(new Icon(VaadinIcon.CHECK_CIRCLE_O));
 			btnReservar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnReservar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarCampos = new Button("", click -> limpiarCampos());
+			btnLimpiarCampos = new Button("Limpiar campos", click -> limpiarCampos());
 			btnLimpiarCampos.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarCampos.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnLimpiarCampos.getElement().setProperty("title", "Limpiar campos");
 
 			chkReservaRango = new Checkbox("Reserva por Rango de Fechas");
 			chkReservaRango.addClickListener(e -> reservaRango());

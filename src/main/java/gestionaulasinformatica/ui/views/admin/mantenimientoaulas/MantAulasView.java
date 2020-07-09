@@ -250,8 +250,14 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			aula = evt.getAula();
 
-			mensajeConfirmacion = "¿Desea eliminar " + aula.getNombreAula() + " de " + aula.getNombreCentro()
-					+ " definitivamente? Esta acción no se puede deshacer.";
+			// Si tiene reservas asociadas
+			if (aula.tieneReservas()) {
+				mensajeConfirmacion = "El aula " + aula.getNombreAula() + " de " + aula.getNombreCentro()
+						+ " tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? Esta acción no se puede deshacer.";
+			} else {
+				mensajeConfirmacion = "¿Desea eliminar " + aula.getNombreAula() + " de " + aula.getNombreCentro()
+						+ " definitivamente? Esta acción no se puede deshacer.";
+			}
 
 			confirmacion = new Dialog(new Label(mensajeConfirmacion));
 			confirmacion.setCloseOnEsc(false);

@@ -12,6 +12,8 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -152,11 +154,13 @@ public class GestionReservasForm extends FormLayout {
 	private void configurarToolbar() {
 		try {
 			btnGuardar = new Button("Guardar");
+			btnGuardar.setIcon(new Icon(VaadinIcon.CHECK_CIRCLE_O));
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 			btnCancelar = new Button("Cancelar");
+			btnCancelar.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnCancelar.addClickListener(click -> fireEvent(new CloseEvent(this)));
 			btnCancelar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
 			btnCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);

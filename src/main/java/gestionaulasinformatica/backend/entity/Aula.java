@@ -1,11 +1,13 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,8 +80,8 @@ public class Aula implements Serializable {
 	 * Asociación bidireccional OneToMany con Reserva para indicar las reservas
 	 * hechas sobre el aula.
 	 */
-	@OneToMany(mappedBy = "aula", cascade = CascadeType.ALL)
-	private Set<Reserva> lstReservas;
+	@OneToMany(mappedBy = "aula", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Reserva> lstReservas = new HashSet<>();
 
 	/**
 	 * Constructor vacío de la clase.
@@ -254,6 +256,15 @@ public class Aula implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve si el aula tiene reservas asociadas o no.
+	 * 
+	 * @return Si el aula tiene reservas asociadas o no.
+	 */
+	public Boolean tieneReservas() {
+		return this.getReservasAula().isEmpty() ? false : true;
+	}
+
+	/**
 	 * Función que devuelve una lista de las reservas del aula.
 	 * 
 	 * @return Lista de reservas del aula
@@ -280,19 +291,6 @@ public class Aula implements Serializable {
 	 */
 	public Reserva addReservaAula(Reserva reserva) {
 		this.getReservasAula().add(reserva);
-
-		return reserva;
-	}
-
-	/**
-	 * Función que elimina la reserva pasada de la lista de reservas del aula.
-	 * 
-	 * @param reserva Reserva que eliminar de la lista de reservas del aula
-	 * 
-	 * @return Reserva eliminada
-	 */
-	public Reserva removeReservaAula(Reserva reserva) {
-		this.getReservasAula().remove(reserva);
 
 		return reserva;
 	}

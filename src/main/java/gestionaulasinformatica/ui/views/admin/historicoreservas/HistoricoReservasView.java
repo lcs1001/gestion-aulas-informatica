@@ -84,10 +84,9 @@ public class HistoricoReservasView extends VerticalLayout {
 			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("", event -> limpiarFiltros());
+			btnLimpiarFiltros = new Button("Limpiar filtros", event -> limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
-			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-			btnLimpiarFiltros.getElement().setProperty("title", "Limpiar filtros");
+			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_ICON);
 
 			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros);
 			toolbar.addClassName("toolbar");
