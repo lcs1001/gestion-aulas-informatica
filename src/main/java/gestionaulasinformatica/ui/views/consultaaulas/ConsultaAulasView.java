@@ -226,9 +226,9 @@ public class ConsultaAulasView extends VerticalLayout {
 				capacidad = capacidad == null ? 0 : capacidad;
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
 
-				lstAulas = aulaService.findAll(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
+				lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
 						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),
-						formulario.diaSemana.getValue(), formulario.propietario.getValue(), formulario.aula.getValue().getIdAula());
+						formulario.diaSemana.getValue(), formulario.propietario.getValue(), formulario.aula.getValue().getIdAula(), null);
 
 				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);

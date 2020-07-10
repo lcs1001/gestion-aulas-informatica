@@ -73,7 +73,7 @@ public class GestionReservasForm extends FormLayout {
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			binder = new BeanValidationBinder<>(Reserva.class);
-			
+
 			configurarCampos();
 			configurarToolbar();
 
@@ -154,7 +154,7 @@ public class GestionReservasForm extends FormLayout {
 	private void configurarToolbar() {
 		try {
 			btnGuardar = new Button("Guardar");
-			btnGuardar.setIcon(new Icon(VaadinIcon.CHECK_CIRCLE_O));
+			btnGuardar.setIcon(new Icon(VaadinIcon.CHECK));
 			btnGuardar.addClickListener(click -> validarGuardar());
 			btnGuardar.addClickShortcut(Key.ENTER); // Se guarda al pulsar Enter en el teclado
 			btnGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -174,7 +174,7 @@ public class GestionReservasForm extends FormLayout {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * Función que establece como hora de fin mínima la hora de inicio elegida.
 	 */
@@ -189,7 +189,8 @@ public class GestionReservasForm extends FormLayout {
 	}
 
 	/**
-	 * Carga las aulas del propietario seleccionado en el desplegable de propietarios.
+	 * Carga las aulas del propietario seleccionado en el desplegable de
+	 * propietarios.
 	 */
 	private void cargarAulasPropietario() {
 		List<Aula> lstAulas;
@@ -236,7 +237,7 @@ public class GestionReservasForm extends FormLayout {
 	 * 
 	 * @return Si los filtros introducidos para consultar las reservas son correctos
 	 */
-	private Boolean validarReserva() {
+	private Boolean validarCamposReserva() {
 		Boolean valido = true;
 
 		try {
@@ -257,11 +258,47 @@ public class GestionReservasForm extends FormLayout {
 	}
 
 	/**
-	 * Función que valida la reserva y la guarda (si es válido).
+	 * Función que comprueba si una reserva es válida, es decir, si el aula que se
+	 * quiere reservar está disponible en esa fecha y horas.
+	 * 
+	 * @param reserva Reserva que se quiere validar
+	 * 
+	 * @return Si la reserva es válida o no
+	 */
+	private Boolean validarReserva() {
+		List<Aula> aulaConsulta;
+		Aula aulaReserva;
+		Boolean valida = false;
+
+		try {
+
+			aulaReserva = aula.getValue();
+
+			// Se busca si el aula está en esa fecha y horas en otra reserva 
+			aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fecha.getValue(), fecha.getValue(), horaInicio.getValue(),
+					horaFin.getValue(), aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(), null, null,
+					aulaReserva.getIdAula(), reserva.getIdReserva());
+
+			if (aulaConsulta.contains(aulaReserva)) {
+				valida = true;
+
+			} else { // Si el aula no está disponible se muestra un notificación de error
+				comunes.mostrarNotificacion(Mensajes.MSG_AULA_NO_DISPONIBLE.getMensaje(), 3000,
+						NotificationVariant.LUMO_ERROR);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return valida;
+	}
+
+	/**
+	 * Función que valida la reserva y la guarda (si es válida).
 	 */
 	private void validarGuardar() {
 		try {
-			if (validarReserva()) {
+			if (validarCamposReserva() & validarReserva()) {
 				binder.writeBean(reserva);
 				fireEvent(new SaveEvent(this, reserva));
 			}

@@ -387,17 +387,17 @@ public class ReservaAulasForm extends FormLayout {
 
 			// Si es una reserva de un solo día
 			if (chkReservaRango.isEmpty()) {
-				aulaConsulta = aulaService.findAll(fechaInicio.getValue(), fechaInicio.getValue(),
+				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(), fechaInicio.getValue(),
 						horaInicio.getValue(), horaFin.getValue(), aulaReserva.getCapacidadInt(),
-						aulaReserva.getNumOrdenadoresInt(), null, null, aulaReserva.getIdAula());
+						aulaReserva.getNumOrdenadoresInt(), null, null, aulaReserva.getIdAula(), null);
 
 				if (aulaConsulta.contains(aulaReserva))
 					valida = true;
 
 			} else {
-				aulaConsulta = aulaService.findAll(fechaInicio.getValue(), fechaFin.getValue(), horaInicio.getValue(),
+				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(), fechaFin.getValue(), horaInicio.getValue(),
 						horaFin.getValue(), aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(),
-						diaSemana.getValue(), null, aulaReserva.getIdAula());
+						diaSemana.getValue(), null, aulaReserva.getIdAula(), null);
 
 				if (aulaConsulta.contains(aulaReserva))
 					valida = true;

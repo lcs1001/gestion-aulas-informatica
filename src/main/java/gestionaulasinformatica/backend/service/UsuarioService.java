@@ -93,13 +93,13 @@ public class UsuarioService {
 	 */
 	/**
 	 * Función que guarda el usuario pasado por parámetro en la BD si no está
-	 * bloqueado,
+	 * bloqueado.
 	 * 
 	 * @param usuario Usuario que se quiere guardar
 	 */
 	public void save(Usuario usuario) {
 		throwIfUserLocked(usuario);
-		usuarioRepository.saveAndFlush(usuario);
+		usuarioRepository.save(usuario);
 	}
 
 	/**

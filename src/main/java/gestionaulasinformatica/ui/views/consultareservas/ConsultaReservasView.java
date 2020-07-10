@@ -197,7 +197,7 @@ public class ConsultaReservasView extends VerticalLayout {
 			gridReservas.setVisible(false);
 
 			if (validarFiltrosConsultaReservas()) {
-				lstReservas = reservaService.findAll(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
+				lstReservas = reservaService.findAllReservasFiltros(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
 						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
 						formulario.diaSemana.getValue(), formulario.propietario.getValue());
 

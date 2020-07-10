@@ -146,31 +146,63 @@ public class GestionReservasView extends VerticalLayout {
 		Button btnLimpiarFiltros;
 		Button btnModificar;
 		Button btnEliminar;
+		Button btnInfo;
 
 		try {
-			btnBuscar = new Button("Buscar", event -> consultarReservas());
+			btnBuscar = new Button("Buscar", click -> consultarReservas());
 			btnBuscar.setIcon(new Icon(VaadinIcon.SEARCH));
 			btnBuscar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnLimpiarFiltros = new Button("Limpiar filtros", event -> formularioBusqueda.limpiarFiltros());
+			btnLimpiarFiltros = new Button("Limpiar filtros", click -> formularioBusqueda.limpiarFiltros());
 			btnLimpiarFiltros.setIcon(new Icon(VaadinIcon.CLOSE));
 			btnLimpiarFiltros.addThemeVariants(ButtonVariant.LUMO_ICON);
 
 			btnModificar = new Button("Modificar", click -> modificarReserva(gridReservas.getSelectedItems()));
-			btnModificar.setIcon(new Icon(VaadinIcon.EDIT));
+			btnModificar.setIcon(new Icon(VaadinIcon.PENCIL));
 			btnModificar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-			btnEliminar = new Button("Eliminar");
+			btnEliminar = new Button("Eliminar",
+					click -> confirmarEliminacionReservas(gridReservas.getSelectedItems()));
 			btnEliminar.setIcon(new Icon(VaadinIcon.TRASH));
-			btnEliminar.addClickListener(click -> confirmarEliminacionReservas(gridReservas.getSelectedItems()));
 			btnEliminar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
-			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros, btnModificar, btnEliminar);
+			btnInfo = new Button("", click -> mostrarInfoGestionReservas());
+			btnInfo.setIcon(new Icon(VaadinIcon.INFO_CIRCLE));
+			btnInfo.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+			toolbar = new HorizontalLayout(btnBuscar, btnLimpiarFiltros, btnModificar, btnEliminar, btnInfo);
 			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	/**
+	 * Función que muestra un cuadro de diálogo con la información acerca de la
+	 * gestión de las reservas.
+	 */
+	private void mostrarInfoGestionReservas() {
+		Dialog dialogInfo;
+		Div info;
+		Button btnCerrar;
+		try {
+			dialogInfo = new Dialog();
+			info = new Div();
+
+			info.setText("Sólo se pueden modificar las reservas de una en una."
+					+ " Si desea modificar una reserva de un rango de fechas debe eliminar todas las reservas correspondientes al rango y realizar una nueva reserva de rango");
+			
+			btnCerrar = new Button("Cerrar", click -> dialogInfo.close());
+			btnCerrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+			btnCerrar.addClassName("margin-20");
+			
+			dialogInfo.add(info, btnCerrar);
+			dialogInfo.open();
+		} catch (Exception e) {
+			throw e;
+		}
+
 	}
 
 	/**
@@ -221,7 +253,7 @@ public class GestionReservasView extends VerticalLayout {
 		try {
 			if (validarFiltrosConsultaReservas()) {
 				// TODO: filtrar por el responsable que ha accedido a la app
-				lstReservas = reservaService.findAll(formularioBusqueda.fechaDesde.getValue(),
+				lstReservas = reservaService.findAllReservasFiltros(formularioBusqueda.fechaDesde.getValue(),
 						formularioBusqueda.fechaHasta.getValue(), formularioBusqueda.horaDesde.getValue(),
 						formularioBusqueda.horaHasta.getValue(), formularioBusqueda.diaSemana.getValue(), null);
 
@@ -313,7 +345,6 @@ public class GestionReservasView extends VerticalLayout {
 		HistoricoReservas operacionReserva;
 
 		try {
-			// TODO Validar reserva
 			reserva = evt.getReserva();
 			reservaService.save(reserva);
 

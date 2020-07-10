@@ -63,7 +63,7 @@ public class ReservaService {
 	 * @return Lista con todas las reservas que hay en la BD que cumplen con los
 	 *         filtros aplicados
 	 */
-	public List<Reserva> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
+	public List<Reserva> findAllReservasFiltros(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
 			String diaSemana, PropietarioAula responsable) {
 		return reservaRepository.findAll(ReservaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde,
 				horaHasta, diaSemana, responsable), Sort.by(Sort.Direction.ASC, "fecha"));
@@ -99,6 +99,6 @@ public class ReservaService {
 			LOGGER.log(Level.SEVERE, "La reserva que se quiere guardar es nula.");
 			return;
 		}
-		reservaRepository.saveAndFlush(reserva);
+		reservaRepository.save(reserva);
 	}
 }

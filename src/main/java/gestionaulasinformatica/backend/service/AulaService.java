@@ -74,14 +74,18 @@ public class AulaService {
 	 * @param numOrdenadores Número de ordenadores mínimo que debe tener el aula
 	 * @param diaSemana      Día de la semana que debe estar disponible el aula
 	 * @param propietario    Propietario del aula
-	 * 
+	 * @param idAula         ID del aula que debe estar disponible
+	 * @param idReserva      ID de la reserva que se está modificando, para
+	 *                       comprobar la disponibilidad del aula sin tener en
+	 *                       cuenta esta reserva
+	 *                       
 	 * @return Lista con todas las aulas disponibles que hay en la BD que cumplen
 	 *         con los filtros aplicados
 	 */
-	public List<Aula> findAll(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
-			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario, Integer idAula) {
+	public List<Aula> findAllAulasDisponiblesFiltros(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
+			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario, Integer idAula, Integer idReserva) {
 		return aulaRepository.findAll(AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta,
-				capacidad, numOrdenadores, diaSemana, propietario, idAula), Sort.by(Sort.Direction.ASC, "nombreAula"));
+				capacidad, numOrdenadores, diaSemana, propietario, idAula, idReserva), Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
 
 	/**
@@ -103,7 +107,7 @@ public class AulaService {
 			LOGGER.log(Level.SEVERE, "El aula que se quiere guardar es nulo.");
 			return;
 		}
-		aulaRepository.saveAndFlush(aula);
+		aulaRepository.save(aula);
 	}
 
 }
