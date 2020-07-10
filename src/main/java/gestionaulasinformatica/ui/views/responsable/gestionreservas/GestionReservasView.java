@@ -121,6 +121,8 @@ public class GestionReservasView extends VerticalLayout {
 			gridReservas.addColumn(Reserva::getNombreCentroAula).setHeader("Centro").setKey("centro");
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
 			gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
+			gridReservas.addColumn(Reserva::getNombrePropietarioResponsable).setHeader("Registrada por")
+					.setKey("registradaPor");
 
 			gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
@@ -192,11 +194,11 @@ public class GestionReservasView extends VerticalLayout {
 
 			info.setText("Sólo se pueden modificar las reservas de una en una."
 					+ " Si desea modificar una reserva de un rango de fechas debe eliminar todas las reservas correspondientes al rango y realizar una nueva reserva de rango");
-			
+
 			btnCerrar = new Button("Cerrar", click -> dialogInfo.close());
 			btnCerrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 			btnCerrar.addClassName("margin-20");
-			
+
 			dialogInfo.add(info, btnCerrar);
 			dialogInfo.open();
 		} catch (Exception e) {
@@ -252,10 +254,10 @@ public class GestionReservasView extends VerticalLayout {
 
 		try {
 			if (validarFiltrosConsultaReservas()) {
-				// TODO: filtrar por el responsable que ha accedido a la app
 				lstReservas = reservaService.findAllReservasFiltros(formularioBusqueda.fechaDesde.getValue(),
 						formularioBusqueda.fechaHasta.getValue(), formularioBusqueda.horaDesde.getValue(),
-						formularioBusqueda.horaHasta.getValue(), formularioBusqueda.diaSemana.getValue(), null);
+						formularioBusqueda.horaHasta.getValue(), formularioBusqueda.diaSemana.getValue(),
+						propietarioAulaService.findAllPropietariosResponsable(responsableLogeado));
 
 				if (!lstReservas.isEmpty()) {
 					gridReservas.setItems(lstReservas);

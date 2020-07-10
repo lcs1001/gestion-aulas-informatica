@@ -1,5 +1,6 @@
 package gestionaulasinformatica.ui.views.consultareservas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.button.Button;
@@ -16,6 +17,7 @@ import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Reserva;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.ReservaService;
@@ -120,6 +122,7 @@ public class ConsultaReservasView extends VerticalLayout {
 			gridReservas.addColumn(Reserva::getNombreCentroAula).setHeader("Centro").setKey("centro");
 			gridReservas.addColumn(Reserva::getMotivo).setHeader("Motivo").setKey("motivo");
 			gridReservas.addColumn(Reserva::getACargoDe).setHeader("A cargo de").setKey("aCargoDe");
+			gridReservas.addColumn(Reserva::getRegistradaPor).setHeader("Registrada por").setKey("registradaPor");
 
 			gridReservas.getColumns().forEach(columna -> columna.setAutoWidth(true));
 
@@ -192,14 +195,18 @@ public class ConsultaReservasView extends VerticalLayout {
 	 */
 	private void consultarReservas() {
 		List<Reserva> lstReservas;
+		List<PropietarioAula> propietario;
 
 		try {
 			gridReservas.setVisible(false);
+			
+			propietario = new ArrayList<PropietarioAula>();
+			propietario.add(formulario.propietario.getValue());
 
 			if (validarFiltrosConsultaReservas()) {
 				lstReservas = reservaService.findAllReservasFiltros(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
 						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
-						formulario.diaSemana.getValue(), formulario.propietario.getValue());
+						formulario.diaSemana.getValue(), propietario);
 
 				if (!lstReservas.isEmpty()) {
 					gridReservas.setVisible(true);

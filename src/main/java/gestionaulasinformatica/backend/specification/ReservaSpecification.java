@@ -28,19 +28,22 @@ public class ReservaSpecification {
 	 * Función que devuelve todas las reservas que cumplen con los filtros
 	 * aplicados.
 	 * 
-	 * @param fechaDesde      Fecha (de inicio) desde la que obtener las reservas
-	 * @param fechaHasta      Fecha (de inicio) hasta la que obtener las reservas
-	 * @param horaDesde       Hora (de inicio) de la reserva desde la que obtener
-	 *                        las reservas
-	 * @param horaHasta       Hora (de inicio) de la reserva hasta la que obtener
-	 *                        las reservas
-	 * @param diaSemana       Día de la semana del que obtener las reservas
-	 * @param propietarioAula Propietario del aula de la reserva del que obtener las
-	 *                        reservas
+	 * @param fechaDesde           Fecha (de inicio) desde la que obtener las
+	 *                             reservas
+	 * @param fechaHasta           Fecha (de inicio) hasta la que obtener las
+	 *                             reservas
+	 * @param horaDesde            Hora (de inicio) de la reserva desde la que
+	 *                             obtener las reservas
+	 * @param horaHasta            Hora (de inicio) de la reserva hasta la que
+	 *                             obtener las reservas
+	 * @param diaSemana            Día de la semana del que obtener las reservas
+	 * @param lstPropietariosAulas Lista de posibles propietarios del aula de la
+	 *                             reserva de los que obtener las reservas
+	 * 
 	 * @return Reservas que cumplen con los filtros aplicados
 	 */
 	public static Specification<Reserva> findByFilters(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
-			LocalTime horaHasta, String diaSemana, PropietarioAula responsable) {
+			LocalTime horaHasta, String diaSemana, List<PropietarioAula> lstPropietariosAulas) {
 		return new Specification<Reserva>() {
 
 			private static final long serialVersionUID = 1L;
@@ -81,9 +84,17 @@ public class ReservaSpecification {
 
 				// Se obtienen las reservas realizadas de un determinado centro o departamento
 				// (propietario del aula de la reserva)
-				if (!StringUtils.isEmpty(responsable)) {
-					final Predicate responsablePredicate = cb.equal(root.get("propietarioResponsable"), responsable);
-					predicates.add(responsablePredicate);
+//				if (!StringUtils.isEmpty(responsable)) {
+//					final Predicate responsablePredicate = cb.equal(root.get("propietarioResponsable"), responsable);
+//					predicates.add(responsablePredicate);
+//				}
+
+				// Se obtienen las reservas realizadas de el/los centro/s o departamento/s
+				// (propietario del aula de la reserva)
+				if (!lstPropietariosAulas.isEmpty()) {
+					final Predicate propietariosAulaPredicate = root.get("propietarioResponsable")
+							.in(lstPropietariosAulas);
+					predicates.add(propietariosAulaPredicate);
 				}
 
 				return cb.and(predicates.toArray(new Predicate[predicates.size()]));

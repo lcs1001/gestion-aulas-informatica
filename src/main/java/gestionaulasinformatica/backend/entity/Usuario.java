@@ -1,8 +1,10 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,8 +66,8 @@ public class Usuario implements Serializable {
 	@Column(name = "bloqueado")
 	private Boolean bloqueado = false;
 
-	@OneToMany(mappedBy = "usuarioResponsable", fetch = FetchType.EAGER)
-	private Set<PropietarioAula> lstPropietariosResponsabilidad;
+	@OneToMany(mappedBy = "usuarioResponsable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<PropietarioAula> lstPropietariosResponsabilidad = new HashSet<>();
 
 	/**
 	 * Función que prepara los datos del correo antes de guardarlos.
@@ -287,9 +289,24 @@ public class Usuario implements Serializable {
 	 * 
 	 * @return Centro o departamento añadido
 	 */
-	public PropietarioAula addAulaResponsable(PropietarioAula propietario) {
+	public PropietarioAula addPropietarioResponsabilidad(PropietarioAula propietario) {
 		this.getPropietariosResponsabilidad().add(propietario);
 
+		return propietario;
+	}
+	
+	/**
+	 * Función que elimina el centro o departamento pasado de la lista de propietarios
+	 * de los que es responsable.
+	 * 
+	 * @param propietario Centro o departamento que eliminar de la lista de
+	 *                    propietarios de los que es responsable
+	 * 
+	 * @return Centro o departamento eliminado
+	 */
+	public PropietarioAula removePropietarioResponsabilidad(PropietarioAula propietario) {
+		this.getPropietariosResponsabilidad().remove(propietario);
+		
 		return propietario;
 	}
 

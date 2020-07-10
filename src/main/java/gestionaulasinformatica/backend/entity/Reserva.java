@@ -89,7 +89,7 @@ public class Reserva implements Serializable {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "propietario_responsable", referencedColumnName = "id_propietario_aula", updatable = false)
+	@JoinColumn(name = "propietario_responsable", referencedColumnName = "id_propietario_aula")
 	private PropietarioAula propietarioResponsable;
 
 	/**
@@ -309,6 +309,16 @@ public class Reserva implements Serializable {
 	}
 
 	/**
+	 * Función que devuelve el nombre del centro o departamento responsable de hacer
+	 * la reserva.
+	 * 
+	 * @return Nombre del centro o departamento responsable de hacer la reserva
+	 */
+	public String getNombrePropietarioResponsable() {
+		return this.propietarioResponsable.getNombrePropietarioAula();
+	}
+
+	/**
 	 * Función que establece el centro o departamento responsable de hacer la
 	 * reserva.
 	 * 
@@ -316,6 +326,17 @@ public class Reserva implements Serializable {
 	 */
 	public void setPropietarioResponsable(PropietarioAula responsable) {
 		this.propietarioResponsable = responsable;
+	}
+
+	/**
+	 * Función que devuelve el usuario que ha realizado la reserva y el centro o
+	 * departamento en nombre del que ha realizado la reserva.
+	 * 
+	 * @return Usuario que ha realizado la reserva y el centro o departamento en
+	 *         nombre del que ha realizado la reserva
+	 */
+	public String getRegistradaPor() {
+		return this.usuarioResponsable + " - " + this.propietarioResponsable.getIdPropietarioAula();
 	}
 
 	public boolean isPersisted() {
