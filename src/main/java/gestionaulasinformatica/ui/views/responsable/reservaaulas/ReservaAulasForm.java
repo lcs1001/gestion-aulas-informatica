@@ -97,6 +97,7 @@ public class ReservaAulasForm extends FormLayout {
 			binder = new BeanValidationBinder<>(Reserva.class);
 			binder.bindInstanceFields(this);
 			binder.bind(fechaInicio, "fecha");
+			binder.bind(propietarioAula, "propietarioResponsable");
 
 			add(fechaInicio, horaInicio);
 			add(propietarioAula, 2);
@@ -314,8 +315,9 @@ public class ReservaAulasForm extends FormLayout {
 			this.reserva = reserva;
 			binder.readBean(reserva);
 
-			if (nueva)
-				reserva.setDiaSemana(comunes.getDiaSemana(LocalDate.now().getDayOfWeek().getValue()));
+			if (nueva) {
+				this.reserva.setUsuarioResponsable(responsableLogeado.getNombreApellidosUsuario());
+			}
 
 		} catch (Exception e) {
 			throw e;
@@ -382,22 +384,22 @@ public class ReservaAulasForm extends FormLayout {
 		Boolean valida = false;
 
 		try {
-
 			aulaReserva = aula.getValue();
 
 			// Si es una reserva de un solo día
 			if (chkReservaRango.isEmpty()) {
-				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(), fechaInicio.getValue(),
-						horaInicio.getValue(), horaFin.getValue(), aulaReserva.getCapacidadInt(),
-						aulaReserva.getNumOrdenadoresInt(), null, null, aulaReserva.getIdAula(), null);
+				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(),
+						fechaInicio.getValue(), horaInicio.getValue(), horaFin.getValue(),
+						aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(), null, null,
+						aulaReserva.getIdAula(), null);
 
 				if (aulaConsulta.contains(aulaReserva))
 					valida = true;
 
 			} else {
-				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(), fechaFin.getValue(), horaInicio.getValue(),
-						horaFin.getValue(), aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(),
-						diaSemana.getValue(), null, aulaReserva.getIdAula(), null);
+				aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fechaInicio.getValue(), fechaFin.getValue(),
+						horaInicio.getValue(), horaFin.getValue(), aulaReserva.getCapacidadInt(),
+						aulaReserva.getNumOrdenadoresInt(), diaSemana.getValue(), null, aulaReserva.getIdAula(), null);
 
 				if (aulaConsulta.contains(aulaReserva))
 					valida = true;
@@ -436,8 +438,10 @@ public class ReservaAulasForm extends FormLayout {
 
 				// Si es una reserva de un solo día
 				if (chkReservaRango.isEmpty()) {
-					reserva.setDiaSemana(comunes.getDiaSemana(fechaInicio.getValue().getDayOfWeek().getValue()));
+
 					binder.writeBean(reserva);
+					reserva.setDiaSemana(comunes.getDiaSemana(fechaInicio.getValue().getDayOfWeek().getValue()));
+//					reserva.setPropietarioResponsable(propietarioAula.getValue());
 					fireEvent(new SaveEvent(this, reserva));
 
 				} else {
@@ -457,7 +461,7 @@ public class ReservaAulasForm extends FormLayout {
 								reservaG = new Reserva(fecha, horaInicio.getValue(), horaFin.getValue(), diaSemanaG,
 										aula.getValue(), motivo.getValue(), aCargoDe.getValue(),
 										responsableLogeado.getNombreApellidosUsuario(),
-										aula.getValue().getPropietarioAula());
+										propietarioAula.getValue());
 								lstReservasGuardar.add(reservaG);
 							}
 						} else {
@@ -465,7 +469,7 @@ public class ReservaAulasForm extends FormLayout {
 									comunes.getDiaSemana(fecha.getDayOfWeek().getValue()), aula.getValue(),
 									motivo.getValue(), aCargoDe.getValue(),
 									responsableLogeado.getNombreApellidosUsuario(),
-									aula.getValue().getPropietarioAula());
+									propietarioAula.getValue());
 
 							lstReservasGuardar.add(reservaG);
 						}

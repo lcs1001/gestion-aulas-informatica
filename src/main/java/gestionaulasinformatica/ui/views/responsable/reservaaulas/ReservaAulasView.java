@@ -76,7 +76,8 @@ public class ReservaAulasView extends VerticalLayout {
 			addClassName("reserva-aulas-view");
 			setSizeFull();
 
-			formulario = new ReservaAulasForm(this.aulaService, this.propietarioAulaService.findAllPropietariosResponsable(responsableLogeado), comunes,
+			formulario = new ReservaAulasForm(this.aulaService,
+					this.propietarioAulaService.findAllPropietariosResponsable(responsableLogeado), comunes,
 					responsableLogeado);
 			formulario.addListener(ReservaAulasForm.SaveEvent.class, this::guardarReserva);
 			formulario.addListener(ReservaAulasForm.SaveRangeEvent.class, this::guardarReservaRango);
