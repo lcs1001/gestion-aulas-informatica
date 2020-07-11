@@ -24,7 +24,8 @@ import gestionaulasinformatica.backend.repository.IUsuarioRepository;
 @DataJpaTest
 public class PropietarioAulaTest {
 	
-	@Autowired IUsuarioRepository usuarioRepository;
+	@Autowired 
+	private IUsuarioRepository usuarioRepository;
 
 	@Autowired
 	private IPropietarioAulaRepository propietarioAulaRepository;
