@@ -1,6 +1,8 @@
 package gestionaulasinformatica.ui.views.responsable.gestionreservas;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -459,7 +461,8 @@ public class GestionReservasView extends VerticalLayout {
 		try {
 			gridReservas.setVisible(false);
 			// Se obtienen las reservas a partir de la fecha y hora actual
-			lstReservas = reservaService.findReservasAPartirMomentoActual();
+			lstReservas = reservaService.findAllReservasFiltros(LocalDate.now(), null, LocalTime.now(), null, null,
+					propietarioAulaService.findAllPropietariosResponsable(responsableLogeado));
 
 			if (!lstReservas.isEmpty()) {
 				gridReservas.setVisible(true);
