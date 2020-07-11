@@ -97,8 +97,9 @@ public class ConsultaAulasTest {
 		try {
 			establecerDatos();
 
-			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21),
-					LocalDate.of(2020, 07, 21), LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
+			lstAulasDisponibles = aulaRepository
+					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
+							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null, null, null));
 
 			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30:");
 			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
@@ -120,7 +121,7 @@ public class ConsultaAulasTest {
 
 			lstAulasDisponibles = aulaRepository
 					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
-							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null));
+							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null, null, null));
 
 			System.out.println(
 					"\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
@@ -141,8 +142,9 @@ public class ConsultaAulasTest {
 		try {
 			establecerDatos();
 
-			lstAulasDisponibles = aulaRepository.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21),
-					LocalDate.of(2020, 07, 23), LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null));
+			lstAulasDisponibles = aulaRepository
+					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 23),
+							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null, null, null));
 
 			System.out.println("\n\nTest Aula 1 no disponible del 21-07-2020 al 23-07-2020 de 10:30 a 11:30:");
 			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
