@@ -80,7 +80,7 @@ public class UsuarioService {
 	 * @param usuarioEliminar Usuario que se quiere eliminar
 	 */
 	@Transactional
-	public void delete(Usuario usuarioActual, Usuario usuarioEliminar) {
+	public void delete(Usuario usuarioActual, Usuario usuarioEliminar) throws UserFriendlyDataException{
 		throwIfDeletingSelf(usuarioActual, usuarioEliminar);
 		throwIfUserLocked(usuarioEliminar);
 		usuarioRepository.delete(usuarioEliminar);

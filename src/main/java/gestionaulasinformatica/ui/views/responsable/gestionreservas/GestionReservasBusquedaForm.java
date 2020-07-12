@@ -2,6 +2,9 @@ package gestionaulasinformatica.ui.views.responsable.gestionreservas;
 
 import java.time.LocalDate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -18,6 +21,7 @@ import gestionaulasinformatica.ui.Comunes;
 public class GestionReservasBusquedaForm extends FormLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(GestionReservasBusquedaForm.class.getName());
 
 	private Comunes comunes;
 
@@ -48,6 +52,7 @@ public class GestionReservasBusquedaForm extends FormLayout {
 			add(fechaHasta, horaHasta);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -84,6 +89,7 @@ public class GestionReservasBusquedaForm extends FormLayout {
 			diaSemana.setClearButtonVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -99,7 +105,9 @@ public class GestionReservasBusquedaForm extends FormLayout {
 			horaDesde.clear();
 			horaHasta.clear();
 			diaSemana.clear();
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

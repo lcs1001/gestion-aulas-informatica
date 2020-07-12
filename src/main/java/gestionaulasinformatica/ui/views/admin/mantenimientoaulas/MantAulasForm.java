@@ -2,6 +2,9 @@ package gestionaulasinformatica.ui.views.admin.mantenimientoaulas;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -29,7 +32,9 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
  *
  */
 public class MantAulasForm extends FormLayout {
+	
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantAulasForm.class.getName());
 
 	private List<PropietarioAula> lstPropietarios;
 	private List<PropietarioAula> lstCentros;
@@ -55,24 +60,30 @@ public class MantAulasForm extends FormLayout {
 	 * @param centros      Lista con todos los centros que hay en la BD
 	 */
 	public MantAulasForm(List<PropietarioAula> propietarios, List<PropietarioAula> centros) {
-		addClassName("mant-aulas-form");
+		try {
+			addClassName("mant-aulas-form");
 
-		this.lstPropietarios = propietarios;
-		this.lstCentros = centros;
+			this.lstPropietarios = propietarios;
+			this.lstCentros = centros;
 
-		setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2), new ResponsiveStep("25em", 3),
-				new ResponsiveStep("25em", 4));
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2), new ResponsiveStep("25em", 3),
+					new ResponsiveStep("25em", 4));
 
-		configurarCamposFormulario();
+			configurarCamposFormulario();
 
-		binder = new BeanValidationBinder<>(Aula.class);
-		binder.bindInstanceFields(this);
+			binder = new BeanValidationBinder<>(Aula.class);
+			binder.bindInstanceFields(this);
 
-		add(nombreAula, 2);
-		add(capacidad, numOrdenadores);
-		add(ubicacionCentro,2);
-		add(propietarioAula, 2);
-		add(getFormToolbar(), 4);
+			add(nombreAula, 2);
+			add(capacidad, numOrdenadores);
+			add(ubicacionCentro,2);
+			add(propietarioAula, 2);
+			add(getFormToolbar(), 4);
+			
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw e;
+		}
 	}
 
 	/**
@@ -105,6 +116,7 @@ public class MantAulasForm extends FormLayout {
 			propietarioAula.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -144,6 +156,7 @@ public class MantAulasForm extends FormLayout {
 			return formToolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -159,6 +172,7 @@ public class MantAulasForm extends FormLayout {
 			binder.readBean(aula);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -172,6 +186,7 @@ public class MantAulasForm extends FormLayout {
 			fireEvent(new SaveEvent(this, aula));
 
 		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

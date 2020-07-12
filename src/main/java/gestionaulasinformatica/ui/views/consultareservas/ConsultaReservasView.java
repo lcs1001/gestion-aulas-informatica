@@ -3,6 +3,9 @@ package gestionaulasinformatica.ui.views.consultareservas;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -33,6 +36,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class ConsultaReservasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaReservasView.class.getName());
 
 	private ReservaService reservaService;
 	private PropietarioAulaService propietarioAulaService;
@@ -59,12 +63,12 @@ public class ConsultaReservasView extends VerticalLayout {
 			addClassName("consulta-reservas-view");
 			setSizeFull();
 
+			configurarToolbar();
 			configurarGrid();
 
 			formulario = new ConsultaReservasForm(this.propietarioAulaService.findAll(), comunes);
 
-			contenido = new Div(comunes.getTituloVentana("Consulta de reservas"), formulario, getToolbar(),
-					gridReservas);
+			contenido = new Div(comunes.getTituloVentana("Consulta de reservas"), formulario, toolbar, gridReservas);
 			contenido.addClassName("consulta-reservas-contenido");
 			contenido.setSizeFull();
 
@@ -72,7 +76,9 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			// Sólo se muestra el grids cuando se hace una consulta válida
 			gridReservas.setVisible(false);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -82,7 +88,7 @@ public class ConsultaReservasView extends VerticalLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout getToolbar() {
+	private HorizontalLayout configurarToolbar() {
 		Button btnBuscar;
 		Button btnLimpiarFiltros;
 
@@ -100,7 +106,9 @@ public class ConsultaReservasView extends VerticalLayout {
 			toolbar.addClassName("toolbar");
 
 			return toolbar;
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -129,7 +137,9 @@ public class ConsultaReservasView extends VerticalLayout {
 
 			gridReservas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
 					GridVariant.LUMO_ROW_STRIPES);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -141,7 +151,9 @@ public class ConsultaReservasView extends VerticalLayout {
 		try {
 			formulario.limpiarFiltros();
 			gridReservas.setVisible(false);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -187,6 +199,7 @@ public class ConsultaReservasView extends VerticalLayout {
 			return valido;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -200,14 +213,14 @@ public class ConsultaReservasView extends VerticalLayout {
 
 		try {
 			gridReservas.setVisible(false);
-			
+
 			propietario = new ArrayList<PropietarioAula>();
 			propietario.add(formulario.propietario.getValue());
 
 			if (validarFiltrosConsultaReservas()) {
-				lstReservas = reservaService.findAllReservasFiltros(formulario.fechaDesde.getValue(), formulario.fechaHasta.getValue(),
-						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(),
-						formulario.diaSemana.getValue(), propietario);
+				lstReservas = reservaService.findAllReservasFiltros(formulario.fechaDesde.getValue(),
+						formulario.fechaHasta.getValue(), formulario.horaDesde.getValue(),
+						formulario.horaHasta.getValue(), formulario.diaSemana.getValue(), propietario);
 
 				if (!lstReservas.isEmpty()) {
 					gridReservas.setVisible(true);
@@ -217,6 +230,7 @@ public class ConsultaReservasView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

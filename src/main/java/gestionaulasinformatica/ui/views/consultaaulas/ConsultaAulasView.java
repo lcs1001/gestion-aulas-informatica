@@ -3,6 +3,9 @@ package gestionaulasinformatica.ui.views.consultaaulas;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -31,6 +34,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class ConsultaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaAulasView.class.getName());
 
 	protected AulaService aulaService;
 	protected PropietarioAulaService propietarioAulaService;
@@ -57,12 +61,13 @@ public class ConsultaAulasView extends VerticalLayout {
 			addClassName("consulta-aulas-view");
 			setSizeFull();
 
+			configurarToolbar();
 			configurarGrid();
 
 			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll(), comunes, aulaService);
 
 			contenido = new Div(comunes.getTituloVentana("Consulta de disponibilidad de aulas"), formulario,
-					getToolbar(), gridAulas);
+					toolbar, gridAulas);
 			contenido.addClassName("consulta-aulas-contenido");
 			contenido.setSizeFull();
 
@@ -70,7 +75,9 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			// Sólo se muestra el grid cuando se hace una consulta válida
 			gridAulas.setVisible(false);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -81,7 +88,7 @@ public class ConsultaAulasView extends VerticalLayout {
 	 * 
 	 * @return Layout de botones
 	 */
-	private HorizontalLayout getToolbar() {
+	private HorizontalLayout configurarToolbar() {
 		Button btnBuscar;
 		Button btnLimpiarFiltros;
 
@@ -99,7 +106,9 @@ public class ConsultaAulasView extends VerticalLayout {
 			toolbar.addClassName("toolbar");
 
 			return toolbar;
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -122,7 +131,9 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			gridAulas.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
 					GridVariant.LUMO_ROW_STRIPES);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -134,7 +145,9 @@ public class ConsultaAulasView extends VerticalLayout {
 		try {
 			formulario.limpiarFiltros();
 			gridAulas.setVisible(false);
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -196,6 +209,7 @@ public class ConsultaAulasView extends VerticalLayout {
 			return valido;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -227,9 +241,10 @@ public class ConsultaAulasView extends VerticalLayout {
 				capacidad = capacidad == null ? 0 : capacidad;
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
 
-				lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta, formulario.horaDesde.getValue(),
-						formulario.horaHasta.getValue(), capacidad.intValue(), numOrdenadores.intValue(),
-						formulario.diaSemana.getValue(), formulario.propietario.getValue(), formulario.aula.getValue().getIdAula(), null);
+				lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta,
+						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), capacidad.intValue(),
+						numOrdenadores.intValue(), formulario.diaSemana.getValue(), formulario.propietario.getValue(),
+						formulario.aula.getValue().getIdAula(), null);
 
 				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);
@@ -237,9 +252,9 @@ public class ConsultaAulasView extends VerticalLayout {
 				} else {
 					comunes.mostrarNotificacion(Mensajes.MSG_NO_CONSULTA_AULAS.getMensaje(), 3000, null);
 				}
-
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

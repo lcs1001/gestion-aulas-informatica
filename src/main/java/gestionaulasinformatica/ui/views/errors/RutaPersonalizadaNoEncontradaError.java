@@ -27,7 +27,7 @@ public class RutaPersonalizadaNoEncontradaError extends RouteNotFoundError {
 	public RutaPersonalizadaNoEncontradaError() {
 		RouterLink link = Component.from(ElementFactory.createRouterLink("", "Ir a la página de inicio."),
 				RouterLink.class);
-		getElement().appendChild(new Text("Oops you hit a 404. ").getElement(), link.getElement());
+		getElement().appendChild(new Text("ERROR 404, no se encuentra el recurso. ").getElement(), link.getElement());
 	}
 
 	/**

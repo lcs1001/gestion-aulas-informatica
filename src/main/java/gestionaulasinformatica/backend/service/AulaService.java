@@ -3,9 +3,9 @@ package gestionaulasinformatica.backend.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import gestionaulasinformatica.backend.specification.AulaSpecification;
  */
 @Service
 public class AulaService {
-	private static final Logger LOGGER = Logger.getLogger(AulaService.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(AulaService.class.getName());
 	private IAulaRepository aulaRepository;
 
 	/**
@@ -44,7 +44,7 @@ public class AulaService {
 	public List<Aula> findAll() {
 		return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
-	
+
 	/**
 	 * Función que devuelve una lista con todas las aulas de las que es propietario
 	 * el centro o departamento seleccionado.
@@ -78,14 +78,18 @@ public class AulaService {
 	 * @param idReserva      ID de la reserva que se está modificando, para
 	 *                       comprobar la disponibilidad del aula sin tener en
 	 *                       cuenta esta reserva
-	 *                       
+	 * 
 	 * @return Lista con todas las aulas disponibles que hay en la BD que cumplen
 	 *         con los filtros aplicados
 	 */
-	public List<Aula> findAllAulasDisponiblesFiltros(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde, LocalTime horaHasta,
-			Integer capacidad, Integer numOrdenadores, String diaSemana, PropietarioAula propietario, Integer idAula, Integer idReserva) {
-		return aulaRepository.findAll(AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta,
-				capacidad, numOrdenadores, diaSemana, propietario, idAula, idReserva), Sort.by(Sort.Direction.ASC, "nombreAula"));
+	public List<Aula> findAllAulasDisponiblesFiltros(LocalDate fechaDesde, LocalDate fechaHasta, LocalTime horaDesde,
+			LocalTime horaHasta, Integer capacidad, Integer numOrdenadores, String diaSemana,
+			PropietarioAula propietario, Integer idAula, Integer idReserva) {
+		return aulaRepository
+				.findAll(
+						AulaSpecification.findByFilters(fechaDesde, fechaHasta, horaDesde, horaHasta, capacidad,
+								numOrdenadores, diaSemana, propietario, idAula, idReserva),
+						Sort.by(Sort.Direction.ASC, "nombreAula"));
 	}
 
 	/**
@@ -104,7 +108,7 @@ public class AulaService {
 	 */
 	public void save(Aula aula) {
 		if (aula == null) {
-			LOGGER.log(Level.SEVERE, "El aula que se quiere guardar es nulo.");
+			LOGGER.error("El aula que se quiere guardar es nulo.");
 			return;
 		}
 		aulaRepository.save(aula);

@@ -1,5 +1,7 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientousuarios;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.vaadin.flow.component.ComponentEvent;
@@ -29,7 +31,9 @@ import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.entity.Usuario;
 
 public class MantUsuariosForm extends FormLayout {
+	
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantUsuariosForm.class.getName());
 
 	protected TextField nombreUsuario;
 	protected TextField apellidosUsuario;
@@ -76,7 +80,9 @@ public class MantUsuariosForm extends FormLayout {
 			add(telefonoUsuario, 2);
 			add(rolUsuario, chkBloqueado);
 			add(getFormToolbar(), 4);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -112,6 +118,7 @@ public class MantUsuariosForm extends FormLayout {
 			chkBloqueado.addClickListener(e -> bloquearUsuario());
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -151,6 +158,7 @@ public class MantUsuariosForm extends FormLayout {
 			return formToolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -194,7 +202,9 @@ public class MantUsuariosForm extends FormLayout {
 			confirmacion.add(btnConfirmar, btnCancelar);
 
 			confirmacion.open();
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -213,6 +223,7 @@ public class MantUsuariosForm extends FormLayout {
 				if(usuario.isBloqueado()) chkBloqueado.setValue(true);
 			}			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -226,6 +237,7 @@ public class MantUsuariosForm extends FormLayout {
 			fireEvent(new SaveEvent(this, usuario));
 
 		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

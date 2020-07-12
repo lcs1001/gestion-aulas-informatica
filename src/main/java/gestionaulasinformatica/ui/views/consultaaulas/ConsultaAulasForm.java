@@ -3,6 +3,9 @@ package gestionaulasinformatica.ui.views.consultaaulas;
 import java.util.List;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -21,7 +24,9 @@ import gestionaulasinformatica.ui.Comunes;
  *
  */
 public class ConsultaAulasForm extends FormLayout {
+	
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaAulasForm.class.getName());
 
 	private List<PropietarioAula> lstPropietariosAulas;
 	private Comunes comunes;
@@ -63,7 +68,9 @@ public class ConsultaAulasForm extends FormLayout {
 			add(fechaHasta, horaHasta, numOrdenadores);
 			add(aula, 2);
 			add(diaSemana, 1);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -129,6 +136,7 @@ public class ConsultaAulasForm extends FormLayout {
 			aula.setItemLabelGenerator(Aula::getNombreAula);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -142,6 +150,7 @@ public class ConsultaAulasForm extends FormLayout {
 				horaHasta.setMinTime(horaDesde.getValue());
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -158,6 +167,7 @@ public class ConsultaAulasForm extends FormLayout {
 				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -176,7 +186,9 @@ public class ConsultaAulasForm extends FormLayout {
 			numOrdenadores.clear();
 			diaSemana.clear();
 			propietario.clear();
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -33,6 +36,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class GestionReservasForm extends FormLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(GestionReservasForm.class.getName());
 
 	private AulaService aulaService;
 	private List<PropietarioAula> lstPropietarios;
@@ -90,6 +94,7 @@ public class GestionReservasForm extends FormLayout {
 			add(toolbar, 4);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -142,6 +147,7 @@ public class GestionReservasForm extends FormLayout {
 			aCargoDe.setClearButtonVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -171,6 +177,7 @@ public class GestionReservasForm extends FormLayout {
 			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -184,6 +191,7 @@ public class GestionReservasForm extends FormLayout {
 				horaFin.setMinTime(horaInicio.getValue());
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -200,6 +208,7 @@ public class GestionReservasForm extends FormLayout {
 				aula.setItems(lstAulas);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -212,7 +221,9 @@ public class GestionReservasForm extends FormLayout {
 		try {
 			if (!fecha.isEmpty())
 				diaSemana.setValue(comunes.getDiaSemana(fecha.getValue().getDayOfWeek().getValue()));
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -228,6 +239,7 @@ public class GestionReservasForm extends FormLayout {
 			binder.readBean(reserva);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -253,6 +265,7 @@ public class GestionReservasForm extends FormLayout {
 			return valido;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -287,6 +300,7 @@ public class GestionReservasForm extends FormLayout {
 						NotificationVariant.LUMO_ERROR);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -303,6 +317,7 @@ public class GestionReservasForm extends FormLayout {
 				fireEvent(new SaveEvent(this, reserva));
 			}
 		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

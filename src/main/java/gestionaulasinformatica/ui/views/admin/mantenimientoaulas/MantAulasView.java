@@ -2,6 +2,8 @@ package gestionaulasinformatica.ui.views.admin.mantenimientoaulas;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 
 import com.vaadin.flow.component.button.Button;
@@ -36,6 +38,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class MantAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantAulasView.class.getName());
 
 	private AulaService aulaService;
 	private PropietarioAulaService propietarioAulaService;
@@ -77,6 +80,7 @@ public class MantAulasView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -103,6 +107,7 @@ public class MantAulasView extends VerticalLayout {
 			gridAulas.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -135,6 +140,7 @@ public class MantAulasView extends VerticalLayout {
 			return toolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -150,6 +156,7 @@ public class MantAulasView extends VerticalLayout {
 			gridAulas.setVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -183,6 +190,7 @@ public class MantAulasView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -213,6 +221,7 @@ public class MantAulasView extends VerticalLayout {
 
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -230,6 +239,7 @@ public class MantAulasView extends VerticalLayout {
 
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -285,6 +295,7 @@ public class MantAulasView extends VerticalLayout {
 			confirmacion.open();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -308,6 +319,7 @@ public class MantAulasView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

@@ -3,9 +3,9 @@ package gestionaulasinformatica.backend.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import gestionaulasinformatica.backend.specification.ReservaSpecification;
  */
 @Service
 public class ReservaService {
-	private static final Logger LOGGER = Logger.getLogger(ReservaService.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservaService.class.getName());
 
 	private IReservaRepository reservaRepository;
 
@@ -96,7 +96,7 @@ public class ReservaService {
 	 */
 	public void save(Reserva reserva) {
 		if (reserva == null) {
-			LOGGER.log(Level.SEVERE, "La reserva que se quiere guardar es nula.");
+			LOGGER.error("La reserva que se quiere guardar es nula.");
 			return;
 		}
 		reservaRepository.save(reserva);

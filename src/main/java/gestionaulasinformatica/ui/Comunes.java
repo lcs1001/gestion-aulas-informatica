@@ -26,25 +26,18 @@ public class Comunes {
 	 * @param tipoNotificacion Tipo de notificación a mostrar (estilo)
 	 */
 	public void mostrarNotificacion(String mensaje, Integer duracion, NotificationVariant tipoNotificacion) {
-		Label lblMensaje;
-		Notification notificacion;
+		
+		Label lblMensaje = new Label(mensaje);
+		
+		Notification notificacion = new Notification(lblMensaje);
+		notificacion.setDuration(duracion);
+		notificacion.setPosition(Position.MIDDLE);
 
-		try {
-			lblMensaje = new Label(mensaje);
-
-			notificacion = new Notification(lblMensaje);
-			notificacion.setDuration(duracion);
-			notificacion.setPosition(Position.MIDDLE);
-
-			if (tipoNotificacion != null) {
-				notificacion.addThemeVariants(tipoNotificacion);
-			}
-
-			notificacion.open();
-
-		} catch (Exception e) {
-			throw e;
+		if (tipoNotificacion != null) {
+			notificacion.addThemeVariants(tipoNotificacion);
 		}
+
+		notificacion.open();
 	}
 
 	/**
@@ -73,26 +66,36 @@ public class Comunes {
 	 */
 	public String getDiaSemana(Integer numDia) {
 		switch (numDia) {
-			case 1: return "Lunes";
-			case 2: return "Martes";
-			case 3: return "Miércoles";
-			case 4: return "Jueves";
-			case 5: return "Viernes";
-			case 6: return "Sábado";
-			case 7: return "Domingo";
-			default: return "";
+		case 1:
+			return "Lunes";
+		case 2:
+			return "Martes";
+		case 3:
+			return "Miércoles";
+		case 4:
+			return "Jueves";
+		case 5:
+			return "Viernes";
+		case 6:
+			return "Sábado";
+		case 7:
+			return "Domingo";
+		default:
+			return "";
 		}
 	}
-	
+
 	/**
-	 * Función que devuelve un label con el título de la ventana pasado por parámetro.
+	 * Función que devuelve un label con el título de la ventana pasado por
+	 * parámetro.
+	 * 
 	 * @param nombre Título de la ventana
 	 * @return Label con el título de la ventana pasado por parámetro
 	 */
 	public Label getTituloVentana(String nombre) {
 		Label titulo = new Label(nombre);
 		titulo.addClassName("titulo-pagina");
-		
+
 		return titulo;
 	}
 }

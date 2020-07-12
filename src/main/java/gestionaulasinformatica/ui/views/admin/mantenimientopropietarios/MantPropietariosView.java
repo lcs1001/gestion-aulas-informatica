@@ -1,5 +1,7 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientopropietarios;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 
 import com.vaadin.flow.component.button.Button;
@@ -11,6 +13,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -39,6 +42,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class MantPropietariosView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantPropietariosView.class.getName());
 
 	private PropietarioAulaService propietarioAulaService;
 	private UsuarioService usuarioService;
@@ -56,7 +60,8 @@ public class MantPropietariosView extends VerticalLayout {
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 * @param usuarioService         Service de JPA de la entidad Usuario
 	 */
-	public MantPropietariosView(PropietarioAulaService propietarioAulaService, UsuarioService usuarioService, AulaService aulaService) {
+	public MantPropietariosView(PropietarioAulaService propietarioAulaService, UsuarioService usuarioService,
+			AulaService aulaService) {
 		Div contenido;
 
 		try {
@@ -87,6 +92,7 @@ public class MantPropietariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -126,6 +132,7 @@ public class MantPropietariosView extends VerticalLayout {
 			gridPropietarios.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -161,6 +168,7 @@ public class MantPropietariosView extends VerticalLayout {
 			return toolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -177,6 +185,7 @@ public class MantPropietariosView extends VerticalLayout {
 			gridPropietarios.setVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -210,6 +219,7 @@ public class MantPropietariosView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -223,6 +233,7 @@ public class MantPropietariosView extends VerticalLayout {
 			abrirEditor(new Centro(), false);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -236,6 +247,7 @@ public class MantPropietariosView extends VerticalLayout {
 			abrirEditor(new Departamento(), false);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -252,7 +264,8 @@ public class MantPropietariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -269,7 +282,8 @@ public class MantPropietariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -291,7 +305,7 @@ public class MantPropietariosView extends VerticalLayout {
 		try {
 			propietario = evt.getPropietarioAula();
 
-			if(!aulaService.findAllAulasPropietario(propietario).isEmpty()) {
+			if (!aulaService.findAllAulasPropietario(propietario).isEmpty()) {
 				mensajeConfirmacion = propietario.getNombrePropietarioAula()
 						+ " tiene aulas asignadas, ¿desea eliminarle definitivamente junto a todas sus aulas? Esta acción no se puede deshacer.";
 			} else {
@@ -324,6 +338,7 @@ public class MantPropietariosView extends VerticalLayout {
 			confirmacion.open();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -334,7 +349,9 @@ public class MantPropietariosView extends VerticalLayout {
 	private void actualizarPropietarios() {
 		try {
 			gridPropietarios.setItems(propietarioAulaService.findAll(filtroTexto.getValue()));
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

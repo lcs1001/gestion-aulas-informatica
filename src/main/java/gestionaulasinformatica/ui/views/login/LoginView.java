@@ -2,6 +2,9 @@ package gestionaulasinformatica.ui.views.login;
 
 import java.util.Collections;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
@@ -19,6 +22,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginView.class.getName());
 	
 	private Comunes comunes;
 	private LoginForm login;
@@ -51,6 +55,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 			add(new H1("Gestión de Aulas"), login, consultaReservas);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -67,6 +72,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 				login.setError(true);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 

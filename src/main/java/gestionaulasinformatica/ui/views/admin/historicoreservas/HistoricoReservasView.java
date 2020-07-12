@@ -1,6 +1,8 @@
 package gestionaulasinformatica.ui.views.admin.historicoreservas;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.security.access.annotation.Secured;
 
@@ -33,8 +35,9 @@ import gestionaulasinformatica.ui.Mensajes;
 @Secured("ADMIN")
 public class HistoricoReservasView extends VerticalLayout {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 1L;	
+	private static final Logger LOGGER = LoggerFactory.getLogger(HistoricoReservasView.class.getName());
+	
 	private HistoricoReservasService historicoReservasService;
 
 	private Comunes comunes;
@@ -66,6 +69,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			actualizarHR();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -93,6 +97,7 @@ public class HistoricoReservasView extends VerticalLayout {
 
 			return toolbar;
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 
@@ -128,6 +133,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			gridHistorico.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS,
 					GridVariant.LUMO_ROW_STRIPES);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -140,6 +146,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			formulario.limpiarFiltros();
 			actualizarHR();
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -167,6 +174,7 @@ public class HistoricoReservasView extends VerticalLayout {
 			return valido;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -192,6 +200,7 @@ public class HistoricoReservasView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

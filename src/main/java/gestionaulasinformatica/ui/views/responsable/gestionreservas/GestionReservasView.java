@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 
 import com.vaadin.flow.component.button.Button;
@@ -47,6 +49,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class GestionReservasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(GestionReservasView.class.getName());
 
 	private ReservaService reservaService;
 	private AulaService aulaService;
@@ -101,6 +104,7 @@ public class GestionReservasView extends VerticalLayout {
 			actualizarReservas();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -134,6 +138,7 @@ public class GestionReservasView extends VerticalLayout {
 			gridReservas.setSelectionMode(SelectionMode.MULTI);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -178,6 +183,7 @@ public class GestionReservasView extends VerticalLayout {
 			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -203,7 +209,9 @@ public class GestionReservasView extends VerticalLayout {
 
 			dialogInfo.add(info, btnCerrar);
 			dialogInfo.open();
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 
@@ -244,6 +252,7 @@ public class GestionReservasView extends VerticalLayout {
 			return valido;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -268,6 +277,7 @@ public class GestionReservasView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -282,7 +292,9 @@ public class GestionReservasView extends VerticalLayout {
 			formularioBusqueda.setVisible(true);
 			toolbar.setVisible(true);
 			gridReservas.setVisible(true);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -305,6 +317,7 @@ public class GestionReservasView extends VerticalLayout {
 				gridReservas.setVisible(false);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -333,6 +346,7 @@ public class GestionReservasView extends VerticalLayout {
 			}
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -363,8 +377,10 @@ public class GestionReservasView extends VerticalLayout {
 			formularioBusqueda.limpiarFiltros();
 			actualizarReservas();
 			cerrarEditor();
+			
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -419,6 +435,7 @@ public class GestionReservasView extends VerticalLayout {
 						NotificationVariant.LUMO_ERROR);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -448,8 +465,10 @@ public class GestionReservasView extends VerticalLayout {
 
 			formularioBusqueda.limpiarFiltros();
 			actualizarReservas();
+			
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -474,6 +493,7 @@ public class GestionReservasView extends VerticalLayout {
 				comunes.mostrarNotificacion(Mensajes.MSG_NO_RESERVAS.getMensaje(), 3000, null);
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

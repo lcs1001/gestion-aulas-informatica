@@ -1,5 +1,7 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientousuarios;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -38,6 +40,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class MantUsuariosView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantUsuariosView.class.getName());
 
 	private UsuarioService usuarioService;
 	private PropietarioAulaService propietarioAulaService;
@@ -90,6 +93,7 @@ public class MantUsuariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -120,6 +124,7 @@ public class MantUsuariosView extends VerticalLayout {
 			gridUsuarios.asSingleSelect().addValueChangeListener(e -> abrirEditor(e.getValue(), true));
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -151,6 +156,7 @@ public class MantUsuariosView extends VerticalLayout {
 			return toolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -166,6 +172,7 @@ public class MantUsuariosView extends VerticalLayout {
 			gridUsuarios.setVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -197,6 +204,7 @@ public class MantUsuariosView extends VerticalLayout {
 				}
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -210,6 +218,7 @@ public class MantUsuariosView extends VerticalLayout {
 			abrirEditor(new Usuario(), false);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -226,7 +235,8 @@ public class MantUsuariosView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -244,10 +254,12 @@ public class MantUsuariosView extends VerticalLayout {
 
 		} catch (UserFriendlyDataException e) {
 			comunes.mostrarNotificacion(e.getMessage(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -315,8 +327,8 @@ public class MantUsuariosView extends VerticalLayout {
 					confirmacion.open();
 				}
 			}
-
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -327,7 +339,9 @@ public class MantUsuariosView extends VerticalLayout {
 	private void actualizarUsuarios() {
 		try {
 			gridUsuarios.setItems(usuarioService.findAll(filtroTexto.getValue()));
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

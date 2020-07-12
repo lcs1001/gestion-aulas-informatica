@@ -3,6 +3,9 @@ package gestionaulasinformatica.ui.views.consultareservas;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -18,7 +21,9 @@ import gestionaulasinformatica.ui.Comunes;
  *
  */
 public class ConsultaReservasForm extends FormLayout {
+
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConsultaReservasForm.class.getName());
 
 	private List<PropietarioAula> lstPropietariosAulas;
 	private Comunes comunes;
@@ -55,6 +60,7 @@ public class ConsultaReservasForm extends FormLayout {
 			add(propietario, 2);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -98,6 +104,7 @@ public class ConsultaReservasForm extends FormLayout {
 			propietario.setRequiredIndicatorVisible(true); // Campo obligatorio
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -111,6 +118,7 @@ public class ConsultaReservasForm extends FormLayout {
 				horaHasta.setMinTime(horaDesde.getValue());
 			}
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -127,7 +135,9 @@ public class ConsultaReservasForm extends FormLayout {
 			horaHasta.clear();
 			diaSemana.clear();
 			propietario.clear();
+
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}

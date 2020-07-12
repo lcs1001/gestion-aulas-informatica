@@ -2,6 +2,9 @@ package gestionaulasinformatica.ui.views.admin.mantenimientopropietarios;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -29,7 +32,9 @@ import gestionaulasinformatica.backend.entity.Usuario;
  *
  */
 public class MantPropietariosForm extends FormLayout {
+	
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MantPropietariosForm.class.getName());
 
 	private List<Usuario> lstResponsables;
 
@@ -65,7 +70,9 @@ public class MantPropietariosForm extends FormLayout {
 			add(idPropAula, nombrePropAula);
 			add(responsable);
 			add(getFormToolbar(), 2);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -88,6 +95,7 @@ public class MantPropietariosForm extends FormLayout {
 			responsable.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -128,6 +136,7 @@ public class MantPropietariosForm extends FormLayout {
 			return formToolbar;
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -141,7 +150,9 @@ public class MantPropietariosForm extends FormLayout {
 		try {
 			this.propietarioAula = propietario;
 			binder.readBean(propietario);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -155,6 +166,7 @@ public class MantPropietariosForm extends FormLayout {
 			fireEvent(new SaveEvent(this, propietarioAula));
 
 		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

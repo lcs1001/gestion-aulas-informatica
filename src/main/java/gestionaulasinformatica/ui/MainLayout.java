@@ -3,6 +3,9 @@ package gestionaulasinformatica.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -37,6 +40,7 @@ import gestionaulasinformatica.ui.views.responsable.reservaaulas.ReservaAulasVie
 public class MainLayout extends AppLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MainLayout.class.getName());
 
 	/**
 	 * Constructor de la clase.
@@ -48,6 +52,7 @@ public class MainLayout extends AppLayout {
 			this.setDrawerOpened(false);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -89,7 +94,9 @@ public class MainLayout extends AppLayout {
 			cabecera.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
 
 			addToNavbar(cabecera);
+			
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -101,8 +108,10 @@ public class MainLayout extends AppLayout {
 	private void crearMenuLateral() {
 		try {
 			addToDrawer(new VerticalLayout(getVentanasDisponibles()));
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+			throw e;
 		}
 	}
 
@@ -188,6 +197,7 @@ public class MainLayout extends AppLayout {
 			ventanas.add(consultaAulasLink);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			e.printStackTrace();
 		}
 

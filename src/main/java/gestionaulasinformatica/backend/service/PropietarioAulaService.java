@@ -2,9 +2,9 @@ package gestionaulasinformatica.backend.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import gestionaulasinformatica.backend.repository.IPropietarioAulaRepository;
  */
 @Service
 public class PropietarioAulaService {
-	private static final Logger LOGGER = Logger.getLogger(PropietarioAula.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(PropietarioAula.class.getName());
 	private IPropietarioAulaRepository propietarioAulaRepository;
 
 	/**
@@ -114,7 +114,7 @@ public class PropietarioAulaService {
 	 */
 	public void save(PropietarioAula propietario) {
 		if (propietario == null) {
-			LOGGER.log(Level.SEVERE, "El propietario del aula que se quiere guardar es nulo.");
+			LOGGER.error("El propietario del aula que se quiere guardar es nulo.");
 			return;
 		}
 		propietarioAulaRepository.save(propietario);

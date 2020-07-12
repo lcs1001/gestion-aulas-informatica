@@ -2,9 +2,9 @@ package gestionaulasinformatica.backend.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import gestionaulasinformatica.backend.specification.HistoricoReservasSpecificat
  */
 @Service
 public class HistoricoReservasService {
-	private static final Logger LOGGER = Logger.getLogger(HistoricoReservasService.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(HistoricoReservasService.class.getName());
 	private IHistoricoReservasRepository historicoReservasRepository;
 
 	/**
@@ -79,7 +79,7 @@ public class HistoricoReservasService {
 	 */
 	public void save(HistoricoReservas operacion) {
 		if (operacion == null) {
-			LOGGER.log(Level.SEVERE, "La operación sobre una reserva que se quiere guardar es nula.");
+			LOGGER.error("La operación sobre una reserva que se quiere guardar es nula.");
 			return;
 		}
 		historicoReservasRepository.save(operacion);

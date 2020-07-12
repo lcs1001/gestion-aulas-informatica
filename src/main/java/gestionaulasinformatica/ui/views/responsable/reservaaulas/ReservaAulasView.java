@@ -3,6 +3,8 @@ package gestionaulasinformatica.ui.views.responsable.reservaaulas;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 
 import com.vaadin.flow.component.button.Button;
@@ -39,6 +41,7 @@ import gestionaulasinformatica.ui.Mensajes;
 public class ReservaAulasView extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservaAulasView.class.getName());
 
 	private ReservaService reservaService;
 	private PropietarioAulaService propietarioAulaService;
@@ -93,6 +96,7 @@ public class ReservaAulasView extends VerticalLayout {
 			formulario.setVisible(false);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -114,6 +118,7 @@ public class ReservaAulasView extends VerticalLayout {
 			toolbar.addClassName("toolbar");
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -130,6 +135,7 @@ public class ReservaAulasView extends VerticalLayout {
 			formulario.setReserva(reserva, true);
 
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -162,6 +168,7 @@ public class ReservaAulasView extends VerticalLayout {
 
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
@@ -197,6 +204,7 @@ public class ReservaAulasView extends VerticalLayout {
 
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
+			LOGGER.error(e.getMessage());
 			throw e;
 		}
 	}
