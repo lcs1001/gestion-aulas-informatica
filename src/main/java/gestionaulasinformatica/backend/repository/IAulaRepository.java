@@ -21,5 +21,5 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
 public interface IAulaRepository extends JpaRepository<Aula, Integer>, JpaSpecificationExecutor<Aula> {
 	@Query("SELECT a FROM Aula a "
 			+ "WHERE lower(a.propietarioAula.idPropietarioAula) LIKE lower(:filtroPropietarioAula) ORDER BY nombreAula ASC")
-	List<Aula> buscarAulasPropietario(@Param("filtroPropietarioAula") PropietarioAula filtroPropietarioAula);
+	List<Aula> findAllAulasPropietario(@Param("filtroPropietarioAula") PropietarioAula filtroPropietarioAula);
 }

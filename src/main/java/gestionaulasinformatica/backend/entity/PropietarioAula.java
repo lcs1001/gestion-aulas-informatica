@@ -1,7 +1,6 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,7 +9,6 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -18,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -46,13 +43,11 @@ public class PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@NotEmpty
 	@Size(max = 30)
 	@Column(name = "id_propietario_aula")
 	private String idPropietarioAula = "";
 
 	@NotNull
-	@NotEmpty
 	@Size(max = 100)
 	@Column(name = "nombre_propietario_aula", unique = true)
 	private String nombrePropietarioAula = "";
@@ -62,8 +57,8 @@ public class PropietarioAula implements Serializable {
 	@JoinColumn(name = "id_responsable", referencedColumnName = "id_usuario")
 	private Usuario usuarioResponsable;
 
-	@Enumerated(EnumType.STRING)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo", insertable = false, updatable = false)
 	private TipoPropietarioAula tipoPropietarioAula;
 
@@ -71,15 +66,15 @@ public class PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas de las que
 	 * es responsable el centro o departamento.
 	 */
-	@OneToMany(mappedBy = "propietarioAula", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Aula> lstAulasPropiedad = new HashSet<>();
+	@OneToMany(mappedBy = "propietarioAula", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Aula> lstAulasPropiedad;
 
 	/**
 	 * Asociación bidireccional OnetoMany con Reserva para indicar las reservas que
 	 * ha realizado el responsable del centro o departamento.
 	 */
-	@OneToMany(mappedBy = "propietarioResponsable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Reserva> lstReservasPropietarioAula = new HashSet<>();
+	@OneToMany(mappedBy = "propietarioResponsable", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Reserva> lstReservasPropietarioAula;
 
 	/**
 	 * Constructor de la clase sin parámetros.
@@ -182,16 +177,6 @@ public class PropietarioAula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve si el propietario tiene aulas bajo su responsabilidad o
-	 * no.
-	 * 
-	 * @return Si tiene aulas bajo su responsabilidad o no
-	 */
-	public Boolean tieneAulasPropiedad() {
-		return getAulasPropiedad().isEmpty() ? false : true;
-	}
-
-	/**
 	 * Función que devuelve una lista de las aulas de las que es propietario.
 	 * 
 	 * @return Lista de aulas de las que es propietario
@@ -222,7 +207,7 @@ public class PropietarioAula implements Serializable {
 
 		return aula;
 	}
-	
+
 	/**
 	 * Función que elimina el aula pasada de la lista de aulas de las que es
 	 * propietario

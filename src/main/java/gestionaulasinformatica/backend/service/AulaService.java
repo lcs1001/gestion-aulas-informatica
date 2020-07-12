@@ -58,7 +58,7 @@ public class AulaService {
 		if (filtroPropietarioAula == null) {
 			return aulaRepository.findAll(Sort.by(Sort.Direction.ASC, "nombreAula"));
 		} else {
-			return aulaRepository.buscarAulasPropietario(filtroPropietarioAula);
+			return aulaRepository.findAllAulasPropietario(filtroPropietarioAula);
 		}
 	}
 

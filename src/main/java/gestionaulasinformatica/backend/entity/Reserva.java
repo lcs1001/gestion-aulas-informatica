@@ -50,10 +50,7 @@ public class Reserva implements Serializable {
 	private String diaSemana = "";
 
 	/**
-	 * Asociación bidireccional ManyToOne con aula para indicar el aula reservada.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
+	 * Asociación bidireccional ManyToOne con Aula para indicar el aula reservada.
 	 */
 	@NotNull
 	@ManyToOne
@@ -75,6 +72,9 @@ public class Reserva implements Serializable {
 	@Column(name = "a_cargo_de")
 	private String aCargoDe = "";
 
+	/**
+	 * Nombre y apellidos del usuario logeado que ha registrado la reserva.
+	 */
 	@NotNull
 	@Size(max = 100)
 	@Column(name = "usuario_responsable")
@@ -83,9 +83,6 @@ public class Reserva implements Serializable {
 	/**
 	 * Asociación bidireccional ManyToOne con PropietarioAula para indicar el centro
 	 * o departamento responsable de hacer la reserva.
-	 * 
-	 * Cascade ALL: se realizan todas las operaciones (DETACH, MERGE, PERSIST,
-	 * REFRESH, REMOVE)
 	 */
 	@NotNull
 	@ManyToOne

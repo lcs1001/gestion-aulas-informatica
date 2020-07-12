@@ -1,13 +1,11 @@
 package gestionaulasinformatica.backend.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +14,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,34 +28,34 @@ public class Usuario implements Serializable {
 	@Column(name = "id_usuario")
 	private Integer idUsuario;
 
-	@NotEmpty
+	@NotNull
 	@Email
 	@Size(max = 100)
 	@Column(name = "correo", unique = true)
 	private String correoUsuario;
 
 	@NotNull
-	@Size(min = 3, max = 100)
+	@Size(min = 5, max = 100)
 	@Column(name = "contrasena")
 	private String contrasenaHash;
 
-	@NotBlank
+	@NotNull
 	@Size(max = 50)
 	@Column(name = "nombre")
 	private String nombreUsuario;
 
-	@NotBlank
+	@NotNull
 	@Size(max = 50)
 	@Column(name = "apellidos")
 	private String apellidosUsuario;
 
 	@NotNull
 	@NotEmpty
-	@Size(max = 9)
+	@Size(min = 9, max = 9)
 	@Column(name = "telefono")
 	private String telefonoUsuario = "";
 
-	@NotBlank
+	@NotNull
 	@Size(max = 20)
 	@Column(name = "rol")
 	private String rolUsuario;
@@ -66,8 +63,12 @@ public class Usuario implements Serializable {
 	@Column(name = "bloqueado")
 	private Boolean bloqueado = false;
 
-	@OneToMany(mappedBy = "usuarioResponsable", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<PropietarioAula> lstPropietariosResponsabilidad = new HashSet<>();
+	/**
+	 * Asociación bidireccional OneToMany con PropietarioAula para indicar los
+	 * centros o departamentos de los que es responsable el usuario.
+	 */
+	@OneToMany(mappedBy = "usuarioResponsable", cascade = CascadeType.ALL)
+	private Set<PropietarioAula> lstPropietariosResponsabilidad;
 
 	/**
 	 * Función que prepara los datos del correo antes de guardarlos.
@@ -248,17 +249,6 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve si el usuario tiene centros o departamentos bajo su
-	 * responsabilidad o no.
-	 * 
-	 * @return Si el usuario tiene centros o departamentos bajo su responsabilidad o
-	 *         no
-	 */
-	public Boolean tienePropietariosResponsabilidad() {
-		return getPropietariosResponsabilidad().isEmpty() ? false : true;
-	}
-
-	/**
 	 * Función que devuelve una lista con los centros o departamentos de los que es
 	 * responasble el usuario.
 	 * 
@@ -294,10 +284,10 @@ public class Usuario implements Serializable {
 
 		return propietario;
 	}
-	
+
 	/**
-	 * Función que elimina el centro o departamento pasado de la lista de propietarios
-	 * de los que es responsable.
+	 * Función que elimina el centro o departamento pasado de la lista de
+	 * propietarios de los que es responsable.
 	 * 
 	 * @param propietario Centro o departamento que eliminar de la lista de
 	 *                    propietarios de los que es responsable
@@ -306,7 +296,7 @@ public class Usuario implements Serializable {
 	 */
 	public PropietarioAula removePropietarioResponsabilidad(PropietarioAula propietario) {
 		this.getPropietariosResponsabilidad().remove(propietario);
-		
+
 		return propietario;
 	}
 

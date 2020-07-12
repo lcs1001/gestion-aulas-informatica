@@ -71,10 +71,12 @@ public class HistoricoReservas implements Serializable {
 	private String aCargoDeReserva;
 
 	@NotNull
+	@Size(max = 100)
 	@Column(name = "usuario_responsable_operacion")
 	private String usuarioResponsableOperacion;
 
 	@NotNull
+	@Size(max = 30)
 	@Column(name = "propietario_responsable_operacion")
 	private String propietarioResponsableOperacion;
 

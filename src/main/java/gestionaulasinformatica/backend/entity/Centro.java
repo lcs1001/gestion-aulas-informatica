@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import gestionaulasinformatica.backend.data.TipoPropietarioAula;
@@ -30,8 +29,8 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * Asociación bidireccional OneToMany con Aula para indicar las aulas ubicadas
 	 * en el centro.
 	 */
-	@OneToMany(mappedBy = "ubicacionCentro", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Aula> listaAulasUbicacionCentro;
+	@OneToMany(mappedBy = "ubicacionCentro", cascade = CascadeType.ALL)
+	private Set<Aula> lstAulasUbicacionCentro;
 
 	/**
 	 * Constructor de la clase sin parámetros, indicando el tipo de propietario al
@@ -67,7 +66,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * @return Lista de aulas ubicadas en el centro
 	 */
 	public Set<Aula> getAulasUbicacionCentro() {
-		return this.listaAulasUbicacionCentro;
+		return this.lstAulasUbicacionCentro;
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class Centro extends PropietarioAula implements Serializable {
 	 * @param aulasPertenecientes Lista de aulas ubicadas en el centro
 	 */
 	public void setAulasUbicacionCentro(Set<Aula> aulasUbicacionCentro) {
-		this.listaAulasUbicacionCentro = aulasUbicacionCentro;
+		this.lstAulasUbicacionCentro = aulasUbicacionCentro;
 	}
 
 	/**

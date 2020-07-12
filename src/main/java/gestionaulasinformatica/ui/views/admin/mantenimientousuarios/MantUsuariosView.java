@@ -22,6 +22,7 @@ import com.vaadin.flow.router.Route;
 
 import gestionaulasinformatica.app.security.SecurityUtils;
 import gestionaulasinformatica.backend.entity.Usuario;
+import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.UsuarioService;
 import gestionaulasinformatica.exceptions.UserFriendlyDataException;
 import gestionaulasinformatica.ui.Comunes;
@@ -39,6 +40,7 @@ public class MantUsuariosView extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	private UsuarioService usuarioService;
+	private PropietarioAulaService propietarioAulaService;
 	private PasswordEncoder passwordEncoder;
 	private Comunes comunes;
 
@@ -54,11 +56,13 @@ public class MantUsuariosView extends VerticalLayout {
 	 * 
 	 * @param passwordEncoder Codificador de contraseñas
 	 */
-	public MantUsuariosView(UsuarioService usuarioService, PasswordEncoder passwordEncoder) {
+	public MantUsuariosView(UsuarioService usuarioService, PropietarioAulaService propietarioAulaService,
+			PasswordEncoder passwordEncoder) {
 		Div contenido;
 
 		try {
 			this.usuarioService = usuarioService;
+			this.propietarioAulaService = propietarioAulaService;
 			this.passwordEncoder = passwordEncoder;
 			this.comunes = new Comunes();
 
@@ -277,7 +281,7 @@ public class MantUsuariosView extends VerticalLayout {
 
 				// Si el usuario tiene un centro o departamento bajo su responsabilidad se
 				// informa
-				if (usuario.tienePropietariosResponsabilidad()) {
+				if (!propietarioAulaService.findAllPropietariosResponsable(usuario).isEmpty()) {
 					mensajeConfirmacion = "El usuario " + usuario.getNombreApellidosUsuario()
 							+ " tiene bajo su responsabilidad algún centro o departamento, reasígneles otro responsable primero";
 					comunes.mostrarNotificacion(mensajeConfirmacion, 5000, NotificationVariant.LUMO_ERROR);

@@ -18,11 +18,11 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import gestionaulasinformatica.backend.data.TipoPropietarioAula;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.entity.Usuario;
+import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
 import gestionaulasinformatica.backend.service.UsuarioService;
 import gestionaulasinformatica.ui.Comunes;
@@ -42,6 +42,7 @@ public class MantPropietariosView extends VerticalLayout {
 
 	private PropietarioAulaService propietarioAulaService;
 	private UsuarioService usuarioService;
+	private AulaService aulaService;
 	private Comunes comunes;
 
 	private final MantPropietariosForm formulario;
@@ -55,12 +56,13 @@ public class MantPropietariosView extends VerticalLayout {
 	 * @param propietarioAulaService Service de JPA de la entidad PropietarioAula
 	 * @param usuarioService         Service de JPA de la entidad Usuario
 	 */
-	public MantPropietariosView(PropietarioAulaService propietarioAulaService, UsuarioService usuarioService) {
+	public MantPropietariosView(PropietarioAulaService propietarioAulaService, UsuarioService usuarioService, AulaService aulaService) {
 		Div contenido;
 
 		try {
 			this.propietarioAulaService = propietarioAulaService;
 			this.usuarioService = usuarioService;
+			this.aulaService = aulaService;
 			this.comunes = new Comunes();
 
 			addClassName("mant-propietarios-view");
@@ -289,12 +291,9 @@ public class MantPropietariosView extends VerticalLayout {
 		try {
 			propietario = evt.getPropietarioAula();
 
-			// Si es propietario de aulas, o es un centro y tiene aulas ubicadas en él
-			if (propietario.tieneAulasPropiedad()
-					|| (propietario.getTipoPropietarioAula().equals(TipoPropietarioAula.Centro)
-							&& ((Centro) propietario).tieneAulasUbicacionCentro())) {
+			if(!aulaService.findAllAulasPropietario(propietario).isEmpty()) {
 				mensajeConfirmacion = propietario.getNombrePropietarioAula()
-						+ " tiene aulas asignadas, ¿desea eliminar definitivamente junto a todas sus aulas? Esta acción no se puede deshacer.";
+						+ " tiene aulas asignadas, ¿desea eliminarle definitivamente junto a todas sus aulas? Esta acción no se puede deshacer.";
 			} else {
 				mensajeConfirmacion = "¿Desea eliminar " + propietario.getNombrePropietarioAula()
 						+ " definitivamente? Esta acción no se puede deshacer.";
