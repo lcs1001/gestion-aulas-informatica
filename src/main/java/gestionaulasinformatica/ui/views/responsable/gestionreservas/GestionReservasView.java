@@ -2,7 +2,6 @@ package gestionaulasinformatica.ui.views.responsable.gestionreservas;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -113,6 +112,7 @@ public class GestionReservasView extends VerticalLayout {
 		try {
 			gridReservas = new Grid<>();
 			gridReservas.addClassName("gestion-reservas-grid");
+			gridReservas.setHeightFull();
 
 			gridReservas.addColumn(new LocalDateRenderer<>(Reserva::getFecha, "dd/MM/yyyy")).setHeader("Fecha")
 					.setKey("fecha");
@@ -360,6 +360,7 @@ public class GestionReservasView extends VerticalLayout {
 					reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
+			formularioBusqueda.limpiarFiltros();
 			actualizarReservas();
 			cerrarEditor();
 		} catch (Exception e) {
@@ -444,6 +445,8 @@ public class GestionReservasView extends VerticalLayout {
 						reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
+
+			formularioBusqueda.limpiarFiltros();
 			actualizarReservas();
 		} catch (Exception e) {
 			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
@@ -452,16 +455,16 @@ public class GestionReservasView extends VerticalLayout {
 	}
 
 	/**
-	 * Función que actualiza el grid que muestra las reservas del centro o
-	 * departamento.
+	 * Función que actualiza el grid que muestra las reservas de los centros o
+	 * departamentos de los que es responsable el usuario logeado.
 	 */
 	private void actualizarReservas() {
 		List<Reserva> lstReservas;
 
 		try {
 			gridReservas.setVisible(false);
-			// Se obtienen las reservas a partir de la fecha y hora actual
-			lstReservas = reservaService.findAllReservasFiltros(LocalDate.now(), null, LocalTime.now(), null, null,
+
+			lstReservas = reservaService.findAllReservasFiltros(LocalDate.now(), null, null, null, null,
 					propietarioAulaService.findAllPropietariosResponsable(responsableLogeado));
 
 			if (!lstReservas.isEmpty()) {
