@@ -93,6 +93,19 @@ public class AulaService {
 	}
 
 	/**
+	 * Función que devuelve el aula con el nombre y ubicada en el centro pasados por
+	 * parámetro.
+	 * 
+	 * @param nombreAula      Nombre del aula que se quiere obtener
+	 * @param ubicacionCentro Centro en el que se encuentra el aula
+	 * 
+	 * @return Aula con el nombre y ubicada en el centro pasados por parámetro
+	 */
+	public Aula findByNombreAulaIgnoreCaseAndUbicacionCentro(String nombreAula, PropietarioAula ubicacionCentro) {
+		return aulaRepository.findByNombreAulaIgnoreCaseAndUbicacionCentro(nombreAula, ubicacionCentro);
+	}
+
+	/**
 	 * Función que elimina el aula pasada por parámetro de la BD.
 	 * 
 	 * @param aula Aula que se quiere eliminar

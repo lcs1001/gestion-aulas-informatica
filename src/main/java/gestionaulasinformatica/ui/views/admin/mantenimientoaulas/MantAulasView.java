@@ -16,6 +16,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -63,7 +64,7 @@ public class MantAulasView extends VerticalLayout {
 			configuarToolbar();
 			configurarGridAulas();
 
-			formulario = new MantAulasForm(this.propietarioAulaService.findAll(),
+			formulario = new MantAulasForm(this.aulaService, this.comunes, this.propietarioAulaService.findAll(),
 					this.propietarioAulaService.findAllCentros());
 			formulario.addListener(MantAulasForm.SaveEvent.class, this::guardarAula);
 			formulario.addListener(MantAulasForm.DeleteEvent.class, this::confirmarEliminacionAula);
@@ -220,7 +221,7 @@ public class MantAulasView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_GUARDAR.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			LOGGER.error(e.getMessage());
 			throw e;
 		}
@@ -238,7 +239,7 @@ public class MantAulasView extends VerticalLayout {
 			cerrarEditor();
 
 		} catch (Exception e) {
-			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, null);
+			comunes.mostrarNotificacion(Mensajes.MSG_ERROR_ACCION.getMensaje(), 3000, NotificationVariant.LUMO_ERROR);
 			LOGGER.error(e.getMessage());
 			throw e;
 		}

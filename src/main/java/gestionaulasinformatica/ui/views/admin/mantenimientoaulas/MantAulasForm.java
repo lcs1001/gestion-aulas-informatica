@@ -14,6 +14,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -24,6 +25,9 @@ import com.vaadin.flow.shared.Registration;
 
 import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
+import gestionaulasinformatica.backend.service.AulaService;
+import gestionaulasinformatica.ui.Comunes;
+import gestionaulasinformatica.ui.Mensajes;
 
 /**
  * Clase que contiene el formulario del Mantenimiento de Aulas.
@@ -32,10 +36,12 @@ import gestionaulasinformatica.backend.entity.PropietarioAula;
  *
  */
 public class MantAulasForm extends FormLayout {
-	
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(MantAulasForm.class.getName());
 
+	private AulaService aulaService;
+	private Comunes comunes;
 	private List<PropietarioAula> lstPropietarios;
 	private List<PropietarioAula> lstCentros;
 
@@ -59,15 +65,18 @@ public class MantAulasForm extends FormLayout {
 	 *                     BD
 	 * @param centros      Lista con todos los centros que hay en la BD
 	 */
-	public MantAulasForm(List<PropietarioAula> propietarios, List<PropietarioAula> centros) {
+	public MantAulasForm(AulaService aulaService, Comunes comunes, List<PropietarioAula> propietarios,
+			List<PropietarioAula> centros) {
 		try {
 			addClassName("mant-aulas-form");
 
+			this.aulaService = aulaService;
+			this.comunes = comunes;
 			this.lstPropietarios = propietarios;
 			this.lstCentros = centros;
 
-			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2), new ResponsiveStep("25em", 3),
-					new ResponsiveStep("25em", 4));
+			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
+					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
 			configurarCamposFormulario();
 
@@ -76,10 +85,10 @@ public class MantAulasForm extends FormLayout {
 
 			add(nombreAula, 2);
 			add(capacidad, numOrdenadores);
-			add(ubicacionCentro,2);
+			add(ubicacionCentro, 2);
 			add(propietarioAula, 2);
 			add(getFormToolbar(), 4);
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw e;
@@ -178,13 +187,39 @@ public class MantAulasForm extends FormLayout {
 	}
 
 	/**
+	 * Función que comprueba que el aula que se quiere guardar es válida.
+	 * 
+	 * @return Si el aula es válida o no
+	 */
+	private Boolean validarAula() {
+		Boolean valida = true;
+
+		try {
+			// Si existe un aula con el nombre introducido en el centro seleccionado
+			if (!aulaService
+					.findByNombreAulaIgnoreCaseAndUbicacionCentro(nombreAula.getValue(), ubicacionCentro.getValue())
+					.equals(null)) {
+				valida = false;
+				comunes.mostrarNotificacion(Mensajes.MSG_AULA_CENTRO_EXISTENTE.getMensaje(), 3000,
+						NotificationVariant.LUMO_ERROR);
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw e;
+		}
+
+		return valida;
+	}
+
+	/**
 	 * Función que valida el aula y la guarda (si es válido).
 	 */
 	private void validarGuardar() {
 		try {
-			binder.writeBean(aula);
-			fireEvent(new SaveEvent(this, aula));
-
+			if (validarAula()) {
+				binder.writeBean(aula);
+				fireEvent(new SaveEvent(this, aula));
+			}
 		} catch (ValidationException e) {
 			LOGGER.error(e.getMessage());
 			e.printStackTrace();

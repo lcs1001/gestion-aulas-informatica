@@ -22,4 +22,6 @@ public interface IAulaRepository extends JpaRepository<Aula, Integer>, JpaSpecif
 	@Query("SELECT a FROM Aula a "
 			+ "WHERE lower(a.propietarioAula.idPropietarioAula) LIKE lower(:filtroPropietarioAula) ORDER BY nombreAula ASC")
 	List<Aula> findAllAulasPropietario(@Param("filtroPropietarioAula") PropietarioAula filtroPropietarioAula);
+	
+	Aula findByNombreAulaIgnoreCaseAndUbicacionCentro(String nombreAula, PropietarioAula ubicacionCentro);
 }

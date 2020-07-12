@@ -20,6 +20,8 @@ public enum Mensajes {
 	MSG_RESERVA_HORA_INICIO_MAYOR("La hora de inicio de la reserva debe ser menor que la hora de fin"),
 
 	MSG_RESERVA_FECHA_INICIO_MAYOR("La fecha de inicio de la reserva debe ser menor que la fecha de fin"),
+	
+	MSG_AULA_CENTRO_EXISTENTE("Ya existe un aula con ese nombre en el centro que ha seleccionado"),
 
 	// No hay datos / No hay datos que concuerdan
 	MSG_NO_CONSULTA_RESERVAS("No hay reservas que concuerden con los filtros aplicados"),
