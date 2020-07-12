@@ -111,6 +111,7 @@ public class ConsultaAulasView extends VerticalLayout {
 		try {
 			gridAulas = new Grid<>();
 			gridAulas.addClassName("consulta-aulas-grid");
+			gridAulas.setHeightFull();
 
 			gridAulas.addColumn(Aula::getNombreAula).setHeader("Aula").setKey("nombreAula");
 			gridAulas.addColumn(Aula::getNombreCentro).setHeader("Centro").setKey("centro");

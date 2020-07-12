@@ -88,6 +88,7 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			gridAulas = new Grid<>();
 			gridAulas.addClassName("mant-aulas-grid");
+			gridAulas.setHeightFull();
 
 			gridAulas.addColumn(Aula::getNombreAula).setHeader("Aula").setKey("nombreAula");
 			gridAulas.addColumn(Aula::getNombreCentro).setHeader("Centro").setKey("centro");

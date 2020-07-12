@@ -96,6 +96,7 @@ public class MantPropietariosView extends VerticalLayout {
 		try {
 			gridPropietarios = new Grid<>();
 			gridPropietarios.addClassName("mant-propietarios-grid");
+			gridPropietarios.setHeightFull();
 
 			gridPropietarios.addColumn(PropietarioAula::getNombrePropietarioAula).setHeader("Centro/Departamento")
 					.setKey("nombrePropietario");

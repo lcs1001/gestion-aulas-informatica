@@ -105,7 +105,8 @@ public class HistoricoReservasView extends VerticalLayout {
 		try {
 			gridHistorico = new Grid<>();
 			gridHistorico.addClassName("historico-reservas-grid");
-
+			gridHistorico.setHeightFull();
+			
 			gridHistorico.addColumn(new LocalDateRenderer<>(HistoricoReservas::getFechaOperacion, "dd/MM/yyyy"))
 					.setHeader("Fecha").setKey("fechaOperacion");
 			gridHistorico.addColumn(HistoricoReservas::getTipoOperacion).setHeader("Operación").setKey("tipoOperacion");

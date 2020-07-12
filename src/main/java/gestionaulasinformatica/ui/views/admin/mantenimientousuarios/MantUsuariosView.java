@@ -97,6 +97,7 @@ public class MantUsuariosView extends VerticalLayout {
 		try {
 			gridUsuarios = new Grid<>();
 			gridUsuarios.addClassName("mant-usuarios-grid");
+			gridUsuarios.setHeightFull();
 
 			gridUsuarios.addColumn(Usuario::getNombreApellidosUsuario).setHeader("Usuario")
 					.setKey("nombreApellidosUsuario");
