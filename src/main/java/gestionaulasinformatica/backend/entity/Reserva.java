@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -45,6 +46,7 @@ public class Reserva implements Serializable {
 	private LocalTime horaFin;
 
 	@NotNull
+	@NotEmpty
 	@Size(max = 10)
 	@Column(name = "dia_semana")
 	private String diaSemana = "";
@@ -59,6 +61,7 @@ public class Reserva implements Serializable {
 
 	/** Motivo de la reserva (examen, curso, reunión, etc) */
 	@NotNull
+	@NotEmpty
 	@Size(max = 50)
 	@Column(name = "motivo")
 	private String motivo = "";
@@ -68,6 +71,7 @@ public class Reserva implements Serializable {
 	 * centro o departamento)
 	 */
 	@NotNull
+	@NotEmpty
 	@Size(max = 50)
 	@Column(name = "a_cargo_de")
 	private String aCargoDe = "";

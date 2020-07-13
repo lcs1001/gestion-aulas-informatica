@@ -109,7 +109,6 @@ public class MantUsuariosForm extends FormLayout {
 			telefonoUsuario.setMaxLength(9);
 
 			rolUsuario = new ComboBox<String>("Rol del usuario");
-
 			ListDataProvider<String> rolProvider = DataProvider.ofItems(Rol.getAllRoles());
 			rolUsuario.setItemLabelGenerator(s -> s != null ? s : "");
 			rolUsuario.setDataProvider(rolProvider);

@@ -116,12 +116,14 @@ public class MantAulasForm extends FormLayout {
 			ubicacionCentro.setPlaceholder("Seleccione");
 			ubicacionCentro.setItems(lstCentros);
 			ubicacionCentro.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			ubicacionCentro.setRequired(true);
 			ubicacionCentro.setRequiredIndicatorVisible(true);
 
 			propietarioAula = new ComboBox<>("Propietario del aula");
 			propietarioAula.setPlaceholder("Seleccione");
 			propietarioAula.setItems(lstPropietarios);
 			propietarioAula.setItemLabelGenerator(PropietarioAula::getNombrePropietarioAula);
+			propietarioAula.setRequired(true);
 			propietarioAula.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {

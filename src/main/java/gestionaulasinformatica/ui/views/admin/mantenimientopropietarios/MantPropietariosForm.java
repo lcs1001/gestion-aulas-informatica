@@ -92,6 +92,7 @@ public class MantPropietariosForm extends FormLayout {
 			responsable.setPlaceholder("Seleccione");
 			responsable.setItems(lstResponsables);
 			responsable.setItemLabelGenerator(Usuario::getNombreApellidosUsuario);
+			responsable.setRequired(true);
 			responsable.setRequiredIndicatorVisible(true);
 
 		} catch (Exception e) {

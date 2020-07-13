@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -43,11 +44,13 @@ public class PropietarioAula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@NotEmpty
 	@Size(max = 30)
 	@Column(name = "id_propietario_aula")
 	private String idPropietarioAula = "";
 
 	@NotNull
+	@NotEmpty
 	@Size(max = 100)
 	@Column(name = "nombre_propietario_aula", unique = true)
 	private String nombrePropietarioAula = "";

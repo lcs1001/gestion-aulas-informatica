@@ -40,11 +40,13 @@ public class Usuario implements Serializable {
 	private String contrasenaHash;
 
 	@NotNull
+	@NotEmpty
 	@Size(max = 50)
 	@Column(name = "nombre")
 	private String nombreUsuario;
 
 	@NotNull
+	@NotEmpty
 	@Size(max = 50)
 	@Column(name = "apellidos")
 	private String apellidosUsuario;
@@ -56,6 +58,7 @@ public class Usuario implements Serializable {
 	private String telefonoUsuario = "";
 
 	@NotNull
+	@NotEmpty
 	@Size(max = 20)
 	@Column(name = "rol")
 	private String rolUsuario;
