@@ -52,9 +52,9 @@ public class ConsultaAulasTest {
 	 */
 	public void establecerDatos() {
 		try {
-			responsableCentro = new Usuario("rspCentro1@gmail.com", "1234", "Responsable", "Centro 1", "547854126",
+			responsableCentro = new Usuario("rspCentro1@gmail.com", "12345", "Responsable", "Centro 1", "547854126",
 					Rol.RESPONSABLE);
-			responsableDpto = new Usuario("rspDpto1@gmail.com", "1234", "Responsable", "Departamento 1", "247863221",
+			responsableDpto = new Usuario("rspDpto1@gmail.com", "12345", "Responsable", "Departamento 1", "247863221",
 					Rol.RESPONSABLE);
 
 			entityManager.persist(responsableCentro);

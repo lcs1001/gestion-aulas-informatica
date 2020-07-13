@@ -34,7 +34,7 @@ public class UsuarioTest {
 	 */
 	public void establecerDatos() {
 		try {			
-			usuario = new Usuario("usuario@gmail.com", "1234", "Usuario", "Test", "547854126",
+			usuario = new Usuario("usuario@gmail.com", "12345", "Usuario", "Test", "547854126",
 					Rol.RESPONSABLE);
 
 			entityManager.persist(usuario);
@@ -52,7 +52,7 @@ public class UsuarioTest {
 		try {
 			establecerDatos();
 
-			usuarioRecuperado = usuarioRepository.findById(1);
+			usuarioRecuperado = usuarioRepository.findById(usuario.getIdUsuario());
 
 			System.out.println("\n\nTest findById:");
 
