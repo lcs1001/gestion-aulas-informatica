@@ -21,9 +21,6 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	long countByCorreoUsuarioLikeIgnoreCaseOrNombreUsuarioLikeIgnoreCaseOrApellidosUsuarioLikeIgnoreCaseOrRolUsuarioLikeIgnoreCase(
 			String correoUsuarioLike, String nombreUsuarioLike, String apellidosUsuarioLike, String rolUsuarioLike);
 
-	@Query("SELECT u FROM Usuario u WHERE rolUsuario LIKE 'RESPONSABLE' ORDER BY nombreUsuario ASC")
-	List<Usuario> findAllResponsables();
-
 	@Query("SELECT u FROM Usuario u " + "WHERE lower(u.nombreUsuario) LIKE lower(concat('%', :filtroTexto, '%'))"
 			+ "OR lower(u.apellidosUsuario) like lower(concat('%', :filtroTexto, '%'))" + "ORDER BY nombreUsuario ASC")
 	List<Usuario> buscarUsuario(@Param("filtroTexto") String filtroTexto);

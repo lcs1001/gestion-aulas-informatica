@@ -54,15 +54,6 @@ public class UsuarioService {
 	}
 
 	/**
-	 * Función que devuelve una lista con todos los responsables que hay en la BD.
-	 * 
-	 * @return Lista con todos los responsables que hay en la BD
-	 */
-//	public List<Usuario> findAllResponsables() {
-//		return usuarioRepository.findAllResponsables();
-//	}
-
-	/**
 	 * Función que devuelve el usuario asociado al correo pasado por parámetro.
 	 * 
 	 * @param correoUsuario Correo del usuario que que quiere obtener
