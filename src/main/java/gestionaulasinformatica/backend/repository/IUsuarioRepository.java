@@ -24,9 +24,9 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	@Query("SELECT u FROM Usuario u WHERE rolUsuario LIKE 'RESPONSABLE' ORDER BY nombreUsuario ASC")
 	List<Usuario> findAllResponsables();
 
-	@Query("SELECT u FROM Usuario u "
-			+ "WHERE lower(u.nombreUsuario) LIKE lower(concat('%', :filtroTexto, '%'))"
-			+ "OR lower(u.apellidosUsuario) like lower(concat('%', :filtroTexto, '%'))"
-			+ "ORDER BY nombreUsuario ASC")
+	@Query("SELECT u FROM Usuario u " + "WHERE lower(u.nombreUsuario) LIKE lower(concat('%', :filtroTexto, '%'))"
+			+ "OR lower(u.apellidosUsuario) like lower(concat('%', :filtroTexto, '%'))" + "ORDER BY nombreUsuario ASC")
 	List<Usuario> buscarUsuario(@Param("filtroTexto") String filtroTexto);
+
+	List<Usuario> findByRolUsuarioLikeIgnoreCase(String rolUsuario);
 }

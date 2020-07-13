@@ -66,8 +66,8 @@ public class ConsultaAulasView extends VerticalLayout {
 
 			formulario = new ConsultaAulasForm(this.propietarioAulaService.findAll(), comunes, aulaService);
 
-			contenido = new Div(comunes.getTituloVentana("Consulta de disponibilidad de aulas"), formulario,
-					toolbar, gridAulas);
+			contenido = new Div(comunes.getTituloVentana("Consulta de disponibilidad de aulas"), formulario, toolbar,
+					gridAulas);
 			contenido.addClassName("consulta-aulas-contenido");
 			contenido.setSizeFull();
 
@@ -241,10 +241,18 @@ public class ConsultaAulasView extends VerticalLayout {
 				capacidad = capacidad == null ? 0 : capacidad;
 				numOrdenadores = numOrdenadores == null ? 0 : numOrdenadores;
 
-				lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta,
-						formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), capacidad.intValue(),
-						numOrdenadores.intValue(), formulario.diaSemana.getValue(), formulario.propietario.getValue(),
-						formulario.aula.getValue().getIdAula(), null);
+				// Si no se consulta por aula
+				if (formulario.aula.isEmpty()) {
+					lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta,
+							formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), capacidad.intValue(),
+							numOrdenadores.intValue(), formulario.diaSemana.getValue(),
+							formulario.propietario.getValue(), null, null);
+				} else {
+					lstAulas = aulaService.findAllAulasDisponiblesFiltros(fechaDesde, fechaHasta,
+							formulario.horaDesde.getValue(), formulario.horaHasta.getValue(), capacidad.intValue(),
+							numOrdenadores.intValue(), formulario.diaSemana.getValue(),
+							formulario.propietario.getValue(), formulario.aula.getValue().getIdAula(), null);
+				}
 
 				if (!lstAulas.isEmpty()) {
 					gridAulas.setVisible(true);

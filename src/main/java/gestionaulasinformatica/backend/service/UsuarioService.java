@@ -58,9 +58,9 @@ public class UsuarioService {
 	 * 
 	 * @return Lista con todos los responsables que hay en la BD
 	 */
-	public List<Usuario> findAllResponsables() {
-		return usuarioRepository.findAllResponsables();
-	}
+//	public List<Usuario> findAllResponsables() {
+//		return usuarioRepository.findAllResponsables();
+//	}
 
 	/**
 	 * Función que devuelve el usuario asociado al correo pasado por parámetro.
@@ -68,8 +68,19 @@ public class UsuarioService {
 	 * @param correoUsuario Correo del usuario que que quiere obtener
 	 * @return Usuario asociado al correo pasado por parámetro
 	 */
-	public Usuario findByCorreoUsuarioIgnoreCase(String correoUsuario) {
+	public Usuario findByCorreoUsuario(String correoUsuario) {
 		return usuarioRepository.findByCorreoUsuarioIgnoreCase(correoUsuario);
+	}
+	
+	/**
+	 * Función que obtiene los usuarios con el rol pasado por parámetro.
+	 * 
+	 * @param rol Rol del usuario que se quiere obtener.
+	 * 
+	 * @return Usuarios con el rol pasado por parámetro
+	 */
+	public List<Usuario> findByRolUsuario(String rol){
+		return usuarioRepository.findByRolUsuarioLikeIgnoreCase(rol);
 	}
 
 	/**

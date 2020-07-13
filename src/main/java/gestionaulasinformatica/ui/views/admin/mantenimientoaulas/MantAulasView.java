@@ -1,5 +1,6 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientoaulas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -316,6 +317,8 @@ public class MantAulasView extends VerticalLayout {
 					gridAulas.setVisible(true);
 					gridAulas.setItems(lstAulas);
 				} else {
+					gridAulas.setVisible(false);
+					gridAulas.setItems(new ArrayList<Aula>());
 					comunes.mostrarNotificacion(Mensajes.MSG_NO_AULAS.getMensaje(), 3000, null);
 				}
 			}

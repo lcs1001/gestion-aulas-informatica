@@ -78,7 +78,7 @@ public class GestionReservasView extends VerticalLayout {
 			this.propietarioAulaService = propietarioAulaService;
 			comunes = new Comunes();
 
-			responsableLogeado = this.usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
+			responsableLogeado = this.usuarioService.findByCorreoUsuario(SecurityUtils.getUsername());
 
 			addClassName("gestion-reservas-view");
 			setSizeFull();

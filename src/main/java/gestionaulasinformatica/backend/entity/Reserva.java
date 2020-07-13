@@ -46,7 +46,6 @@ public class Reserva implements Serializable {
 	private LocalTime horaFin;
 
 	@NotNull
-	@NotEmpty
 	@Size(max = 10)
 	@Column(name = "dia_semana")
 	private String diaSemana = "";

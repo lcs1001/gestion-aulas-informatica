@@ -270,13 +270,14 @@ public class ReservaAulasForm extends FormLayout {
 			if (chkReservaRango.isEmpty()) {
 				fechaInicio.setLabel("Fecha");
 				fechaFin.setEnabled(false);
-				fechaFin.setRequiredIndicatorVisible(false);
+				fechaFin.setRequired(false);
 				diaSemana.setEnabled(false);
+				diaSemana.setRequired(false);
 			} else {
 				fechaInicio.setLabel("Fecha inicio");
 				fechaFin.setEnabled(true);
 				fechaFin.setMin(fechaInicio.getValue());
-				fechaFin.setRequiredIndicatorVisible(true);
+				fechaFin.setRequired(true);
 				diaSemana.setEnabled(true);
 				diaSemana.setValue("Seleccione");
 			}
@@ -437,11 +438,9 @@ public class ReservaAulasForm extends FormLayout {
 			if (validarCamposReserva() & validarReserva()) {
 
 				// Si es una reserva de un solo día
-				if (chkReservaRango.isEmpty()) {
-
-					binder.writeBean(reserva);
+				if (chkReservaRango.isEmpty()) {				
 					reserva.setDiaSemana(comunes.getDiaSemana(fechaInicio.getValue().getDayOfWeek().getValue()));
-//					reserva.setPropietarioResponsable(propietarioAula.getValue());
+					binder.writeBean(reserva);
 					fireEvent(new SaveEvent(this, reserva));
 
 				} else {

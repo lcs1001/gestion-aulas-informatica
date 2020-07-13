@@ -195,12 +195,13 @@ public class MantAulasForm extends FormLayout {
 	 */
 	private Boolean validarAula() {
 		Boolean valida = true;
-
+		Aula aulaBuscar;
 		try {
+			aulaBuscar = aulaService.findByNombreAulaIgnoreCaseAndUbicacionCentro(nombreAula.getValue(),
+					ubicacionCentro.getValue());
+
 			// Si existe un aula con el nombre introducido en el centro seleccionado
-			if (!aulaService
-					.findByNombreAulaIgnoreCaseAndUbicacionCentro(nombreAula.getValue(), ubicacionCentro.getValue())
-					.equals(null)) {
+			if (aulaBuscar != null) {
 				valida = false;
 				comunes.mostrarNotificacion(Mensajes.MSG_AULA_CENTRO_EXISTENTE.getMensaje(), 3000,
 						NotificationVariant.LUMO_ERROR);

@@ -74,7 +74,7 @@ public class ReservaAulasView extends VerticalLayout {
 			this.usuarioService = usuarioService;
 			this.comunes = new Comunes();
 
-			responsableLogeado = this.usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
+			responsableLogeado = this.usuarioService.findByCorreoUsuario(SecurityUtils.getUsername());
 
 			addClassName("reserva-aulas-view");
 			setSizeFull();
@@ -152,6 +152,7 @@ public class ReservaAulasView extends VerticalLayout {
 		HistoricoReservas operacionReserva;
 		try {
 			reserva = evt.getReserva();
+			reserva.setDiaSemana(comunes.getDiaSemana(reserva.getFecha().getDayOfWeek().getValue()));
 			reservaService.save(reserva);
 
 			lugarReserva = reserva.getAula().getNombreAula() + " - "

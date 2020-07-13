@@ -1,5 +1,6 @@
 package gestionaulasinformatica.ui.views.consultaaulas;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -186,6 +187,8 @@ public class ConsultaAulasForm extends FormLayout {
 			numOrdenadores.clear();
 			diaSemana.clear();
 			propietario.clear();
+			aula.clear();
+			aula.setItems(new ArrayList<Aula>());
 			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

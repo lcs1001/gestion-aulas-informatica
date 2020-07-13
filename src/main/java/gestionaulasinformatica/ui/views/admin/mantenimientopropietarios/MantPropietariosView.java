@@ -21,6 +21,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import gestionaulasinformatica.backend.data.Rol;
 import gestionaulasinformatica.backend.entity.Centro;
 import gestionaulasinformatica.backend.entity.Departamento;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
@@ -76,7 +77,7 @@ public class MantPropietariosView extends VerticalLayout {
 			configurarToolbar();
 			configurarGridPropietarios();
 
-			formulario = new MantPropietariosForm(this.usuarioService.findAllResponsables());
+			formulario = new MantPropietariosForm(this.usuarioService.findByRolUsuario(Rol.RESPONSABLE));
 			formulario.addListener(MantPropietariosForm.SaveEvent.class, this::guardarPropietario);
 			formulario.addListener(MantPropietariosForm.DeleteEvent.class, this::confirmarEliminacionPropietario);
 			formulario.addListener(MantPropietariosForm.CloseEvent.class, e -> cerrarEditor());

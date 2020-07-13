@@ -69,7 +69,7 @@ public class MantUsuariosView extends VerticalLayout {
 			this.passwordEncoder = passwordEncoder;
 			this.comunes = new Comunes();
 
-			usuarioLogeado = usuarioService.findByCorreoUsuarioIgnoreCase(SecurityUtils.getUsername());
+			usuarioLogeado = usuarioService.findByCorreoUsuario(SecurityUtils.getUsername());
 
 			addClassName("mant-usuarios-view");
 			setSizeFull();
