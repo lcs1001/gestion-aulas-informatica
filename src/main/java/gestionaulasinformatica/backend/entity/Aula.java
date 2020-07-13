@@ -254,15 +254,6 @@ public class Aula implements Serializable {
 	}
 
 	/**
-	 * Función que devuelve si el aula tiene reservas asociadas o no.
-	 * 
-	 * @return Si el aula tiene reservas asociadas o no.
-	 */
-	public Boolean tieneReservas() {
-		return this.getReservasAula().isEmpty() ? false : true;
-	}
-
-	/**
 	 * Función que devuelve una lista de las reservas del aula.
 	 * 
 	 * @return Lista de reservas del aula

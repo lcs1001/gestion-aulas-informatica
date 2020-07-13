@@ -1,5 +1,6 @@
 package gestionaulasinformatica.ui.views.admin.mantenimientoaulas;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.PropietarioAula;
 import gestionaulasinformatica.backend.service.AulaService;
 import gestionaulasinformatica.backend.service.PropietarioAulaService;
+import gestionaulasinformatica.backend.service.ReservaService;
 import gestionaulasinformatica.ui.Comunes;
 import gestionaulasinformatica.ui.MainLayout;
 import gestionaulasinformatica.ui.Mensajes;
@@ -44,6 +46,7 @@ public class MantAulasView extends VerticalLayout {
 
 	private AulaService aulaService;
 	private PropietarioAulaService propietarioAulaService;
+	private ReservaService reservaService;
 	private Comunes comunes;
 
 	private MantAulasForm formulario;
@@ -51,12 +54,14 @@ public class MantAulasView extends VerticalLayout {
 	private ComboBox<PropietarioAula> filtroPropietarioAula;
 	private HorizontalLayout toolbar;
 
-	public MantAulasView(AulaService aulaService, PropietarioAulaService propietarioAulaService) {
+	public MantAulasView(AulaService aulaService, PropietarioAulaService propietarioAulaService,
+			ReservaService reservaService) {
 		Div contenido;
 
 		try {
 			this.aulaService = aulaService;
 			this.propietarioAulaService = propietarioAulaService;
+			this.reservaService = reservaService;
 			this.comunes = new Comunes();
 
 			addClassName("mant-aulas-view");
@@ -263,8 +268,8 @@ public class MantAulasView extends VerticalLayout {
 		try {
 			aula = evt.getAula();
 
-			// Si tiene reservas asociadas
-			if (aula.tieneReservas()) {
+			// Si tiene reservas asociadas a partir de la fecha actual
+			if (!reservaService.findByAulaAndFecha(aula, LocalDate.now()).isEmpty()) {
 				mensajeConfirmacion = "El aula " + aula.getNombreAula() + " de " + aula.getNombreCentro()
 						+ " tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? Esta acción no se puede deshacer.";
 			} else {

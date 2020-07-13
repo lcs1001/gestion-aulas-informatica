@@ -1,11 +1,12 @@
 package gestionaulasinformatica.backend.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 
+import gestionaulasinformatica.backend.entity.Aula;
 import gestionaulasinformatica.backend.entity.Reserva;
 
 /**
@@ -16,7 +17,6 @@ import gestionaulasinformatica.backend.entity.Reserva;
  */
 public interface IReservaRepository extends JpaRepository<Reserva, Integer>, JpaSpecificationExecutor<Reserva> {
 
-	@Query("SELECT r FROM Reserva r WHERE (r.fecha + r.horaInicio) > CURRENT_TIMESTAMP ORDER BY fecha ASC")
-	List<Reserva> findReservasAPartirMomentoActual();
+	List<Reserva> findByAulaAndFecha(Aula aula, LocalDate fecha);
 
 }
