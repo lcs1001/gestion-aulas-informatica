@@ -308,22 +308,23 @@ public class MantUsuariosView extends VerticalLayout {
 				// informa
 				if (!propietarioAulaService.findAllPropietariosResponsable(usuario).isEmpty()) {
 					mensajeConfirmacion = "El usuario " + usuario.getNombreApellidosUsuario()
-							+ " tiene bajo su responsabilidad algún centro o departamento, reasígneles otro responsable primero";
+							+ " tiene bajo su responsabilidad algún centro o departamento, "
+							+ " reasígneles otro responsable primero";
 					comunes.mostrarNotificacion(mensajeConfirmacion, 5000, NotificationVariant.LUMO_ERROR);
 
 				} else { // Si no tiene un centro o departamento bajo su responsabilidad se elimina
-					mensajeConfirmacion = "¿Desea eliminar al usuario " + usuario.getNombreApellidosUsuario()
+					mensajeConfirmacion = "¿Desea eliminar el usuario " + usuario.getNombreApellidosUsuario()
 							+ " definitivamente? Esta acción no se puede deshacer.";
 
 					confirmacion = new Dialog(new Label(mensajeConfirmacion));
 					confirmacion.setCloseOnEsc(false);
 					confirmacion.setCloseOnOutsideClick(false);
 
-					mensajeEliminado = "Se ha eliminado " + usuario.getNombreApellidosUsuario() + " correctamente";
+					mensajeEliminado = "Se ha eliminado el usuario" + usuario.getNombreApellidosUsuario() + " correctamente";
 
 					btnConfirmar = new Button("Confirmar", event -> {
 						eliminarUsuario(usuario);
-						comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
+						comunes.mostrarNotificacion(mensajeEliminado, 3000, NotificationVariant.LUMO_SUCCESS);
 						confirmacion.close();
 					});
 					btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

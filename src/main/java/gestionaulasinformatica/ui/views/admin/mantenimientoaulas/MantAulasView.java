@@ -271,7 +271,8 @@ public class MantAulasView extends VerticalLayout {
 			// Si tiene reservas asociadas a partir de la fecha actual
 			if (!reservaService.findByAulaAndFecha(aula, LocalDate.now()).isEmpty()) {
 				mensajeConfirmacion = "El aula " + aula.getNombreAula() + " de " + aula.getNombreCentro()
-						+ " tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? Esta acción no se puede deshacer.";
+						+ " tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? "
+						+ " Esta acción no se puede deshacer.";
 			} else {
 				mensajeConfirmacion = "¿Desea eliminar " + aula.getNombreAula() + " de " + aula.getNombreCentro()
 						+ " definitivamente? Esta acción no se puede deshacer.";
@@ -285,7 +286,7 @@ public class MantAulasView extends VerticalLayout {
 
 			btnConfirmar = new Button("Confirmar", event -> {
 				eliminarAula(aula);
-				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, NotificationVariant.LUMO_SUCCESS);
 				confirmacion.close();
 			});
 			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

@@ -80,6 +80,15 @@ public class PerfilUsuarioForm extends FormLayout {
 						}
 					});
 			
+			binder.forField(telefonoUsuario)
+			.withValidator(telf -> telf.matches("^(|(?=.*\\d).{9,9})$"),
+					"Debe tener 9 dígitos")
+			.bind(user -> telefonoUsuario.getValue(), (user, telf) -> {
+				if (!telefonoUsuario.getEmptyValue().equals(telf)) {
+					user.setTelefonoUsuario(telf);
+				}
+			});
+			
 			configurarToolbar();
 
 			add(nombreUsuario, 2);

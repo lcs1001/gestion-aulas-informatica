@@ -322,7 +322,7 @@ public class MantPropietariosView extends VerticalLayout {
 
 			btnConfirmar = new Button("Confirmar", event -> {
 				eliminarPropietario(propietario);
-				comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
+				comunes.mostrarNotificacion(mensajeEliminado, 3000, NotificationVariant.LUMO_SUCCESS);
 				confirmacion.close();
 			});
 			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

@@ -75,12 +75,22 @@ public class MantUsuariosForm extends FormLayout {
 
 			binder = new BeanValidationBinder<>(Usuario.class);
 			binder.bindInstanceFields(this);
-
-			// Al añadir nuevos usuarios no se establecen restricciones en cuanto a formato
-			// de contraseña
-			binder.forField(contrasena).bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
+			
+			binder.forField(contrasena)
+			.withValidator(cont -> cont.matches("{5,}"),
+					"Debe tener 5 o más caracteres")
+			.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
 				if (!contrasena.getEmptyValue().equals(cont)) {
 					user.setContrasenaHash(this.passwordEncoder.encode(cont));
+				}
+			});
+			
+			binder.forField(telefonoUsuario)
+			.withValidator(telf -> telf.matches("^(|(?=.*\\d).{9,9})$"),
+					"Debe tener 9 dígitos")
+			.bind(user -> telefonoUsuario.getValue(), (user, telf) -> {
+				if (!telefonoUsuario.getEmptyValue().equals(telf)) {
+					user.setTelefonoUsuario(telf);
 				}
 			});
 

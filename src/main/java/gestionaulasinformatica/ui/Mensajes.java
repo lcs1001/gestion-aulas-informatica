@@ -24,15 +24,15 @@ public enum Mensajes {
 	MSG_AULA_CENTRO_EXISTENTE("Ya existe un aula con ese nombre en el centro que ha seleccionado"),
 
 	// No hay datos / No hay datos que concuerdan
-	MSG_NO_CONSULTA_RESERVAS("No hay reservas que coincidan con los filtros aplicados"),
+	MSG_NO_CONSULTA_RESERVAS("No hay reservas que cumplan con los filtros aplicados"),
 
-	MSG_NO_CONSULTA_AULAS("No hay aulas que concuerden con los filtros aplicados"),
+	MSG_NO_CONSULTA_AULAS("No hay aulas que cumplan con los filtros aplicados"),
 
 	MSG_NO_AULAS("No hay aulas asociadas al propietario seleccionado"),
 
 	MSG_NO_OPERACIONES_HR("No se han realizado operaciones con las reservas en esas fechas"),
 
-	MSG_NO_RESERVAS("No hay reservas realizadas a partir de la fecha actual o que coincidan con los filtros aplicados"),
+	MSG_NO_RESERVAS("No hay reservas realizadas a partir de la fecha actual o que cumplan con los filtros aplicados"),
 
 	MSG_NO_RESERVAS_SELECCIONADAS("No se ha seleccionado ninguna reserva"),
 
@@ -56,7 +56,7 @@ public enum Mensajes {
 	// Varios
 	MSG_CONTACTAR_ADMIN("Póngase en contacto con el administrador"),
 
-	ELIMINAR_USUARIO_BLOQUEADO_NO_PERMITIDO("El usuario se ha bloqueado y no se puede modificar ni eliminar"),
+	ELIMINAR_USUARIO_BLOQUEADO_NO_PERMITIDO("El usuario está bloqueado y no se puede eliminar"),
 
 	ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO("No puede eliminar su propio usuario"), 
 	
