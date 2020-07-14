@@ -197,10 +197,23 @@ public class MantUsuariosView extends VerticalLayout {
 				formulario.setVisible(true);
 
 				// Se oculta el botón "Eliminar" al añadir un usuario
+				// Solo se puede modificar si el usuario está bloqueado o no
 				if (editar) {
 					formulario.btnEliminar.setVisible(true);
+					formulario.nombreUsuario.setEnabled(false);
+					formulario.apellidosUsuario.setEnabled(false);
+					formulario.correoUsuario.setEnabled(false);
+					formulario.contrasena.setEnabled(false);
+					formulario.telefonoUsuario.setEnabled(false);
+					formulario.rolUsuario.setEnabled(false);
 				} else {
 					formulario.btnEliminar.setVisible(false);
+					formulario.nombreUsuario.setEnabled(true);
+					formulario.apellidosUsuario.setEnabled(true);
+					formulario.correoUsuario.setEnabled(true);
+					formulario.contrasena.setEnabled(true);
+					formulario.telefonoUsuario.setEnabled(true);
+					formulario.rolUsuario.setEnabled(true);
 				}
 			}
 		} catch (Exception e) {

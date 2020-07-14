@@ -41,6 +41,8 @@ public class MantUsuariosForm extends FormLayout {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(MantUsuariosForm.class.getName());
 
+	private PasswordEncoder passwordEncoder;
+
 	protected TextField nombreUsuario;
 	protected TextField apellidosUsuario;
 	protected EmailField correoUsuario;
@@ -62,24 +64,27 @@ public class MantUsuariosForm extends FormLayout {
 	 */
 	public MantUsuariosForm(PasswordEncoder passwordEncoder) {
 		try {
+			this.passwordEncoder = passwordEncoder;
+
 			addClassName("mant-usuarios-form");
 
 			setResponsiveSteps(new ResponsiveStep("25em", 1), new ResponsiveStep("25em", 2),
 					new ResponsiveStep("25em", 3), new ResponsiveStep("25em", 4));
 
-			configurarToolbar();
 			configurarCamposFormulario();
 
 			binder = new BeanValidationBinder<>(Usuario.class);
 			binder.bindInstanceFields(this);
-			binder.forField(contrasena)
-					.withValidator(cont -> cont.matches("^(|(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,})$"),
-							"Debe contener 6 o más caracteres, incluyendo dígitos, letras minúsculas y mayúsculas")
-					.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
-						if (!contrasena.getEmptyValue().equals(cont)) {
-							user.setContrasenaHash(passwordEncoder.encode(cont));
-						}
-					});
+
+			// Al añadir nuevos usuarios no se establecen restricciones en cuanto a formato
+			// de contraseña
+			binder.forField(contrasena).bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
+				if (!contrasena.getEmptyValue().equals(cont)) {
+					user.setContrasenaHash(this.passwordEncoder.encode(cont));
+				}
+			});
+
+			configurarToolbar();
 
 			add(nombreUsuario, 2);
 			add(apellidosUsuario, 2);
