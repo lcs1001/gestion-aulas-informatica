@@ -203,9 +203,9 @@ public class MantAulasForm extends FormLayout {
 			// Si existe un aula con el nombre introducido en el centro seleccionado (y no
 			// se trata de una modificación de aula)
 			if ((aulaBuscar != null) & !(aula.getIdAula().equals(aulaBuscar.getIdAula()))) {
-				valida = false;
 				comunes.mostrarNotificacion(Mensajes.MSG_AULA_CENTRO_EXISTENTE.getMensaje(), 3000,
 						NotificationVariant.LUMO_ERROR);
+				valida = false;
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

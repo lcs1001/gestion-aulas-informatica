@@ -89,18 +89,11 @@ public class UsuarioService {
 	}
 
 	/**
-	 * Función que guarda la reserva pasada por parámetro en la BD si no es null.
-	 * 
-	 * @param reserva Reserva que se quiere guardar
-	 */
-	/**
-	 * Función que guarda el usuario pasado por parámetro en la BD si no está
-	 * bloqueado.
+	 * Función que guarda el usuario pasado por parámetro en la BD.
 	 * 
 	 * @param usuario Usuario que se quiere guardar
 	 */
 	public void save(Usuario usuario) {
-		throwIfUserLocked(usuario);
 		usuarioRepository.save(usuario);
 	}
 

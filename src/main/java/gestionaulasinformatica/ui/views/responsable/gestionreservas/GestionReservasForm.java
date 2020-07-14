@@ -221,7 +221,7 @@ public class GestionReservasForm extends FormLayout {
 		try {
 			if (!fecha.isEmpty())
 				diaSemana.setValue(comunes.getDiaSemana(fecha.getValue().getDayOfWeek().getValue()));
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw e;
@@ -262,6 +262,13 @@ public class GestionReservasForm extends FormLayout {
 					valido = false;
 				}
 			}
+
+			if (fecha.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || propietarioAula.isEmpty()
+					|| aula.isEmpty() || motivo.isEmpty() || aCargoDe.isEmpty()) {
+				comunes.mostrarNotificacion(Mensajes.MSG_TODOS_CAMPOS_OBLIGATORIOS.getMensaje(), 3000,
+						NotificationVariant.LUMO_ERROR);
+				valido = false;
+			}
 			return valido;
 
 		} catch (Exception e) {
@@ -287,10 +294,10 @@ public class GestionReservasForm extends FormLayout {
 
 			aulaReserva = aula.getValue();
 
-			// Se busca si el aula está en esa fecha y horas en otra reserva 
-			aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fecha.getValue(), fecha.getValue(), horaInicio.getValue(),
-					horaFin.getValue(), aulaReserva.getCapacidadInt(), aulaReserva.getNumOrdenadoresInt(), null, null,
-					aulaReserva.getIdAula(), reserva.getIdReserva());
+			// Se busca si el aula está en esa fecha y horas en otra reserva
+			aulaConsulta = aulaService.findAllAulasDisponiblesFiltros(fecha.getValue(), fecha.getValue(),
+					horaInicio.getValue(), horaFin.getValue(), aulaReserva.getCapacidadInt(),
+					aulaReserva.getNumOrdenadoresInt(), null, null, aulaReserva.getIdAula(), reserva.getIdReserva());
 
 			if (aulaConsulta.contains(aulaReserva)) {
 				valida = true;

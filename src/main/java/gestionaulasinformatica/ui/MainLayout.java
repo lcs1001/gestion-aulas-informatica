@@ -27,6 +27,7 @@ import gestionaulasinformatica.ui.views.admin.mantenimientopropietarios.MantProp
 import gestionaulasinformatica.ui.views.admin.mantenimientousuarios.MantUsuariosView;
 import gestionaulasinformatica.ui.views.consultaaulas.ConsultaAulasView;
 import gestionaulasinformatica.ui.views.consultareservas.ConsultaReservasView;
+import gestionaulasinformatica.ui.views.perfilusuario.PerfilUsuarioView;
 import gestionaulasinformatica.ui.views.responsable.gestionreservas.GestionReservasView;
 import gestionaulasinformatica.ui.views.responsable.reservaaulas.ReservaAulasView;
 
@@ -94,7 +95,7 @@ public class MainLayout extends AppLayout {
 			cabecera.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
 
 			addToNavbar(cabecera);
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw e;
@@ -108,7 +109,7 @@ public class MainLayout extends AppLayout {
 	private void crearMenuLateral() {
 		try {
 			addToDrawer(new VerticalLayout(getVentanasDisponibles()));
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw e;
@@ -133,6 +134,7 @@ public class MainLayout extends AppLayout {
 		RouterLink gestionReservasLink;
 		RouterLink consultaReservasLink;
 		RouterLink consultaAulasLink;
+		RouterLink perfilUsuarioLink;
 
 		try {
 			// Link a la ventana Histórico de Reservas
@@ -195,6 +197,14 @@ public class MainLayout extends AppLayout {
 			consultaAulasLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 			ventanas.add(consultaAulasLink);
+
+			// Link a la ventana Perfil de Usuario
+			if (SecurityUtils.isAccessGranted(PerfilUsuarioView.class)) {
+				perfilUsuarioLink = new RouterLink("Perfil", PerfilUsuarioView.class);
+				perfilUsuarioLink.setHighlightCondition(HighlightConditions.sameLocation());
+
+				ventanas.add(perfilUsuarioLink);
+			}
 
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

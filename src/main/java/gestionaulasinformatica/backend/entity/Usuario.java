@@ -35,6 +35,7 @@ public class Usuario implements Serializable {
 	private String correoUsuario;
 
 	@NotNull
+	@NotEmpty
 	@Size(min = 5, max = 100)
 	@Column(name = "contrasena")
 	private String contrasenaHash;

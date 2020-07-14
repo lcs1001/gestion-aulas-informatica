@@ -201,7 +201,7 @@ public class GestionReservasView extends VerticalLayout {
 			info = new Div();
 
 			info.setText("Sólo se pueden modificar las reservas de una en una."
-					+ " Si desea modificar una reserva de un rango de fechas debe eliminar todas las reservas correspondientes al rango y realizar una nueva reserva de rango");
+					+ " Si desea modificar una reserva de un rango de fechas debe eliminar todas las reservas correspondientes al rango y realizar una nueva reserva de rango.");
 
 			btnCerrar = new Button("Cerrar", click -> dialogInfo.close());
 			btnCerrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
