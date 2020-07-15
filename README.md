@@ -1,6 +1,6 @@
 # TFG - Gestión de Aulas
 
-##Autora
+## Autora
 - Lisa Cané Sáiz
 
 ## Tutor
