@@ -77,7 +77,7 @@ public class MantUsuariosForm extends FormLayout {
 			binder.bindInstanceFields(this);
 			
 			binder.forField(contrasena)
-			.withValidator(cont -> cont.matches("{5,}"),
+			.withValidator(cont -> cont.length() >= 5,
 					"Debe tener 5 o más caracteres")
 			.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
 				if (!contrasena.getEmptyValue().equals(cont)) {
