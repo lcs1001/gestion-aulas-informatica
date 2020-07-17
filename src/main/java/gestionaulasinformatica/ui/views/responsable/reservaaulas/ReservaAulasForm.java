@@ -347,16 +347,6 @@ public class ReservaAulasForm extends FormLayout {
 				}
 			}
 
-			// Si la hora de inicio es mayor o igual que la hora de fin
-			if (!horaInicio.isEmpty() && !horaFin.isEmpty()) {
-				if (horaInicio.getValue().compareTo(horaFin.getValue()) > 0
-						|| horaInicio.getValue().compareTo(horaFin.getValue()) == 0) {
-					comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_HORA_INICIO_MAYOR.getMensaje(), 5000,
-							NotificationVariant.LUMO_ERROR);
-					valido = false;
-				}
-			}
-
 			// Si se ha dejado algún campo vacío
 			if (fechaInicio.isEmpty() || horaInicio.isEmpty() || horaFin.isEmpty() || propietarioAula.isEmpty()
 					|| aula.isEmpty() || motivo.isEmpty() || aCargoDe.isEmpty()
