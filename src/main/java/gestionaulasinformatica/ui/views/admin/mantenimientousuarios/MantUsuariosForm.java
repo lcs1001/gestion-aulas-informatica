@@ -22,7 +22,6 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.shared.Registration;
@@ -80,7 +79,7 @@ public class MantUsuariosForm extends FormLayout {
 			.withValidator(cont -> cont.length() >= 5,
 					"Debe tener 5 o más caracteres")
 			.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
-				if (!contrasena.getEmptyValue().equals(cont)) {
+				if (!contrasena.getValue().equals(cont)) {
 					user.setContrasenaHash(this.passwordEncoder.encode(cont));
 				}
 			});
@@ -89,7 +88,7 @@ public class MantUsuariosForm extends FormLayout {
 			.withValidator(telf -> telf.matches("^(|(?=.*\\d).{9,9})$"),
 					"Debe tener 9 dígitos")
 			.bind(user -> telefonoUsuario.getValue(), (user, telf) -> {
-				if (!telefonoUsuario.getEmptyValue().equals(telf)) {
+				if (!telefonoUsuario.getValue().equals(telf)) {
 					user.setTelefonoUsuario(telf);
 				}
 			});
@@ -169,8 +168,6 @@ public class MantUsuariosForm extends FormLayout {
 			btnCancelar.addClickShortcut(Key.ESCAPE); // Se cierra al pulsar ESC en el teclado
 			btnCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-			binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
-
 			toolbar = new HorizontalLayout(btnGuardar, btnEliminar, btnCancelar);
 			toolbar.addClassName("toolbar");
 
@@ -191,7 +188,7 @@ public class MantUsuariosForm extends FormLayout {
 		Button btnCancelar;
 		Boolean bloqueado;
 		try {
-			if (!chkBloqueado.isEmpty()) {
+			if (usuario.isBloqueado()) {
 				mensajeConfirmacion = "¿Seguro que quiere desbloquear al usuario " + usuario.getNombreApellidosUsuario()
 						+ "?";
 				bloqueado = false;
@@ -207,6 +204,7 @@ public class MantUsuariosForm extends FormLayout {
 
 			btnConfirmar = new Button("Confirmar", event -> {
 				usuario.setBloqueado(bloqueado);
+				btnGuardar.setEnabled(true);
 				confirmacion.close();
 			});
 			btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -253,12 +251,11 @@ public class MantUsuariosForm extends FormLayout {
 	 */
 	private void validarGuardar() {
 		try {
-			binder.writeBean(usuario);
 			fireEvent(new SaveEvent(this, usuario));
 
-		} catch (ValidationException e) {
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
