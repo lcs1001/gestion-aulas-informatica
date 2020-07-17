@@ -22,6 +22,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.shared.Registration;
@@ -58,12 +59,15 @@ public class MantUsuariosForm extends FormLayout {
 	private Binder<Usuario> binder;
 	private Usuario usuario;
 
+	private Boolean editar;
+
 	/**
 	 * Constructor de la clase.
 	 */
 	public MantUsuariosForm(PasswordEncoder passwordEncoder) {
 		try {
 			this.passwordEncoder = passwordEncoder;
+			this.editar = false;
 
 			addClassName("mant-usuarios-form");
 
@@ -74,24 +78,21 @@ public class MantUsuariosForm extends FormLayout {
 
 			binder = new BeanValidationBinder<>(Usuario.class);
 			binder.bindInstanceFields(this);
-			
-			binder.forField(contrasena)
-			.withValidator(cont -> cont.length() >= 5,
-					"Debe tener 5 o más caracteres")
-			.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
-				if (!contrasena.getValue().equals(cont)) {
-					user.setContrasenaHash(this.passwordEncoder.encode(cont));
-				}
-			});
-			
+
+			binder.forField(contrasena).withValidator(cont -> cont.length() >= 5, "Debe tener 5 o más caracteres")
+					.bind(user -> contrasena.getEmptyValue(), (user, cont) -> {
+						if (!contrasena.getEmptyValue().equals(cont)) {
+							user.setContrasenaHash(this.passwordEncoder.encode(cont));
+						}
+					});
+
 			binder.forField(telefonoUsuario)
-			.withValidator(telf -> telf.matches("^(|(?=.*\\d).{9,9})$"),
-					"Debe tener 9 dígitos")
-			.bind(user -> telefonoUsuario.getValue(), (user, telf) -> {
-				if (!telefonoUsuario.getValue().equals(telf)) {
-					user.setTelefonoUsuario(telf);
-				}
-			});
+					.withValidator(telf -> telf.matches("^(|(?=.*\\d).{9,9})$"), "Debe tener 9 dígitos")
+					.bind(user -> telefonoUsuario.getValue(), (user, telf) -> {
+						if (!telefonoUsuario.getValue().equals(telf)) {
+							user.setTelefonoUsuario(telf);
+						}
+					});
 
 			configurarToolbar();
 
@@ -216,6 +217,9 @@ public class MantUsuariosForm extends FormLayout {
 			});
 			btnCancelar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
 
+			if (!editar)
+				binder.addStatusChangeListener(evt -> btnGuardar.setEnabled(binder.isValid()));
+
 			confirmacion.add(btnConfirmar, btnCancelar);
 
 			confirmacion.open();
@@ -231,9 +235,10 @@ public class MantUsuariosForm extends FormLayout {
 	 * 
 	 * @param usuario Usuario actual
 	 */
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Usuario usuario, Boolean editar) {
 		try {
 			this.usuario = usuario;
+			this.editar = editar;
 			binder.readBean(usuario);
 
 			if (usuario != null) {
@@ -251,7 +256,14 @@ public class MantUsuariosForm extends FormLayout {
 	 */
 	private void validarGuardar() {
 		try {
+			if (!editar)
+				binder.writeBean(usuario);
+
 			fireEvent(new SaveEvent(this, usuario));
+
+		} catch (ValidationException e) {
+			LOGGER.error(e.getMessage());
+			e.printStackTrace();
 
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

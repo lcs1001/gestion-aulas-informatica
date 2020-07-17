@@ -166,7 +166,7 @@ public class MantUsuariosView extends VerticalLayout {
 	 */
 	private void cerrarEditor() {
 		try {
-			formulario.setUsuario(null); // Se limpian los valores antiguos
+			formulario.setUsuario(null, false); // Se limpian los valores antiguos
 			formulario.setVisible(false);
 			toolbar.setVisible(true);
 			gridUsuarios.setVisible(true);
@@ -193,7 +193,7 @@ public class MantUsuariosView extends VerticalLayout {
 			} else {
 				toolbar.setVisible(false);
 				gridUsuarios.setVisible(false);
-				formulario.setUsuario(usuario);
+				formulario.setUsuario(usuario, editar);
 				formulario.setVisible(true);
 
 				// Se oculta el botón "Eliminar" al añadir un usuario
