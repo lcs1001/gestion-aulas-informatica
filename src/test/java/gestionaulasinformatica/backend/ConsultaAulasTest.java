@@ -101,8 +101,15 @@ public class ConsultaAulasTest {
 					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 21),
 							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null, null, null));
 
-			System.out.println("\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30:");
-			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			System.out.println("\n\n\tTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30:");
+
+			if (!lstAulasDisponibles.contains(aula1)) {
+				System.out.println("\n\tCorrecto, el Aula 1 no está disponible.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			} else {
+				System.out.println("\n\tIncorrecto, el Aula 1 se encuentra entre las aulas disponibles.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			}
 
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
@@ -124,8 +131,15 @@ public class ConsultaAulasTest {
 							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, "Martes", null, null, null));
 
 			System.out.println(
-					"\n\nTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
-			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+					"\n\n\tTest Aula 1 no disponible el 21-07-2020 de 10:30 a 11:30 (con filtro día de la semana):");
+
+			if (!lstAulasDisponibles.contains(aula1)) {
+				System.out.println("\n\tCorrecto, el Aula 1 no está disponible.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			} else {
+				System.out.println("\n\tIncorrecto, el Aula 1 se encuentra entre las aulas disponibles.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			}
 
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {
@@ -146,8 +160,15 @@ public class ConsultaAulasTest {
 					.findAll(AulaSpecification.findByFilters(LocalDate.of(2020, 07, 21), LocalDate.of(2020, 07, 23),
 							LocalTime.of(10, 30), LocalTime.of(11, 30), null, null, null, null, null, null));
 
-			System.out.println("\n\nTest Aula 1 no disponible del 21-07-2020 al 23-07-2020 de 10:30 a 11:30:");
-			System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			System.out.println("\n\n\tTest Aula 1 no disponible del 21-07-2020 al 23-07-2020 de 10:30 a 11:30:");
+
+			if (!lstAulasDisponibles.contains(aula1)) {
+				System.out.println("\n\tCorrecto, el Aula 1 no está disponible.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			} else {
+				System.out.println("\n\tIncorrecto, el Aula 1 se encuentra entre las aulas disponibles.");
+				System.out.println("\tAulas disponibles: " + lstAulasDisponibles + "\n\n");
+			}
 
 			Assert.assertTrue(!lstAulasDisponibles.contains(aula1));
 		} catch (Exception e) {

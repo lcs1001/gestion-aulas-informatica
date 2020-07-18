@@ -54,19 +54,19 @@ public class UsuarioTest {
 
 			usuarioRecuperado = usuarioRepository.findById(usuario.getIdUsuario());
 
-			System.out.println("\n\nTest findById:");
+			System.out.println("\n\n\tTest findById:");
 
 			if (usuarioRecuperado.isPresent()) {
 				if (usuarioRecuperado.get().equals(usuario)) {
 					System.out.println("\tSe ha recuperado el usuario " + usuarioRecuperado.get().getNombreUsuario()
-							+ " " + usuarioRecuperado.get().getApellidosUsuario() + " correctamente.");
+							+ " " + usuarioRecuperado.get().getApellidosUsuario() + " correctamente. \n\n");
 				} else {
 					System.out.println("\tEl usuario recuperado (" + usuarioRecuperado.get().getNombreUsuario() + " "
 							+ usuarioRecuperado.get().getApellidosUsuario() + ") no se corresponde con el buscado ("
-							+ usuario.getNombreUsuario() + " " + usuario.getApellidosUsuario() + ".");
+							+ usuario.getNombreUsuario() + " " + usuario.getApellidosUsuario() + ".\n\n");
 				}
 			} else {
-				System.out.println("\tNo se ha encontrado el usuario.");
+				System.out.println("\tNo se ha encontrado el usuario.\n\n");
 			}
 
 			Assert.assertEquals(usuarioRecuperado.get(), usuario);

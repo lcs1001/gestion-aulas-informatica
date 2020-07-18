@@ -23,13 +23,13 @@ import gestionaulasinformatica.backend.repository.IUsuarioRepository;
  */
 @DataJpaTest
 public class PropietarioAulaTest {
-	
-	@Autowired 
+
+	@Autowired
 	private IUsuarioRepository usuarioRepository;
 
 	@Autowired
 	private IPropietarioAulaRepository propietarioAulaRepository;
-	
+
 	private Usuario responsable;
 	private PropietarioAula centro1;
 
@@ -40,11 +40,11 @@ public class PropietarioAulaTest {
 		try {
 			responsable = new Usuario("rspCentro1@gmail.com", "12345", "Responsable", "Centro 1", "547854126",
 					Rol.RESPONSABLE);
-			
+
 			usuarioRepository.save(responsable);
-			
+
 			centro1 = new Centro("Centro 1", "Centro 1", responsable);
-			
+
 			propietarioAulaRepository.save(centro1);
 
 		} catch (Exception e) {
@@ -63,19 +63,19 @@ public class PropietarioAulaTest {
 
 			propietarioRecuperado = propietarioAulaRepository.findById("Centro 1");
 
-			System.out.println("\n\nTest findById:");
+			System.out.println("\n\n\tTest findById:");
 
 			if (propietarioRecuperado.isPresent()) {
 				if (propietarioRecuperado.get().equals(centro1)) {
 					System.out.println("\tSe ha recuperado el propietario "
-							+ propietarioRecuperado.get().getNombrePropietarioAula() + " correctamente.\n");
+							+ propietarioRecuperado.get().getNombrePropietarioAula() + " correctamente.\n\n");
 				} else {
 					System.out.println("\tEl propietario recuperado ("
 							+ propietarioRecuperado.get().getNombrePropietarioAula()
-							+ ") no se corresponde con el buscado (" + centro1.getNombrePropietarioAula() + ".\n");
+							+ ") no se corresponde con el buscado (" + centro1.getNombrePropietarioAula() + ".\n\n");
 				}
 			} else {
-				System.out.println("\tNo se ha encontrado el propietario de aula.\n");
+				System.out.println("\tNo se ha encontrado el propietario de aula.\n\n");
 			}
 
 			Assert.assertEquals(propietarioRecuperado.get(), centro1);
@@ -94,7 +94,7 @@ public class PropietarioAulaTest {
 		try {
 			establecerDatos();
 
-			System.out.println("\n\nTest delete:");
+			System.out.println("\n\n\tTest delete:\n");
 
 			// Se recuperan todos los propietarios antes de eliminar
 			propietarios = propietarioAulaRepository.findAll();
@@ -102,7 +102,7 @@ public class PropietarioAulaTest {
 			System.out
 					.println("\n\tPropietarios recuperados con findAll antes de eliminar: " + propietarios.toString());
 
-			System.out.println("\tEliminando el Centro 1...:");
+			System.out.println("\tEliminando el Centro 1...:\n\n");
 
 			// Se elimina el propietario
 			propietarioAulaRepository.delete(centro1);
@@ -115,13 +115,13 @@ public class PropietarioAulaTest {
 			if (propietarios.contains(centro1)) {
 				System.out.println("\n\tNo se ha eliminado el propietario " + centro1.getNombrePropietarioAula()
 						+ " del repositorio.");
-				System.out.println(
-						"\n\tPropietarios recuperados con findAll después de eliminar: " + propietarios.toString() + "\n");
+				System.out.println("\tPropietarios recuperados con findAll después de eliminar: "
+						+ propietarios.toString() + "\n\n");
 			} else {
 				System.out.println("\n\tSe ha eliminado el propietario " + centro1.getNombrePropietarioAula()
 						+ " del repositorio correctamente.");
-				System.out.println(
-						"\n\tPropietarios recuperados con findAll después de eliminar: " + propietarios.toString()  + "\n");
+				System.out.println("\tPropietarios recuperados con findAll después de eliminar: "
+						+ propietarios.toString() + "\n\n");
 			}
 
 			Assert.assertFalse(propietarios.contains(centro1));
