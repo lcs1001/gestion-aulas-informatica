@@ -223,6 +223,7 @@ public class MantAulasView extends VerticalLayout {
 	private void guardarAula(MantAulasForm.SaveEvent evt) {
 		try {
 			aulaService.save(evt.getAula());
+			comunes.mostrarNotificacion(Mensajes.MSG_GUARDADO_CORRECTO.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
 			actualizarAulas();
 			cerrarEditor();
 
@@ -269,7 +270,7 @@ public class MantAulasView extends VerticalLayout {
 			aula = evt.getAula();
 
 			// Si tiene reservas asociadas a partir de la fecha actual
-			if (!reservaService.findByAulaAndFecha(aula, LocalDate.now()).isEmpty()) {
+			if (!reservaService.findAllReservasAulaAndFechaDesde(aula, LocalDate.now()).isEmpty()) {
 				mensajeConfirmacion = "El aula " + aula.getNombreAula() + " de " + aula.getNombreCentro()
 						+ " tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? "
 						+ " Esta acción no se puede deshacer.";

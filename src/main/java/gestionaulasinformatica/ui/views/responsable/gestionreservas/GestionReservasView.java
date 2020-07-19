@@ -373,6 +373,8 @@ public class GestionReservasView extends VerticalLayout {
 					lugarReserva, reserva.getACargoDe(), responsableLogeado.getNombreApellidosUsuario(),
 					reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
+			
+			comunes.mostrarNotificacion(Mensajes.MSG_GUARDADO_CORRECTO.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
 
 			formularioBusqueda.limpiarFiltros();
 			actualizarReservas();
@@ -414,7 +416,7 @@ public class GestionReservasView extends VerticalLayout {
 
 				btnConfirmar = new Button("Confirmar", event -> {
 					eliminarReservas(reservas);
-					comunes.mostrarNotificacion(mensajeEliminado, 3000, null);
+					comunes.mostrarNotificacion(mensajeEliminado, 3000, NotificationVariant.LUMO_SUCCESS);
 					confirmacion.close();
 				});
 				btnConfirmar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);

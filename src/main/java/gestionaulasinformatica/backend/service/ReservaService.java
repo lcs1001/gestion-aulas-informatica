@@ -82,8 +82,8 @@ public class ReservaService {
 	 * @return Lista con todas las reservas que hay en la BD del aula pasada y a
 	 *         partir de la fecha pasada
 	 */
-	public List<Reserva> findByAulaAndFecha(Aula aula, LocalDate fecha) {
-		return reservaRepository.findByAulaAndFecha(aula, fecha);
+	public List<Reserva> findAllReservasAulaAndFechaDesde(Aula aula, LocalDate fecha) {
+		return reservaRepository.findAllReservasAulaAndFechaDesde(aula, fecha);
 	}
 
 	/**

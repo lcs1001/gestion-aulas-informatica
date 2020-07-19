@@ -163,6 +163,8 @@ public class ReservaAulasView extends VerticalLayout {
 					reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 			historicoReservasService.save(operacionReserva);
 
+			comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_CORRECTA.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
+			
 			formulario.setReserva(null, false);
 			formulario.setVisible(false);
 			toolbar.setVisible(true);
@@ -198,6 +200,8 @@ public class ReservaAulasView extends VerticalLayout {
 						reserva.getAula().getPropietarioAula().getIdPropietarioAula());
 				historicoReservasService.save(operacionReserva);
 			}
+			
+			comunes.mostrarNotificacion(Mensajes.MSG_RESERVA_CORRECTA.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
 
 			formulario.setReserva(null, false);
 			formulario.setVisible(false);

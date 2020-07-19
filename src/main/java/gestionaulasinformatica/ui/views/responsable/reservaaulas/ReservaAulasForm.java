@@ -320,6 +320,9 @@ public class ReservaAulasForm extends FormLayout {
 
 			if (nueva) {
 				this.reserva.setUsuarioResponsable(responsableLogeado.getNombreApellidosUsuario());
+				chkReservaRango.setValue(false);
+				reservaRango();
+				limpiarCampos();
 			}
 
 		} catch (Exception e) {

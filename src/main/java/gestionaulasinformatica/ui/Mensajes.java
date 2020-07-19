@@ -60,7 +60,11 @@ public enum Mensajes {
 
 	ELIMINAR_USUARIO_ACTUAL_NO_PERMITIDO("No puede eliminar su propio usuario"), 
 	
-	MSG_GUARDADO_CORRECTO("Se han guardado los cambios correctamente");
+	MSG_GUARDADO_CORRECTO("Se ha guardado correctamente"), 
+	
+	MSG_RESERVA_CORRECTA("Se ha registrado la reserva correctamente"), 
+	
+	MSG_BORRADO_CORRECTO("Se ha eliminado correctamente");
 
 	private final String mensaje;
 

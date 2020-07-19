@@ -67,7 +67,6 @@ public class PerfilUsuarioView extends VerticalLayout {
 
 			formulario = new PerfilUsuarioForm(this.comunes, this.passwordEncoder);
 			formulario.addListener(PerfilUsuarioForm.SaveEvent.class, this::guardarUsuario);
-//			formulario.addListener(PerfilUsuarioForm.CloseEvent.class, e -> cerrarEditor());
 			formulario.setUsuario(usuarioLogeado);
 
 			contenido = new Div(comunes.getTituloVentana("Perfil"), formulario, gridPropietarios);

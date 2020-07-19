@@ -261,6 +261,7 @@ public class MantPropietariosView extends VerticalLayout {
 	private void guardarPropietario(MantPropietariosForm.SaveEvent evt) {
 		try {
 			propietarioAulaService.save(evt.getPropietarioAula());
+			comunes.mostrarNotificacion(Mensajes.MSG_GUARDADO_CORRECTO.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
 			actualizarPropietarios();
 			cerrarEditor();
 

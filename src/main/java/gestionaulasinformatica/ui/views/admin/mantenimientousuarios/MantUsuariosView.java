@@ -244,6 +244,7 @@ public class MantUsuariosView extends VerticalLayout {
 	private void guardarUsuario(MantUsuariosForm.SaveEvent evt) {
 		try {
 			usuarioService.save(evt.getUsuario());
+			comunes.mostrarNotificacion(Mensajes.MSG_GUARDADO_CORRECTO.getMensaje(), 3000, NotificationVariant.LUMO_SUCCESS);
 			actualizarUsuarios();
 			cerrarEditor();
 
