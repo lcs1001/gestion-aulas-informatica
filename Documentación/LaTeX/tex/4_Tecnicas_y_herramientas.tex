@@ -1,0 +1,99 @@
+\capitulo{4}{Técnicas y herramientas}
+
+En este apartado se presentan las tecnologías y herramientas utilizadas para llevar a cabe el desarrollo del proyecto.
+
+El criterio de elección para la mayoría de ellas ha sido el previo conocimiento y trabajo con ellas a lo largo de la carrera, como es el caso de Java, Eclipse, PostgreSQL junto a pgAdmin, GitHub junto a ZenHub y GitHub Desktop, StarUML y Balsamiq Wireframes.
+
+
+\section{Código fuente}
+\subsection{Java}
+Java~\cite{pagina_java} es un lenguaje de programación orientado a objetos para desarrollo de aplicaciones.
+
+\subsection{JavaScript}
+JavaScript~\cite{pagina_javascript} es un lenguaje de programación interpretado, que permite el desarrollo del \textit{frontend} de aplicaciones y sitios web.
+
+\subsection{CSS}
+CSS (\textit{Cascading Style Sheets} u Hojas de Estilo en Cascada)~\cite{css} es un lenguaje declarativo que permite cambiar la apariencia de los componentes de HTML.
+
+\subsection{Vaadin}
+Vaadin~\cite{pagina_vaadin} es una plataforma de código abierto (\textit{open source}) para el desarrollo de aplicaciones web con Java, permitiendo también el uso de HTML, JavaScript, CSS, entre otros.
+
+Los pre-requisitos para poder utilizar Vaadin son tener instalado JDK 8 (\textit{Java Development Kit}) y un IDE (Entorno de Desarrollo Integrado) de Java como  Eclipse, NetBeans o IntelliJ Idea. En caso de utilizar Eclipse, es necesario instalar\textit{plugin} de Vaadin.
+
+\subsection{Spring Boot}
+Spring Boot~\cite{pagina_spring_boot} es una solución o simplificación del \textit{framework} \href{https://spring.io/}{Spring} de Java. Sigue el paradigma \nameref{convencion_sobre_configuracion}, proporcionando una estructura básica configurada del proyecto e incluyendo directamente las bibliotecas de terceros necesarias.
+
+Los pre-requisitos para poder utilizar Spring Boot son tener instalado como mínimo JDK 8 (\textit{Java Development Kit}), la versión actualizada de Spring, para compilar se puede utilizar Maven o Gradle y se puede incorporar un \textit{servlet} Apache Tomcat, Jetty o Untertow.
+
+La combinación de Vaadin y Spring Boot ha facilitado mucho el desarrollo, ya que este último permite centrarse en el desarrollo de código sin tener que configurar el servidor o las dependencias, simplemente se incluyen las ``importaciones'' en el archivo \textit{pom.xml}.
+
+\subsection{Spring Security}
+Spring Security~\cite{pagina_spring_security} es un \textit{framework} altamente personalizable que proporciona la autenticación, autorización y otras configuraciones de seguridad para las aplicaciones.
+
+Se ha integrado Spring Security al proyecto para proveer seguridad en cuanto a autenticación de usuarios y control de accesos no permitidos.
+
+\subsection{Maven}
+Maven~\cite{pagina_maven} es una herramienta software de gestión y construcción de proyectos en Java. Está basada en el concepto POM (\textit{Project Objet Model} o Modelo de Objeto de Proyecto) y se configura a través del formato XML.
+
+Los proyectos de Vaadin son en el fondo proyectos Maven, básicamente. Cuando se añaden las dependencias al proyecto de Vaadin con Spring Boot se hace a través de su archivo \textit{pom.xml}, como se ha comentado anteriormente.
+
+\section{Eclipse}
+Eclipse~\cite{pagina_eclipse} es un IDE basado en Java, de código abierto y multiplataforma. También dispone un editor de texto con resaltado de sintaxis, permite la integración de pruebas unitarias con JUnit, permite integración con Ant y tiene asistentes para crear proyectos, clases, tests, etc.
+
+\section{Base de datos}
+Se ha trabajado con la base de datos de PostgreSQL principalmente por conocimiento previo de la misma a lo largo de la carrera ya que se ha tratado en varias asignaturas, y por su fácil gestión en cuanto a integración en la aplicación y el \textit{hosting elegido}. 
+
+Además, con la su herramienta de gestión pgAdmin, se facilita la administración y mantenimiento de la base de datos al poder trabajar con una interfaz gráfica en lugar de tener que trabajar por línea de comandos. También facilita scrips de creación, inserción, borrado\dots, lo cual agiliza el trabajo con la misma, minimizando el margen de error.
+
+\subsection{PostgreSQL}
+PostgreSQL~\cite{pagina_postgresql} es un SGBD (Sistema Gestor de Bases de Datos) relacional, objeto-relacional y de código abierto.
+
+\subsection{pgAdmin}
+pgAdmin~\cite{pagina_pgAdmin} es una potente herramienta para poder diseñar, administrar y realizar el mantenimiento de bases de datos de PostgreSQL.
+
+\section{Gestión del proyecto y control de versiones}
+Al igual que ocurría con la base de datos, se ha decidido trabajar con estas herramientas para llevar a cabo la gestión del proyecto y su correspondiente control de versiones por conocimiento previo y facilidad de trabajo, pues por ejemplo GitHub Desktop simplifica mucho la tarea de subir los \textit{commits} al repositorio y ZenHub ayuda a llevar una planificación/organización del trabajo que está pendiente, en proceso, en revisión o realizado.
+
+\subsection{GitHub}
+GitHub~\cite{pagina_github} es una de las plataformas de repositorios online colaborativos más conocidas, la cual permite llevar a cabo la gestión de proyectos y el control de versiones.
+
+\subsection{ZenHub}
+ZenHub~\cite{pagina_zenhub} es una plataforma de gestión de proyectos totalmente integrada en GitHub. 
+
+Conecta las \textit{issues} creadas en el repositorio de GitHub, permitiendo organizarlas en el tablero \textit{canvas} según estén recién creadas (\textit{New Issues}), pendientes (\textit{To Do}), en proceso (\textit{In Progress}), etc.
+
+También permite modificar el usuario al que está asignado, las etiquetas, los \textit{milestones}, así como añadir comentarios y cerrar la \textit{issue}.
+
+\subsection{GitHub Desktop}
+
+La herramienta Github Desktop~\cite{pagina_github_desktop} simplifica la tarea la tarea de conectar el repositorio GitHub para llevar a cabo el control de versiones, sin necesidad de usar la línea de comandos de Git.
+
+\section{Overleaf}
+Overleaf~\cite{pagina_overleaf} es el editor online de \LaTeX. Es un editor de textos orientado a crear documentos escritos de alta calidad tipográfica.
+
+Permite llevar un control de versiones, compartir los documentos para colaborar en tiempo real, hacer revisiones, sin necesidad de instalar nada.
+
+\section{\textit{Hosting} para despliegue}
+\begin{itemize}
+\tightlist
+    \item Herramientas consideradas: \href{https://www.lucushost.com/hosting-gratis?utm_medium=affiliate&utm_source=114&utm_campaign=Afiliados}{LucusHost}, \href{https://www.000webhost.com/}{000webhost}, \href{https://x10hosting.com/free-web-hosting}{X10hosting}, \href{https://www.awardspace.com/}{Awardspace}, \href{https://go.runhosting.com/free-web-hosting.html}{Runhosting}, \href{https://www.batcave.net/free-web-hosting.html}{Batcave}, \href{https://www.freehostia.com/free-cloud-hosting/}{Freehostia}, \href{https://pages.github.com/}{GitHub Pages}, \href{https://nanobox.io/}{Nanobox} y \href{https://www.heroku.com/home}{Heroku}.
+    \item Herramienta elegida: \href{https://www.heroku.com/home}{Heroku}.
+\end{itemize}
+
+Finalmente se optó por trabajar con Heroku~\cite{pagina_heroku}, ya que tras muchas pruebas con el resto de opciones, fue la única con la que se consiguieron resultados positivos.
+
+Heroku es una plataforma de aplicación como servicio (PaaS) completamente administrada y basada en la nube, para poder crear, ejecutar y administrar las aplicaciones web.
+
+Permite importar el código directamente desde GitHub configurando el repositorio, e incluir \textit{add-ons} de las bases de datos como PostgreSQL sin tener que realizar ninguna configuración adicional en la aplicación para conectarla.
+
+\section{Herramientas de diseño}
+\subsection{StarUML}
+StarUML~\cite{pagina_staruml} es una aplicación de escritorio que permite crear diseños y diagramas UML, como diagramas de casos de uso, de clases, de secuencia, etc. desde una interfaz muy sencilla.
+
+\subsection{Creately}
+Creately~\cite{pagina_creately} es otra herramienta de diseño de diagramas online, que permite colaboración en tiempo real (hasta 3 colaboradores de forma gratuita) y diseño a partir de plantillas base.
+
+\subsection{Balsamiq Wireframes}
+Balsamiq Wireframes~\cite{pagina_creately} es una herramienta que permite diseñar el interfaz de las aplicaciones. 
+
+Ayuda a realizar una maqueta del software que se va a crear, lo cual resulta muy útil para llevar a cabo un planteamiento inicial del desarrollo de la aplicación.

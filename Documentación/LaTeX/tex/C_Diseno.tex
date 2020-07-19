@@ -1,0 +1,88 @@
+\apendice{Especificación de diseño}
+
+\section{Introducción}
+En este anexo se presentan los aspectos relativos al diseño.
+
+\section{Diseño de datos}
+Las entidades que conforman la aplicación son:
+
+\begin{itemize}
+    \item \textbf{Usuario}: entidad que almacena los datos de los usuarios que pueden acceder a la aplicación (responsables y administrador). Tiene un id, nombre, apellidos, correo, contraseña, teléfono y un rol. Opcionalmente almacena si el usuario está o no bloqueado, es decir, si se puede eliminar. También mantiene un registro con los centros y departamentos de los que es responsable.
+    
+    \item \textbf{Propietario aula}: entidad que representa la generalización de los centros y departamentos, cuyo discriminante es el tipo (centro o departamento). Tiene un id y un nombre, además de una referencia al id del usuario que es responsable del mismo. También mantiene un registro de las aulas de las que es responsable.
+    
+    \item \textbf{Centro}: entidad que representa una especificación de \textit{Propietario aula}, y mantiene un registro de las aulas que están ubicadas en él.
+    
+    \item \textbf{Departamento}: entidad que representa una especificación de \textit{Propietario aula}.
+    
+    \item \textbf{Aula}: entidad que almacena los datos de las aulas de los centros y departamentos. Tiene un id, nombre, capacidad y número de ordenadores, además de una referencia al id del centro en el que está ubicada y otra referencia al id de su propietario.
+    
+    \item \textbf{Reserva}: entidad que almacena los datos de las reservas realizadas sobre las aulas. Tiene un id, fecha que se ha reservado, hora de inicio y de fin de la reserva, día de la semana de la reserva (día de la semana de la fecha), motivo de la reserva (por ejemplo examen, curso, reunión, etc.), persona a cargo de la reserva (no tiene por qué ser el usuario logueado) y usuario responsable de realizar la reserva (el usuario logueado), además de una referencia al id del aula que se ha reservado y otra al id del propietario responsable de la reserva (centro o departamento en nombre del que actúa el usuario). 
+    
+    \item \textbf{Histórico reservas}: entidad que almacena los datos correspondientes a las operaciones que se han realizado sobre las reservas, las creaciones, modificaciones y eliminaciones. Tiene un id, fecha en que se ha realizado la operación, tipo de operación realizada, los campos identificativos de la reserva sobre opera (motivo, fecha, hora de inicio y de fin, lugar y persona a cargo), usuario responsable de realizar la operación (usuario logueado) y propietario en nombre del que actúa el responsable (propietario del aula de la reserva).
+    
+    \begin{itemize}
+        \item Cuando se trata de una modificación se almacena la operación del histórico con los valores tras la misma.
+        
+        \item Cuando se trata de un borrado se almacena la operación con los valores de la reserva en el momento del borrado (los de su creación o los de la modificación si se ha realizado).
+    \end{itemize}
+\end{itemize}
+
+\begin{landscape}
+\subsection{Diagrama Entidad/Relación}
+\imagenAncho{Diagrama_ER}{Diagrama Entidad/Relación}{1.5}
+\end{landscape}
+
+\subsection{Diseño Relacional}
+A la hora de realizar el diseño relacional se han tenido en cuenta varias consideraciones:
+\begin{itemize}
+    \item La tabla \textbf{\textit{historico\_reservas}} se trata de una tabla independiente, es decir, no mantiene ninguna relación con las otras tablas, para poder almacenar la información de las operaciones realizadas sobre las reservas a pesar de que éstas, los usuarios, las aulas o los propietarios se borren de la base de datos. 
+    
+        \begin{itemize}
+            \item Esta decisión fuerza a tener que almacenar información aparentemente redundante sobre los datos de las reservas, ya que al no tener establecida la \textit{foreign key} con \textit{reserva} no se tiene acceso a sus datos.
+            
+            \item Si se hubieran incluido las relaciones con las demás tablas, como por ejemplo con la tabla ``\textit{reserva}'', cuando se produce un borrado de la reserva (algo que puede ser bastante habitual), el ID de la reserva incluido en el registro del histórico quedaría huérfano, produciendo una excepción de violación de dicha clave ajena.
+        \end{itemize}
+        
+    \item La tabla \textbf{\textit{reserva}} se ha desnormalizado ~\cite{8104}. 
+        \begin{itemize}
+            \item No alcanza la 3FN ya que se ha añadido a la misma un atributo que especifica el usuario responsable de realizar la reserva (el usuario que se ha logeado).
+            \item Al añadir este atributo, aparece la dependencia funcional \textit{aula --> usuario\_responsable}, ya que la reserva determina el aula, el aula determina el propietario, y el propietario determina el responsable. En la dependencia, el determinante \textit{aula} no es una clave de la tabla \textit{reserva} (i.e., no está en FNBC), ni si quiera es parte de su clave primaria (i.e., tampoco está en 3FN), pero sí está en 2FN ya que la clave de esta tabla \textit{reserva} es una clave simple.
+            \item Al igual que en el caso anterior, se ha tomado esta decisión para evitar problemas cuando se elimine un usuario.
+        \end{itemize}
+\end{itemize}
+
+\begin{landscape}
+\imagenAncho{Diagrama_Relacional}{Diagrama Relacional}{1.5}
+\end{landscape}
+
+\section{Diseño arquitectónico}
+\subsection{Diseño de paquetes}
+En lo relacionado al diseño de paquetes del proyecto se pueden destacar que varios de ellos que interactúan con componentes externos.
+
+\begin{itemize}
+    \item \textit{\textbf{app.security}}: es el paquete que contiene lo relativo a las configuraciones de seguridad. 
+    
+    \begin{itemize}
+        \item Interactúa con Vaadin, implementando \textit{VaadinServiceInitListener}, para conectar Spring Security a su sistema de navegación.
+        
+        \item Define un interfaz funcional \textit{CurrentUser} relacionándose con la entidad \textit{Usuario} definida en el \textit{backend} para obtener el usuario logeado.
+        
+        \item Extiende de \textit{HttpSessionRequestCache} para poder realizar un seguimiento de la URL a la que se intenta acceder.
+        
+        \item Extiende de \textit{WebSecurityConfigurerAdapter} para crear la clase de configuración de seguridad, incluyendo anotaciones de Spring como \textit{@EnableWebSecurity} (para aplicar indicar que se aplica Spring Security) y \textit{@Configuration} (para indicar que se debe usar dicha clase para configurar la seguridad).
+        
+        \item Implementa \textit{UserDetailsService} del framework de Spring, para buscar los usuarios (de la entidad \textit{Usuario} del backend) a partir del correo proporcionado en el login. 
+    \end{itemize}
+    
+    \item \textit{\textbf{backend}}: paquete que define las entidades, servicios y repositorios para conectar la aplicación con la base de datos a través de Spring JPA~\cite{pagina_spring_jpa}.
+    
+    \item \textit{\textbf{exceptions}}: paquete que define las excepciones propias de la aplicaicón, extendiendo de, por ejemplo, \textit{DataIntegrityViolationException} o \textit{RuntimeException}.
+    
+    \item \textit{\textbf{ui}}: paquete que define las ventanas de la aplicación, interactuando con el \textit{backend}, el \textit{frontend}, el paquete de seguridad \textit{app.security} y de excepciones \textit{exceptions}, y los componentes específicos de Vaadin.
+\end{itemize}
+
+
+\begin{landscape}
+\imagenAncho{Diagrama_Paquetes}{Diagrama de Paquetes}{1.5}
+\end{landscape}

@@ -1,0 +1,922 @@
+\apendice{Especificación de Requisitos}
+
+\section{Introducción}
+
+En este anexo se recogen los objetivos generales y los requisitos del proyecto. Detallando los requisitos globales del proyecto y los requisitos funcionales y casos de uso de la aplicación establecidos en el desarrollo.
+
+También se muestra el planteamiento inicial de la aplicación con los prototipos de las ventanas.
+
+\section{Objetivos generales}
+El objetivo general del proyecto es desarrollar una aplicación web que permita:
+\begin{itemize}
+	\item Reservar aulas de la universidad.
+	\item Gestionar las reservas registradas (modificar y eliminar). 
+	\item Consultar las reservas registradas en el sistema y la disponibilidad de las aulas.
+	\item Consultar el histórico de reservas (creaciones, modificaciones, eliminaciones).
+	\item Administrar los centros y departamentos registrados y sus responsables.
+	\item Administrar las aulas de los centros.
+	\item Administrar los usuarios.
+	\item Administrar el propio perfil de usuario.
+\end{itemize}
+
+\section{Planteamiento inicial}
+El planteamiento inicial de la aplicación, tras la primera revisión, constaba de 8 requisitos funcionales:
+\begin{itemize}
+	\item RF-1 Login.
+	\item RF-2 Reservar aulas. 
+	\item RF-3 Gestionar reservas.
+	\item RF-4 Consultar reservas.
+	\item RF-5 Consultar disponibilidad de aulas.
+	\item RF-6 Histórico de reservas.
+	\item RF-7 Administrar centros y departamentos.
+	\item RF-8 Administrar aulas.
+\end{itemize}
+
+El mayor cambio respecto a la versión actual está en el login, pues en un principio se iba a tratar con \textit{Google Sign-In} y actualmente se ha implementado un login con \textit{Spring Security}, lo cual ha implicado añadir la ventana con el formulario de login y la administración de usuarios. 
+
+Otro cambio destacable está en las ventanas de Consulta de Reservas y Consulta de Disponibilidad de Aulas, ya que en el planteamiento inicial estaban englobadas en una única ventana. 
+
+\subsection{RF-2 Reservar aulas}
+Prototipo de ventana:
+\imagen{Prototipo_reserva_aulas_principal}{Prototipo de ventana Reserva de Aulas - Principal}
+\imagen{Prototipo_reserva_aulas_reserva_rango}{Prototipo de ventana Reserva de Aulas - Reserva por rango de fechas}
+
+\subsection{RF-3 Gestionar reservas}
+Prototipo de ventana:
+\imagen{Prototipo_gestion_reservas_principal}{Prototipo de ventana Gestión de Reservas - Principal}
+\imagen{Prototipo_gestion_reservas_listado}{Prototipo de ventana Gestión de Reservas - Listado de reservas}
+\imagen{Prototipo_gestion_reservas_editar}{Prototipo de ventana Gestión de Reservas - Editar una reserva}
+
+\subsection{RF-4 Consultar reservas - RF-5 Consultar disponibilidad de aulas }
+Prototipo de ventana:
+\imagen{Prototipo_consulta_visitante}{Prototipo de ventana Consulta de Reservas y Aulas - Visitante}
+\imagen{Prototipo_consulta_usuario_logueado}{Prototipo de ventana Consulta de Reservas y Aulas - Usuario logueado}
+\imagen{Prototipo_consulta_reserva_visitante}{Prototipo de ventana Consulta de Reservas y Aulas - Listado consulta de reservas - Visitante}
+\imagen{Prototipo_consulta_reserva_usuario_logueado}{Prototipo de ventana Consulta de Reservas y Aulas - Listado consulta de reservas - Usuario logueado}
+\imagen{Prototipo_consulta_disponibilidad_aulas_visitante}{Prototipo de ventana Consulta de Reservas y Aulas - Listado consulta de disponibilidad de aulas - Visitante}
+\imagen{Prototipo_consulta_disponibilidad_aulas_usuario_logueado}{Prototipo de ventana Consulta de Reservas y Aulas - Listado consulta de disponibilidad de aulas - Usuario logueado}
+
+\subsection{RF-6 Histórico de reservas}
+Prototipo de ventana:
+\imagen{Prototipo_historico_reservas}{Prototipo de ventana Histórico de reservas}
+
+\subsection{RF-7 Administrar centros y departamentos}
+Prototipo de ventana:
+\imagen{Prototipo_mantenimiento_propietarios_principal}{Prototipo de ventana Mantenimiento de Centros y Departamentos}
+\imagen{Prototipo_mantenimiento_propietarios_editar}{Prototipo de ventana Mantenimiento de Centros y Departamentos - Editar}
+
+\subsection{RF-8 Administrar aulas}
+Prototipo de ventana:
+\imagen{Prototipo_mantenimiento_aulas_principal}{Prototipo de ventana Mantenimiento de Aulas - Selección del centro o departamento}
+\imagen{Prototipo_mantenimiento_aulas_listado_aulas}{Prototipo de ventana Mantenimiento de Centros y Departamentos - Listado de aulas del centro o departamento}
+\imagen{Prototipo_mantenimiento_aulas_editar}{Prototipo de ventana Mantenimiento de Centros y Departamentos - Editar aula del centro o departamento}
+
+\section{Catálogo de requisitos}
+
+Los requisitos funcionales y no funcionales del proyecto son los siguientes:
+
+\subsection{Requisitos funcionales}
+\begin{itemize}
+	\item \textbf{RF-1 Login}: el sistema debe restringir el acceso a ciertas funcionalidades.
+	    \begin{itemize}
+	        \item Los responsables de centros y departamentos sólo tendrán acceso a la reserva de aulas y gestión de reservas.
+	        \item El administrador tendrá acceso a la visualización del histórico de reservas y a la administración de centros y departamentos y de aulas.
+	        \item Cualquier usuario tendrá acceso a la consulta de reservas y la consulta de disponibilidad de aulas.
+	    \end{itemize}
+	    
+	\item \textbf{RF-2 Reservar aulas}: el sistema debe permitir al usuario con rol de responsable reservar un aula
+        de los centros o departamentos que tiene bajo responsabilidad.
+        
+	\item \textbf{RF-3 Gestionar reservas}: el sistema debe permitir al usuario con rol de responsable gestionar las reservas registradas a partir de la fecha actual (i.e., bajas y modificaciones), de los centros o departamentos que tiene bajo responsabilidad.
+        
+	\item \textbf{RF-4 Consultar reservas}: el sistema debe permitir a cualquier usuario consultar las reservas registradas.
+	\item 
+	    \textbf{RF-5 Consultar disponibilidad de aulas}: el sistema debe permitir a cualquier usuario consultar la disponibilidad de las aulas.
+	    
+	\item \textbf{RF-6 Consultar histórico de reservas}: el sistema debe permitir al administrador consultar el histórico de reservas, en el que se muestran las creaciones, modificaciones y eliminaciones de reservas.
+	    
+	\item \textbf{RF-7 Administrar centros y departamentos}: el sistema debe permitir al administrador dar de alta, modificar y dar de baja los centros y departamentos.
+	    
+	\item \textbf{RF-8 Administrar aulas}: el sistema debe permitir al administrador dar de alta, modificar y dar de baja las aulas de los centros y departamentos.
+	    
+	\item \textbf{RF-9 Administrar usuarios}: el sistema debe permitir al administrador dar de alta, modificar (bloquear y desbloquear) y dar de baja los usuarios.
+	    
+	\item \textbf{RF-10 Administrar perfil de usuario}: el sistema debe permitir al administrador y a los usuarios con rol de responsable modificar la información de su perfil de usuario y ver los centros y departamentos que tienen bajo su propiedad.
+
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+\begin{itemize}
+    \item \textbf{RNF-1 Usabilidad}: la aplicación debe resultar sencilla de utilizar y entender.
+    
+    \item \textbf{RNF-2 Seguridad}: la aplicación debe autenticar el acceso a las funcionalidades restringidas y administrar de forma adecuada los datos sensibles (como las contraseñas).
+    
+    \item \textbf{RNF-3 Mantenibilidad}: debe resultar sencillo realizar modificaciones o añadir nuevas funcionalidades a la aplicación.
+    
+    \item \textbf{RNF-4 Diseño web adaptativo}: el diseño de la aplicación se debe adaptar al dispositivo que se está utilizando para visitarla.
+\end{itemize}
+
+\section{Especificación de requisitos} 
+
+\subsection{Funcionalidades del producto}
+Las \underline{funcionalidades del software} son:
+
+\tablaSmallSinColores{Funcionalidades del producto software}{ c | l }{funcionalidades_software}
+{\textbf{ID} & \textbf{Requisito funcional} \\}{
+    RF-1 & Login  \\
+	RF-2 & Reservar aulas  \\
+	RF-3 & Gestionar reservas  \\
+	RF-4 & Consultar reservas  \\
+	RF-5 & Consultar disponibilidad de aulas  \\
+	RF-6 & Histórico de reservas  \\
+	RF-7 & Administrar centros y departamentos  \\
+	RF-8 & Administrar aulas  \\
+	RF-9 & Administrar usuarios  \\
+	RF-10 & Administrar perfil usuario  \\
+}
+
+\subsection{Clases y características de usuarios}
+Los \underline{usuarios que van a utilizar el producto} son:
+
+\tablaSmallSinColores{Clases y características de usuarios}{ l | l }{clases_caracteristicas_usuarios}
+{\textbf{Usuario} & \textbf{Funcionalidad} \\}{
+    \multirow{2}{*}{Administrador} 
+        & Principalmente administrar centros, departamentos, aulas y usuarios, y consultar el histórico de reservas \\
+        & También puede consultar las reservas y la disponibilidad de aulas y administrar su perfil de usuario \\ \hline
+        
+     \multirow{2}{*}{Responsable} 
+        & Principalmente reservar aulas y gestionar las reservas de su centro o departamento \\
+        & También puede consultar las reservas y la disponibilidad de aulas y administrar su perfil de usuario \\ \hline
+        
+    Visitante & Consultar las las reservas y la disponibilidad de aulas \\
+}
+
+\begin{landscape}
+\subsection{Diagrama de casos de uso}
+\imagenAncho{Diagrama_Casos_Uso}{Diagrama de casos de uso}{1}
+\end{landscape}
+
+\subsection{Casos de uso}
+
+\subsubsection{RF-1 Login}
+
+\textbf{Descripción}: el sistema debe restringir el acceso a las ventanas de administración, al histórico de reservas, a la reserva de aulas y a la gestión de reservas a usuarios registrados (a través del login) y permitir a cualquiera (usuarios y visitantes) acceder a las ventanas de consulta.
+
+\textbf{Prioridad}: alta.
+
+\textbf{Pre-condiciones}: ninguna.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Correo del usuario.
+        \item Contraseña.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{itemize}
+        \item Se introduce el correo y la contraseña del usuario y se pulsa en el botón ``\textbf{\textit{Log in}}'' para acceder a las ventanas restringidas.
+        
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que el correo y la contraseña introducidos son correctos, vaciando las entradas de texto en caso contrario.
+                
+                \item Si se pulsa en ``\textbf{\textit{He olvidado la contraseña}}'' se mostrará una notificación ``\textit{Póngase en contacto con el administrador (\textbf{correo del administrador})}''.
+                
+                \item Una vez se ha entrado, el usuario tiene acceso a las siguientes acciones según su perfil:
+                
+                \tablaSmallSinColores{Tipos de acceso al sistema según el usuario logueado}{ l | l }{tipos_acceso_usuario_logueado}
+                    {\textbf{Usuario} & \textbf{Acceso} \\}{
+                        \multirow{6}{*}{Administrador} 
+                            & Administrar los centros y departamentos \\
+                            & Administrar las aulas \\ 
+                            & Administrar los usuarios \\ 
+                            & Consultar el histórico de reservas \\
+                            & Consultar las reservas y la disponibilidad de las aulas \\
+                            & Administrar su perfil \\ \hline
+                            
+                         \multirow{4}{*}{Responsable} 
+                            & Reservar aulas de su centro o departamento \\
+                            & Gestionar las reservas (modificar y eliminar) de su centro o departamento \\ 
+                            & Consultar las reservas y la disponibilidad de las aulas \\ 
+                            & Administrar su perfil \\ \hline
+                            
+                        Visitante & No puede loguearse \\
+                    }
+                    
+                \item El usuario puede cerrar su sesión haciendo clic en el enlace ``\textbf{\textit{Cerrar sesión}}'' que se encuentra en la parte superior derecha de la ventana.
+            \end{itemize}
+            
+        \item Se pulsa en el link ``\textbf{\textit{Acceso consulta de reservas y disponibilidad de aulas}}'' para acceder a las ventanas de consulta sin Login.
+    \end{itemize}
+
+\textbf{Salida}: acceso a la ventana con el menú de opciones personalizado en función del usuario.
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Login}{ l | l | l | l }{campos_ventana_login}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Usuario} & Texto & Sí & Campo en el que se introduce el correo del usuario \\ \hline
+            
+        \textbf{Contraseña} & Texto & Sí & Campo en el que se introduce la contraseña del usuario \\
+    }
+    
+\subsubsection{RF-2 Reservar Aulas}
+
+\textbf{Descripción}: el sistema debe permitir al responsable reservar un aula de los centros o departamentos que tiene bajo responsabilidad.
+
+\textbf{Prioridad}: alta.
+
+\textbf{Pre-condiciones}: haber accedido al sistema como responsable.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Fecha inicio.
+        \item Fecha fin*.
+        \item Hora inicio.
+        \item Hora fin.
+        \item Centro o departamento.
+        \item Aula.
+        \item Día de la semana*.
+        \item Motivo de la reserva.
+        \item Persona a cargo de la reserva (A cargo de).
+    \end{itemize}
+    
+* En caso de reservas por rango de fechas.
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Reserva de Aulas}}'' del menú lateral.
+        
+        \item Si el responsable quiere hacer una reserva por rango de fechas, marca el check ``\textbf{\textit{Reserva por rango de fechas}}''.
+            \begin{itemize}
+                \item Cuando se marca, el sistema habilita los campos ``\textit{Fecha fin}'' y ``\textit{Día de la semana}'' y cambia el nombre del campo ``\textit{Fecha}'' a ``\textit{Fecha inicio}'', y viceversa.
+            \end{itemize}
+            
+        \item Se rellenan todos los campos de la ventana y se hace clic en el botón ``\textbf{\textit{Reservar}}'.
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que no se ha dejado ningún campo en blanco, mostrando un mensaje de alerta ``\textit{Todos los campos son obligatorios}'' en caso contrario.
+                
+                \item El sistema comprobará que la ``\textit{Fecha inicio}'' es menor que la ``\textit{Fecha fin}'' (en una reserva por rango de fechas), mostrando una notificación de error ``\textit{La fecha de inicio de la reserva debe ser menor que la fecha de fin}'' en caso contrario.
+                
+                \item El sistema comprobará que el aula está disponible en la/s fecha/s y horas indicadas, mostrando una notificación de error ``\textit{El aula no está disponible en la/s fecha/s y horas indicadas}''. 
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salida}: notificación de error en caso de haber introducido una fecha de inicio mayor que la fecha de fin (en reservas por rango de fechas), de haber introducido una hora de inicio mayor que la hora de fin o de que el aula no esté disponible.
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Reserva de Aulas}{llll}{campos_ventana_reserva_aulas}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Fecha inicio} & Fecha & Sí & Campo de selección única \\ \hline
+        \textbf{Fecha fin} & Fecha & Sí * & Campo de selección única \\ \hline
+        \textbf{Hora inicio} & Hora & Sí & Campo de texto / selección \\ \hline
+        \textbf{Hora fin} & Hora & Sí & Campo de texto / selección \\ \hline
+        \textbf{Centro/ Departamento} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Aula} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Día de la semana} & Texto & No & Campo de selección única \\ \hline
+        \textbf{Motivo} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{A cargo de} & Texto & Sí & Campo de texto \\
+    }
+    
+* En caso de reservas por rango de fechas.
+
+\subsubsection{RF-3 Gestionar reservas}
+
+\textbf{Descripción}: el sistema debe permitir al responsable gestionar las reservas registradas a partir de la fecha actual, de los centros o departamentos que tiene bajo responsabilidad.
+
+\textbf{Prioridad}: alta.
+
+\textbf{Pre-condiciones}: haber accedido al sistema como responsable.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Fecha desde*.
+        \item Fecha hasta*.
+        \item Hora desde*.
+        \item Hora hasta*.
+        \item Día de la semana*.
+        \item Fecha.
+        \item Hora inicio.
+        \item Hora fin.
+        \item Centro o departamento.
+        \item Aula.
+        \item Motivo de la reserva.
+        \item Persona a cargo de la reserva (A cargo de).
+    \end{itemize}
+    
+* Entradas del formulario de búsqueda de reservas.
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Gestión de Reservas}}'' del menú lateral.
+        
+        \item El sistema muestra un listado con las reservas registradas a partir de la fecha actual de todos los centros y departamentos bajo responsabilidad del usuario logueado en una tabla.
+        
+            \begin{itemize}
+            \tightlist
+                \item Si no se ha realizado ninguna reserva a partir de la fecha actual, se mostrará una notificación ``\textit{No hay reservas realizadas a partir de la fecha actual o que cumplan con los filtros aplicados}''.
+                
+                \item  Para cada elemento de la tabla se muestra: fecha, día de la semana, hora de inicio, hora de fin, aula, centro en que se encuentra el aula, motivo de la reserva, persona a cargo de la reserva y el centro o departamento en nombre del cual se hace la reserva.
+            \end{itemize}
+        
+        \item Se introducen los filtros que se quieran aplicar en los campos correspondientes y se hace clic en el botón ``\textbf{\textit{Buscar}}''.
+        
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que la ``\textit{Fecha desde}'' es menor que la ``\textit{Fecha hasta}'', mostrando una notificación de error ``\textit{La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar}'' en caso contrario.
+                
+                \item El sistema comprobará que la ``\textit{Hora desde}'' es menor que la ``\textit{Hora hasta}'', mostrando una notificación de error ``\textit{La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar}'' en caso contrario.
+                
+                \item Si no hay reservas que cumplan con los filtros aplicados, se mostrará una notificación ``\textit{No hay reservas realizadas a partir de la fecha actual o que cumplan con los filtros aplicados}''.
+            \end{itemize}
+            
+        \item El responsable puede \textbf{limpiar los filtros aplicados} clicando en el botón ``\textbf{\textit{Limpiar filtros}}''. El sistema vaciará todos los campos de filtrado y actualizará el listado de reservas con aquellas registradas a partir de la fecha actual.
+        
+        \item El responsable puede \textbf{modificar una reserva} seleccionando la fila correspondiente y clicando en el botón ``\textbf{\textit{Modificar}}''.
+        
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que se ha seleccionado una única reserva, mostrando una notificación de error ``\textit{Solo se puede modificar una reserva}'' en caso de que se haya seleccionado más de una o ``\textit{No se ha seleccionado ninguna reserva}'' si no se ha seleccionado ninguna.
+                
+                \item El sistema muestra los datos actuales de la reserva en los campos correspondientes.
+                
+                \item El responsable modifica los campos.
+                
+                \item Puede guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}}'' o descartarlos clicando en ``\textbf{\textit{Cancelar}}''.
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará que no se ha dejado ningún campo en blanco, mostrando un mensaje de alerta ``\textit{Todos los campos son obligatorios}'' en caso contrario.
+                        
+                        \item El sistema comprobará que la ``\textit{Hora inicio}'' es menor que la ``\textit{Hora fin}'', mostrando una notificación de error ``\textit{La hora de inicio de la reserva debe ser menor que la hora de fin}'' en caso contrario.
+                        
+                        \item El sistema comprobará que el aula está disponible en la/s fecha/s y horas indicadas, mostrando una notificación de error ``\textit{El aula no está disponible en la/s fecha/s y horas indicadas}''.
+                    \end{itemize}
+            \end{itemize}
+        
+        \item El responsable puede \textbf{eliminar reservas} seleccionando las filas correspondientes, o marcando la casilla de la cabecera si quiere eliminar todas, y clicando en el botón ``\textbf{\textit{Eliminar}}''.
+        
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que se ha seleccionado al menos una reserva, mostrando una notificación de error ``\textit{No se ha seleccionado ninguna reserva}'' en caso contrario.
+                
+                \item El sistema mostrará un cuadro de diálogo con el mensaje ``\textit{¿Desea eliminar la/s reserva/s seleccionada/s definitivamente? Esta acción no se puede deshacer.}''.
+                
+                \item El responsable puede eliminarlas definitivamente clicando en ``\textbf{\textit{Confirmar}}'' o cancelar la acción clicando en ``\textbf{\textit{Cancelar}}''.
+            \end{itemize}
+            
+        \item El responsable puede \textbf{ver la información acerca de la gestión de reservas} clicando en el botón con el icono de información situado a la derecha del botón ``\textbf{\textit{Eliminar}}''.
+        
+            \begin{itemize}
+            \tightlist
+                \item El sistema mostrará un cuadro de diálogo con el mensaje ``\textit{Sólo se pueden modificar las reservas de una en una. Si desea modificar una reserva de un rango de fechas debe eliminar todas las reservas correspondientes al rango y realizar una nueva reserva de rango.}''. Se puede cerrar clicando en el botón ``\textbf{\textit{Cerrar}}'' o en cualquier parte de la pantalla fuera del cuadro.
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salidas}: 
+\begin{itemize}
+\tightlist
+    \item Listado con las reservas registradas que cumplan con los filtros aplicados, o por defecto con las reservas registradas por los centros o departamentos de los que es responsable el usuario logueado.
+    
+    \item Notificación de error en caso de haber dejado algún campo obligatorio en blanco, de haber introducido campos incorrectos, o de que el aula no esté disponible.
+    
+    \item Notificación en caso de que no haya reservas realizadas a partir de la fecha actual o que cumplan con los filtros aplicados.
+    
+    \item Cuadro de diálogo para confirmar la eliminación de la/s reserva/s.
+    
+    \item Información acerca de la gestión de reservas en caso de clicar en el botón de información.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Gestión de Reservas}{llll}{campos_ventana_gestion_reservas}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Fecha desde*} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Fecha hasta*} & Fecha & No * & Campo de selección única \\ \hline
+        \textbf{Hora desde*} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Hora hasta*} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Día de la semana*} & Texto & No & Campo de selección única \\ \hline
+        \textbf{Fecha} & Fecha & Sí & Campo de selección única \\ \hline
+        \textbf{Hora inicio} & Hora & Sí & Campo de texto / selección \\ \hline
+        \textbf{Hora fin} & Hora & Sí & Campo de texto / selección \\ \hline
+        \textbf{Centro/ Departamento} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Aula} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Motivo} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{A cargo de} & Texto & Sí & Campo de texto \\
+    }
+    
+* Campos del formulario de búsqueda de reservas.
+
+\subsubsection{RF-4 Consultar reservas}
+
+\textbf{Descripción}: el sistema debe permitir a cualquier usuario consultar las reservas registradas.
+
+\textbf{Prioridad}: alta.
+
+\textbf{Pre-condiciones}: ninguna.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Fecha desde.
+        \item Fecha hasta.
+        \item Hora desde.
+        \item Hora hasta.
+        \item Día de la semana.
+        \item Centro o departamento que ha realizado la reserva.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textit{Consulta de Reservas}'' del menú lateral.
+        
+        \item Se introducen los filtros que se quieran aplicar en los campos correspondientes y se hace clic en el botón ``\textbf{\textit{Buscar}}''.
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que se ha seleccionado un centro o departamento, mostrando una notificación de error ``\textit{El Centro/Departamento es un campo obligatorio}'' en caso contrario.
+                
+                \item El sistema comprobará que la ``\textit{Fecha desde}'' es menor que la ``\textit{Fecha hasta}'', mostrando una notificación de error ``\textit{La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar}'' en caso contrario.
+                
+                \item El sistema comprobará que la ``\textit{Hora desde}'' es menor que la ``\textit{Hora hasta}'', mostrando una notificación de error ``\textit{La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar}'' en caso contrario.
+            \end{itemize}
+            
+        \item El sistema muestra el listado con las reservas que cumplen con los filtros aplicados en una tabla.
+            \begin{itemize}
+            \tightlist
+                \item Si no hay reservas que coincidan con los filtros aplicados, se mostrará una notificación ``\textit{No hay reservas realizadas a partir de la fecha actual o que cumplan con los filtros aplicados}''.
+                
+                \item Para cada elemento de la tabla se muestra: fecha, día de la semana, hora de inicio, hora de fin, aula, centro en que se encuentra el aula, motivo de la reserva, persona a cargo de la reserva y el usuario encargado de hacer la reserva seguido del centro o departamento en nombre del cual se hace la reserva.
+            \end{itemize}
+            
+        \item El usuario puede \textbf{limpiar los filtros aplicados} clicando en el botón ``\textbf{\textit{Limpiar filtros}}''. El sistema vaciará todos los campos de filtrado y ocultará la tabla de reservas.
+            
+    \end{enumerate}
+
+\textbf{Salidas}: 
+ \begin{itemize}
+\tightlist
+    \item Listado con las reservas que cumplen con los filtros aplicados.
+    
+    \item Notificación de error en caso de haber dejado algún campo obligatorio vacío o de haber introducido campos incorrectos.
+    
+    \item Notificación en caso de que no haya reservas que cumplan con los filtros aplicados.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Consulta de Reservas}{llll}{campos_ventana_consulta_reserva}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Fecha desde} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Fecha hasta} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Hora desde} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Hora hasta} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Día de la semana} & Texto & No & Campo de selección única \\ \hline
+        \textbf{Centro/ Departamento} & Texto & Sí & Campo de selección única \\
+    }
+
+\subsubsection{RF-5 Consultar disponibilidad de aulas}
+
+\textbf{Descripción}: el sistema debe permitir a cualquier usuario consultar la disponibilidad de las aulas de los centros y departamentos.
+
+\textbf{Prioridad}: alta.
+
+\textbf{Pre-condiciones}: ninguna.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Fecha desde.
+        \item Fecha hasta.
+        \item Hora desde.
+        \item Hora hasta.
+        \item Día de la semana.
+        \item Capacidad del aula.
+        \item Número de ordenadores del aula.
+        \item Centro o departamento propietario del aula.
+        \item Aula.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textit{Consulta de Disponibilidad de Aulas}'' del menú lateral.
+        
+        \item Se introducen los filtros que se quieran aplicar en los campos correspondientes y se hace clic en el botón ``\textbf{\textit{Buscar}}''.
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que se ha seleccionado un centro o departamento, mostrando una notificación de error ``\textit{El Centro/Departamento es un campo obligatorio}'' en caso contrario.
+                
+                \item El sistema comprobará que se han rellenado todos los filtros ``\textit{Fecha desde}'', ``\textit{Hora desde}'' y ``\textit{Hora hasta}'') si se ha introducido uno de ellos y/o ``\textit{Fecha hasta}'', mostrando una notificación de error ``\textit{Para filtrar por fecha y hora, ``Fecha desde'', ``Hora desde'' y ``Hora hasta'' son campos obligatorios}''. Si no se introduce la ``\textit{Fecha hasta}'', se toma el valor de ``\textit{Fecha desde}'' (para comprobaciones de un día concreto).
+                
+                \item El sistema comprobará que la ``\textit{Fecha desde}'' es menor que la ``\textit{Fecha hasta}'', mostrando una notificación de error ``\textit{La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar}'' en caso contrario.
+                
+                \item El sistema comprobará que la ``\textit{Hora desde}'' es menor que la ``\textit{Hora hasta}'', mostrando una notificación de error ``\textit{La hora desde la que se quiere filtrar debe ser menor que la hora hasta la que se quiere filtrar}'' en caso contrario.
+            \end{itemize}
+            
+        \item El sistema muestra el listado con las aulas disponibles que cumplen con los filtros aplicados en una tabla.
+            \begin{itemize}
+            \tightlist
+                \item Si no hay aulas disponibles que coincidan con los filtros aplicados, se mostrará una notificación ``\textit{No hay aulas que cumplan con los filtros aplicados}''.
+                
+                \item Para cada elemento de la tabla se muestra: nombre del aula, centro en el que se encuentra el aula, capacidad y número de ordenadores.
+            \end{itemize}
+            
+        \item El usuario puede \textbf{limpiar los filtros aplicados} clicando en el botón ``\textbf{\textit{Limpiar filtros}}''. El sistema vaciará todos los campos de filtrado y ocultará la tabla de aulas.
+            
+    \end{enumerate}
+
+\textbf{Salidas}: 
+ \begin{itemize}
+\tightlist
+    \item Listado con las aulas disponibles que cumplen con los filtros aplicados.
+    
+    \item Notificación de error en caso de haber dejado algún campo obligatorio vacío o de haber introducido campos incorrectos.
+    
+    \item Notificación en caso de que no haya aulas disponibles que cumplan con los filtros aplicados.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Consulta de Disponibilidad de aulas}{llll}{campos_ventana_consulta_disponibilidad_aulas}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Fecha desde} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Fecha hasta} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Hora desde} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Hora hasta} & Hora & No & Campo de texto / selección \\ \hline
+        \textbf{Día de la semana} & Texto & No & Campo de selección única \\ \hline
+        \textbf{Capacidad} & Numérico & No & Campo de texto \\ \hline
+        \textbf{Número de ordenadores} & Texto & No & Campo de texto \\ \hline
+        \textbf{Centro/ Departamento} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Aula} & Texto & No & Campo de selección única \\ 
+    }
+
+\subsubsection{RF-6 Histórico de reservas}
+
+\textbf{Descripción}: el sistema debe permitir al administrador consultar el histórico de reservas, en el que se muestran las creaciones, modificaciones y eliminaciones de reservas.
+
+\textbf{Prioridad}: baja.
+
+\textbf{Pre-condiciones}: haber accedido al sistema como administrador.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Fecha desde.
+        \item Fecha hasta.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Histórico de Reservas}}'' del menú lateral.
+            
+        \item El sistema muestra el listado con las operaciones realizadas sobre las reservas en una tabla. Por defecto se filtran las realizadas desde 7 días antes de la fecha actual hasta 7 días después.
+            \begin{itemize}
+            \tightlist
+                \item Si en el rango de fechas no se ha realizado ninguna operación sobre las reservas se mostrará una notificación  ``\textit{No se han realizado operaciones con las reservas en esas fechas}''.
+                
+                \item Para cada elemento de la tabla se muestra: fecha de la operación, tipo de operación, motivo de la reserva, fecha de la reserva. hora de inicio de la reserva, hora de fin de la reserva y lugar de la reserva (aula - centro).
+            \end{itemize}
+            
+        \item El administrador puede hacer \textbf{consultas por fecha} en el histórico introduciendo los filtros que se quieren aplicar y clicando en el botón ``\textbf{\textit{Buscar}}''.
+            \begin{itemize}
+            \tightlist
+                \item El sistema comprobará que la ``\textit{Fecha desde}'' es menor que la ``\textit{Fecha hasta}'', mostrando una notificación de error ``\textit{La fecha desde la que se quiere filtrar debe ser menor que la fecha hasta la que se quiere filtrar}'' en caso contrario.
+                
+                \item Si en el rango de fechas no se ha realizado ninguna operación sobre las reservas se mostrará una notificación  ``\textit{No se han realizado operaciones con las reservas en esas fechas}''.
+            \end{itemize}
+            
+        \item El administrador puede \textbf{limpiar los filtros aplicados} clicando en el botón ``\textbf{\textit{Limpiar filtros}}''. El sistema vaciará todos los campos de filtrado y ocultará la tabla de aulas.
+    \end{enumerate}
+
+\textbf{Salidas}: 
+ \begin{itemize}
+\tightlist
+    \item Listado con las operaciones realizadas sobre las reservas.
+    
+    \item Notificación de error en caso de haber introducido campos incorrectos.
+    
+    \item Notificación en caso de que no haya operaciones realizadas sobre las reservas que cumplan con los filtros aplicados.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Histórico de Reservas}{llll}{campos_ventana_historico_reservas}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Fecha desde} & Fecha & No & Campo de selección única \\ \hline
+        \textbf{Fecha hasta} & Fecha & No & Campo de selección única \\ \hline
+    }
+
+\subsubsection{RF-7 Administrar centros y departamentos}
+
+\textbf{Descripción}: el sistema debe permitir al administrador dar de alta, modificar y dar de baja los centros y departamentos.
+
+\textbf{Prioridad}: baja.
+
+\textbf{Pre-condiciones}: haber accedido como administrador.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item ID del centro/departamento.
+        \item Nombre del centro/departamento.
+        \item Responsable.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Mantenimiento de Centros y Departamentos}}'' del menú lateral.
+        
+        \item El sistema muestra el listado con los centros y departamentos registrados en una tabla.
+            \begin{itemize}
+                \item Para cada elemento de la tabla se muestra: nombre del centro o departamento, nombre y apellidos del responsable, correo del responsable y teléfono del responsable.
+            \end{itemize}
+            
+        \item El administrador puede \textbf{añadir} centros y departamentos clicando el el botón ``\textbf{\textit{Añadir centro}}'' o ``\textbf{\textit{Añadir departamento}}'', respectivamente.
+            \begin{itemize}
+            \tightlist
+                \item Se rellenan todos los campos de la ventana.
+                
+                \item Se registra el centro o departamento clicando en el botón ``\textbf{\textit{Guardar}}'' o se pueden descartar los cambios clicando en ``\textbf{\textit{Cancelar}}''. Si se ha dejado algún campo en blanco el botón `\textit{Guardar}'' permanecerá deshabilitado.
+            \end{itemize}
+            
+        \item El administrador puede \textbf{modificar} los datos de un centro o departamento, o  \textbf{eliminarlo} clicando en la fila correspondiente.
+            \begin{itemize}
+            \tightlist
+                \item El sistema muestra los datos actuales en los campos correspondientes.
+                
+                \item El administrador modifica los campos (excepto el ID que está deshabilitado).
+                
+            \item Puede guardar los cambios clicando en el botón `\textbf{\textit{Guardar}}'' o descartarlos clicando en ``\textbf{\textit{Cancelar}}''. Si se ha dejado algún campo en blanco el botón ``\textit{Guardar}'' permanecerá deshabilitado.
+                
+                \item Puede eliminar el centro o departamento clicando en el botón  ``\textbf{\textit{Eliminar}}''.
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará si el centro o departamento que quiere eliminar tiene aulas asignadas, mostrando un cuadro de diálogo con un mensaje de confirmación ``\textit{Nombre del centro/departamento tiene aulas asignadas, ¿desea eliminarle definitivamente junto a todas sus aulas? Esta acción no se puede deshacer}'' en caso afirmativo o ``\textit{¿Desea eliminar nombre del centro/departamento definitivamente? Esta acción no se puede deshacer.}'' en caso contrario.
+                        
+                        \item El administrador puede eliminar definitivamente clicando en el botón  ``\textbf{\textit{Confirmar}}'' o cancelar la acción clicando en  ``\textbf{\textit{Cancelar}}''. Se mostrará una notificación ``\textit{Se ha eliminado nombre del centro/departamento correctamente}'' si se ha realizado con éxito.
+                    \end{itemize}
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salidas}: 
+\begin{itemize}
+\tightlist
+    \item Listado con los centros y departamentos registrados.
+    
+    \item Cuadro de diálogo para confirmar la eliminación de la/s reserva/s.
+    
+    \item Notificación de éxito si se ha eliminado correctamente.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Mantenimiento de Centros y Departamentos}{llll}{campos_ventana_mantenimiento_centros_departamentos}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{ID} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Nombre} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Responsable} & Texto & No & Campo de selección única \\ 
+    }
+
+\subsubsection{RF-8 Administrar aulas}
+
+\textbf{Descripción}: el sistema debe permitir al administrador dar de alta, modificar y dar de baja las aulas de los centros y departamentos.
+
+\textbf{Prioridad}: baja.
+
+\textbf{Pre-condiciones}: haber accedido como administrador.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Centro o departamento (propietario) del que administrar las aulas.
+        \item Nombre del aula.
+        \item Capacidad.
+        \item Número de ordenadores.
+        \item Centro.
+        \item Propietario del aula (centro o departamento).
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Mantenimiento de Aulas}}'' del menú lateral.
+        
+        \item Se selecciona el centro o departamento del que se quieren modificar y/o eliminar aulas.
+        
+        \item El sistema muestra el listado con las aulas del centro o departamento seleccionado en una tabla.
+            \begin{itemize}
+                \item Para cada elemento de la tabla se muestra: nombre del aula, centro en el que se encuentra, capacidad y número de ordenadores.
+            \end{itemize}
+            
+        \item El administrador puede \textbf{añadir} aulas clicando el el botón ``\textbf{\textit{Añadir aula}}''.
+            \begin{itemize}
+            \tightlist
+                \item Se rellenan todos los campos de la ventana.
+                
+                \item Se registra el aula clicando en el botón ``\textbf{\textit{Guardar}}'' o se pueden descartar los cambios clicando en  ``\textbf{\textit{Cancelar}}''. 
+                    \begin{itemize}
+                    \tightlist
+                        \item Si se ha dejado algún campo en blanco el botón ``\textit{Guardar}'' permanecerá deshabilitado.
+                        
+                        \item El sistema comprobará que no existe un aula con el nombre introducido en el centro seleccionado, mostrando una notificación de error ``\textit{Ya existe un aula con ese nombre en el centro que ha seleccionado}'' en caso contrario.
+                    \end{itemize}
+            \end{itemize}
+            
+        \item El administrador puede \textbf{modificar} los datos de un aula, o  \textbf{eliminarla} clicando en la fila correspondiente.
+            \begin{itemize}
+            \tightlist
+                \item El sistema muestra los datos actuales en los campos correspondientes.
+                
+                \item El administrador modifica los campos.
+                
+                \item Puede guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}}'' o descartarlos clicando en  ``\textbf{\textit{Cancelar}}''. 
+                    \begin{itemize}
+                    \tightlist
+                        \item Si se ha dejado algún campo en blanco el botón ``\textit{Guardar}'' permanecerá deshabilitado.
+                        
+                        \item El sistema comprobará que no existe un aula con el nombre introducido en el centro seleccionado, mostrando una notificación de error ``\textit{Ya existe un aula con ese nombre en el centro que ha seleccionado}'' en caso contrario.
+                    \end{itemize}
+                
+                \item Puede eliminar el aula clicando en el botón  ``\textbf{\textit{Eliminar}}''.
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará si el aula tiene reservas asociadas a partir de la fecha actual, mostrando un cuadro de diálogo con un mensaje de confirmación ``\textit{El aula nombre del aula de nombre del centro tiene reservas asociadas, ¿desea eliminarla definitivamente junto a todas sus reservas? Esta acción no se puede deshacer.}'' en caso afirmativo o ``\textit{¿Desea eliminar nombre del aula de nombre del centro definitivamente? Esta acción no se puede deshacer.}'' en caso contrario.
+                        
+                        \item El administrador puede eliminar definitivamente clicando en el botón  ``\textbf{\textit{Confirmar}}'' o cancelar la acción clicando en  ``\textbf{\textit{Cancelar}}''. Se mostrará un mensaje ``\textit{Se ha eliminado el aula nombre del aula correctamente}'' si se ha realizado con éxito.
+                    \end{itemize}
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salidas}: 
+\begin{itemize}
+\tightlist
+    \item Listado con las aulas del centro o departamento seleccionado.
+    
+    \item Cuadro de diálogo para confirmar la eliminación del aula.
+    
+    \item Mensaje de éxito si se ha eliminado correctamente.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Mantenimiento de Aulas}{llll}{campos_ventana_mantenimiento_aulas}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Centro/Departamento} & Texto & No & Campo de selección única \\ \hline
+        \textbf{Nombre del aula} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Capacidad} & Numérico & Sí & Campo de texto \\ \hline
+        \textbf{Número de ordenadores} & Numérico & Sí & Campo de texto \\ \hline
+        \textbf{Centro} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Propietario del aula} & Texto & Sí & Campo de selección única \\ 
+    }
+
+\subsubsection{RF-9 Administrar usuarios}
+
+\textbf{Descripción}: el sistema debe permitir al administrador dar de alta, modificar (bloquear y desbloquear) y dar de baja los usuarios.
+
+\textbf{Prioridad}: baja.
+
+\textbf{Pre-condiciones}: haber accedido como administrador.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Nombre del usuario.
+        \item Apellidos del usuario.
+        \item Correo del usuario.
+        \item Contraseña.
+        \item Teléfono del usuario.
+        \item Rol del usuario.
+        \item Si está o no bloqueado.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Mantenimiento de Usuarios}}'' del menú lateral.
+        
+        \item El sistema muestra el listado con los usuarios registrados en una tabla.
+            \begin{itemize}
+                \item Para cada elemento de la tabla se muestra: nombre y apellidos del usuario, correo, teléfono y rol.
+            \end{itemize}
+            
+        \item El administrador puede \textbf{añadir} usuarios clicando el el botón ``\textbf{\textit{Añadir usuario}}''.
+            \begin{itemize}
+            \tightlist
+                \item Se rellenan todos los campos de la ventana.
+                
+                \item Se registra el usuario clicando en el botón ``\textbf{\textit{Guardar}}'' o se pueden descartar los cambios clicando en  ``\textbf{\textit{Cancelar}}''. 
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará que el correo tiene el formato correcto, mostrando un mensaje de error bajo el campo en caso contrario.
+                        
+                        \item El sistema comprobará que la contraseña tiene como mínimo 5 caracteres, mostrando un mensaje de error ``\textit{Debe tener 5 o más caracteres}'' bajo el campo en caso contrario. La contraseña se almacena en la base de datos codificada (\textit{hasheada}).
+                        
+                        \item El sistema comprobará que el teléfono contiene 9 dígitos, mostrando un mensaje de error ``\textit{Debe tener 9 dígitos}'' bajo el campo en caso contrario.
+                    \end{itemize}
+            \end{itemize}
+            
+        \item El administrador puede \textbf{modificar} si el usuario está o no bloqueado, o  \textbf{eliminarlo} clicando en la fila correspondiente.
+            \begin{itemize}
+            \tightlist
+                \item El sistema muestra los datos actuales en los campos correspondientes, manteniéndolos deshabilitados excepto el check de ``\textbf{\textit{Bloqueado}}''.
+                
+                \item El administrador bloquea o desbloquea al usuario.
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema muestra un cuadro de diálogo con el mensaje ``\textit{¿Seguro que quiere desbloquear al usuario nombre y apellido del usuario?}'' en caso de que esté bloqueado, y viceversa.
+                        
+                        \item El administrador puede bloquear/desbloquear definitivamente pulsando en ``\textbf{\textit{Confirmar}}'' o cancelar la acción clicando en  ``\textbf{\textit{Cancelar}}''.
+                    \end{itemize}
+                
+                
+                \item Puede guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}'}' o descartarlos clicando en  ``\textbf{\textit{Cancelar}}''. 
+                
+                \item Puede eliminar el usuario clicando en el botón  ``\textbf{\textit{Eliminar}}''.
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará si el usuario que está eliminando es él mismo, el usuario logueado, mostrando una notificación de error ``\textit{No puede eliminar su propio usuario}'' en ese caso.
+                        
+                        \item El sistema comprobará si el usuario que está eliminando está bloqueado, mostrando una notificación de error ``\textit{El usuario está bloqueado y no se puede eliminar}'' en ese caso.
+                        
+                        \item El sistema comprobará si el usuario tiene centros o departamentos bajo su responsabilidad, mostrando una notificación de error ``\textit{El usuario nombre y apellidos del usuario tiene bajo su responsabilidad algún centro o departamento, reasígneles otro responsable primero}'' o ``\textit{¿Desea eliminar el usuario nombre y apellidos del usuario definitivamente? Esta acción no se puede deshacer}'' en caso contrario.
+                        
+                        \item Se puede eliminar definitivamente clicando en el botón  ``\textbf{\textit{Confirmar}}'' o cancelar la acción clicando en  ``\textbf{\textit{Cancelar}}''. Se mostrará un mensaje ``\textit{Se ha eliminado el usuario nombre y apellidos del usuario correctamente}'' si se ha realizado con éxito.
+                    \end{itemize}
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salidas}: 
+\begin{itemize}
+\tightlist
+    \item Listado con los usuarios registrados.
+    
+    \item Notificación de error en caso de intentar eliminar el usuario logueado o un usuario bloqueado.
+    
+    \item Cuadro de diálogo para confirmar la eliminación del aula.
+    
+    \item Mensaje de éxito si se ha eliminado correctamente.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Mantenimiento de Usuarios}{llll}{campos_ventana_mantenimiento_usuarios}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Nombre} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Apellidos} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Correo} & Texto & Sí & Campo de e-mail \\ \hline
+        \textbf{Contraseña} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Teléfono} & Numérico & Sí & Campo numérico \\ \hline
+        \textbf{Rol} & Texto & Sí & Campo de selección única \\ \hline
+        \textbf{Bloqueado} & Booleano & No & Check \\
+    }
+
+\subsubsection{RF-10 Administrar perfil usuario}
+
+\textbf{Descripción}:  el sistema debe permitir al administrador y a los responsables modificar la información de su perfil de usuario y ver los centros y departamentos que tienen bajo su propiedad.
+
+\textbf{Prioridad}: baja.
+
+\textbf{Pre-condiciones}: haber accedido como administrador o responsable.
+
+\textbf{Entradas}:
+    \begin{itemize}
+    \tightlist
+        \item Nombre del usuario.
+        \item Apellidos del usuario.
+        \item Correo del usuario.
+        \item Contraseña.
+        \item Teléfono del usuario.
+    \end{itemize}
+
+\textbf{Flujo básico}:
+    \begin{enumerate}
+        \item Se selecciona la opción ``\textbf{\textit{Perfil}}'' del menú lateral.
+        
+        \item El sistema muestra los datos actuales en los campos correspondientes, excepto la contraseña. Si se trata de un responsable, muestra un listado con los centros y departamentos bajo su responsabilidad.
+            
+        \item El administrador/responsable puede \textbf{modificar} sus datos.
+            \begin{itemize}
+            \tightlist
+                \item Se guardan los cambios en el botón ``\textbf{\textit{Guardar}}''. 
+                    \begin{itemize}
+                    \tightlist
+                        \item El sistema comprobará que el correo tiene el formato correcto, mostrando un mensaje de error bajo el campo en caso contrario.
+                        
+                        \item El sistema comprobará que la contraseña tiene como mínimo 6 caracteres incluyendo dígitos y letras minúsculas y mayúsculas, mostrando un mensaje de error ``\textit{Debe contener 6 o más caracteres, incluyendo dígitos, letras minúsculas y mayúsculas}'' bajo el campo en caso contrario. La contraseña se almacena en la base de datos codificada (\textit{hasheada}).
+                        
+                        \item El sistema comprobará que el teléfono contiene 9 dígitos, mostrando un mensaje de error ``\textit{Debe tener 9 dígitos}'' bajo el campo en caso contrario.
+                        
+                        \item Se mostrará un mensaje ``\textit{Se han guardado los cambios correctamente}'' si se ha realizado con éxito.
+                    \end{itemize}
+            \end{itemize}
+    \end{enumerate}
+
+\textbf{Salidas}: 
+\begin{itemize}
+\tightlist
+    \item Datos del perfil del usuario, y si se trata de un responsable, listado con los centros y departamentos bajo su responsabilidad.
+    
+    \item Mensaje de éxito si se ha guardado correctamente.
+\end{itemize}
+
+\textbf{Campos de la ventana}:
+\tablaSmallSinColores{Campos de la ventana Perfil de Usuario}{llll}{campos_ventana_perfil_usuario}
+    {\textbf{Campo} & \textbf{Tipo} & \textbf{Obligatorio} & \textbf{Descripción}\\}{
+        \textbf{Nombre} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Apellidos} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Correo} & Texto & Sí & Campo de e-mail \\ \hline
+        \textbf{Contraseña} & Texto & Sí & Campo de texto \\ \hline
+        \textbf{Teléfono} & Numérico & Sí & Campo numérico \\ 
+    }

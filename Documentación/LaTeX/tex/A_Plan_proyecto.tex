@@ -1,0 +1,242 @@
+\apendice{Plan de proyecto software}
+
+\section{Introducción}
+En este anexo se trata la planificación temporal llevada a cabo y también el estudio de viabilidad, en cuanto a parte económica y legal.
+
+\section{Evolución temporal}
+El desarrollo del proyecto se ha basado en la metodología ágil de Scrum en líneas generales, ya que se ha llevado a cabo por una única persona (en lugar de las 4 u 8 personas que normalmente trabajan) y se han realizado iteraciones (\textit{sprints}) de duración variable.
+
+\subsection{Sprint 0 (17/10/2019 - 06/12/2019)}
+Toma de contacto con el proyecto, planteamiento de las herramientas básicas con las que va a trabajar y búsqueda de diferentes alternativas.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Crear el repositorio de GitHub en el que alojar el proyecto.
+    \item Elegir la herramienta de gestión del proyecto.
+    \item Registrarse e investigar sobre Overleaf.
+    \item Investigar las opciones de \textit{hosting} para el despliegue de la aplicación.
+    \item Investigar Vaadin.
+    \item Investigar Google Calendar API y buscar alternativas.
+    \item Investigar Google Sign-In y buscar alternativas.
+\end{itemize}
+
+\subsection{Sprint 1 (06/12/2020 - 04/03/2020)}
+Toma de contacto con la API de Google Calendar y la de Google Sign-In, y con la documentación en Overleaf.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Investigar la alternativa de Microsoft para la gestión del calendario y la autenticación.
+    \item Crear la estructura de la documentación de \LaTeX en Overleaf a partir de la plantilla.
+    \item Crear una aplicación de prueba para la API de Google Calendar.
+\end{itemize}
+
+\subsection{Sprint 2 (04/03/2020 - 06/04/2020)}
+Últimas pruebas de toma de contacto con Google Calendar y Google Sign-In.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Crear una cuenta de Google para el proyecto.
+    \item Crear una rama de GitHub para el proyecto de prueba.
+    \item Crear un evento de Google Calendar.
+    \item Controlar la duplicación de calendarios.
+    \item Insertar el proyecto de prueba en la nueva rama.
+\end{itemize}
+
+\subsection{Sprint 3 (06/04/2020 - 15/04/2020)}
+Planteamiento de los problemas surgidos en las pruebas de las APIs de Google y posibles soluciones, planteamiento de los requisitos de la aplicación y documentación de aspectos relevantes y problemas surgidos.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Migración de Vaadin 8 a Vaadin 10 para intentar solucionar el problema con Google Sign-In.
+    \item Revisar las opciones de \textit{hosting} para el despliegue.
+    \item Plantear los requisitos de la aplicación.
+    \item Documentar los aspectos relevantes y problemas surgidos.
+\end{itemize}
+
+\subsection{Sprint 4 (15/04/2020 - 23/04/2020)}
+Desarrollo de la documentación de especificación de requisitos de la aplicación (casos de uso, prototipo de ventanas, etc.), prueba de despliegue de la aplicación de prueba, investigación de las bases de datos permitidas con la opción de despliegue elegida y finalización de tareas. 
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Resolver problemas con la integración de Google Sign-In.
+    \item Probar el despliegue de la aplicación de prueba en GitHub Pages.
+    \item Investigar las bases de datos permitidas con la opción de despliegue elegida.
+    \item Documentar los aspectos relevantes y problemas surgidos.
+    \item Crear la documentación de documentación de especificación de requisitos.
+\end{itemize}
+
+\subsection{Sprint 5 (23/04/2020 - 04/05/2020)}
+Búsqueda del \textit{hosting} que permita subir la aplicación de prueba desarrollada con Vaadin de entre las planteadas y finalización de tareas.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Encontrar el hosting que permita subir la \textit{app} desarrollada con Vaadin (de entre las opciones planteadas).
+    \item Documentar los aspectos relevantes y problemas surgidos.
+\end{itemize}
+
+\subsection{Sprint 6 (04/05/2020 - 11/05/2020)}
+Revisión de problemas surgidos y búsqueda de soluciones, creación del proyecto Eclipse para desarrollar la aplicación final y finalización de tareas.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Buscar soluciones a los problemas con Google Sign-In.
+    \item Resolver problemas del despliegue de la \textit{app} de prueba en Heroku.
+    \item Crear el proyecto Eclipse para desarrollar la aplicación final. 
+    \item Continuar con la búsqueda del hosting que permita subir la \textit{app} de Vaadin.
+\end{itemize}
+
+\subsection{Sprint 7 (11/05/2020 - 27/05/2020)}
+Revisión de la especificación de requisitos y modificación de los mismos, y continuación de búsqueda de soluciones a los problemas con Google Sign-In. 
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Modificar la documentación de especificación de requisitos.
+    \item Continuar con la búsqueda del hosting que permita subir la \textit{app} de Vaadin y de la base de datos permitida.
+    \item Configurar Heroku para establecer la conexión con PostgreSQL.
+\end{itemize}
+
+\subsection{Sprint 8 (27/05/2020 - 16/06/2020)}
+Revisión de la especificación de requisitos y modificación de los mismos, creación del script de generación de la base de datos y desarrollo de la aplicación tras finalizar las pruebas. 
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Modificar la documentación de especificación de requisitos.
+    \item Crear el modelo Entidad-Relación.
+    \item Crear el script SQL de generación de la base de datos.
+    \item Crear la ventana Mantenimieno de Centros y Departamentos.
+    \item Crear la ventana Histórico de Reservas.
+    \item Crear la ventana Consulta de Reservas y Disponibilidad de Aulas.
+    \item Crear la ventana Mantenimiento de Aulas.
+\end{itemize}
+
+\subsection{Sprint 9 (16/06/2020 - 25/06/2020)}
+Modificación de la especificación de requisitos y del código tras separar la ventana de Consulta de Reserva y Disponibilidad de Aulas en dos, despliegue de la \textit{app} en Heroku, cambio de versión de Vaadin 15 a Vaadin 16, limpieza y organización de código, integración de algunas pruebas automáticas e implementación de ventanas.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Separar la ventana de Consulta de Reserva y Disponibilidad de Aulas en dos.
+    \item Desplegar la \textit{app} en Heroku y generar su base de datos.
+    \item Añadir filtro "Día de la semana" a las ventanas de consulta.
+    \item Cambiar de versión de Vaadin 15 a Vaadin 16.
+    \item Solucionar problemas en consulta de disponibilidad de aulas.
+    \item Limpiar y organizar el código.
+    \item Integrar pruebas automáticas para la consulta de disponibilidad de aulas.
+    \item Crear la ventana de Reserva de Aulas.
+    \item Crear la ventana de Gestión de Reservas.
+\end{itemize}
+
+\subsection{Sprint 10 (25/06/2020 - 03/07/2020)}
+Continuación de la memoria en \LaTeX, incluyendo la especificación de requisitos y actualizando el modelo ER, y del desarrollo de las ventanas, modificación de la tabla \textit{historico\_reservas}, despliegue de la \textit{app} para prueba y nuevo intento de configuración de Google Calendar y Google Sign-In.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Modificar la documentación de especificación de requisitos.
+    \item Crear el modelo Entidad-Relación.
+    \item Crear el script SQL de generación de la base de datos.
+    \item Crear la ventana Mantenimieno de Centros y Departamentos.
+    \item Crear la ventana Histórico de Reservas.
+    \item Crear la ventana Consulta de Reservas y Disponibilidad de Aulas.
+    \item Crear la ventana Mantenimiento de Aulas.
+    \item Integrar de Google Calendar y Google Sign-In.
+    \item Modificar la tabla \textit{historico\_reservas} eliminando las FK.
+    \item Actualizar el despliegue de la \textit{app} en Heroku con las nuevas ventanas.
+\end{itemize}
+
+\subsection{Sprint 11 (03/07/2020 - 09/07/2020)}
+Descartada la integración de Google Calendar y Google Sign-In, implementación de la ventana de login con Spring Security, continuación con la mejora y arreglo de bugs en ventanas y con la documentación de \LaTeX.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Crear la ventana de Login y configurar la seguridad con Spring Security.
+    \item Añadir la tabla \textit{usuario} y modificar el resto para incluir las FK.
+    \item Modificar las tablas \textit{reserva} e \textit{historico\_reservas}.
+    \item Crear la ventana Mantenimiento de Usuarios.
+    \item Restringir la reserva y gestión de reservas.
+\end{itemize}
+
+\subsection{Sprint 12 (09/07/2020 - )}
+Validación de las reservas y la gestión de reservas, implementación de la ventana perfil de usuario,continuación con la mejora y arreglo de bugs en ventanas y con la documentación de \LaTeX.
+
+Las tareas planteadas fueron:
+\begin{itemize}
+\tightlist
+    \item Validar las reservas que se realizan (creaciones y modificaciones).
+    \item Mostrar solo las reservas de los centros y departamentos de los que es responsable el usuario logueado en Gestión de Reservas.
+    \item Solucionar bugs en las ventanas.
+    \item Actualizar el despliegue de la \textit{app}.
+    \item Añadir el \textit{logger} y terminar el tratamiento de excepciones.
+    \item Crear la ventana Perfil de Usuario.
+    \item Actualizar la especificación de requisitos.
+\end{itemize}
+
+\section{Estudio de viabilidad}
+\subsection{Viabilidad económica}
+En este apartado se muestran los costes económicos que supondría desarrollar el proyecto de forma real.
+
+\subsubsection{Coste del personal}
+El proyecto ha sido desarrollado por una única persona durante 9 meses a tiempo parcial. Considerando un salario bruto mensual de 2000 \euro, el coste total del personal sería el siguiente:
+
+\tablaSmallSinColores{Coste total del personal}{ l | c }{coste_personal}
+{\textbf{Concepto} & \textbf{Coste} \\}{
+    Salario mensual neto & 1266,67 \euro \\
+    Retención del IRPF (11,69\%) & 167,63 \euro \\
+    Seguridad Social (28,3\%) & 566 \euro \\
+    Salario mensual bruto & 2000 \euro \\ \hline
+    Coste total de los 9 meses & 18000 \euro \\
+}
+
+\subsubsection{Coste \textit{hardware}}
+Los costes de esta sección hacen referencia al equipo utilizado en el desarrollo del proyecto, tratándose de un equipo valoreado en 750 \euro.
+
+Teniendo en cuenta una amortización de 4 años, el coste de los 9 meses sería:
+\tablaSmallSinColores{Coste total del \textit{hardware}}{ l | c  | c }{coste_hardware}
+{\textbf{Concepto} & \textbf{Coste} & \textbf{Amortización}\\}{
+    Ordenador portátil & 750 \euro & 140,625 \euro\\
+    Coste total de los 9 meses & 750 \euro\\
+}
+
+\subsubsection{Coste \textit{software}}
+Los costes de esta sección hacen referencia al software no gratuito utilizado en el proyecto, como es el sistema operativo de Windows y el coste del despliegue en Heroku, considerando el plan más básico de 21,87\euro (25 dólares).
+
+Teniendo en cuenta una amortización de 2 años, el coste de los 9 meses sería:
+\tablaSmallSinColores{Coste total del \textit{software}}{ l | c  | c }{coste_software}
+{\textbf{Concepto} & \textbf{Coste} & \textbf{Amortización}\\}{
+    Windows 10 & 145 \euro & 54,37 \euro \\ 
+    Heroku  & 196,83 \euro & 73,81 \euro \\ \hline
+    Coste total de los 9 meses & 341,83 \euro \\
+}
+
+\subsection{Viabilidad legal}
+En esta sección se muestra un listado con las licencias de cada dependencia que se ha utilizado en el proyecto. Las dependencias del segundo grupo son las utilizadas específicamente para la parte de test.
+
+\tablaSmallSinColores{Dependencias del proyecto}{ l | l | l }{dependencias}
+{\textbf{Software} & \textbf{Licencia} \\}{
+    Vaadin & Apache License 2.0 \\
+    Spring Boot Starter & Apache License 2.0 \\
+    Spring Boot Devtools & Apache License 2.0 \\
+    WebDriverManager & Apache License 2.0 \\
+    Spring Boot Starter Data JPA & Apache License 2.0 \\
+    PostgreSQL JDBC Driver & BSD 2-clause (o FreeBSD) \\ 
+    Spring Security Web & Apache License 2.0 \\
+    Spring Security Config & Apache License 2.0 \\
+    Spring Boot Maven Plugin & Apache License 2.0 \\
+    Vaadin Maven Plugin & Apache License 2.0 \\
+    Flow Server Production Mode & Apache License 2.0 \\
+    Maven Failsafe Plugin & Apache License 2.0 \\ \hline
+    Spring Boot Starter Test & Apache License 2.0 \\
+    H2 Database Engine & EPL 1.0 - MPL 2.0\\
+}
+
+Haciendo una comparativa de las limitaciones de cada licencia, y siguiendo las recomendaciones de GNU sobre las licencias~\cite{licencias_gnu}, el proyecto queda protegido bajo la licencia GPL-3, ya que todas las licencias utilizadas son compatibles con la misma.

@@ -1,0 +1,425 @@
+\apendice{Documentación técnica de programación}
+
+\section{Introducción}
+En este anexo se explica la estructura de la que dispone el proyecto, se incluye un manual del programador para poder instalar el entorno y continuar con el desarrollo y por último la compilación, instalación y ejecución del proyecto. Además, también se incluyen las pruebas realizadas.
+
+\section{Estructura de directorios}
+Las aplicaciones web desarrolladas con Vaadin son \textit{full stack}, incluyendo el código del lado del cliente (\textit{frontend}) y del lado del servidor (\textit{backend}) en el mismo proyecto.
+
+La estructura que sigue el repositorio es la siguiente:
+\begin{itemize}
+	\item \textbf{/}: archivos de configuración de Vaadin y Spring Boot, fichero README y LICENSE.
+	
+	\item \textbf{/.vaadin/designer}: archivo de configuración para el diseño de ventanas con JavaScript.
+	
+	\item \textbf{/Documentación}: documentación del proyecto.
+	\begin{itemize}
+	\tightlist
+    	\item \textbf{/Diagramas}: archivos con los diagramas creados en StarUML.
+    	
+    	\item \textbf{/Versiones}: histórico con los documentos de las especificaciones de requisitos y prototipos de ventanas de las diferentes versiones anteriores a la actual.
+    	
+    	\begin{itemize}
+    	\tightlist
+        	\item \textbf{/Versión 00}: documentos con las especificaciones de requisitos y prototipos de ventanas de la Versión 0 (versión de partida antes de comenzar con el desarrollo).
+        	
+        	\item \textbf{/Versión 1}: documentos con las especificaciones de requisitos y prototipos de ventanas de la Versión 1, tras la última revisión del tutor. 
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{/frontend}: código del lado de cliente.
+        \begin{itemize}
+    	\tightlist
+        	\item \textbf{/src/views/errors}: archivo JavaScript que define el diseño de la ventana que se muestra ante un acceso denegado.
+        	
+        	\item \textbf{/styles}: hojas de estilo (archivos CSS) para el diseño de las ventanas.
+        \end{itemize}
+        
+    \item \textbf{/sql}: script SQL para la generación de la base de datos de PostgreSQL.
+    
+    \item \textbf{/src}: código del lado del servidor (\textit{backend}).
+        \begin{itemize}
+    	\tightlist
+        	\item \textbf{/main}: código de generación de las ventanas.
+        	
+        	    \begin{itemize}
+                	\item \textbf{/java/gestionaulasinformatica}: 
+                	
+                    	\begin{itemize}
+                        	\item \textbf{/app/security}: código de configuración de la seguridad de la aplicación con Spring Security.
+                        	
+                        	\item \textbf{/backend}: código de datos, entidades, servicios, repositorios y especificaciones.
+                	
+                        	\item \textbf{/backend/data}: código que define tipos de datos, como los roles de usuario, el tipo de operaciones sobre las reservas o el tipo de propietario de aulas.
+                        	
+                        	\item \textbf{/backend/entity}: código de las entidades JPA correspondientes a las tablas de la base de datos.
+                        	
+                        	\item \textbf{/backend/respository}: repositorios JPA para cada entidad.
+                        	
+                        	\item \textbf{/backend/service}: servicios JPA que implementan los repositorios para cada entidad.
+                        	
+                        	\item \textbf{/backend/specification}: especificaciones de ciertas entidades para realizar filtrado de datos.
+                        	
+                        	\item \textbf{/exceptions}: código de excepciones propias.
+                        	
+                        	\item \textbf{/ui}: código de las ventanas, archivo que define la plantilla de las ventanas, archivo con funciones comunes y enumeración con alguno de los mensajes que se muestran.
+                            
+                            \item \textbf{/ui/views}: código de las ventanas.
+                        	
+                        \end{itemize}
+                	
+                	\item \textbf{/resources}: archivo con las propiedades para la configuración de la aplicación.
+                \end{itemize}
+                
+        	\item \textbf{/test}: código de generación de los tests.
+        	    \begin{itemize}
+            	\tightlist
+                	\item \textbf{/java/gestionaulasinformatica/backend}: código de los tests. La carpeta debe tener la misma ruta que aquella en la que se encuentra el código que se está testeando.
+                	
+                	\item \textbf{/resources}: archivo con las propiedades para la configuración de la aplicación para los test.
+                \end{itemize}
+        \end{itemize}
+	
+\end{itemize}
+
+\section{Manual del programador}
+En este manual se detalla la instalación de los programas necesarios para continuar con el desarrollo de la aplicación.
+
+\subsection{Instalación de Java}
+Es necesario trabajar con la versión 8 de Java, por lo tanto hay que tener instalado el JDK 8.
+
+En el desarrollo del proyecto se ha trabajado con la \textbf{versión 1.8.0\_251}, aunque es recomendable descargar la última que esté disponible.
+
+Para instalar JDK 8 hay que acceder a la \href{https://www.oracle.com/java/technologies/javase-downloads.html}{página de descargas de Java SE}, buscar ``\textbf{Java SE 8u...}'' y descargar el JDK.
+
+\imagenAncho{Descarga_JDK_8}{Descarga de JDK 8}{0.9}
+
+Al ejecutar el instalador debemos leer y aceptar la licencia de uso de Oracle, seleccionar el sistema operativo y arquitectura del ordenador en que se va a instalar y seguir los pasos del asistente.
+
+\subsection{Instalación de Eclipse}
+El siguiente paso es instalar un IDE de Java, en este caso se ha utilizado \textbf{Eclipse IDE for Eclipse Committers}.
+
+Para ello hay que acceder a la \href{https://www.eclipse.org/downloads/}{página de descargas de Eclipse} y descargar la opción ``\textit{Get Eclipse IDE\dots}''.
+
+\imagenAncho{Descarga_Eclipse_IDE}{Descarga de Eclipse IDE}{0.7}
+
+Al ejecutar el instalador hay que buscar y seleccionar ``\textbf{\textit{Eclipse IDE for Eclipse Commiters}}'' y después en el apartado ``\textbf{\textit{Java 1.8+ VM}}'' seleccionar el JDK 8 que se ha instalado previamente.
+
+\imagenAncho{Instalador_Eclipse}{Instalador de Eclipse}{0.55}
+\imagenAncho{Instalador_Eclipse_JDK}{Instalador de Eclipse - Selección de Java}{0.6}
+
+\subsection{Instalación del \textit{plugin} de Vaadin para Eclipse}
+Tras instalar Eclipse, lo siguiente que hay que hacer es añadir el \textit{plugin} de Vaadin para Eclipse.~\footnote{El \textit{plugin} es indepenpendiente a la versión de Vaadin utilizada para el desarrollo, esta se indica directamente en el archivo \textit{pom.xml}.}
+
+Para ello hay que abrir Eclipse y en la barra de herramientas seleccionar ``\textbf{\textit{Help/Eclipse Marketplace\dots}}'', en la nueva ventana hay que buscar ``\textbf{\textit{vaadin}}'', pulsar ``\textbf{\textit{Go}}'' y una vez aparece ``\textbf{\textit{Vaadin Plugin for Eclipse}}'' pulsar en ``\textbf{\textit{Install}}''. ~\footnote{Una vez se ha instalado, como en mi caso, aparece como ``\textit{Installed}''.}
+
+\imagenAncho{Eclipse_marketplace}{Eclipse Marketplace}{0.5}
+\imagenAncho{Eclipse_Marketplace_Plugin_Vaadin}{Eclipse Marketplace - Plugin de Vaadin}{0.8}
+
+\subsection{Instalación de PostgreSQL y pgAdmin}
+Para poder administrar la base de datos hay que instalar PostgreSQL junto a su herramienta de gestión pgAdmin.
+
+Desde la \href{https://www.enterprisedb.com/downloads/postgres-postgresql-downloads}{página de descarga de PostgreSQL}, se puede descargar clicando en``\textbf{\textit{Download}}'' de la fila correspondiente a la \textbf{versión 12.3 para Windows}. Lo siguiente es ejecutar el instalador siguiendo los pasos del asistente. 
+
+\imagen{Descarga_PostrgeSQL_pgAdmin}{Descarga de PostgreSQL y pgAdmin}
+
+\subsection{Instalación de Heroku CLI}
+Por último, para poder desplegar la aplicación y manejar la base de datos del despliegue más fácilmente, hay que instalar el cliente de Heroku, el cual permite trabajar desde la consola de comandos.
+
+Para ello hay que acceder a la \href{https://devcenter.heroku.com/articles/heroku-cli#download-and-install}{página de descarga de Heroku CLI}, elegir el instalador de la arquitectura Windows del ordenador en el que se esté trabajando y ejecutar el instalador siguiendo el asistente.
+
+\imagen{Descarga_Heroku_CLI}{Descarga de Heroku CLI}
+
+\section{Compilación, instalación y ejecución del proyecto}
+En el desarrollo del proyecto, como se ha comentado anteriormente, se ha utilizado Eclipse, por lo que en esta guía se explica como llevar a cabo el proceso en este IDE.
+
+\subsection{Descarga del código fuente}
+El código fuente del proyecto se encuentra hospedado en GitHub, por lo que se puede descargar fácilmente desde el mismo repositorio.
+
+Para ello hay que acceder al \href{https://github.com/lcs1001/gestion-aulas-informatica}{repositorio del proyecto} y clicar en el botón ``\textbf{\textit{Code}}'' que aparece en verde. 
+
+El proyecto se puede descargar con Git, copiando la URL, abrirlo con GitHub Desktop, abrirlo con Visual Studio o descargar directamente el archivo ZIP. En este caso se va a explicar la instalación mediante el ZIP, por lo que hay que clicar en ``\textbf{\textit{Download ZIP}}''.
+
+\imagen{Descarga_codigo_fuente}{Descarga del código fuente}
+
+Lo siguiente es importar el proyecto a Eclipse, para ello hay que descomprimir el ZIP descargado, abrir el IDE y en la barra de herramientas seleccionar \textbf{\textit{File/Import\dots}}.
+
+\imagenAncho{Eclipse_importar}{Importar el código fuente a Eclipse (1)}{0.5}
+
+En la ventana que se abre hay que seleccionar la opción ``\textbf{\textit{Projects from Folder or Archieve}}'' y clicar en ``\textbf{\textit{Next >}}''.
+
+\imagen{Eclipse_importar_archivo}{Importar el código fuente a Eclipse (2)}
+
+En la siguiente ventana hay que clicar en ``\textbf{\textit{Directory\dots}}'', seleccionar la carpeta descomprimida con nombre ``\textbf{gestion-aulas-informatica-master}''\ y clicar en ``\textbf{\textit{Finish}}'' una vez se ha cargado.
+
+\imagen{Eclipse_importar_archivo_2}{Importar el código fuente a Eclipse (3)}
+
+
+\subsection{Configuración de la base de datos}
+El siguiente paso es generar y configurar la base de datos a partir del script SQL para poder administrarla desde pgAdmin.
+
+Lo primero que hay que hacer es crear la base de datos, para ello se abre pgAdmin y tras introducir la contraseña aparecerá en la parte derecha el desplegable ``\textit{Servers}'', hay que abrir los desplegables hasta llegar al apartado ``\textit{Databases}'' y hacer clic derecho ``\textbf{\textit{Create/Database\dots}}''. 
+
+\imagenAncho{pgAdmin_crear_bd}{Creación de la base de datos ``gestionaulasinformatica'' (1)}{0.5}
+
+En la ventana que se abre hay que introducir en el apartado ``\textit{Database}'' el nombre ``gestionaulasinformatica'' y hacer clic en ``\textbf{\textit{Save}}''.
+
+\imagenAncho{pgAdmin_crear_bd_2}{Creación de la base de datos ``gestionaulasinformatica'' (2)}{0.5}
+
+Tras crear la base de datos hay que acceder a la carpeta donde se ha instalado PostgreSQL y entrar en la carpeta ``\textbf\textit{{bin}}'', una vez ahí se escribe en la barra en que se muestra la ruta la palabra ``\textbf{\textit{cmd}}'' para abrir la consola de comandos en esta ruta.
+
+\imagen{PostgreSQL_generar_bd}{Acceder a la consola de comandos para generar la base de datos}
+
+Una vez abierta la consola de comandos, se escribe el comando ``\textbf{\textit{psql --username postgres --dbname gestionaulasinformatica -f}}'' seguido de la ruta en que se haya descargado el proyecto y la ruta al script. por ejemplo si se ha descargado en la carpeta ``\textit{Descargas}'' el comando completo sería ``\textit{psql --username postgres --dbname gestionaulasinformatica -f C:\textbackslash{}Users\textbackslash{}<usuario>\textbackslash{}Downloads\textbackslash{}gestion-aulas-informatica-master\textbackslash{}sql\textbackslash{} Script\_GestionAulasInformatica}''.
+
+Tras configurar la base de datos, hay que, como mínimo, insertar un registro con los datos del administrador en la tabla ``\textit{usuario}'' para poder acceder a la aplicación y empezar a crear el resto de usuarios (responsables) y los demás datos de centros, departamentos y aulas.
+
+Para ello hay que acceder a la tabla desde ``\textbf{\textit{gestionaulasinformatica/ Schemas/Tables}}'' y en ``\textbf{\textit{usuario}}'' hacer click derecho ``\textbf{\textit{Scripts/INSERT Script}}'', por lo que se abrirá una ventana con el script de inserción.
+
+La primera vez que se inserta un registro de usuario hay que introducir en la línea anterior al \textit{insert} el comando ``\textbf{\textit{CREATE EXTENSION pgcrypto;}}'', para poder insertar las contraseñas encriptadas en la base de datos.
+
+El siguiente paso es insertar los valores del usuario administrador:
+\begin{itemize}
+    \item En el campo \textit{id\_usuario} se pone el valor ``\textit{default}''. ~\footnote{Los campos autonuméricos deben insertarse como ``\textit{default}'' para seguir la secuencia generada.}
+    
+    \item En el campo \textit{contraseña} se utiliza el comando ``\textit{crypt('\textbf{contraseña}', gen\_salt('bf'))}'' para almacenarla encriptada.
+    
+    \item En el campo \textit{rol} se pone el valor ``\textit{ADMIN'}'.
+    
+    \item En el campo \textit{bloqueado} se pone el valor ``\textit{true}''. ~\footnote{Con el valor \textit{true} en el campo ``\textit{bloqueado}'' se indica que el usuario no puede ser eliminado.}
+\end{itemize}
+
+Un ejemplo de usuario administrador sería el siguiente:
+
+\imagenAncho{pgAdmin_ejemplo_administrador}{Ejemplo de inserción de un registro en la tabla ``\textit{usuario}'' del usuario administrador}{1}
+
+Para insertar el registro en la tabla se puede pulsar ``\textit{F5}'' o clicar en el botón con el icono \textit{play} de la barra de herramientas (véase el cuadro rojo de la imagen anterior).
+
+El último paso es especificar el usuario, en este caso ``\textit{postgre}'', y la contraseña de acceso a la base de datos en el archivo \textbf{\textit{application\_properties}} (que se encuentra en la carpeta \textit{gestion-aulas-informatica-master/src/main/resources} del proyecto) desde Eclipse. Esto es necesario para poder ejecutar la aplicación en local.
+
+\imagen{Eclipse_configurar_bd_local}{Configuración del archivo \textit{application\_properties} para especificar usuario y contraseña de la base de datos}
+
+\subsection{Ejecución del proyecto}
+Para ejecutar el proyecto hay que acceder a la carpeta ``\textbf{\textit{gestion-aulas-informatica-master/src/main/java/gestionaulasinformatica}}'' y en el archivo ``\textbf{\textit{Application.java}}'' hacer click derecho y seleccionar ``\textbf{\textit{Run As/Java Application}}''.
+
+\imagen{Eclipse_ejecutar}{Ejecución del proyecto}
+
+\subsection{Despliegue en Heroku}
+Lo primero que se debe hacer, si no se dispone de una cuenta, es darse de alta desde la \href{https://www.heroku.com/}{página de Heroku}.
+
+\subsubsection{Creación de la app}
+El siguiente paso es crear una nueva \textit{app} clicando en ``\textbf{\textit{Create new app}}'' en la ventana principal.
+
+\imagenAncho{Heroku_creacion_app}{Creación de la \textit{app} en Heroku(1)}{0.9}
+
+En la siguiente ventana hay que indicar el nombre, en este caso ``\textit{gestionaulasinformatica}'', y la zona en la que se va a desplegar \textit{Europa} y clicar en ``\textbf{\textit{Create app}}''.
+
+\imagenAncho{Heroku_creacion_app_2}{Creación de una nueva app en Heroku (2)}{0.9}
+
+No es necesario realizar ninguna configuración más, ya que por defecto está marcada la opción de despliegue con el cliente heroku (\textit{Heroku Git}).
+
+\imagenAncho{Heroku_app_forma_despliegue}{Configuración de despliegue de la \textit{app} en Heroku}{1}
+
+\subsubsection{Configuración de la base de datos PostgreSQL}
+Después crear la \textit{app}, hay que añadir la extensión de PostgreSQL para manejar la base de datos del despliegue. 
+
+Para ello se puede seguir el \href{https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres}{tutorial de la página oficial de Heroku}, añadiendo al final del comando ``\textit{-a gestionaulasinformatica}'' para indicar que se quiere incluir en la \textit{app} creada anteriormente. ~\footnote{En el tutorial se muestra directamente la configuración con el plan gratuito, que es el que se ha utilizado.}
+
+Tras la configuración, aparecerá en la ventana principal la extensión añadida:
+
+\imagen{Heroku_complemento_PostrgreSQL}{Extensión de PostgreSQL para Heroku (1)}
+
+Por último, queda conectarse al servidor de la base de datos que ha creado Heroku a pgAdmin para poder administrarla. ~\footnote{Para ello se ha seguido el tutorial que se encuentra en ~\cite{importar_bd_postgresql_heroku}.}
+
+Hay que acceder a la extensión de PostgreSQL al apartado ``\textbf{\textit{Settings}}'' y clicar en ``\textbf{\textit{View credentials\dots}}'' para ver las credenciales que se necesitan para la conexión.
+
+\imagenAncho{Heroku_complemento_PostrgreSQL_credenciales_1}{Acceso a las credenciales de la extensión PostgreSQL de Heroku (1)}{1}
+
+\imagenAncho{Heroku_complemento_PostrgreSQL_credenciales_2}{Acceso a las credenciales de la extensión PostgreSQL de Heroku (2)}{0.5}
+
+Una vez se tienen las credenciales, hay que acceder a pgAdmin y crear un nuevo servidor haciendo click derecho en ``\textbf{\textit{Servers}}'' y seleccionando ``\textbf{\textit{Create/Server\dots{}}}''.
+
+\begin{itemize}
+    \item En la pestaña ``\textbf{\textit{General}}'' se introduce el nombre que se le va a dar al servidor en ``\textbf{\textit{Name}}''.
+    
+    \item En la pestaña ``\textbf{\textit{Connection}}'' se introduce:
+        \begin{itemize}
+            \item En ``\textbf{\textit{Host}}'' el campo ``\textit{host}'' de las credenciales.
+            
+            \item En ``\textbf{\textit{Port}}'' se deja el ``5432''.
+            
+            \item En ``\textbf{\textit{Maintenance database}}'' el campo ``\textit{database}'' de las credenciales.
+            
+            \item En ``\textbf{\textit{Username}}'' el campo ``\textit{user}'' de las credenciales.
+            
+            \item En ``\textbf{\textit{Password}}'' el campo ``\textit{password}'' de las credenciales.
+        \end{itemize}
+        
+    \item En la pestaña ``\textbf{\textit{SSL}}'' se selecciona el ``\textbf{\textit{SSL mode}}'' como ``\textbf{\textit{Require}}''.
+    
+    \item En la pestaña ``\textbf{\textit{Advanced}}'', en ``\textbf{\textit{DB restriction}}'' se introduce el campo ``\textit{Maintenance database}'' de las credenciales. ~\footnote{De esta forma se evita que aparezcan todas las bases de datos del servidor de PostgreSQL de Heroku.}
+\end{itemize}
+
+Al finalizar hay que clicar en ``\textbf{\textit{Save}}'' y ya aparecerá la base de datos en la lista.
+
+El último paso tras importar la base de datos es generar las tablas con el script SQL al igual que se ha hecho en local. Para ello se abre la consola de comandos y se escribe el comando ``\textbf{\textit{heroku pg:psql --app gestionaulasinformatica <}}'' seguido de la ruta en que se haya descargado el proyecto y la ruta al script. por ejemplo si se ha descargado en la carpeta ``\textit{Descargas}'' el comando completo sería ``\textit{heroku pg:psql --app gestionaulasinformatica < C:\textbackslash{}Users\textbackslash{}<usuario>\textbackslash{}Downloads\textbackslash{}gestion-aulas-informatica-master\textbackslash{}sql\textbackslash{} Script\_GestionAulasInformatica}''.
+
+\subsection{Despliegue}
+Después de haber creado la aplicación en Heroku y configurado la base de datos, queda empaquetar el proyecto y desplegar la \textit{app}, para ello hay que acceder a la carpeta en la que se encuentra el proyecto (en el administrador de archivos) y escribir la palabra ``\textbf{\textit{cmd}}'' en la barra en que se muestra la ruta la  para abrir la consola de comandos.
+
+Para empaquetar el proyecto como \textit{.JAR} hay que ejecutar el comando ``\textit{mvn package -Pproduction}'' (se indica que se está empaquetando en modo producción). Si todo ha ido bien, aparecerá lo siguiente en la consola:
+
+\imagenAncho{mvn_package}{Despliegue en Heroku - Empaquetado de la aplicación en .JAR desde \textit{cmd}}{1}
+
+El siguiente y último paso es el despliegue, para ello se ejecuta el comando ``\textit{heroku deploy:jar target/gestion-aulas-informatica-2.0-SNAPSHOT.jar --app gestionaulasinformatica}''. Si se ha realizado correctamente, aparecerá lo siguiente en la consola:
+
+\imagenAncho{heroku_deploy}{Despliegue en Heroku - Despliegue desde \textit{cmd}}{1}
+
+Para abrir la aplicación una vez se ha desplegado se puede ejecutar el comando ``\textit{heroku open --app gestionaulasinformatica}'' en la consola o acceder directamente a través de la URL \url{https://gestionaulasinformatica.herokuapp.com/}.
+
+\subsection{Continuación del desarrollo tras el despliegue}
+Al empaquetar el proyecto como producción, es necesario recompilar el proyecto ya que muchos archivos desaparecen al activar este modo, para ello se ejecuta el comando ``\textit{mvn compile}'' en la consola de comandos (en la carpeta en la que se encuentra el proyecto). Si se ha compilado correctamente, aparecerá un mensaje similar al del empaquetamiento:
+
+\imagenAncho{mvn_compile}{Continuación del desarrollo tras el despliegue - Recompilación del proyecto}{1}
+
+\section{Pruebas del sistema}
+Para poder verificar el funcionamiento de ciertas partes de la aplicación, y con el fin de no tener que realizar las pruebas manualmente cada vez que cambiaba el código, se han desarrollado una serie de tests de integración con la ayuda de Spring Boot y su dependencia para la parte de \textit{testing}~\cite{pagina_spring_boot_testing}, añadiendo la anotación ``\textit{@DataJpaTest}'' enla declaración de la clase. En el fondo estos test trabajan internamente con JUnit 5~\cite{pagina_junit}.
+
+En cada test se generan los datos y se revierten una vez ejecutados, y además se imprimen mensajes en la consola de ejecución con el test que se está realizando y el resultado obtenido.
+
+Para ejecutar todos los tests hay que buscar la carpeta ``\textit{src/test/java}'' en el proyecto de Eclipse y hacer click derecho ``\textbf{\textit{Run As/JUnit Test}}''. O si se quiere ejecutar uno a uno por separado, en la misma carpeta se hace click derecho ``\textbf{\textit{Run As/JUnit Test}}'' sobre la clase que se quiera probar.
+
+\imagenAncho{Test_ejecutar}{Pruebas del sistema - Ejecución de los test en Eclipse}{1}
+
+Al ejecutar los tests, Eclipse cambiará a la vista de JUnit, mostrando en una pestaña el resultado de los mismos. Si se han ejecutado correctamente aparecerán todos con un check en verde:
+
+\imagenAncho{Test_ejecutar_correctamente}{Pruebas del sistema - Test ejecutados con éxito}{0.5}
+
+\subsection{Pruebas para la Consulta de Disponibilidad de Aulas}
+Para \textit{testear} la consulta de disponibilidad de aulas se instancian 2 usuarios con rol de responsables, 1 centro y 1 departamento, 2 aulas (ambas bajo responsabilidad del departamento) y 3 reservas (simulando una reserva por rango de fechas).
+
+Se han creado 3 tests:
+\begin{itemize}
+    \item En el primero se comprueba la disponibilidad en una fecha y horas concretas.
+    \item En el segundo se comprueba lo mismo, añadiendo el filtro ``\textit{Día de la semana}''.
+    \item En el último se comprueba la disponibilidad del aula en un rango de fechas y unas horas concretas.
+\end{itemize}
+
+\imagenAncho{Test_consulta_aulas}{Pruebas del sistema - Test para la Consulta de Disponibilidad de Aulas}{0.5}
+
+La salida en consola de uno de ellos se vería así:
+
+\imagenAncho{Test_consulta_aulas_consola}{Pruebas del sistema - Test para la Consulta de Disponibilidad de Aulas - Salida en consola}{0.9}
+
+\subsection{Pruebas para la entidad PropietarioAula}
+Para \textit{testear} la entidad PropietarioAula se han instanciado un usuario con rol de responsable y un centro.
+
+Se han creado 2 tests:
+\begin{itemize}
+    \item En el primero se comprueba el funcionamiento del método \textit{findById}.
+    \item En el segundo se comprueba el funcionamiento del método \textit{delete}.
+\end{itemize}
+
+\imagenAncho{Test_propietario}{Pruebas del sistema - Test para la entidad PropietarioAula}{0.4}
+
+La salida en consola de uno de ellos se vería así:
+
+\imagenAncho{Test_propietario_consola}{Pruebas del sistema - Test para la entidad PropietarioAula - Salida en consola}{1}
+
+\subsection{Pruebas para la entidad Usuario}
+Para \textit{testear} la entidad Usuario se ha instanciado un usuario con rol de responsable.
+
+Se ha creado un único test para comprobar el método \textit{findById}.
+
+\imagenAncho{Test_usuario}{Pruebas del sistema - Test para la entidad Usuario}{0.4}
+
+La salida en consola se vería así:
+
+\imagenAncho{Test_usuario_consola}{Pruebas del sistema - Test para la entidad Usuario - Salida en consola}{0.6}
+
+\subsection{Pruebas manuales}
+Se ha reforzado la comprobación del correcto funcionamiento de toda la aplicación con pruebas manuales.
+
+Pruebas realizadas para el \textbf{Login}:
+\begin{itemize}
+    \item Introducir el correo y/o la contraseña incorrectos y comprobar que limpia los campos.
+    \item Introducir un correo y contraseñas cualquiera (no registradas) y comprobar que limpia los campos.
+    \item Introducir los datos del administrador y comprobar que únicamente se muestran en el menú lateral las ventanas accesibles por el mismo. 
+    \item Introducir los datos de un usuario con rol responsable y comprobar que únicamente se muestran en el menú lateral las ventanas accesibles por el mismo.
+    \item Habiendo accedido como administrador, comprobar que si se escribe en la URL la ruta de una de las ventanas del usuario con rol de responsable, aparece la pantalla de acceso denegado. Y viceversa.
+    \item Acceder a la consulta de reservas y disponibilidad de aulas a través del enlace de la ventana de login, sin haberse logueado, y comprobar que sólo se muestran dichas ventanas en el menú lateral. 
+    \item Comprobar que si se intenta acceder a una de las ventanas del administrador o del usuario con rol de responsable, sin haberse logueado, se redirige a la ventana de login.
+\end{itemize}
+
+Pruebas realizadas para la \textbf{Consulta de Reservas}:
+\begin{itemize}
+    \item Dejar el campo \textit{Centro/Departamento} vacío y comprobar que se muestra la notificación de error.
+    \item Comprobar que en el listado se muestran solo las reservas que cumplen con los filtros aplicados, mostrándose una notificación de que no hay ninguna si no coinciden.
+    \item Comprobar que al clicar en \textit{Limpiar filtros} se vacían los campos de entrada y se pone en \textit{Fecha desde} la fecha actual.
+\end{itemize}
+
+Pruebas realizadas para la \textbf{Consulta de Disponibilidad de aulas}:
+\begin{itemize}
+    \item Dejar el campo \textit{Centro/Departamento} vacío y comprobar que se muestra la notificación de error.
+    \item Rellenar el campo \textit{Fecha desde} y comprobar que se muestra la notificación de error.
+    \item Comprobar que en el listado se muestran solo las aulas disponibles que cumplen con los filtros aplicados, mostrándose una notificación de que no hay ninguna si no coinciden.
+    \item Comprobar que al clicar en \textit{Limpiar filtros} se vacían los campos de entrada.
+\end{itemize}
+
+Pruebas realizadas para el \textbf{Mantenimiento de Centros y Departamentos}:
+\begin{itemize}
+    \item Crear un centro y comprobar que aparece en el listado.
+    \item Modificar los datos del centro y comprobar que aparecen actualizados en el listado.
+    \item Eliminarlo sin haberle asignado aulas.
+    \item Crear un centro, asignarle un aula y eliminarlo verificando que en el mensaje de confirmación se indica que tiene aulas bajo su responsabilidad y que se van a eliminar si se confirma. Comprobando también que se eliminan las aulas que están asociadas a él.
+    \item Comprobar que el filtrado por nombre funciona.
+\end{itemize}
+
+Pruebas realizadas para el \textbf{Mantenimiento de Aulas}:
+\begin{itemize}
+    \item Crear un aula y comprobar que aparece en el listado.
+    \item Modificar los datos del aula y comprobar que aparecen actualizados.
+    \item Eliminarlo sin haberle asignado reservas.
+    \item Crear un aula, asignarle una reserva y eliminarla verificando que en el mensaje de confirmación se indica que tiene reservas asignadas y que se van a eliminar si se confirma. Comprobando también que se eliminan las reservas que están asociadas al aula.
+\end{itemize}
+
+Pruebas realizadas para el \textbf{Mantenimiento de Usuarios}:
+\begin{itemize}
+    \item Crear un usuario y comprobar que aparece en el listado.
+    \item Modificar los datos del usuario y comprobar que aparecen actualizados.
+    \item Eliminarlo sin haberle asignado centros o departamentos.
+    \item Crear un usuario, asignarle un centro y eliminarla verificando que informa de que primero debe reasignar los centros o departamentos bajo su responsabilidad. Reasignar el centro a otro responsable y comprobar que permite borrarlo.
+\end{itemize}
+
+Pruebas realizadas para el \textbf{Histórico de Reservas}:
+\begin{itemize}
+    \item Filtrar por \textit{Fecha desde} y comprobar que en el listado sólo aparecen las operaciones realizadas a partir de dicha fecha.
+    \item Filtrar por \textit{Fecha hasta} y comprobar que en el listado sólo aparecen las operaciones realizadas hasta dicha fecha.
+    \item Filtrar por \textit{Fecha desde} - \textit{Fecha hasta} y comprobar que en el listado sólo aparecen las operaciones realizadas entre ese rango de fechas.
+    \item Comprobar que al clicar en \textit{Limpiar filtros} se vacían los campos de entrada.
+\end{itemize}
+
+Pruebas realizadas para el \textbf{Perfil}:
+\begin{itemize}
+    \item Cambiar algún campo y comprobar que al guardar se actualizan los datos correctamente.
+    \item Introducir un correo con formato incorrecto y comprobar que aparece el mensaje de error bajo el campo.
+    \item Introducir una contraseña con formato incorrecto y comprobar que aparece el mensaje de error bajo el campo.
+    \item Introducir un teléfono con formato incorrecto y comprobar que aparece el mensaje de error bajo el campo.
+\end{itemize}
+
+Pruebas realizadas para la \textbf{Reserva de Aulas}:
+\begin{itemize}
+    \item Hacer una reserva y comprobar que se ha registrado correctamente accediendo a la Gestión de Reservas y viendo si aparece en el listado.
+    \item Hacer una reserva del mismo aula que colisione con la anterior, es decir, que coincida en fecha y parte del horario, y comprobar que aparece la notificación de error de que el aula no está disponible.
+    \item Hacer lo mismo con las reservas de rangos de fechas, incluyendo el día de la semana y sin incluirlo.
+\end{itemize}
+
+Pruebas realizadas para la \textbf{Gestión de Reservas}:
+\begin{itemize}
+    \item Filtrar las reservas que se muestran y comprobar que funciona correctamente, del estilo a las realizadas en la Consulta de Reservas.
+    \item Comprobar que al clicar en \textit{Limpiar filtros} se vacían los campos de entrada y se pone en \textit{Fecha desde} la fecha actual.
+    \item Sin seleccionar ninguna reserva clicar en \textit{Modificar} y comprobar que se muestra la notificación de error de que no se ha incluido ninguna, y lo mismo clicando en \textit{Eliminar}.
+    \item Seleccionar varias reservas y clicando en \textit{Modificar}, comprobar que se muestra la notificación de error de que no se puede modificar más de una reserva a la vez.
+    \item Seleccionar una reserva, clicar en \textit{Modificar} y comprobar que se actualizan los campos correctamente en el listado. Comprobando también que se muestra la notificación de error si el aula no está disponible.
+    \item Seleccionar una o varias reservas y comprobar que se eliminan correctamente, mostrando primero un mensaje de confirmación.
+\end{itemize}

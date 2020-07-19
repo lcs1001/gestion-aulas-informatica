@@ -1,0 +1,380 @@
+\apendice{Documentación de usuario}
+
+\section{Introducción}
+En este anexo se indican los requisitos mínimos para que el usuario pueda hacer uso de la aplicación y el manual de uso de la misma.
+
+\section{Requisitos de usuarios}
+Como se trata de una aplicación web, el único requisito con el que debe cumplir el usuario es disponer de un dispositivo con acceso a Internet, ya que la aplicación se puede usar tanto en teléfonos móviles, \textit{tablets} y ordenadores. Aunque por comodidad, es recomendable acceder a la misma desde un ordenador.
+
+\section{Instalación}
+No es necesario llevar a cabo ninguna instalación, ya que se trata de una aplicación online, a la que se puede acceder a través del enlace \url{https://gestionaulasinformatica.herokuapp.com}.
+
+\section{Manual del usuario}
+En este apartado se describe el uso básico de la aplicación.
+
+\subsection{Acceso como usuario visitante}
+Cualquier usuario puede acceder a la consulta de reservas y a la consulta de disponibilidad de aulas sin necesidad de estar registrado en el sistema (sin \textit{login}).
+
+Para ello hay que clicar en la ventana de inicio en el enlace ``\textbf{\textit{Acceso consulta de reservas y disponibilidad de aulas}}'' que se encuentra bajo el formulario de \textit{login}.
+
+\imagenAncho{Login_acceso_consulta}{Acceso a la consulta de reservas y disponibilidad de aulas como visitante}{0.5}
+
+El enlace redirige a la ventana de consulta de reservas, clicando en el botón del menú lateral (que se encuentra en la parte superior izquierda) se puede acceder a la consulta de disponibilidad de aulas y clicando en ``\textit{Iniciar sesión}'' se vuelve a la ventana de login.
+
+\imagenAncho{Visitante_consulta_reservas}{Ventana Consulta de Reservas con acceso como visitante}{0.9}
+
+\subsection{Login}
+Para acceder al sistema hay que estar dado de alta previamente como usuario responsable o administrador.
+Se introduce el correo de usuario en el campo ``\textbf{\textit{Username}}'' y la contraseña en el campo ``\textbf{\textit{Password}}'' y se hace click en el botón ``\textbf{\textit{Log in}}''.
+
+\begin{itemize}
+    \item Si la contraseña introducida es incorrecta se limpiarán los campos introducidos.
+    \item Si el usuario no recuerda la contraseña puede hacer click en ``\textbf{\textit{Forgot password}}'', por lo que aparecerá una notificación para contactar con el administrador.
+    
+    \imagenAncho{Login_forgot_password}{Login - \textit{Forgot password}}{0.5}
+    
+    \item Si el usuario quiere ver la contraseña que ha introducido puede hacer click en el icono del ojo que se encuentra en el campo.
+\end{itemize}
+
+\imagenAncho{Login}{Login}{0.5}
+
+\subsection{Consulta de reservas}
+Para consultar las reservas es necesario haber introducido como mínimo los filtros ``\textit{Fecha desde}'' y ``\textit{Centro/Departamento}'', aunque por defecto en el campo ``\textit{Fecha desde}'' ya está seleccionada la fecha actual. 
+
+\imagenAncho{Consulta_reservas_vacio}{Consulta de Reservas}{1}
+
+Una vez se han introducido los filtros que se quieren aplicar hay que hacer click en ``\textbf{\textit{Buscar}}'', o si se quieren limpiar todos los campos se puede clicar en ``\textbf{\textit{Limpiar filtros}}''.
+
+\begin{itemize}
+    \item Si no se ha rellenado el campo ``\textit{Centro/Departamento}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_centro_dep_obligatorio}{Consulta de Reservas - Centro/Departamento obligatorio}{0.5}
+    
+    \item Si se introduce una ``\textit{Fecha desde}'' mayor que la ``\textit{Fecha hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_fecha_desde_mayor}{Consulta de Reservas - Fecha desde mayor que fecha hasta}{0.5}
+    
+    \item Si se introduce una ``\textit{Hora desde}'' mayor que la ``\textit{Hora hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_hora_desde_mayor}{Consulta de Reservas - Hora desde mayor que hora hasta}{0.5}
+    
+    \item Si no hay reservas que cumplan con los filtros aplicados, se mostrará una notificación:
+    
+    \imagenAncho{Consulta_reservas_no_coincidencias}{Consulta de Reservas - No hay reservas que cumplan con los filtros aplicados}{0.5}
+\end{itemize}
+
+Si la consulta es correcta, se muestran en una tabla las reservas registradas que cumplan con los filtros aplicados.
+
+\begin{landscape}
+    Por ejemplo, en la imagen se han buscado las reservas a partir del 17/07/2020 realizadas por ``\textit{Departamento Prueba}'' :
+
+    \imagenAncho{Consulta_reservas_ejemplo}{Consulta de Reservas - Ejemplo}{1.6}
+\end{landscape}
+
+\imagenAncho{Consulta_aulas_ejemplo}{Consulta de Disponibilidad de Aulas - Ejemplo}{1}
+
+\subsection{Consulta de disponibilidad de aulas}
+Para consultar la disponibilidad de las aulas es necesario haber introducido como mínimo el filtro ``\textit{Centro/Departamento}''. 
+
+\imagenAncho{Consulta_aulas_vacio}{Consulta de Disponibilidad de Aulas}{1}
+
+Una vez se han introducido los filtros que se quieren aplicar hay que hacer click en ``\textbf{\textit{Buscar}}'', o si se quieren limpiar todos los campos se puede clicar en ``\textbf{\textit{Limpiar filtros}}''.
+
+\begin{itemize}
+    \item Si no se ha rellenado el campo ``\textit{Centro/Departamento}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_centro_dep_obligatorio}{Consulta de Disponibilidad de Aulas - Centro/Departamento obligatorio}{0.5}
+    
+    \item Si se introduce una ``\textit{Fecha desde}'' mayor que la ``\textit{Fecha hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_fecha_desde_mayor}{Consulta de Disponibilidad de Aulas - Fecha desde mayor que fecha hasta}{0.5}
+    
+    \item Si se introduce una ``\textit{Hora desde}'' mayor que la ``\textit{Hora hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_hora_desde_mayor}{Consulta de Disponibilidad de Aulas - Hora desde mayor que hora hasta}{0.5}
+    
+    \item Si se quiere filtrar por fecha y hora, los filtros ``\textit{Fecha desde}'', ``\textit{Hora desde}'' y ``\textit{Hora hasta}'' son obligatorios, en caso de no haberlos rellenado se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_aulas_fecha_horas_obligatorio}{Consulta de Disponibilidad de Aulas - Fecha y horas obligatorias}{0.5}
+    
+    \item Si no hay aulas disponibles que cumplan con los filtros aplicados, se mostrará una notificación:
+    
+    \imagenAncho{Consulta_aulas_no_coincidencias}{Consulta de Disponibilidad de Aulas - No hay aulas que cumplan con los filtros aplicados}{0.5}
+\end{itemize}
+
+Si la consulta es correcta, se muestran en una tabla las aulas disponibles que cumplan con los filtros aplicados.
+
+Por ejemplo, en la imagen se han buscado las aulas cuya capacidad sea como mínimo de 25 personas:
+
+\imagenAncho{Consulta_aulas_ejemplo}{Consulta de Disponibilidad de Aulas - Ejemplo}{1}
+
+\subsection{Administrador}
+A continuación se detalla el uso de las ventanas cuando se accede como usuario administrador del sistema.
+
+Las ventanas a las que puede que tiene acceso se muestran en el menú lateral, enfatizándose la ventana en la que se encuentra:
+
+\imagenAncho{Admin_menu_lateral}{Menú lateral del usuario administrador}{0.3}
+
+\subsubsection{Histórico de reservas}
+Al acceder al histórico de reservas se mostrará en la parte superior un formulario para poder filtrar por fecha y en la parte inferior un listado con todas las operaciones realizadas sobre las reservas, filtradas por defecto a partir de la fecha actual.
+
+Si no hay operaciones que mostrar, aparecerá una notificación:
+
+\imagenAncho{Historico_no_operaciones}{Histórico de Reservas - No hay operaciones}{0.5}
+
+\imagenAncho{Historico}{Histórico de Reservas}{1}
+
+Si se quiere realizar un \textbf{filtrado de las operaciones}, se rellenarán los campos correspondientes y se clicará en el botón ``\textit{Buscar}'', o si se quieren vaciar los campos se clicará en ``\textit{Limpiar filtros}''.
+
+\begin{itemize}
+    \item Si se introduce una ``\textit{Fecha desde}'' mayor que la ``\textit{Fecha hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_fecha_desde_mayor}{Gestión de Reservas - Fecha desde mayor que fecha hasta}{0.5}
+    
+    \item Si no hay operaciones realizadas en las fechas seleccionadas se mostrará la notificación.
+\end{itemize}
+
+\subsubsection{Mantenimiento de centros y departamentos}
+Cuando se accede al mantenimiento de centros y departamentos, si aún no hay ninguno registrado, se muestran simplemente la barra de herramientas (filtro de búsqueda y botones) y la cabecera de la tabla.
+
+\imagenAncho{Mant_propietarios_vacio}{Mantenimiento de Centros y Departamentos vacío}{1}
+
+Para \textbf{añadir un centro} nuevo se hace click en el botón ``\textbf{\textit{Añadir centro}}'':
+\begin{itemize}
+    \item Se rellenan los campos de la ventana.
+    \item Se puede guardar clicando en el botón ``\textbf{\textit{Guardar}}'' o volver a la ventana anterior, sin guardar los cambios, clicando en ``\textbf{\textit{Cancelar}}''.
+\end{itemize}
+
+Una vez añadido, se redirige a la ventana de mantenimiento de centros y departamentos, donde se puede ver el nuevo centro en el listado junto a los datos de su responsable:
+
+\imagenAncho{Mant_propietarios_anadir_centro}{Mantenimiento de Centros y Departamentos - Añadir centro}{1}
+
+Para \textbf{añadir un departamento} el proceso es el mismo, solo que haciendo click en ``\textbf{\textit{Añadir departamento}}''.
+
+Si se quieren \textbf{modificar los datos de un centro o departamento, o eliminarlo}, hay que hacer click en la fila correspondiente a éste. Se abrirá el formulario de edición con los valores actuales, manteniendo el campo del ID deshabilitado (no se puede modificar):
+
+\imagenAncho{Mant_propietarios_editar}{Mantenimiento de Centros y Departamentos - Modificar o eliminar un centro o departamento}{1}
+
+Se pueden guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}}'', o volver a la ventana anterior clicando en ``\textbf{\textit{Cancelar}}''. Al guardar, se actualizarán los valores correspondientes en la tabla.
+
+Se puede eliminar el centro o departamento clicando en el botón ``\textbf{\textit{Eliminar}}''. Aparecerá un cuadro para confirmar la acción, clicando en el botón ``\textbf{\textit{Confirmar}}'', o cancelarla clicando en ``\textbf{\textit{Cancelar}}''.
+        
+\imagenAncho{Mant_propietarios_eliminar}{Mantenimiento de Centros y Departamentos - Confirmación de eliminación}{1}
+
+Se pueden filtrar los datos de la tabla introduciendo el nombre del centro o departamento, o parte de este, en el campo ``\textit{Buscar por nombre\dots}'' de la barra de herramientas.
+
+\imagenAncho{Mant_propietarios_filtrar_1}{Mantenimiento de Centros y Departamentos - Antes de filtrar por nombre}{1}
+\imagenAncho{Mant_propietarios_filtrar_2}{Mantenimiento de Centros y Departamentos - Después de filtrar por nombre}{1}
+
+\subsubsection{Mantenimiento de aulas}
+Cuando se accede al mantenimiento de aulas, si no se ha seleccionado ninguno o si el centro o departamento no tiene aulas, se muestran simplemente la barra de herramientas (filtro de búsqueda y botones) y la cabecera de la tabla.
+
+\imagenAncho{Mant_aulas_vacio}{Mantenimiento de Aulas vacío}{1}
+
+Para \textbf{añadir un aula} nuevo se hace click en el botón ``\textbf{\textit{Añadir aula}}'':
+\begin{itemize}
+    \item Se rellenan los campos de la ventana.
+    \item Se puede guardar clicando en el botón ``\textbf{\textit{Guardar}}'' o volver a la ventana anterior, sin guardar los cambios, clicando en ``\textbf{\textit{Cancelar}}''.
+\end{itemize}
+
+\imagenAncho{Mant_aulas_anadir}{Mantenimiento de Aulas - Añadir aula}{1}
+
+Una vez añadido, se redirige a la ventana de mantenimiento de aulas, donde se puede ver el nuevo aula en el listado seleccionando previamente su propietario en el desplegable:
+
+\imagenAncho{Mant_aulas_propietario}{Mantenimiento de Aulas - Nuevo aula del propietario}{1}
+
+Si se quieren \textbf{modificar los datos de un aula, o eliminarlo}, hay que hacer click en la fila correspondiente a éste. Se abrirá el formulario de edición con los valores actuales, manteniendo el campo del centro en el que se encuentra (\textit{Centro}) deshabilitado (no se puede modificar):
+
+\imagenAncho{Mant_aulas_editar}{Mantenimiento de Aulas - Modificar o eliminar un aula}{1}
+
+Se pueden guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}}'', o volver a la ventana anterior clicando en ``\textbf{\textit{Cancelar}}''. Al guardar, se actualizarán los valores correspondientes en la tabla.
+
+Se puede eliminar el aula clicando en el botón ``\textbf{\textit{Eliminar}}''. Aparecerá un cuadro para confirmar la acción, clicando en el botón ``\textbf{\textit{Confirmar}}'', o cancelarla clicando en ``\textbf{\textit{Cancelar}}''.
+        
+\imagenAncho{Mant_aulas_eliminar}{Mantenimiento de Aulas - Confirmación de eliminación}{1}
+
+\subsubsection{Mantenimiento de usuarios}
+Cuando se accede al mantenimiento de usuarios se muestra la barra de herramientas (filtro de búsqueda y botones) y una tabla con los usuarios registrados.
+
+\imagenAncho{Mant_usuarios_principal}{Mantenimiento de Usuarios}{1}
+
+Para añadir un nuevo usuario se hace click en el botón ``\textbf{\textit{Añadir usuario}}'':
+\begin{itemize}
+    \item Se rellenan los campos de la ventana.
+        \item Si se introduce un correo con formato incorrecto se muestra un mensaje bajo el campo.
+        
+        \imagenAncho{Mant_usuarios_correo_incorrecto}{Mantenimiento de Usuarios - Correo incorrecto}{0.7}
+        
+        \item Si se introduce una contraseña con menos de 5 caracteres se muestra un mensaje bajo el campo.
+        
+        \imagenAncho{Mant_usuarios_contrasena_incorrecta}{Mantenimiento de Usuarios - Contraseña incorrecta}{0.7}
+        
+        \item Si se introduce un teléfono de menos, o más, de 9 dígitos se muestra un mensaje bajo el campo.
+        
+        \imagenAncho{Mant_usuarios_telefono_incorrecto}{Mantenimiento de Usuarios - Teléfono incorrecto}{0.7}
+        
+        \item El \textit{check} ``\textit{Bloqueado}'' es opcional, indica si el usuario se puede eliminar (no marcado) o no (marcado).
+    
+    \item Se pueden guardar los cambios clicando en el botón ``\textbf{\textit{Guardar}}'', o volver a la ventana anterior clicando en ``\textbf{\textit{Cancelar}}''.
+\end{itemize}
+
+\imagenAncho{Mant_usuarios_anadir}{Mantenimiento de Usuarios - Añadir usuario}{1}
+
+Una vez añadido, se redirige a la ventana de mantenimiento de usuarios, donde se puede ver el nuevo usuario en el listado:
+
+\imagenAncho{Mant_usuarios_principal_nuevo}{Mantenimiento de Usuarios - Nuevo usuario}{1}
+
+Para \textbf{bloquear, desbloquear o eliminar un usuario}, hay que hacer click en la fila correspondiente a éste. Se abrirá el formulario con todos los campos deshabilitados (sólo puede modificar sus datos el propio usuario), exceptuando el \textit{check} ``\textit{Bloqueado}''.
+
+\imagenAncho{Mant_usuarios_editar_eliminar}{Mantenimiento de Usuarios - Bloquear, desbloquear o eliminar usuario}{1}
+
+Se puede bloquear/desbloquear el usuario marcando/desmarcando el \textit{check}, aparecerá un cuadro para confirmar la acción, clicando en el botón ``\textbf{\textit{Confirmar}}'', o cancelarla clicando en ``\textbf{\textit{Cancelar}}''. Los cambios se pueden guardar clicando en el botón ``\textbf{\textit{Guardar}}''.
+
+\imagenAncho{Mant_usuarios_bloquear}{Mantenimiento de Usuarios - Confirmación de bloqueo/desbloqueo de usuario}{1}
+    
+Se puede eliminar el usuario clicando en el botón ``\textbf{\textit{Eliminar}}''.
+    \begin{itemize}
+        \item Si el usuario está bloqueado aparecerá una notificación de error:
+        
+        \imagenAncho{Mant_usuarios_eliminar_usuario_bloqueado}{Mantenimiento de Usuarios - Notificación de error al eliminar usuario bloqueado}{1}
+        
+        \item Si no, aparecerá un cuadro para confirmar la acción, clicando en el botón ``\textbf{\textit{Confirmar}}'', o cancelarla clicando en ``\textbf{\textit{Cancelar}}''.
+        
+        \imagenAncho{Mant_usuarios_eliminar}{Mantenimiento de Usuarios - Confirmación de eliminación}{1}
+    \end{itemize}
+    
+Se pueden filtrar los datos de la tabla introduciendo el nombre o apellidos del usuario, o parte de estos, en el campo ``\textit{Buscar por nombre o apellidos\dots}'' de la barra de herramientas.
+
+\imagenAncho{Mant_usuarios_filtro_1}{Mantenimiento de Usuarios - Antes de filtrar por nombre}{1}
+\imagenAncho{Mant_usuarios_filtro_2}{Mantenimiento de Usuarios - Después de filtrar por nombre}{1}
+
+\subsubsection{Perfil}
+El administrador puede modificar los datos de su perfil y clicar en el botón ``\textbf{\textit{Guardar}}'' para guardar los cambios. 
+
+\begin{itemize}
+    \item Se realizarán las mismas comprobaciones que en el Mantenimiento de usuarios, exceptuando la contraseña, que debe estar formada por dígitos, minúsculas y mayúsculas y contener como mínimo 6 caracteres.
+    
+    \imagenAncho{Perfil_contrasena_incorrecta}{Perfil de Usuario - Contraseña incorrecta}{0.7}
+    
+    \item Si se ha dejado algún campo en blanco se mostrará una notificación de error:
+    
+    \imagenAncho{Error_campos_obligatorios}{Perfil de Usuario - Notificación de error campos obligatorios}{0.3}
+\end{itemize}
+
+\imagenAncho{Perfil_admin}{Perfil de Usuario - Perfil administrador}{1}
+
+\subsection{Responsable}
+A continuación se detalla el uso de las ventanas cuando se accede como usuario con rol de responsable.
+
+Las ventanas a las que puede que tiene acceso se muestran en el menú lateral, enfatizándose la ventana en la que se encuentra:
+
+\imagenAncho{Responsable_menu_lateral}{Menú lateral del usuario con rol de responsable}{0.3}
+
+\subsubsection{Reserva de aulas}
+Cuando se accede a la reserva de aulas lo único que se ve es el botón ``\textit{Añadir reserva}''.
+
+\imagenAncho{Reserva}{Reserva de Aulas}{0.3}
+
+Cuando se pulsa en el botón para añadir una nueva reserva, se abre el formulario.
+
+\imagenAncho{Reserva_formulario}{Reserva de Aulas - Formulario de reserva}{1}
+
+Si lo que se quiere hacer es una \textbf{reserva por rango de fechas}, se debe marcar el \textit{check} correspondiente que se encuentra al lado de los botones. Una vez marcado se habilitan los campos ``\textit{Fecha fin}'' y ``\textit{Día de la semana}''. ~\footnote{El campo ``\textit{Día de la semana}'' está pensado por si se quieren hacer reservas del tipo ``todos los Lunes'' de \textit{x} fecha a \textit{y} fecha.}
+
+\imagenAncho{Reserva_formulario_rango_fechas}{Reserva de Aulas - Formulario de reserva por rango de fechas}{1}
+
+Una vez se han rellenado todos los campos se hace click en el botón ``\textit{Reservar}'' para registrar la reserva.
+
+\begin{itemize}
+    \item Si se ha dejado algún campo en blanco se mostrará una notificación de error:
+    
+    \imagenAncho{Error_campos_obligatorios}{Reserva de Aulas - Notificación de error campos obligatorios}{0.5}
+    
+     \item Si se introduce una ``\textit{Fecha inicio}'' mayor que la ``\textit{Fecha fin}'', en caso de reservas por rango de fechas, se mostrará una notificación de error:
+    
+    \imagenAncho{Reserva_fecha_inicio_mayor}{Reserva de Aulas - Fecha inicio mayor que fecha fin en reservas por rango de fechas}{0.5}
+    
+    \item Si el aula no se encuentra disponible en la fecha, o fechas, y horas seleccionada, mostrará una notificación de error:
+    
+    \imagenAncho{Reserva_aula_no_disponible}{Reserva de Aulas - Aula no disponible}{0.5}
+\end{itemize}
+
+Una vez registrada, se redirige a la ventana de reserva de aulas.
+
+Un ejemplo de reserva sería el siguiente:
+
+\imagenAncho{Reserva_ejemplo}{Reserva de Aulas - Ejemplo}{1}
+
+\subsubsection{Gestión de reservas}
+Al acceder a la gestión de reservas se mostrará en la parte superior un formulario para poder realizar un filtrado y en la parte inferior un listado con todas las reservas registradas a partir de la fecha actual de todos los centros y departamentos bajo responsabilidad del usuario.
+
+Si no hay reservas registradas que mostrar, aparecerá una notificación:
+
+\imagenAncho{Gestion_reservas_no_reservas}{Gestión de Reservas - No hay reservas}{0.5}
+
+Si se quiere realizar un \textbf{filtrado de las reservas mostradas}, se rellenarán los campos correspondientes y se clicará en el botón ``\textit{Buscar}'', o si se quieren vaciar los campos se clicará en ``\textit{Limpiar filtros}''.
+
+Una vez se han introducido los filtros que se quieren aplicar hay que hacer click en ``\textbf{\textit{Buscar}}'', o si se quieren limpiar todos los campos se puede clicar en ``\textbf{\textit{Limpiar filtros}}''.
+
+\begin{itemize}
+    \item Si se introduce una ``\textit{Fecha desde}'' mayor que la ``\textit{Fecha hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_fecha_desde_mayor}{Gestión de Reservas - Fecha desde mayor que fecha hasta}{0.5}
+    
+    \item Si se introduce una ``\textit{Hora desde}'' mayor que la ``\textit{Hora hasta}'' se mostrará una notificación de error:
+    
+    \imagenAncho{Consulta_hora_desde_mayor}{Gestión de Reservas - Hora desde mayor que hora hasta}{0.5}
+    
+    \item Si no hay reservas que cumplan con los filtros aplicados, se mostrará una notificación:
+    
+    \imagenAncho{Gestion_reservas_no_reservas}{Gestión de Reservas - No hay reservas (filtrado)}{0.5}
+\end{itemize}
+
+Las reservas sólo se pueden modificar de una en una, por lo que si se quiere cambiar algún valor de una reserva por rango de fechas se deberán eliminar todas las reservas correspondientes al rango y volver a registrar una nueva reserva. 
+
+Esta información está disponible en la ventana, clicando en el botón con el icono de información se abrirá un cuadro con la misma y un botón para cerrarle:
+
+\imagenAncho{Gestion_reservas_info}{Gestión de Reservas - Información}{1}
+
+Para \textbf{\textit{modificar una reserva}} se debe marcar el \textit{check} de la fila correspondiente y clicar en el botón ``\textbf{\textit{Modificar}}''.
+
+\begin{itemize}
+    \item Si no se ha seleccionado ninguna reserva, se mostrará una notificación de error:
+    
+    \imagenAncho{Gestion_reservas_no_seleccion}{Gestión de Reservas - No se ha seleccionado ninguna reserva}{0.5}
+    
+    \item Si se ha seleccionado más de una reserva, se mostrará una notificación de error:
+    
+    \imagenAncho{Gestion_reservas_editar_unica_reserva}{Gestión de Reservas - Solo se puede modificar una reserva}{0.5}
+\end{itemize}
+
+\imagenAncho{Gestion_reservas_editar}{Gestión de Reservas - Modificar}{0.7}
+
+Tras clicar en ``\textit{Modificar}'' se abrirá el formulario de edición con los valores actuales de la reserva. Una vez se hayan modificado los campos deseados se hace click en ``\textbf{\textit{Guardar}}''. Antes de registrar las reservas se realizarán las mismas comprobaciones que en la reserva (en cuanto a fechas, horas, campos obligatorios\dots).
+
+\imagenAncho{Gestion_reservas_editar_2}{Gestión de Reservas - Formulario edición}{1}
+
+Tras modificar los valores de la reserva y guardarlos correctamente, se mostrará en la tabla con los valores actualizados.
+
+\imagenAncho{Gestion_reservas_editar_3}{Gestión de Reservas - Listado con reserva modificada}{1}
+
+Para \textbf{\textit{eliminar una o varias reservas}} se marcan los \textit{checks} correspondientes en la tabla y se hace click en el botón ``\textit{Eliminar}''. 
+
+\begin{itemize}
+    \item Al igual que ocurría en la modificación, si no se ha seleccionado ninguna fila se mostrará la notificación de error.
+    
+    \item Aparecerá un cuadro para confirmar la acción, clicando en el botón  ``\textbf{\textit{Confirmar}}'', o cancelarla clicando en ``\textbf{\textit{Cancelar}}''.
+        
+    \imagenAncho{Gestion_reservas_eliminar}{Gestión de Reservas - Eliminar reserva/s}{1}
+\end{itemize}
+
+Si se confirma el borrado se actualizará el listado de las reservas.
+
+\imagenAncho{Gestion_reservas_eliminar_2}{Gestión de Reservas - Listado de reservas tras el borrado}{1}
+
+\subsubsection{Perfil}
+El usuario con rol de responsable puede modificar los datos de su perfil y clicar en el botón ``\textbf{\textit{Guardar}}'' para guardar los cambios. ~\footnote{Se realizarán las mismas comprobaciones que en el perfil del administrador.}
+
+Además, podrá visualizar en una tabla los centros y departamentos de los que es responsable:
+
+\imagenAncho{Perfil_responsable}{Perfil de Usuario - Perfil usuario con rol responsable}{1}

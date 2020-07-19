@@ -1,0 +1,62 @@
+\capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
+En este apartado se van a detallar los aspectos más importantes del proyecto, como son las decisiones tomadas y los errores y su resolución.
+
+\section{Motivación de la elección del proyecto}
+El diseño de aplicaciones, más aún de aplicaciones web, siempre algo que me ha llamado la atención, por lo que en cuanto vi la oportunidad de poder desarrollar una por mí misma no me lo pensé. 
+
+Además, la idea de poder trabajar con Vaadin para programar en Java una aplicación web me aportó más seguridad, pues es un lenguaje con el que hemos trabajado casi prácticamente los 4 años de carrera.
+
+\section{Periodo de prueba y toma de contacto más largo de lo esperado}
+Al tratarse de algo prácticamente nuevo, y trabajar con tecnologías como son las APIs de Google, realizar un proyecto de prueba para tomar contacto con las mismas se consideró algo crucial.
+
+La investigación comenzó por crear un proyecto de Vaadin 8, generando la base del mismo desde Eclipse con el \textit{plugin} de Vaadin. 
+
+Los primeros problemas llegaron aquí, ya que para poder ejecutar la aplicación había que configurar e iniciar un servidor web a través del archivo \textit{pom.xml}, y hasta que se consiguió configurar correctamente el servidor HTTP Jetty~\cite{pagina_jetty} pasaron varios días.
+
+El siguiente paso fue tratar de incluir las APIs de Google a este proyecto de prueba, y debido a que al principio resultó muy difícil, se optó por crear otro proyecto de prueba de Gradle para después ``migrarlo'' a Vaadin.
+
+Tras conseguir configurar correctamente la API de Google Calendar en el proyecto de Vaadin 8, se pasó a integrar Google Sign-In siguiendo los diferentes tutoriales de configuración, lo cual resultó imposible. La solución planteada fué migrar de Vaadin 8 a Vaadin 10, con lo que se perdío bastante tiempo, pues muchos de los avances conseguidos con la parte de Calendar se tuvieron que replantear para adaptarlos a la nueva versión.
+
+Tras muchas pruebas, el único resultado medianamente convincente de que se podía integrar el componente de Google Sign-In era integrándolo directamente mediante código HTML con comandos de Vaadin, aunque lo único que se consiguió fue poder lanzar la ventana de petición de la cuenta de Google.
+
+En resumen, hasta finales de febrero los únicos resultados aceptables que se consiguieron fueron con la API de Google Calendar, ya que se pudieron crear y obtener eventos (reservas) y calendarios, mostrando lo obtenido por pantalla mediante la \textit{app} de Vaadin. 
+
+\section{Vaadin}
+Haber elegido Vaadin para desarrollar una aplicación web, en lugar de \textit{lanzarse a la piscina} con lenguajes como HTML, JavaScript, ASP.NET\dots, conociendo bien el lenguaje Java ha sido una de las mejores opciones. 
+
+Con esta tecnología se ha podido desarrollar una aplicación eficiente y con un diseño limpio y ordenado, todo gracias a sus componentes prediseñados (fácilmente modificables estéticamente) y su infinidad de tutoriales y ejemplos disponibles en su web.
+
+\section{Cambio de versión de Vaadin y fracaso en la integración de las APIs de Google}
+Cuando se empezó a crear el proyecto definitivo, tras el periodo de prueba, se replanteó el uso de la versión 10 de Vaadin, ya que había opciones más convincentes a partir de la versión 14 que permitían integrar tecnologías como Spring Boot que facilitan el desarrollo. 
+
+Además, con Spring Boot parecía que la integración de APIs de Google iba a resultar más sencilla aún, pues había muchas aplicaciones con ellas funcionando.
+
+Avanzado el desarrollo se cambió sucesivas veces de versiones, primero a una versión 15 y después a Vaadin 16, ya que la 15 era simplemente una solución temporal. Lo cual, semanas más tarde, cuando el TFG estuvo ya en su fase final, y tras tener una experiencia más profunda con Vaadin 16, se concluyó que fue una decisión equivocada, ya que la versión estable y de lago mantenimiento es la 14.
+
+Avanzado el desarrollo, y tras haber implementado muchas de las funcionalidades, se volvió a intentar integrar el componente de Google Sign-In, que una vez más no obtuvo resultados exitosos. 
+
+En la propia página de Vaadin hay explicaciones de cómo integrar el Sign-In a la aplicación, y tras intentarlo repetidas veces sin éxito se optó por preguntar tanto en los foros como en la página de explicación, sin obtener ninguna respuesta. 
+
+Al no conseguir resultados, se pasó a integrar de nuevo la API de Google Calendar, que resultó otro fracaso, ya que en la versión 16 de Vaadin no se consiguió introducir el código desarrollado en el proyecto de pruebas, ni ninguna aproximación al mismo que lo hiciese funcionar.
+
+En conclusión, ninguna de las pruebas realizadas al inicio del proyecto, que funcionaban en Vaadin 8 y 10, se han podido integrar en la aplicación final. Tampoco se podía retroceder a versiones anteriores sin invertir mucho tiempo en ello y renunciar a los nuevos componentes integrados disponibles a partir de la versión de Vaadin 14. Por lo que debido al tiempo que quedaba para la entrega final, se optó por descartar la integración de las tecnologías de Google.
+
+\section{Spring Security}
+Para compensar la carencia de las APIs de Google, que iban a ser el punto fuerte de la \textit{app} desarrollada, se optó por integrar Spring Security para proveer el login de la aplicación.
+
+Con esta tecnología se consiguieron grandes avances, ya que además de añadir una ventana de login, se han realizado las configuraciones de seguridad, controlando el acceso de usuarios no autorizados a las ventanas, redirigiéndolos al login, o mostrando ventanas de acceso denegado. 
+
+\section{Spring Data JPA}
+Trabajar con JPA, en concreto con Spring Data JPA, supone una gran ventaja en cuanto a independencia del SGBD, ya que se interactúa directamente con objetos Java que mapean (hacen referencia) a los datos del modelo relacional. 
+
+Además, gracias a su integración a través de Spring, no es necesario crear el archivo en el que se definen las relaciones de los objetos con los datos, si no simplemente incluir la dependencia ``\textit{Spring Boot Starter Data JPA}'' al \textit{pom.xml}.
+
+\section{Uso del interfaz \textit{Specification} de Spring Data JPA para las consultas}
+Debido a que tanto la consulta de reservas como la consulta de disponibilidad de aulas varía en función a los parámetros que el usuario introduzca, se tomó la decisión de usar las \textit{Specification} que provee Spring Data JPA~\cite{specification_spring_data}.
+
+Implementando dicha interfaz, se generan consultas individuales para cada parámetro que haya introducido el usuario, y en función de si es nulo o no se añade a la consulta final para obtener los datos.
+
+\section{Consulta de disponibilidad de aulas}
+Ya que la consulta de la disponibilidad de aulas tenia su \textit{qué} en cuanto a nivel de complejidad, y al ser una de las partes críticas del proyecto, se decidió someterla a pruebas con ayuda de Spring Boot.
+
+De esta forma a medida que se iba refinando la consulta, se iba probando que los cambios realizados producían los resultados esperados, sin tener que estar constantemente realizando las pruebas de forma manual y evitando equivocaciones en la interpretación de dichos resultados.
